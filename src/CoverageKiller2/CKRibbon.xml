@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<customUI xmlns="http://schemas.microsoft.com/office/2009/07/customui" onLoad="Ribbon_Load">
+  <ribbon>
+    <tabs>
+		<tab idMso="TabAddIns">
+			<group id="ContentGroup" label="Content">
+				<button id="FixPCTELDoc" label="Fix PCTEL Doc"
+					 screentip="Text" onAction="OnFixPCTELDocButton"
+					 supertip="Reforms the PCTEL doc using PowerCom Template."/>
+				<button id="Fix_PRMCE_PCTELDoc800" label="Fix PMCRE PCTEL Doc800"
+					screentip="Text" onAction="OnFix_PRMCE_PCTELDoc800Button"
+					supertip="Reforms the PCTEL doc for PRMCE 800 MHz using PowerCom Template."/>
+			</group>
+		</tab>
+    </tabs>
+  </ribbon>
+</customUI>
+
