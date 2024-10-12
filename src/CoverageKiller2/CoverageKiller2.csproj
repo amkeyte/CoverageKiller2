@@ -225,6 +225,7 @@
     <Compile Include="CKDocument.cs" />
     <Compile Include="CKRibbon.cs" />
     <Compile Include="DocumentLoader.cs" />
+    <Compile Include="LoggingLoader.cs" />
     <Compile Include="LogTailLoader.cs" />
     <Compile Include="Pipeline\PageSetupFixer.cs" />
     <Compile Include="Pipeline\FooterFixer.cs" />
