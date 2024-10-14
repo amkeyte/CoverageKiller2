@@ -4,59 +4,94 @@ using System.Reflection;
 
 namespace CoverageKiller2
 {
+    /// <summary>
+    /// Represents an indoor report template for PCTEL reports.
+    /// It inherits from <see cref="CKDocument"/> and provides functionality
+    /// to load the report template from an embedded resource.
+    /// </summary>
     public class IndoorReportTemplate : CKDocument
-
     {
-        //keep up with namespace changes
+        /// <summary>
+        /// The name of the embedded resource containing the PCTEL report template.
+        /// </summary>
         public static string ResourceName = $"{nameof(CoverageKiller2)}.PCTELReportHeaderFooterTemplate.docx";
 
-        //for future use and clarity
+        /// <summary>
+        /// Initializes a new instance of the <see cref="IndoorReportTemplate"/> class using the specified document path.
+        /// </summary>
+        /// <param name="wDoc">The path to the Word document.</param>
+        private IndoorReportTemplate(string wDoc) : base(wDoc) { }
+
+        /// <summary>
+        /// Closes the indoor report template without saving changes.
+        /// </summary>
+        /// <param name="saveChanges">Whether to save changes; this is ignored and always set to false.</param>
         public override void Close(bool saveChanges = false)
         {
             Log.Information("Closing Indoor Report Template");
-            base.Close(false);
+            base.Close(false);  // Always close without saving changes.
         }
+
+        /// <summary>
+        /// Opens the PCTEL report template from an embedded resource, saves it as a temporary file,
+        /// and returns an instance of <see cref="IndoorReportTemplate"/>.
+        /// </summary>
+        /// <returns>A new instance of <see cref="IndoorReportTemplate"/>.</returns>
+        /// <remarks>
+        /// The process of embedding and extracting a Word document from resources is described in the following resources:
+        /// <list type="bullet">
+        /// <item>
+        /// <description>
+        /// <see href="https://stackoverflow.com/questions/4367311/embed-a-word-document-in-c-sharp?rq=3">How to embed a Word document in C#</see>
+        /// </description>
+        /// </item>
+        /// <item>
+        /// <description>
+        /// <see href="https://stackoverflow.com/questions/33164270/how-to-open-embedded-resource-word-document?rq=3">How to open embedded resource Word document</see>
+        /// </description>
+        /// </item>
+        /// <item>
+        /// <description>
+        /// <see href="https://stackoverflow.com/questions/15925801/visual-studio-c-sharp-how-to-add-a-doc-file-as-a-resource">How to add a .doc file as a resource in Visual Studio C#</see>
+        /// </description>
+        /// </item>
+        /// </list>
+        /// </remarks>
         public static IndoorReportTemplate OpenResource()
         {
             Log.Information("Opening PCTELDoc template resource...");
             string temporaryFileName = LoadResourceAndCreateTempFile();
             return new IndoorReportTemplate(temporaryFileName);
-
-            //Word.Document wDoc = new DocumentLoader(temporaryFileName).Open();
         }
 
-
-        private IndoorReportTemplate(string wDoc) : base(wDoc)
-        {
-
-        }
-
-
-
+        /// <summary>
+        /// Loads the embedded resource containing the PCTEL report template and writes it to a temporary file.
+        /// </summary>
+        /// <returns>The path to the temporary file containing the report template.</returns>
+        /// <remarks>
+        /// This method leverages embedded resources to provide a Word document as a temporary file.
+        /// </remarks>
         private static string LoadResourceAndCreateTempFile()
         {
-            //https://stackoverflow.com/questions/4367311/embed-a-word-document-in-c-sharp?rq=3
-            //https://stackoverflow.com/questions/33164270/how-to-open-embedded-resource-word-document?rq=3
-            //https://stackoverflow.com/questions/15925801/visual-studio-c-sharp-how-to-add-a-doc-file-as-a-resource
+            Log.Debug("Loading resource and creating temporary file...");
 
-            //DebugX();
-
-            //here we load the internal resource and save it to a temporary file that can be accessed by Word
-
-            //use only the dll containig this class
+            // Get the assembly containing the current class.
             Assembly myAssembly = typeof(IndoorReportTemplate).Assembly;
-            //get and create the temp file to store the document
+
+            // Create a temporary file to store the document.
             string temporaryFileName = Path.GetTempFileName();
 
-            //write the file out to the new temp file.
-            MemoryStream ms = new MemoryStream();
-            myAssembly.GetManifestResourceStream(ResourceName).CopyTo(ms);
-            File.WriteAllBytes(temporaryFileName, ms.ToArray());
+            // Load the embedded resource and copy it to the temporary file.
+            using (MemoryStream ms = new MemoryStream())
+            {
+                myAssembly.GetManifestResourceStream(ResourceName)?.CopyTo(ms);
+                File.WriteAllBytes(temporaryFileName, ms.ToArray());
+            }
 
-            //return the filename for the extracted document.
+            Log.Debug("Resource loaded and temporary file created at {temporaryFileName}", temporaryFileName);
+
+            // Return the filename of the temporary document.
             return temporaryFileName;
         }
-
-
     }
 }

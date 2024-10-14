@@ -1,6 +1,6 @@
 ﻿using Word = Microsoft.Office.Interop.Word;
 
-namespace CoverageKiller2.Pipeline
+namespace CoverageKiller2.Pipeline.WordHelpers
 {
     internal static class WordSelector
     {

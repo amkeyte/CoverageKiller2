@@ -1,13 +1,18 @@
-﻿//https://learn.microsoft.com/en-us/visualstudio/vsto/walkthrough-creating-your-first-vsto-add-in-for-word?view=vs-2022&tabs=csharp
-
-//https://learn.microsoft.com/en-us/visualstudio/vsto/walkthrough-creating-a-custom-tab-by-using-ribbon-xml?view=vs-2022&tabs=csharp
-
-using Serilog;
+﻿using Serilog;
 
 namespace CoverageKiller2
 {
+    /// <summary>
+    /// The main class for the VSTO add-in. Handles initialization, shutdown,
+    /// and custom ribbon functionality for the Word add-in.
+    /// </summary>
     public partial class ThisAddIn
     {
+        /// <summary>
+        /// Initializes logging and BareTail when the add-in starts.
+        /// </summary>
+        /// <param name="sender">The event source.</param>
+        /// <param name="e">Event arguments.</param>
         private void ThisAddIn_Startup(object sender, System.EventArgs e)
         {
             string logFile = LogTailLoader.GetBareTailLog();
@@ -15,16 +20,25 @@ namespace CoverageKiller2
             LogTailLoader.StartBareTail();
 
             Log.Debug("Logging started: Level {logEventLevel}", LoggingLoader.Level);
-            Log.Information("ThisAddin started.");
+            Log.Information("ThisAddIn started.");
         }
 
+        /// <summary>
+        /// Cleans up logging and BareTail when the add-in is shut down.
+        /// </summary>
+        /// <param name="sender">The event source.</param>
+        /// <param name="e">Event arguments.</param>
         private void ThisAddIn_Shutdown(object sender, System.EventArgs e)
         {
-            Log.Information("ThisAddin shutting down.");
+            Log.Information("ThisAddIn shutting down.");
             LoggingLoader.Cleanup();
             LogTailLoader.Cleanup();
         }
 
+        /// <summary>
+        /// Creates the custom ribbon for the add-in using Ribbon XML.
+        /// </summary>
+        /// <returns>An <see cref="IRibbonExtensibility"/> object that represents the custom ribbon.</returns>
         protected override Microsoft.Office.Core.IRibbonExtensibility CreateRibbonExtensibilityObject()
         {
             return new CKRibbon();
@@ -33,8 +47,7 @@ namespace CoverageKiller2
         #region VSTO generated code
 
         /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
+        /// Required method for Designer support. Wires up the Startup and Shutdown events for the add-in.
         /// </summary>
         private void InternalStartup()
         {

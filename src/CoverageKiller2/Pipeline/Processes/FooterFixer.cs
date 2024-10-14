@@ -3,7 +3,7 @@ using Serilog;
 using System.Windows.Forms;
 using Word = Microsoft.Office.Interop.Word;
 
-namespace CoverageKiller2
+namespace CoverageKiller2.Pipeline.Processes
 {
     internal class FooterFixer : CKWordPipelineProcess
     {
@@ -18,7 +18,7 @@ namespace CoverageKiller2
         {
             Log.Information("Fixing Footer.");
             var wordApp = CKDoc.WordApp;
-            template.WordDoc.SelectFooterWholeStory();
+            template.WordDoc.SelectFooterWholeStory(); //needs to be moved out to CKDocument, not an extension to Word.Document.
             wordApp.Selection.Copy();
 
             CKDoc.Activate();

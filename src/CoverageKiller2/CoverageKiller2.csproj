@@ -227,17 +227,17 @@
     <Compile Include="DocumentLoader.cs" />
     <Compile Include="LoggingLoader.cs" />
     <Compile Include="LogTailLoader.cs" />
-    <Compile Include="Pipeline\PageSetupFixer.cs" />
-    <Compile Include="Pipeline\FooterFixer.cs" />
-    <Compile Include="Pipeline\HeaderFixer.cs" />
+    <Compile Include="Pipeline\Processes\PageSetupFixer.cs" />
+    <Compile Include="Pipeline\Processes\FooterFixer.cs" />
+    <Compile Include="Pipeline\Processes\HeaderFixer.cs" />
     <Compile Include="IndoorReportTemplate.cs" />
     <Compile Include="Pipeline\CKWordPipeline.cs" />
     <Compile Include="Pipeline\CKWordPipelineProcess.cs" />
-    <Compile Include="Pipeline\TableFinder.cs" />
-    <Compile Include="Pipeline\TableFixer.cs" />
-    <Compile Include="Pipeline\TextFinder.cs" />
-    <Compile Include="Pipeline\WordSelector.cs" />
-    <Compile Include="Pipeline\PRMCE800Fixer.cs" />
+    <Compile Include="Pipeline\WordHelpers\TableFinder.cs" />
+    <Compile Include="CKWordTable.cs" />
+    <Compile Include="Pipeline\WordHelpers\TextFinder.cs" />
+    <Compile Include="Pipeline\WordHelpers\WordSelector.cs" />
+    <Compile Include="Pipeline\Processes\PRMCE800Fixer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

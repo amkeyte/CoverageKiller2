@@ -1,10 +1,8 @@
-﻿
-using CoverageKiller2.Pipeline;
-using Serilog;
+﻿using Serilog;
 using System.Windows.Forms;
 using Word = Microsoft.Office.Interop.Word;
 
-namespace CoverageKiller2
+namespace CoverageKiller2.Pipeline.Processes
 {
     internal class HeaderFixer : CKWordPipelineProcess
     {

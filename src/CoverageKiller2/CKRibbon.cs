@@ -7,38 +7,29 @@ using System.Windows.Forms;
 using Office = Microsoft.Office.Core;
 using Word = Microsoft.Office.Interop.Word;
 
-// TODO:  Follow these steps to enable the Ribbon (XML) item:
-
-// 1: Copy the following code block into the ThisAddin, ThisWorkbook, or ThisDocument class.
-
-//  protected override Microsoft.Office.Core.IRibbonExtensibility CreateRibbonExtensibilityObject()
-//  {
-//      return new CKRibbon();
-//  }
-
-// 2. Create callback methods in the "Ribbon Callbacks" region of this class to handle user
-//    actions, such as clicking a button. Note: if you have exported this Ribbon from the Ribbon designer,
-//    move your code from the event handlers to the callback methods and modify the code to work with the
-//    Ribbon extensibility (RibbonX) programming model.
-
-// 3. Assign attributes to the control tags in the Ribbon XML file to identify the appropriate callback methods in your code.  
-
-// For more information, see the Ribbon XML documentation in the Visual Studio Tools for Office Help.
-
-
 namespace CoverageKiller2
 {
+    /// <summary>
+    /// Custom Ribbon class for the Word add-in, implementing the IRibbonExtensibility interface.
+    /// It includes callback methods for various ribbon buttons to fix PCTEL documents.
+    /// </summary>
     [ComVisible(true)]
     public class CKRibbon : Office.IRibbonExtensibility
     {
         private Office.IRibbonUI ribbon;
 
-        public CKRibbon()
-        {
-        }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CKRibbon"/> class.
+        /// </summary>
+        public CKRibbon() { }
 
         #region IRibbonExtensibility Members
 
+        /// <summary>
+        /// Loads the custom Ribbon XML.
+        /// </summary>
+        /// <param name="ribbonID">The Ribbon ID to load.</param>
+        /// <returns>The Ribbon XML as a string.</returns>
         public string GetCustomUI(string ribbonID)
         {
             return GetResourceText("CoverageKiller2.CKRibbon.xml");
@@ -47,23 +38,29 @@ namespace CoverageKiller2
         #endregion
 
         #region Ribbon Callbacks
-        //Create callback methods here. For more information about adding callback methods, visit https://go.microsoft.com/fwlink/?LinkID=271226
 
+        /// <summary>
+        /// Called when the Ribbon is loaded.
+        /// </summary>
+        /// <param name="ribbonUI">The Ribbon UI instance.</param>
         public void Ribbon_Load(Office.IRibbonUI ribbonUI)
         {
             this.ribbon = ribbonUI;
         }
 
+        /// <summary>
+        /// Callback for the "Fix PCTEL Doc" button.
+        /// Attempts to fix headers and footers in the active PCTEL document.
+        /// </summary>
+        /// <param name="control">The Ribbon control that triggered the callback.</param>
         public void OnFixPCTELDocButton(Office.IRibbonControl control)
         {
-            Log.Information($"Fixing PCTelDoc");
+            Log.Information("Fixing PCTEL Document");
             try
             {
-
                 if (Globals.ThisAddIn.Application.Documents.Count > 0)
                 {
                     Word.Document wDoc = Globals.ThisAddIn.Application.ActiveDocument;
-                    //CkDocHelpers.FixDasReport(doc);
                     CkDocHelpers.FixHeadersAndFooters(wDoc);
                 }
                 else
@@ -74,24 +71,28 @@ namespace CoverageKiller2
             }
             catch (Exception ex)
             {
-                Log.Error("{ex}", ex);
-                throw ex;
-
+                Log.Error("An error occurred: {Message}", ex.Message);
+                MessageBox.Show($"Error: {ex.Message}");
+                throw;
             }
-            Log.Information("Done Fixing.");
+
+            Log.Information("Done fixing PCTEL Document.");
             Log.Debug("Long wait starts here");
         }
 
+        /// <summary>
+        /// Callback for the "Fix PRMCE PCTEL Doc 800" button.
+        /// Attempts to fix the PRMCE 800 version of the PCTEL document.
+        /// </summary>
+        /// <param name="control">The Ribbon control that triggered the callback.</param>
         public void OnFix_PRMCE_PCTELDoc800Button(Office.IRibbonControl control)
         {
-            Log.Information($"Fixing PCTelDoc for PRMCE 800");
+            Log.Information("Fixing PRMCE 800 PCTEL Document");
             try
             {
-
                 if (Globals.ThisAddIn.Application.Documents.Count > 0)
                 {
                     Word.Document wDoc = Globals.ThisAddIn.Application.ActiveDocument;
-                    //CkDocHelpers.FixDasReport(doc);
                     CkDocHelpers.FixPRMCEDoc800(wDoc);
                 }
                 else
@@ -102,31 +103,35 @@ namespace CoverageKiller2
             }
             catch (Exception ex)
             {
-                Log.Error("{ex}", ex);
-                throw ex;
-
+                Log.Error("An error occurred: {Message}", ex.Message);
+                MessageBox.Show($"Error: {ex.Message}");
+                throw;
             }
-            Log.Information("Done Fixing.");
-            //Log.Debug("Long wait starts here");
+
+            Log.Information("Done fixing PRMCE 800 PCTEL Document.");
         }
+
         #endregion
 
         #region Helpers
 
+        /// <summary>
+        /// Retrieves the embedded resource text for the specified resource name.
+        /// </summary>
+        /// <param name="resourceName">The name of the resource to retrieve.</param>
+        /// <returns>The content of the resource as a string.</returns>
         private static string GetResourceText(string resourceName)
         {
             Assembly asm = Assembly.GetExecutingAssembly();
             string[] resourceNames = asm.GetManifestResourceNames();
-            for (int i = 0; i < resourceNames.Length; ++i)
+
+            foreach (string resource in resourceNames)
             {
-                if (string.Compare(resourceName, resourceNames[i], StringComparison.OrdinalIgnoreCase) == 0)
+                if (string.Equals(resourceName, resource, StringComparison.OrdinalIgnoreCase))
                 {
-                    using (StreamReader resourceReader = new StreamReader(asm.GetManifestResourceStream(resourceNames[i])))
+                    using (StreamReader resourceReader = new StreamReader(asm.GetManifestResourceStream(resource)))
                     {
-                        if (resourceReader != null)
-                        {
-                            return resourceReader.ReadToEnd();
-                        }
+                        return resourceReader?.ReadToEnd();
                     }
                 }
             }

@@ -1,10 +1,14 @@
 ﻿//using Microsoft.Office.Interop.Word;
 using CoverageKiller2.Pipeline;
+using CoverageKiller2.Pipeline.Processes;
 using Serilog;
 using Word = Microsoft.Office.Interop.Word;
 
 namespace CoverageKiller2
 {
+    /// <summary>
+    /// depreciate
+    /// </summary>
     public class CkDocHelpers
     {
         //public static void FixDasReport(Word.Document doc)
@@ -65,6 +69,10 @@ namespace CoverageKiller2
         //    }
         //}
 
+
+        /// <summary>
+        /// depreciate
+        /// </summary>
         public static void FixHeadersAndFooters(Word.Document wDoc)
         {
             var ckDoc = new CKDocument(wDoc);
@@ -88,6 +96,9 @@ namespace CoverageKiller2
             ckDoc.WordDoc.ActiveWindow.ActivePane.View.SeekView = Word.WdSeekView.wdSeekMainDocument;
         }
 
+        /// <summary>
+        /// depreciate
+        /// </summary>
         public static void FixPRMCEDoc800(Word.Document wDoc)
         {
             var ckDoc = new CKDocument(wDoc);

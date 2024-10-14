@@ -1,10 +1,9 @@
-﻿//using Microsoft.Office.Interop.Word;
-
-using Microsoft.Office.Interop.Word;
+﻿using CoverageKiller2.Pipeline.WordHelpers;
 using Serilog;
 using System;
+using Word = Microsoft.Office.Interop.Word;
 
-namespace CoverageKiller2
+namespace CoverageKiller2.Pipeline.Processes
 {
     internal class PRMCE800Fixer : CKWordPipelineProcess
     {
@@ -70,9 +69,9 @@ namespace CoverageKiller2
             }
         }
 
-        private static void FixFloorSectionHeadingTable(Table foundTable1)
+        private static void FixFloorSectionHeadingTable(Word.Table foundTable1)
         {
-            var fixer = new TableFixer(foundTable1);
+            var fixer = new CKWordTable(foundTable1);
             fixer.RemoveColumnsByHeader(_SS.FloorSectionHeadingTable_RemoveCols);
             fixer.SetCell(
                 _SS.FloorSectionHeadingTable_Band_F,
@@ -80,7 +79,7 @@ namespace CoverageKiller2
                 _SS.FloorSectionHeadingTable_Band_CellR);
         }
 
-        private static void ReplaceFloorName(TextFinder tf, Range foundRange)
+        private static void ReplaceFloorName(TextFinder tf, Word.Range foundRange)
         {
             var x = ExtractParts(foundRange.Text);
             switch (x.Item1)

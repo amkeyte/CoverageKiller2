@@ -3,22 +3,31 @@ using Serilog.Events;
 
 public class LoggingLoader
 {
-    private static ILogger _logger;
+    /// <summary>
+    /// Gets the current log event level.
+    /// </summary>
     public static LogEventLevel Level { get; private set; }
-    // Method to configure Serilog
+
+    /// <summary>
+    /// Configures Serilog with the specified log file and log level.
+    /// </summary>
+    /// <param name="logFile">The file to which log events will be written.</param>
+    /// <param name="logEventLevel">The minimum log event level.</param>
     public static void Configure(string logFile, LogEventLevel logEventLevel)
     {
         Level = logEventLevel;
 
         Log.Logger = new LoggerConfiguration()
-            .MinimumLevel.Is(logEventLevel)
+            .MinimumLevel.Is(logEventLevel)    // Set the minimum log level
             .WriteTo.Async(a => a.File(logFile)) // Log to a file asynchronously
             .CreateLogger();
     }
 
-    // Clean up method for the logger
+    /// <summary>
+    /// Cleans up the logger, ensuring all log events are flushed before closing.
+    /// </summary>
     public static void Cleanup()
     {
-        Log.CloseAndFlush(); // Ensures that all log events are flushed before closing
+        Log.CloseAndFlush(); // Flush all log events and close the logger
     }
 }

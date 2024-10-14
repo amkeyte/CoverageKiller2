@@ -1,4 +1,4 @@
-﻿namespace CoverageKiller2
+﻿namespace CoverageKiller2.Pipeline
 {
     public abstract class CKWordPipelineProcess
     {

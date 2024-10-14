@@ -2,7 +2,8 @@
 using Serilog;
 using System.Collections.Generic;
 using Word = Microsoft.Office.Interop.Word;
-namespace CoverageKiller2.Pipeline
+
+namespace CoverageKiller2.Pipeline.Processes
 {
     internal class PageSetupFixer : CKWordPipelineProcess
     {
