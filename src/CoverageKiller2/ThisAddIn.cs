@@ -38,7 +38,7 @@ namespace CoverageKiller2
         /// <summary>
         /// Creates the custom ribbon for the add-in using Ribbon XML.
         /// </summary>
-        /// <returns>An <see cref="IRibbonExtensibility"/> object that represents the custom ribbon.</returns>
+        /// <returns>An object that represents the custom ribbon.</returns>
         protected override Microsoft.Office.Core.IRibbonExtensibility CreateRibbonExtensibilityObject()
         {
             return new CKRibbon();

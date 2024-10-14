@@ -1,6 +1,9 @@
 ﻿using Serilog;
 using Serilog.Events;
 
+/// <summary>
+/// stuff goes here
+/// </summary>
 public class LoggingLoader
 {
     /// <summary>

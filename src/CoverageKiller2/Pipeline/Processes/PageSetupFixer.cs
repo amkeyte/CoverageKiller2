@@ -1,4 +1,5 @@
 ﻿//using Microsoft.Office.Interop.Word;
+using CoverageKiller2.Pipeline.WordHelpers;
 using Serilog;
 using System.Collections.Generic;
 using Word = Microsoft.Office.Interop.Word;

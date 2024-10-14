@@ -2,71 +2,82 @@
 
 namespace CoverageKiller2.Pipeline.WordHelpers
 {
+    /// <summary>
+    /// Provides methods to set the Word application selection to different sections of a CKDocument.
+    /// </summary>
     internal static class WordSelector
     {
         /// <summary>
-        /// Set the Word application selection to skDoc's header.
+        /// Sets the Word application selection to the header of the specified document.
         /// </summary>
-        /// <param name="ckDoc">The document in which to set th selection</param>
+        /// <param name="ckDoc">The document in which to set the selection to the header.</param>
         public static void Header(CKDocument ckDoc)
+        {
+            SetSelectionToView(ckDoc, Word.WdSeekView.wdSeekCurrentPageHeader);
+        }
+
+        /// <summary>
+        /// Sets the Word application selection to the footer of the specified document.
+        /// </summary>
+        /// <param name="ckDoc">The document in which to set the selection to the footer.</param>
+        public static void Footer(CKDocument ckDoc)
+        {
+            SetSelectionToView(ckDoc, Word.WdSeekView.wdSeekCurrentPageFooter);
+        }
+
+        /// <summary>
+        /// Sets the Word application selection to the main document of the specified document.
+        /// </summary>
+        /// <param name="ckDoc">The document in which to set the selection to the main document.</param>
+        internal static void MainDocument(CKDocument ckDoc)
+        {
+            SetSelectionToView(ckDoc, Word.WdSeekView.wdSeekMainDocument);
+        }
+
+        /// <summary>
+        /// Helper method to set the Word application selection based on the specified view.
+        /// </summary>
+        /// <param name="ckDoc">The document in which to set the selection.</param>
+        /// <param name="seekView">The type of view to set for selection.</param>
+        private static void SetSelectionToView(CKDocument ckDoc, Word.WdSeekView seekView)
         {
             ckDoc.Activate();
             var activeWindow = ckDoc.WordDoc.ActiveWindow;
 
-            //set up the active window for correct selecting
-            if (activeWindow.View.SplitSpecial != Word.WdSpecialPane.wdPaneNone)
-            {
-                activeWindow.Panes[2].Close();
-            }
+            // Ensure the active window is set up correctly for selection
+            CloseSplitPaneIfOpen(activeWindow);
+            SetViewToPrint(activeWindow);
 
-            if (activeWindow.ActivePane.View.Type == Word.WdViewType.wdNormalView
-                || activeWindow.ActivePane.View.Type == Word.WdViewType.wdOutlineView)
-            {
-                activeWindow.ActivePane.View.Type = Word.WdViewType.wdPrintView;
-            }
+            // Set the view to the specified seek view
+            activeWindow.ActivePane.View.SeekView = seekView;
 
-            //in the active window, go to the header
-            activeWindow.ActivePane.View.SeekView = Word.WdSeekView.wdSeekCurrentPageHeader;
-
-            //commit the selection
+            // Commit the selection
             ckDoc.WordApp.Selection.WholeStory();
         }
 
         /// <summary>
-        /// Set the Word application selection to skDoc's footer.
+        /// Closes the split pane if it is open.
         /// </summary>
-        /// <param name="ckDoc">The document in which to set th selection</param>
-        public static void Footer(CKDocument ckDoc)
+        /// <param name="activeWindow">The active window of the document.</param>
+        private static void CloseSplitPaneIfOpen(Word.Window activeWindow)
         {
-            ckDoc.Activate();
-            var activeWindow = ckDoc.WordDoc.ActiveWindow;
-
-            //set up the active window for correct selecting
             if (activeWindow.View.SplitSpecial != Word.WdSpecialPane.wdPaneNone)
             {
                 activeWindow.Panes[2].Close();
             }
+        }
 
-            if (activeWindow.ActivePane.View.Type == Word.WdViewType.wdNormalView
-                || activeWindow.ActivePane.View.Type == Word.WdViewType.wdOutlineView)
+        /// <summary>
+        /// Sets the active window view to print view if it is currently in normal or outline view.
+        /// </summary>
+        /// <param name="activeWindow">The active window of the document.</param>
+        private static void SetViewToPrint(Word.Window activeWindow)
+        {
+            if (activeWindow.ActivePane.View.Type == Word.WdViewType.wdNormalView ||
+                activeWindow.ActivePane.View.Type == Word.WdViewType.wdOutlineView)
             {
                 activeWindow.ActivePane.View.Type = Word.WdViewType.wdPrintView;
             }
-
-            //in the active window, go to the header
-            activeWindow.ActivePane.View.SeekView = Word.WdSeekView.wdSeekCurrentPageFooter;
-
-            //commit the selection
-            ckDoc.WordApp.Selection.WholeStory();
-        }
-
-        internal static void MainDocument(CKDocument ckDoc)
-        {
-            ckDoc.Activate();
-            var activeWindow = ckDoc.WordDoc.ActiveWindow;
-
-            activeWindow.ActivePane.View.SeekView = Word.WdSeekView.wdSeekMainDocument;
-            ckDoc.WordApp.Selection.WholeStory();
         }
     }
 }

@@ -1,28 +1,52 @@
 ﻿using System;
 using Word = Microsoft.Office.Interop.Word;
+
 namespace CoverageKiller2.Pipeline.WordHelpers
 {
+    /// <summary>
+    /// A utility class for finding and replacing text in a Word document.
+    /// </summary>
     public class TextFinder
     {
         private readonly CKDocument _ckDoc; // Wrapper for Word.Document
-        private Word.Range _currentRange;
-        private Word.Range _searchWithinRange;
-        private readonly string _searchText;
+        private Word.Range _currentRange; // Current range to search within
+        private readonly Word.Range _searchWithinRange; // Range to search for text
+        private readonly string _searchText; // Text to search for
+
+        /// <summary>
+        /// Gets a value indicating whether the text was found in the current range.
+        /// </summary>
         public bool TextFound { get; private set; } = false;
 
-        // Constructor accepts CKDocument and the search text
-        public TextFinder(CKDocument ckDoc, string searchText) : this(ckDoc, searchText, null) { }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TextFinder"/> class with a specified CKDocument and search text.
+        /// </summary>
+        /// <param name="ckDoc">The CKDocument object that contains the Word document.</param>
+        /// <param name="searchText">The text to search for in the document.</param>
+        public TextFinder(CKDocument ckDoc, string searchText)
+            : this(ckDoc, searchText, null)
+        {
+        }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TextFinder"/> class with a specified CKDocument, search text, and a range to search within.
+        /// </summary>
+        /// <param name="ckDoc">The CKDocument object that contains the Word document.</param>
+        /// <param name="searchText">The text to search for in the document.</param>
+        /// <param name="searchWithinRange">The range to search within. If null, the entire document will be searched.</param>
         public TextFinder(CKDocument ckDoc, string searchText, Word.Range searchWithinRange)
         {
             _ckDoc = ckDoc;
-            _searchWithinRange = searchWithinRange ?? _ckDoc.Content; // Ensure valid range
+            _searchWithinRange = searchWithinRange ?? _ckDoc.Content; // Use the entire document if no range is provided
             _currentRange = _searchWithinRange;
             _searchText = searchText;
-
         }
 
-        // Try to find the first occurrence of the search text
+        /// <summary>
+        /// Attempts to find the first occurrence of the search text within the specified range.
+        /// </summary>
+        /// <param name="foundRange">Outputs the found range if the text is found; otherwise, null.</param>
+        /// <returns>True if the text is found; otherwise, false.</returns>
         public bool TryFind(out Word.Range foundRange)
         {
             TextFound = false;
@@ -42,6 +66,12 @@ namespace CoverageKiller2.Pipeline.WordHelpers
             }
         }
 
+        /// <summary>
+        /// Attempts to find the next occurrence of the search text within the specified range.
+        /// </summary>
+        /// <param name="foundRange">Outputs the found range if the text is found; otherwise, null.</param>
+        /// <param name="wrap">Indicates whether to wrap around to the beginning of the range if the end is reached.</param>
+        /// <returns>True if the next occurrence is found; otherwise, false.</returns>
         public bool TryFindNext(out Word.Range foundRange, bool wrap = false)
         {
             TextFound = false;
@@ -69,7 +99,11 @@ namespace CoverageKiller2.Pipeline.WordHelpers
             return found;
         }
 
-        // Replace the search text with new text
+        /// <summary>
+        /// Replaces the found text with the specified replacement text.
+        /// </summary>
+        /// <param name="replaceText">The text to replace the found text with.</param>
+        /// <exception cref="ArgumentException">Thrown when the search text was not found.</exception>
         public void Replace(string replaceText)
         {
             if (TextFound) // Check if the text was found
@@ -80,6 +114,8 @@ namespace CoverageKiller2.Pipeline.WordHelpers
             {
                 throw new ArgumentException($"Text '{_searchText}' not found in the current search range.");
             }
+
+            TextFound = false;
         }
     }
 }

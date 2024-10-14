@@ -37,26 +37,8 @@ namespace CoverageKiller2
         /// and returns an instance of <see cref="IndoorReportTemplate"/>.
         /// </summary>
         /// <returns>A new instance of <see cref="IndoorReportTemplate"/>.</returns>
-        /// <remarks>
-        /// The process of embedding and extracting a Word document from resources is described in the following resources:
-        /// <list type="bullet">
-        /// <item>
-        /// <description>
-        /// <see href="https://stackoverflow.com/questions/4367311/embed-a-word-document-in-c-sharp?rq=3">How to embed a Word document in C#</see>
-        /// </description>
-        /// </item>
-        /// <item>
-        /// <description>
-        /// <see href="https://stackoverflow.com/questions/33164270/how-to-open-embedded-resource-word-document?rq=3">How to open embedded resource Word document</see>
-        /// </description>
-        /// </item>
-        /// <item>
-        /// <description>
-        /// <see href="https://stackoverflow.com/questions/15925801/visual-studio-c-sharp-how-to-add-a-doc-file-as-a-resource">How to add a .doc file as a resource in Visual Studio C#</see>
-        /// </description>
-        /// </item>
-        /// </list>
-        /// </remarks>
+        /// 
+
         public static IndoorReportTemplate OpenResource()
         {
             Log.Information("Opening PCTELDoc template resource...");
@@ -93,5 +75,8 @@ namespace CoverageKiller2
             // Return the filename of the temporary document.
             return temporaryFileName;
         }
+
+
+
     }
 }

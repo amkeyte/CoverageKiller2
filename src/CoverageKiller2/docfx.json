@@ -1,0 +1,28 @@
+{
+  "metadata": [
+    {
+      "src": [
+        {
+          "files": [
+            "**/bin/Debug/CoverageKiller2.dll"
+
+          ],
+          "src": "../"
+        }
+      ],
+      "dest": "api",
+      "filter": "filterConfig.yml", // Add the reference to your filter file here
+      "exclude": [
+        "**/obj/**", // Exclude other unnecessary folders like 'obj'
+        "**/bin/**"
+      ]
+    }
+  ],
+  "build": {
+    "content": [
+      {
+        "files": [ "api/*.yml" ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,5 @@
+apiRules:
+  - exclude:
+      uidRegex: "^Microsoft.Office"
+      uidRegex: "^Serilog"
+      uidRegex: "^System"
