@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Serilog;
+using System;
 using System.Linq;
 using Word = Microsoft.Office.Interop.Word;
 
@@ -9,7 +10,7 @@ namespace CoverageKiller2
     /// </summary>
     public class CKWordTable
     {
-        private readonly Word.Table _table;
+        private Word.Table _table;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CKWordTable"/> class.
@@ -92,6 +93,38 @@ namespace CoverageKiller2
             }
 
             return -1; // Return -1 if the heading is not found
+        }
+
+        /// <summary>
+        /// Creates a table in the active Word document and sets its width to the full page width.
+        /// </summary>
+        /// <remarks>
+        /// This method retrieves the active document, inserts a table with a specified number of rows and columns,
+        /// fills the table with data, and adjusts its width to occupy 100% of the page width.
+        /// </remarks>
+        public void MakeFullPage()
+        {
+            Log.Debug("Setting Table width");
+
+            _table.PreferredWidthType = Word.WdPreferredWidthType.wdPreferredWidthPercent;
+            _table.PreferredWidth = 100f;
+            Log.Debug("Result {Type}, {Width}", _table.PreferredWidthType, _table.PreferredWidth);
+        }
+
+        /// <summary>
+        /// Removes the table from the Word document.
+        /// </summary>
+        /// <exception cref="InvalidOperationException">Thrown if the table does not exist.</exception>
+        public void Delete()
+        {
+            if (_table == null)
+            {
+                throw new InvalidOperationException("Table does not exist.");
+            }
+
+            // Remove the table from the document
+            _table.Delete();
+            _table = null; // Optionally set to null to avoid referencing a deleted table
         }
     }
 }

@@ -28,57 +28,38 @@ namespace CoverageKiller2.Pipeline.WordHelpers
         }
 
         /// <summary>
-        /// Attempts to find the first table that matches the header texts.
+        /// Attempts to find the next table that matches the header texts. 
+        /// If it's the first call, it searches for the first match.
         /// </summary>
         /// <param name="foundTable">Outputs the found table if a match is found.</param>
         /// <returns>True if a matching table is found, false otherwise.</returns>
         public bool TryFind(out Word.Table foundTable)
         {
-            _currentTableIndex = -1; // Reset the current index
-            foundTable = null; // Initialize output
-
-            for (int i = 1; i <= _ckDoc.Tables.Count; i++)
-            {
-                Word.Table table = _ckDoc.Tables[i];
-                if (IsMatch(table))
-                {
-                    foundTable = table;
-                    _currentTable = table;
-                    _currentTableIndex = i;
-                    return true; // Found the table
-                }
-            }
-
-            return false; // No matching table found
-        }
-
-        /// <summary>
-        /// Attempts to find the next table after the current one that matches the header texts.
-        /// </summary>
-        /// <param name="foundTable">Outputs the found table if a match is found.</param>
-        /// <returns>True if a matching table is found, false otherwise.</returns>
-        public bool TryFindNext(out Word.Table foundTable)
-        {
+            // If no table has been found yet, start searching from the beginning
             if (_currentTableIndex == -1)
             {
-                // If no table has been found yet, find the first match
-                return TryFind(out foundTable);
+                _currentTableIndex = 0; // Reset to start
+            }
+            else
+            {
+                // Continue searching from the current index
+                _currentTableIndex++;
             }
 
-            // Continue searching from the current index
-            for (int i = _currentTableIndex + 1; i <= _ckDoc.Tables.Count; i++)
+            // Search for a matching table
+            for (int i = _currentTableIndex; i < _ckDoc.Tables.Count; i++)
             {
-                Word.Table table = _ckDoc.Tables[i];
+                Word.Table table = _ckDoc.Tables[i + 1]; // Note: Tables collection is 1-based
                 if (IsMatch(table))
                 {
                     foundTable = table;
                     _currentTable = table;
-                    _currentTableIndex = i;
-                    return true; // Found the next matching table
+                    _currentTableIndex = i; // Update current index to the found table
+                    return true; // Found a matching table
                 }
             }
 
-            foundTable = null; // No more matching tables found
+            foundTable = null; // No matching tables found
             return false;
         }
 
@@ -101,7 +82,7 @@ namespace CoverageKiller2.Pipeline.WordHelpers
             // Ensure that all header texts match in sequence
             for (int i = 0; i < _headerTexts.Length; i++)
             {
-                string cellText = firstRow.Cells[i + 1].Range.Text.Trim('\r', '\a'); // Remove end-of-cell characters
+                string cellText = firstRow.Cells[i + 1].Range.Text;//.Trim('\r', '\a'); // Remove end-of-cell characters
                 if (!cellText.Equals(_headerTexts[i], StringComparison.OrdinalIgnoreCase))
                 {
                     return false; // Found a mismatch

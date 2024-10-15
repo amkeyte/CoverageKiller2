@@ -43,45 +43,24 @@ namespace CoverageKiller2.Pipeline.WordHelpers
         }
 
         /// <summary>
-        /// Attempts to find the first occurrence of the search text within the specified range.
-        /// </summary>
-        /// <param name="foundRange">Outputs the found range if the text is found; otherwise, null.</param>
-        /// <returns>True if the text is found; otherwise, false.</returns>
-        public bool TryFind(out Word.Range foundRange)
-        {
-            TextFound = false;
-            _currentRange = _searchWithinRange; // Reset range to the search domain
-            bool found = _currentRange.Find.Execute(FindText: _searchText, MatchWildcards: true);
-
-            if (found)
-            {
-                foundRange = _currentRange;
-                TextFound = true;
-                return true;
-            }
-            else
-            {
-                foundRange = null;
-                return false;
-            }
-        }
-
-        /// <summary>
         /// Attempts to find the next occurrence of the search text within the specified range.
+        /// If it's the first call, it searches for the first match.
         /// </summary>
         /// <param name="foundRange">Outputs the found range if the text is found; otherwise, null.</param>
         /// <param name="wrap">Indicates whether to wrap around to the beginning of the range if the end is reached.</param>
-        /// <returns>True if the next occurrence is found; otherwise, false.</returns>
-        public bool TryFindNext(out Word.Range foundRange, bool wrap = false)
+        /// <returns>True if the text is found; otherwise, false.</returns>
+        public bool TryFind(out Word.Range foundRange, bool wrap = false)
         {
             TextFound = false;
             int originalStart = _currentRange.Start; // Save the original starting point
-            _currentRange.Start = _currentRange.End; // Move range start to after the last found occurrence
+
+            // Move range start to after the last found occurrence
+            _currentRange.Start = _currentRange.End;
 
             // Try to find the next occurrence
             bool found = _currentRange.Find.Execute(FindText: _searchText, MatchWildcards: true);
 
-            // If not found and wrapping is enabled, start from the beginning of the document
+            // If not found and wrapping is enabled, start from the beginning of the range
             if (!found && wrap)
             {
                 _currentRange = _searchWithinRange; // Reset to the search range
@@ -115,7 +94,7 @@ namespace CoverageKiller2.Pipeline.WordHelpers
                 throw new ArgumentException($"Text '{_searchText}' not found in the current search range.");
             }
 
-            TextFound = false;
+            TextFound = false; // Reset TextFound after replacement
         }
     }
 }

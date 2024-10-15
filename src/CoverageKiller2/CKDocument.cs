@@ -164,5 +164,25 @@ namespace CoverageKiller2
 
             WordDoc.Application.DocumentBeforeClose -= OnDocumentBeforeClose;
         }
+
+
+        /// <summary>
+        /// Deletes a specified section from the Word document.
+        /// </summary>
+        /// <param name="sectionIndex">The index of the section to delete (1-based).</param>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when the section index is out of range.</exception>
+        public void DeleteSection(int sectionIndex)
+        {
+            if (sectionIndex < 1 || sectionIndex > WordDoc.Sections.Count)
+            {
+                throw new ArgumentOutOfRangeException(nameof(sectionIndex), "Section index is out of range.");
+            }
+
+            // Get the section to delete
+            Word.Section sectionToDelete = WordDoc.Sections[sectionIndex];
+
+            // Delete the section
+            sectionToDelete.Range.Delete();
+        }
     }
 }

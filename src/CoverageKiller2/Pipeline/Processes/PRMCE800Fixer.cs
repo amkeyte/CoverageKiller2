@@ -1,4 +1,5 @@
 ﻿using CoverageKiller2.Pipeline.WordHelpers;
+using Microsoft.Office.Interop.Word;
 using Serilog;
 using System;
 using Word = Microsoft.Office.Interop.Word;
@@ -20,8 +21,14 @@ namespace CoverageKiller2.Pipeline.Processes
             public static readonly string FloorSectionHeadingTable_Band_F = "BAND";
             public static readonly int FloorSectionHeadingTable_Band_Row = 2;
             public static readonly string FloorSectionHeadingTable_Band_CellR = "800 Mhz";
-
-
+            public static readonly string FloorSectionGridNotesTable_F = "Grid\t# of Areas\tArea Size (sq. ft)\tArea Width\r\n(ft)\tArea Height\r\n(ft)\tIgnore Area Color\tComments\r\n";
+            public static readonly string FloorSectionCriticalPointReportTable_F = "Critical Point\tDL\r\nPower\r\n(dBm)\tDL\r\nDAQ\tUL\r\nPower\r\n(dBm)\tUL\r\nDAQ\tResult\tDL\r\nLoss\r\n(dB)\tComment\r\n";
+            public static readonly string FloorSectionCriticalPointReportTable_ULPower = "DL\r\nPower\r\n(dBm)\r\n";
+            public static readonly string FloorSectionCriticalPointReportTable_DLLoss = "DL\r\nLoss\r\n(dB)\r\n";
+            public static readonly string FloorSectionAreaReportTable_F = "Grid\tArea\tDL\r\nPower\r\n(dBm)\tDL\r\nDAQ\tUL\r\nPower\r\n(dBm)\tUL\r\nDAQ\r\n\tResult\tDL\r\nLoss\r\n(dB)\tComment\r\n";
+            public static readonly string FloorSectionAreaReportTable_ULPower = "DL\r\nPower\r\n(dBm)\r\n";
+            public static readonly string FloorSectionAreaReportTable_DLLoss = "DL\r\nLoss\r\n(dB)\r\n";
+            public static readonly string SectionAdditionalInfo_F = "Additional Info";
         }
 
         public PRMCE800Fixer()
@@ -34,41 +41,77 @@ namespace CoverageKiller2.Pipeline.Processes
 
             //Building identifier replace
             var textFinder = new TextFinder(CKDoc, _SS.BuildingNameF);
-            if (textFinder.TryFind(out _))
+
+            while (textFinder.TryFind(out _, true))
             {
                 textFinder.Replace(_SS.BuildingNameR);
-
-                while (textFinder.TryFindNext(out _, true))
-                {
-                    textFinder.Replace(_SS.BuildingNameR);
-
-                }
             }
 
             //Floor names replace with rebuild.
             textFinder = new TextFinder(CKDoc, _SS.FloorPlanF);
-            if (textFinder.TryFind(out var foundRange1))
+
+            while (textFinder.TryFind(out var foundRange2, true))
             {
-                ReplaceFloorName(textFinder, foundRange1);
-                while (textFinder.TryFindNext(out var foundRange2, true))
-                {
-                    ReplaceFloorName(textFinder, foundRange2);
-                }
+                ReplaceFloorName(textFinder, foundRange2);
             }
+
 
             //fix floor section heading table.
             var tableFinder = new TableFinder(CKDoc, _SS.FloorSectionHeadingTable_F);
-            if (tableFinder.TryFind(out var foundTable1))
-            {
-                FixFloorSectionHeadingTable(foundTable1);
 
-                while (tableFinder.TryFindNext(out var foundTable2))
-                {
-                    FixFloorSectionHeadingTable(foundTable2);
-                }
+            while (tableFinder.TryFind(out var foundTable))
+            {
+                FixFloorSectionHeadingTable(foundTable);
+            }
+
+            //remove grid notes table.
+            tableFinder = new TableFinder(CKDoc, _SS.FloorSectionGridNotesTable_F);
+            while (tableFinder.TryFind(out var foundTable))
+            {
+                foundTable.Delete();
+
+            }
+
+            //remove extra critical point fields: ULPower, DL Loss
+            tableFinder = new TableFinder(CKDoc, _SS.FloorSectionCriticalPointReportTable_F);
+            while (tableFinder.TryFind(out var foundTable))
+            {
+                FixFloorSectionCriticalPointReportTable(foundTable);
+            }
+
+            //remove extra area fields: ULPower, DL Loss
+            tableFinder = new TableFinder(CKDoc, _SS.FloorSectionAreaReportTable_F);
+            while (tableFinder.TryFind(out var foundTable))
+            {
+                FixFloorSectionAreaReportTable(foundTable);
+            }
+
+            //remove end "Info" section
+            var infoSection = CKDoc.WordDoc.Sections.Last;
+            textFinder = new TextFinder(CKDoc, _SS.FloorPlanF, infoSection.Range);
+
+            // Check if we can find the text in the "Info" section
+            if (textFinder.TryFind(out var foundText))
+            {
+                // If found, delete the section
+                CKDoc.DeleteSection(infoSection.Index);
             }
         }
 
+        private void FixFloorSectionCriticalPointReportTable(Table foundTable)
+        {
+            var fixer = new CKWordTable(foundTable);
+            fixer.RemoveColumnsByHeader(_SS.FloorSectionCriticalPointReportTable_ULPower);
+            fixer.RemoveColumnsByHeader(_SS.FloorSectionCriticalPointReportTable_DLLoss);
+            fixer.MakeFullPage();
+        }
+        private void FixFloorSectionAreaReportTable(Table foundTable)
+        {
+            var fixer = new CKWordTable(foundTable);
+            fixer.RemoveColumnsByHeader(_SS.FloorSectionAreaReportTable_ULPower);
+            fixer.RemoveColumnsByHeader(_SS.FloorSectionAreaReportTable_DLLoss);
+            fixer.MakeFullPage();
+        }
         private static void FixFloorSectionHeadingTable(Word.Table foundTable1)
         {
             var fixer = new CKWordTable(foundTable1);
@@ -77,6 +120,7 @@ namespace CoverageKiller2.Pipeline.Processes
                 _SS.FloorSectionHeadingTable_Band_F,
                 _SS.FloorSectionHeadingTable_Band_Row,
                 _SS.FloorSectionHeadingTable_Band_CellR);
+            fixer.MakeFullPage();
         }
 
         private static void ReplaceFloorName(TextFinder tf, Word.Range foundRange)
