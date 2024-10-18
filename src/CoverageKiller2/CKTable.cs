@@ -35,6 +35,9 @@ namespace CoverageKiller2
             _table = table ?? throw new ArgumentNullException(nameof(table), "Table cannot be null.");
         }
 
+        public bool ContainsMerged => Rows.ContainsMerged;
+
+
         public CKRows Rows => new CKRows(_table.Rows);
         /// <summary>
         /// Removes columns from the table based on the specified header texts.

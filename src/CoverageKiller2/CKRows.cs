@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Word = Microsoft.Office.Interop.Word;
 
 namespace CoverageKiller2
@@ -15,6 +16,8 @@ namespace CoverageKiller2
             _rows = rows ?? throw new ArgumentNullException(nameof(rows));
         }
 
+        public bool ContainsMerged => _rows.Cast<Word.Row>()
+            .Any(row => new CKRow(row).ContainsMerged);
         // Property to get the total number of rows
         public int Count => _rows.Count;
 

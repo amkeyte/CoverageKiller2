@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Word = Microsoft.Office.Interop.Word;
 
 namespace CoverageKiller2
@@ -8,12 +9,14 @@ namespace CoverageKiller2
     public class CKColumns : IEnumerable<CKColumn>
     {
         private Word.Columns _columns;
-
         // Constructor to initialize CKColumns with Word.Columns
         public CKColumns(Word.Columns columns)
         {
             _columns = columns ?? throw new ArgumentNullException(nameof(columns));
         }
+
+        public bool ContainsMerged => _columns.Cast<Word.Column>()
+            .Any(col => new CKColumn(col).ContainsMerged);
 
         // Property to get the total number of columns
         public int Count => _columns.Count;
@@ -44,5 +47,6 @@ namespace CoverageKiller2
         {
             return GetEnumerator();
         }
+
     }
 }
