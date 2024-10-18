@@ -23,7 +23,7 @@ namespace CoverageKiller2
         }
 
         public bool ContainsMerged => Rows.ContainsMerged;
-
+        public CKColumns Columns => new CKColumns(_table.Columns);
 
         public CKRows Rows => new CKRows(_table.Rows);
         /// <summary>
