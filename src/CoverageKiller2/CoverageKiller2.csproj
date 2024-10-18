@@ -222,10 +222,16 @@
     can be found.
   -->
   <ItemGroup>
+    <Compile Include="CKCell.cs" />
+    <Compile Include="CKCells.cs" />
+    <Compile Include="CKColumn.cs" />
+    <Compile Include="CKColumns.cs" />
     <Compile Include="CkDoc.cs" />
     <Compile Include="CkDocHelpers.cs" />
     <Compile Include="CKDocument.cs" />
     <Compile Include="CKRibbon.cs" />
+    <Compile Include="CKRow.cs" />
+    <Compile Include="CKRows.cs" />
     <Compile Include="LoggingLoader.cs" />
     <Compile Include="LogTailLoader.cs" />
     <Compile Include="Pipeline\Processes\PageSetupFixer.cs" />
@@ -235,7 +241,7 @@
     <Compile Include="Pipeline\CKWordPipeline.cs" />
     <Compile Include="Pipeline\CKWordPipelineProcess.cs" />
     <Compile Include="Pipeline\WordHelpers\TableFinder.cs" />
-    <Compile Include="CKWordTable.cs" />
+    <Compile Include="CKTable.cs" />
     <Compile Include="Pipeline\WordHelpers\TextFinder.cs" />
     <Compile Include="Pipeline\WordHelpers\WordSelector.cs" />
     <Compile Include="Pipeline\Processes\PRMCE800Fixer.cs" />

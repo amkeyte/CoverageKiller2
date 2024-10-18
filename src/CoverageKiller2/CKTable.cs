@@ -8,20 +8,20 @@ namespace CoverageKiller2
     /// <summary>
     /// Provides methods for manipulating a Word table.
     /// </summary>
-    public class CKWordTable
+    public class CKTable
     {
         private Word.Table _table;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CKWordTable"/> class.
+        /// Initializes a new instance of the <see cref="CKTable"/> class.
         /// </summary>
         /// <param name="table">The Word table to wrap.</param>
         /// <exception cref="ArgumentNullException">Thrown when the provided table is null.</exception>
-        public CKWordTable(Word.Table table)
+        public CKTable(Word.Table table)
         {
             _table = table ?? throw new ArgumentNullException(nameof(table), "Table cannot be null.");
         }
-
+        public CKRows Rows => new CKRows(_table.Rows);
         /// <summary>
         /// Removes columns from the table based on the specified header texts.
         /// </summary>

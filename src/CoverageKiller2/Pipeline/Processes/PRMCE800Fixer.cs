@@ -100,21 +100,21 @@ namespace CoverageKiller2.Pipeline.Processes
 
         private void FixFloorSectionCriticalPointReportTable(Table foundTable)
         {
-            var fixer = new CKWordTable(foundTable);
+            var fixer = new CKTable(foundTable);
             fixer.RemoveColumnsByHeader(_SS.FloorSectionCriticalPointReportTable_ULPower);
             fixer.RemoveColumnsByHeader(_SS.FloorSectionCriticalPointReportTable_DLLoss);
             fixer.MakeFullPage();
         }
         private void FixFloorSectionAreaReportTable(Table foundTable)
         {
-            var fixer = new CKWordTable(foundTable);
+            var fixer = new CKTable(foundTable);
             fixer.RemoveColumnsByHeader(_SS.FloorSectionAreaReportTable_ULPower);
             fixer.RemoveColumnsByHeader(_SS.FloorSectionAreaReportTable_DLLoss);
             fixer.MakeFullPage();
         }
         private static void FixFloorSectionHeadingTable(Word.Table foundTable1)
         {
-            var fixer = new CKWordTable(foundTable1);
+            var fixer = new CKTable(foundTable1);
             fixer.RemoveColumnsByHeader(_SS.FloorSectionHeadingTable_RemoveCols);
             fixer.SetCell(
                 _SS.FloorSectionHeadingTable_Band_F,
