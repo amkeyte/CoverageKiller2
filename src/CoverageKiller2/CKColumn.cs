@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Word = Microsoft.Office.Interop.Word;
 
 namespace CoverageKiller2
@@ -12,7 +13,8 @@ namespace CoverageKiller2
         {
             _column = column ?? throw new ArgumentNullException(nameof(column));
         }
-
+        public CKCells Cells => new CKCells(_column.Cells);
+        public bool ContainsMerged => Cells.ContainsMerged;
         // Property to get the index of the column in the table
         public int Index => _column.Index;
 
@@ -30,6 +32,22 @@ namespace CoverageKiller2
         public void Select()
         {
             _column.Select();
+        }
+
+        public void Delete()
+        {
+            if (ContainsMerged)
+            {
+                DeleteLeavingMerged();
+            }
+
+            _column.Delete();
+        }
+
+        private void DeleteLeavingMerged()
+        {
+            Cells.Where(c => !c.IsMerged).ToList()
+                .ForEach(c => c.Delete());
         }
     }
 }

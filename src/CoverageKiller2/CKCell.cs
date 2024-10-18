@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Word = Microsoft.Office.Interop.Word;
 
 namespace CoverageKiller2
@@ -11,6 +12,11 @@ namespace CoverageKiller2
         {
             _cell = cell ?? throw new ArgumentNullException(nameof(cell));
         }
+
+        public bool IsMerged => _cell.IsMerged();
+
+
+
 
         // Property to get or set the text in a cell
         public string Text
@@ -70,6 +76,80 @@ namespace CoverageKiller2
         public override int GetHashCode()
         {
             return _cell.Range.GetHashCode();
+        }
+    }
+    internal static partial class CKCellExtensions
+    {
+        // Extension method to get the cell above
+        public static Word.Cell Up(this Word.Cell cell)
+        {
+            if (cell == null)
+                throw new ArgumentNullException(nameof(cell));
+
+            try
+            {
+                return cell.Range.Tables[1].Cell(cell.Row.Index - 1, cell.Column.Index);
+            }
+            catch (ArgumentException)
+            {
+                return null; // Return null if the cell above doesn't exist
+            }
+        }
+
+        public static bool IsMerged(this Word.Cell _cell)
+        {
+            return new[] { _cell.Next, _cell.Down() }
+                .Any(neighbor => neighbor != null &&
+                    _cell.Range.Start == neighbor.Range.Start &&
+                    _cell.Range.End == neighbor.Range.End);
+        }
+
+        // Extension method to get the cell below
+        public static Word.Cell Down(this Word.Cell cell)
+        {
+            if (cell == null)
+                throw new ArgumentNullException(nameof(cell));
+
+            try
+            {
+                return cell.Range.Tables[1].Cell(cell.Row.Index + 1, cell.Column.Index);
+            }
+            catch (ArgumentException)
+            {
+                return null; // Return null if the cell below doesn't exist
+            }
+        }
+
+        // Extension method to get the cell to the left
+        public static Word.Cell Left(this Word.Cell cell)
+        {
+            if (cell == null)
+                throw new ArgumentNullException(nameof(cell));
+
+            try
+            {
+                return cell.Range.Tables[1].Cell(cell.Row.Index, cell.Column.Index - 1);
+            }
+            catch (ArgumentException)
+            {
+                return null; // Return null if the cell to the left doesn't exist
+            }
+        }
+
+        // Extension method to get the cell to the right
+        public static Word.Cell Right(this Word.Cell cell)
+        {
+            if (cell == null)
+                throw new ArgumentNullException(nameof(cell));
+
+            try
+            {
+                return cell.Range.Tables[1].Cell(cell.Row.Index, cell.Column.Index + 1);
+            }
+            catch (ArgumentException)
+            {
+                return null; // Return null if the cell to the right doesn't exist
+            }
         }
     }
 }

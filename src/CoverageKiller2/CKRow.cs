@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using Word = Microsoft.Office.Interop.Word;
 namespace CoverageKiller2
 {
@@ -12,7 +11,8 @@ namespace CoverageKiller2
         {
             _row = row ?? throw new ArgumentNullException(nameof(row));
         }
-
+        public CKCells Cells => new CKCells(_row.Cells);
+        public bool ContainsMerged => Cells.ContainsMerged;
         // Property to access row's index
         public int Index => _row.Index;
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Word = Microsoft.Office.Interop.Word;
 
 namespace CoverageKiller2
@@ -8,6 +9,7 @@ namespace CoverageKiller2
     public class CKCells : IEnumerable<CKCell>
     {
         private Word.Cells _cells;
+
 
         // Constructor to initialize CKCells with Word.Cells
         public CKCells(Word.Cells cells)
@@ -17,6 +19,8 @@ namespace CoverageKiller2
 
         // Property to get the total number of cells
         public int Count => _cells.Count;
+
+        public bool ContainsMerged => _cells.Cast<Word.Cell>().Any(c => c.IsMerged());
 
         // Access a CKCell by its index (1-based index in Word)
         public CKCell this[int index]
