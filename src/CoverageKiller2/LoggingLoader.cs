@@ -22,7 +22,8 @@ public class LoggingLoader
 
         Log.Logger = new LoggerConfiguration()
             .MinimumLevel.Is(logEventLevel)    // Set the minimum log level
-            .WriteTo.Async(a => a.File(logFile)) // Log to a file asynchronously
+            .WriteTo.File(logFile)
+            //.WriteTo.Async(a => a.File(logFile)) // Log to a file asynchronously
             .CreateLogger();
     }
 

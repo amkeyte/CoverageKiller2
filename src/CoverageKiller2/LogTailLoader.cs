@@ -44,11 +44,11 @@ namespace CoverageKiller2
             try
             {
                 // Check if the file exists and BareTail is running
-                if (File.Exists(tempFilePath) && Process.GetProcessesByName("BareTail").Any())
-                {
-                    File.Delete(tempFilePath);
-                    Debug.WriteLine($"Temporary file {tempFilePath} deleted.");
-                }
+                //if (File.Exists(tempFilePath) && Process.GetProcessesByName("BareTail").Any())
+                //{
+                //    File.Delete(tempFilePath);
+                //    Debug.WriteLine($"Temporary file {tempFilePath} deleted.");
+                //}
             }
             catch (Exception ex)
             {

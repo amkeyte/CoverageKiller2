@@ -17,6 +17,8 @@ namespace CoverageKiller2
         {
             string logFile = LogTailLoader.GetBareTailLog();
             LoggingLoader.Configure(logFile, Serilog.Events.LogEventLevel.Debug);
+
+            //debugging the big hangup.
             LogTailLoader.StartBareTail();
 
             Log.Debug("Logging started: Level {logEventLevel}", LoggingLoader.Level);

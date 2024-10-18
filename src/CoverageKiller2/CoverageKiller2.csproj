@@ -226,6 +226,7 @@
     <Compile Include="CkDocHelpers.cs" />
     <Compile Include="CKDocument.cs" />
     <Compile Include="CKRibbon.cs" />
+    <Compile Include="CKTables.cs" />
     <Compile Include="LoggingLoader.cs" />
     <Compile Include="LogTailLoader.cs" />
     <Compile Include="Pipeline\Processes\PageSetupFixer.cs" />
@@ -235,7 +236,7 @@
     <Compile Include="Pipeline\CKWordPipeline.cs" />
     <Compile Include="Pipeline\CKWordPipelineProcess.cs" />
     <Compile Include="Pipeline\WordHelpers\TableFinder.cs" />
-    <Compile Include="CKWordTable.cs" />
+    <Compile Include="CKTable.cs" />
     <Compile Include="Pipeline\WordHelpers\TextFinder.cs" />
     <Compile Include="Pipeline\WordHelpers\WordSelector.cs" />
     <Compile Include="Pipeline\Processes\PRMCE800Fixer.cs" />
@@ -253,6 +254,7 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <None Include="app.config" />
+    <None Include="AutorecoverClean.bat" />
     <None Include="CoverageKiller2_TemporaryKey.pfx" />
     <EmbeddedResource Include="PCTELReportHeaderFooterTemplate.docx" />
     <None Include="docfx.json" />
@@ -308,4 +310,11 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PreBuildEvent>call "C:\Users\akeyte.PCM\source\repos\CoverageKiller2\src\CoverageKiller2\AutorecoverClean.bat"</PreBuildEvent>
+  </PropertyGroup>
 </Project>

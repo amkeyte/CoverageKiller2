@@ -1,7 +1,7 @@
 ﻿using CoverageKiller2.Pipeline.WordHelpers;
-using Microsoft.Office.Interop.Word;
 using Serilog;
 using System;
+using System.Linq;
 using Word = Microsoft.Office.Interop.Word;
 
 namespace CoverageKiller2.Pipeline.Processes
@@ -39,7 +39,7 @@ namespace CoverageKiller2.Pipeline.Processes
         {
             Log.Information("Fixing for PRMCE");
 
-            //Building identifier replace
+            Log.Debug("*** Building identifier replace");
             var textFinder = new TextFinder(CKDoc, _SS.BuildingNameF);
 
             while (textFinder.TryFind(out _, true))
@@ -47,7 +47,7 @@ namespace CoverageKiller2.Pipeline.Processes
                 textFinder.Replace(_SS.BuildingNameR);
             }
 
-            //Floor names replace with rebuild.
+            Log.Debug("*** Floor names replace with rebuild.");
             textFinder = new TextFinder(CKDoc, _SS.FloorPlanF);
 
             while (textFinder.TryFind(out var foundRange2, true))
@@ -56,38 +56,32 @@ namespace CoverageKiller2.Pipeline.Processes
             }
 
 
-            //fix floor section heading table.
-            var tableFinder = new TableFinder(CKDoc, _SS.FloorSectionHeadingTable_F);
+            Log.Debug("*** fix floor section heading table.");
+            foreach (var table in CKDoc.CKTables
+                .Where(t => t.RowMatches(1, _SS.FloorSectionHeadingTable_F)))
+                FixFloorSectionHeadingTable(table);
 
-            while (tableFinder.TryFind(out var foundTable))
-            {
-                FixFloorSectionHeadingTable(foundTable);
-            }
+            Log.Debug("*** remove grid notes table.");
+            foreach (var table in CKDoc.CKTables
+                .Where(t => t.RowMatches(1, _SS.FloorSectionGridNotesTable_F))
+                .Reverse())
+                table.Delete();
 
-            //remove grid notes table.
-            tableFinder = new TableFinder(CKDoc, _SS.FloorSectionGridNotesTable_F);
-            while (tableFinder.TryFind(out var foundTable))
-            {
-                foundTable.Delete();
 
-            }
+            Log.Debug("*** remove extra critical point fields: ULPower, DL Loss");
+            foreach (var table in CKDoc.CKTables
+                .Where(t => t.RowMatches(2, _SS.FloorSectionCriticalPointReportTable_F)))
+                FixFloorSectionCriticalPointReportTable(table);
 
-            //remove extra critical point fields: ULPower, DL Loss
-            tableFinder = new TableFinder(CKDoc, _SS.FloorSectionCriticalPointReportTable_F);
-            while (tableFinder.TryFind(out var foundTable))
-            {
-                FixFloorSectionCriticalPointReportTable(foundTable);
-            }
 
-            //remove extra area fields: ULPower, DL Loss
-            tableFinder = new TableFinder(CKDoc, _SS.FloorSectionAreaReportTable_F);
-            while (tableFinder.TryFind(out var foundTable))
-            {
-                FixFloorSectionAreaReportTable(foundTable);
-            }
+            Log.Debug("*** remove extra area fields: ULPower, DL Loss");
+            foreach (var table in CKDoc.CKTables
+                .Where(t => t.RowMatches(2, _SS.FloorSectionAreaReportTable_F)))
+                FixFloorSectionAreaReportTable(table);
 
-            //remove end "Info" section
-            var infoSection = CKDoc.WordDoc.Sections.Last;
+
+            Log.Debug("*** remove end Info section");
+            var infoSection = CKDoc.WordDoc.Sections.Last; //maybe someday create a CKSection
             textFinder = new TextFinder(CKDoc, _SS.FloorPlanF, infoSection.Range);
 
             // Check if we can find the text in the "Info" section
@@ -98,24 +92,22 @@ namespace CoverageKiller2.Pipeline.Processes
             }
         }
 
-        private void FixFloorSectionCriticalPointReportTable(Table foundTable)
+        private void FixFloorSectionCriticalPointReportTable(CKTable fixer)
         {
-            var fixer = new CKWordTable(foundTable);
-            fixer.RemoveColumnsByHeader(_SS.FloorSectionCriticalPointReportTable_ULPower);
-            fixer.RemoveColumnsByHeader(_SS.FloorSectionCriticalPointReportTable_DLLoss);
+            Log.Debug("** Fixing table: {_SSID}", nameof(_SS.FloorSectionCriticalPointReportTable_F));
+            fixer.RemoveColumnsByRowText(_SS.FloorSectionCriticalPointReportTable_ULPower, 2);
+            fixer.RemoveColumnsByRowText(_SS.FloorSectionCriticalPointReportTable_DLLoss, 2);
             fixer.MakeFullPage();
         }
-        private void FixFloorSectionAreaReportTable(Table foundTable)
+        private void FixFloorSectionAreaReportTable(CKTable fixer)
         {
-            var fixer = new CKWordTable(foundTable);
-            fixer.RemoveColumnsByHeader(_SS.FloorSectionAreaReportTable_ULPower);
-            fixer.RemoveColumnsByHeader(_SS.FloorSectionAreaReportTable_DLLoss);
+            fixer.RemoveColumnsByRowText(_SS.FloorSectionAreaReportTable_ULPower, 2);
+            fixer.RemoveColumnsByRowText(_SS.FloorSectionAreaReportTable_DLLoss, 2);
             fixer.MakeFullPage();
         }
-        private static void FixFloorSectionHeadingTable(Word.Table foundTable1)
+        private static void FixFloorSectionHeadingTable(CKTable fixer)
         {
-            var fixer = new CKWordTable(foundTable1);
-            fixer.RemoveColumnsByHeader(_SS.FloorSectionHeadingTable_RemoveCols);
+            fixer.RemoveColumnsByRowText(_SS.FloorSectionHeadingTable_RemoveCols);
             fixer.SetCell(
                 _SS.FloorSectionHeadingTable_Band_F,
                 _SS.FloorSectionHeadingTable_Band_Row,
@@ -142,7 +134,7 @@ namespace CoverageKiller2.Pipeline.Processes
             tf.Replace(replaceText);
         }
 
-        public static (string, string) ExtractParts(string input)
+        private static (string, string) ExtractParts(string input)
         {
             // Find the index of the dot
             int dotIndex = input.IndexOf('.');

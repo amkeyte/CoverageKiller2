@@ -40,6 +40,10 @@ namespace CoverageKiller2
         /// </summary>
         public Word.Tables Tables => WordDoc.Tables;
 
+
+
+        public CKTables CKTables { get; private set; }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="CKDocument"/> class, 
         /// opening the Word document located at the specified <paramref name="fullPath"/>.
@@ -49,6 +53,7 @@ namespace CoverageKiller2
         {
             _fullPath = fullPath;
             WordDoc = Open(fullPath);
+            CKTables = new CKTables(this);
             Log.Debug("Registering BeforeClose event for document {DocName}", WordDoc.FullName);
             WordDoc.Application.DocumentBeforeClose += OnDocumentBeforeClose;
         }
@@ -63,6 +68,7 @@ namespace CoverageKiller2
             WordDoc = wordDoc;
             _fullPath = WordDoc.FullName;
             documentOpened = true;
+            CKTables = new CKTables(this);
 
             Log.Debug("Registering BeforeClose event for document {DocName}", WordDoc.FullName);
             WordDoc.Application.DocumentBeforeClose += OnDocumentBeforeClose;
