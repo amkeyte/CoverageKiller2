@@ -222,11 +222,16 @@
     can be found.
   -->
   <ItemGroup>
+    <Compile Include="CKCell.cs" />
+    <Compile Include="CKCells.cs" />
+    <Compile Include="CKColumn.cs" />
+    <Compile Include="CKColumns.cs" />
     <Compile Include="CkDoc.cs" />
     <Compile Include="CkDocHelpers.cs" />
     <Compile Include="CKDocument.cs" />
     <Compile Include="CKRibbon.cs" />
-    <Compile Include="CKTables.cs" />
+    <Compile Include="CKRow.cs" />
+    <Compile Include="CKRows.cs" />
     <Compile Include="LoggingLoader.cs" />
     <Compile Include="LogTailLoader.cs" />
     <Compile Include="Pipeline\Processes\PageSetupFixer.cs" />

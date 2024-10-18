@@ -35,6 +35,7 @@ namespace CoverageKiller2
             _table = table ?? throw new ArgumentNullException(nameof(table), "Table cannot be null.");
         }
 
+        public CKRows Rows => new CKRows(_table.Rows);
         /// <summary>
         /// Removes columns from the table based on the specified header texts.
         /// </summary>
@@ -158,7 +159,7 @@ namespace CoverageKiller2
         }
 
         public bool RowMatches(int oneBasedRowIndex, string target)
-        {
+            {
             if (oneBasedRowIndex <= 0 || oneBasedRowIndex > WordTable.Rows.Count)
                 throw new ArgumentOutOfRangeException(nameof(oneBasedRowIndex), "Invalid row index.");
 
@@ -177,7 +178,7 @@ namespace CoverageKiller2
 
             // Compare the normalized strings
             return normalizedRowValues == normalizedTarget;
-        }
+            }
 
         private string NormalizeMatchString(string input)
         {

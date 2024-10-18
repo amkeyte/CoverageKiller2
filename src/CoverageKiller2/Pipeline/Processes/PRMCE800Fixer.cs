@@ -107,7 +107,8 @@ namespace CoverageKiller2.Pipeline.Processes
         }
         private static void FixFloorSectionHeadingTable(CKTable fixer)
         {
-            fixer.RemoveColumnsByRowText(_SS.FloorSectionHeadingTable_RemoveCols);
+            var fixer = new CKWordTable(foundTable1);
+            fixer.RemoveColumnsByHeader(_SS.FloorSectionHeadingTable_RemoveCols);
             fixer.SetCell(
                 _SS.FloorSectionHeadingTable_Band_F,
                 _SS.FloorSectionHeadingTable_Band_Row,
