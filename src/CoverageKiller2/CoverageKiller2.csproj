@@ -232,6 +232,7 @@
     <Compile Include="CKRibbon.cs" />
     <Compile Include="CKRow.cs" />
     <Compile Include="CKRows.cs" />
+    <Compile Include="CKTables.cs" />
     <Compile Include="LoggingLoader.cs" />
     <Compile Include="LogTailLoader.cs" />
     <Compile Include="Pipeline\Processes\PageSetupFixer.cs" />

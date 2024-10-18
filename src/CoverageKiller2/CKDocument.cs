@@ -38,7 +38,7 @@ namespace CoverageKiller2
         /// <summary>
         /// Gets the collection of tables in the Word document.
         /// </summary>
-        public Word.Tables Tables => WordDoc.Tables;
+        public CKTables Tables => new CKTables(WordDoc.Tables);
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CKDocument"/> class, 
