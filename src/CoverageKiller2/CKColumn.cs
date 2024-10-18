@@ -46,6 +46,9 @@ namespace CoverageKiller2
 
         private void DeleteLeavingMerged()
         {
+            //if it doesn't work, examine how the merged cells effect the coordinates.
+            //Ideally accessing the col.cells index acts expeded for referencing the cell,
+            //but using the merged cell's ColumnIndex is possibly not the same.
             Cells.Where(c => !c.IsMerged).ToList()
                 .ForEach(c => c.Delete());
         }

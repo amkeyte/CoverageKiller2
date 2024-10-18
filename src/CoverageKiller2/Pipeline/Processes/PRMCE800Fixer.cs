@@ -2,6 +2,7 @@
 using Serilog;
 using System;
 using System.Linq;
+using System.Text.RegularExpressions;
 using Word = Microsoft.Office.Interop.Word;
 
 namespace CoverageKiller2.Pipeline.Processes
@@ -95,24 +96,45 @@ namespace CoverageKiller2.Pipeline.Processes
         private void FixFloorSectionCriticalPointReportTable(CKTable fixer)
         {
             Log.Debug("** Fixing table: {_SSID}", nameof(_SS.FloorSectionCriticalPointReportTable_F));
-            fixer.RemoveColumnsByRowText(_SS.FloorSectionCriticalPointReportTable_ULPower, 2);
-            fixer.RemoveColumnsByRowText(_SS.FloorSectionCriticalPointReportTable_DLLoss, 2);
+            fixer.Columns
+                 .First(col => col.Cells[2].Text == _SS.FloorSectionCriticalPointReportTable_ULPower)
+                 .Delete();
+
+            fixer.Columns
+                 .First(col => col.Cells[2].Text == _SS.FloorSectionCriticalPointReportTable_DLLoss)
+                 .Delete();
+
             fixer.MakeFullPage();
         }
         private void FixFloorSectionAreaReportTable(CKTable fixer)
         {
-            fixer.RemoveColumnsByRowText(_SS.FloorSectionAreaReportTable_ULPower, 2);
-            fixer.RemoveColumnsByRowText(_SS.FloorSectionAreaReportTable_DLLoss, 2);
+            Log.Debug("** Fixing table: {_SSID}", nameof(_SS.FloorSectionAreaReportTable_F));
+            fixer.Columns
+                 .First(col => col.Cells[2].Text == _SS.FloorSectionAreaReportTable_ULPower)
+                 .Delete();
+
+            fixer.Columns
+                 .First(col => col.Cells[2].Text == _SS.FloorSectionAreaReportTable_DLLoss)
+                 .Delete();
+
             fixer.MakeFullPage();
         }
         private static void FixFloorSectionHeadingTable(CKTable fixer)
         {
-            var fixer = new CKWordTable(foundTable1);
-            fixer.RemoveColumnsByHeader(_SS.FloorSectionHeadingTable_RemoveCols);
+            var headersToRemove = _SS.FloorSectionHeadingTable_RemoveCols
+                .Split(new[] { '\t' }, StringSplitOptions.RemoveEmptyEntries)
+                .Select(s => NormalizeMatchString(s));
+
+            fixer.Columns
+                .Where(col => headersToRemove
+                    .Contains(NormalizeMatchString(col.Cells[1].Text)))
+                .ToList().ForEach(col => col.Delete());
+
             fixer.SetCell(
                 _SS.FloorSectionHeadingTable_Band_F,
                 _SS.FloorSectionHeadingTable_Band_Row,
                 _SS.FloorSectionHeadingTable_Band_CellR);
+
             fixer.MakeFullPage();
         }
 
@@ -150,6 +172,11 @@ namespace CoverageKiller2.Pipeline.Processes
             string part2 = input.Substring(dotIndex + 1); // Part after the dot
 
             return (part1, part2);
+        }
+
+        private static string NormalizeMatchString(string input)
+        {
+            return Regex.Replace(input, @"[\x07\s]+", string.Empty);
         }
     }
 }

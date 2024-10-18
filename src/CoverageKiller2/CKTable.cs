@@ -1,6 +1,5 @@
 ﻿using Serilog;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using Word = Microsoft.Office.Interop.Word;
@@ -39,50 +38,7 @@ namespace CoverageKiller2
         public CKColumns Columns => new CKColumns(_table.Columns);
 
         public CKRows Rows => new CKRows(_table.Rows);
-        /// <summary>
-        /// Removes columns from the table based on the specified header texts.
-        /// </summary>
-        /// <param name="tabSeparatedHeaderTexts">A tab-separated string of header texts to remove.</param>
-        public void RemoveColumnsByRowText(string tabSeparatedHeaderTexts, int row = 1)
-        {
-            Log.Debug("Removing columns: {headerTexts}", tabSeparatedHeaderTexts);
-            // Split the tab-separated string into an array of headers to match
-            var headersToRemove = tabSeparatedHeaderTexts
-                .Split(new[] { '\t' }, StringSplitOptions.RemoveEmptyEntries)
-                .Select(s => NormalizeMatchString(s));
 
-            //var matchedColCells = WordTable.Rows[row].Cells
-            //    .Cast<Word.Cell>()
-            //    .Where(c => headersToRemove
-            //        .Contains(NormalizeMatchString(c.Range.Text)))
-            //    .Select(c => c.Column.Cells.Cast<Word.Cell>())
-            //    .SelectMany(cells => cells.Select(c => c.Range));
-            //                         Rows[row].Cells 
-            var matchedColCellRanges = WordTable.Rows[row].Cells.Cast<Word.Cell>()
-                .Where(c => headersToRemove.Contains(NormalizeMatchString(c.Range.Text)))
-                .SelectMany(c => c.Column.Cells.Cast<Word.Cell>().Select(colCell => colCell.Range));
-
-
-            var matchedRowCount = WordTable.Rows[row].Cells.Count;
-            var matchedRowCount = Rows.Select(r => r.WordCells()).Count;
-
-            var xxx = WordTable.Rows.Cast<Word.Row>()
-                .Where(r => r.Cells.Count == matchedRowCount)
-                .Select(r => r.Cells.Cast<Word.Cell>())
-                .Select(c => c.Range.)
-                .Intersect(matchedColCells);
-
-            Log.Debug("Removing:\n\tHeaders => {headers}\n\tColumns => {matched}",
-                headersToRemove,
-                matchedColCells.Select(c => NormalizeMatchString(c.Cells[row].Range.Text)));
-
-
-            //foreach (var col in matchedCols)
-            //{
-            //    col.Delete();
-            //}
-        }
-        public IEnumerable<Word.Row> Rows => WordTable.Rows.Cast<Word.Row>();
         /// <summary>
         /// Sets the value of a specified cell in the table.
         /// </summary>
@@ -162,7 +118,7 @@ namespace CoverageKiller2
         }
 
         public bool RowMatches(int oneBasedRowIndex, string target)
-            {
+        {
             if (oneBasedRowIndex <= 0 || oneBasedRowIndex > WordTable.Rows.Count)
                 throw new ArgumentOutOfRangeException(nameof(oneBasedRowIndex), "Invalid row index.");
 
@@ -181,7 +137,7 @@ namespace CoverageKiller2
 
             // Compare the normalized strings
             return normalizedRowValues == normalizedTarget;
-            }
+        }
 
         private string NormalizeMatchString(string input)
         {
