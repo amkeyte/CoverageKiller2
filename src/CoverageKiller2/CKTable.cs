@@ -29,15 +29,18 @@ namespace CoverageKiller2
         /// </summary>
         /// <param name="table">The Word table to wrap.</param>
         /// <exception cref="ArgumentNullException">Thrown when the provided table is null.</exception>
-        public CKTable(Word.Table table)
+        public CKTable(Word.Table table, int index)
         {
             _table = table ?? throw new ArgumentNullException(nameof(table), "Table cannot be null.");
+            Index = index;
         }
 
         public bool ContainsMerged => Rows.ContainsMerged;
         public CKColumns Columns => new CKColumns(_table.Columns);
 
         public CKRows Rows => new CKRows(_table.Rows);
+
+        public object Index { get; private set; }
 
         /// <summary>
         /// Sets the value of a specified cell in the table.
@@ -112,6 +115,11 @@ namespace CoverageKiller2
         /// <exception cref="InvalidOperationException">Thrown if the table does not exist.</exception>
         public void Delete()
         {
+            Log.Debug("TRACE => {class}.{func}() = {pVal1}",
+               nameof(CKTable),
+               nameof(Delete),
+               $"{nameof(CKTable)}[{nameof(Index)} = {Index}]" +
+               $"[{nameof(ContainsMerged)} = {ContainsMerged}]");
             // Remove the table from the document
             WordTable.Delete();
             _tableDeleted = true;

@@ -32,7 +32,10 @@ namespace CoverageKiller2
         /// <returns>The Ribbon XML as a string.</returns>
         public string GetCustomUI(string ribbonID)
         {
+
+
             return GetResourceText("CoverageKiller2.CKRibbon.xml");
+
         }
 
         #endregion
@@ -43,9 +46,16 @@ namespace CoverageKiller2
         /// Called when the Ribbon is loaded.
         /// </summary>
         /// <param name="ribbonUI">The Ribbon UI instance.</param>
-        public void Ribbon_Load(Office.IRibbonUI ribbonUI)
+        public async void Ribbon_Load(Office.IRibbonUI ribbonUI)
         {
-            this.ribbon = ribbonUI;
+            try
+            {
+                this.ribbon = ribbonUI;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         /// <summary>
@@ -53,7 +63,7 @@ namespace CoverageKiller2
         /// Attempts to fix headers and footers in the active PCTEL document.
         /// </summary>
         /// <param name="control">The Ribbon control that triggered the callback.</param>
-        public void OnFixPCTELDocButton(Office.IRibbonControl control)
+        public async void OnFixPCTELDocButton(Office.IRibbonControl control)
         {
             Log.Information("Fixing PCTEL Document");
             try
@@ -68,16 +78,14 @@ namespace CoverageKiller2
                     Log.Information("This was not a PCTELDoc report. Trying again...");
                     MessageBox.Show("Open a PCTEL Report document.");
                 }
+                Log.Information("Done fixing PCTEL Document.");
+                Log.Debug("Long wait starts here");
             }
             catch (Exception ex)
             {
-                Log.Error("An error occurred: {Message}", ex.Message);
-                MessageBox.Show($"Error: {ex.Message}");
-                throw;
+                throw ex;
             }
 
-            Log.Information("Done fixing PCTEL Document.");
-            Log.Debug("Long wait starts here");
         }
 
         /// <summary>
@@ -85,7 +93,7 @@ namespace CoverageKiller2
         /// Attempts to fix the PRMCE 800 version of the PCTEL document.
         /// </summary>
         /// <param name="control">The Ribbon control that triggered the callback.</param>
-        public void OnFix_PRMCE_PCTELDoc800Button(Office.IRibbonControl control)
+        public async void OnFix_PRMCE_PCTELDoc800Button(Office.IRibbonControl control)
         {
             Log.Information("Fixing PRMCE 800 PCTEL Document");
             try
@@ -100,15 +108,15 @@ namespace CoverageKiller2
                     Log.Information("This was not a PCTELDoc report. Trying again...");
                     MessageBox.Show("Open a PCTEL Report document.");
                 }
+                Log.Information("Done fixing PRMCE 800 PCTEL Document.");
             }
             catch (Exception ex)
             {
-                Log.Error("An error occurred: {Message}", ex.Message);
-                MessageBox.Show($"Error: {ex.Message}");
-                throw;
+                throw Crash.LogThrow(
+                    new Exception($"Fatal Error during {nameof(OnFix_PRMCE_PCTELDoc800Button)}", ex));
+
             }
 
-            Log.Information("Done fixing PRMCE 800 PCTEL Document.");
         }
 
         #endregion

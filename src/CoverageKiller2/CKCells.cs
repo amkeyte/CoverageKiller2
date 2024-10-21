@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Serilog;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +21,22 @@ namespace CoverageKiller2
         // Property to get the total number of cells
         public int Count => _cells.Count;
 
-        public bool ContainsMerged => _cells.Cast<Word.Cell>().Any(c => c.IsMerged());
+        public bool ContainsMerged
+        {
+            get
+            {
+                var isMerged = _cells.Cast<Word.Cell>().Any(c => c.IsMerged());
+
+                Log.Debug("TRACE => {class}.{prop}.get()",
+                nameof(CKCells),
+                nameof(ContainsMerged),
+               $"Return[{nameof(isMerged)} = {isMerged}]");
+
+                return isMerged;
+            }
+        }
+
+
 
         // Access a CKCell by its index (1-based index in Word)
         public CKCell this[int index]

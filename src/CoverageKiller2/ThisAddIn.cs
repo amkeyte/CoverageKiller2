@@ -1,4 +1,5 @@
 ﻿using Serilog;
+using System;
 
 namespace CoverageKiller2
 {
@@ -8,21 +9,34 @@ namespace CoverageKiller2
     /// </summary>
     public partial class ThisAddIn
     {
+
+
+
         /// <summary>
         /// Initializes logging and BareTail when the add-in starts.
         /// </summary>
         /// <param name="sender">The event source.</param>
         /// <param name="e">Event arguments.</param>
-        private void ThisAddIn_Startup(object sender, System.EventArgs e)
+        private async void ThisAddIn_Startup(object sender, System.EventArgs e)
         {
-            string logFile = LogTailLoader.GetBareTailLog();
-            LoggingLoader.Configure(logFile, Serilog.Events.LogEventLevel.Debug);
+            try
+            {
 
-            //debugging the big hangup.
-            LogTailLoader.StartBareTail();
+                string logFile = LogTailLoader.GetBareTailLog();
+                LoggingLoader.Configure(logFile, Serilog.Events.LogEventLevel.Debug);
 
-            Log.Debug("Logging started: Level {logEventLevel}", LoggingLoader.Level);
-            Log.Information("ThisAddIn started.");
+                //debugging the big hangup.
+                LogTailLoader.StartBareTail();
+
+                Log.Debug("Logging started: Level {logEventLevel}", LoggingLoader.Level);
+                Log.Information("ThisAddIn started.");
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+
+            }
         }
 
         /// <summary>
@@ -30,11 +44,20 @@ namespace CoverageKiller2
         /// </summary>
         /// <param name="sender">The event source.</param>
         /// <param name="e">Event arguments.</param>
-        private void ThisAddIn_Shutdown(object sender, System.EventArgs e)
+        private async void ThisAddIn_Shutdown(object sender, System.EventArgs e)
         {
-            Log.Information("ThisAddIn shutting down.");
-            LoggingLoader.Cleanup();
-            LogTailLoader.Cleanup();
+            try
+            {
+                Log.Information("ThisAddIn shutting down.");
+                LoggingLoader.Cleanup();
+                LogTailLoader.Cleanup();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+
+            }
         }
 
         /// <summary>

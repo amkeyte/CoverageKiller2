@@ -1,5 +1,5 @@
-﻿using System;
-using System.Linq;
+﻿using Serilog;
+using System;
 using Word = Microsoft.Office.Interop.Word;
 
 namespace CoverageKiller2
@@ -16,7 +16,7 @@ namespace CoverageKiller2
         public bool IsMerged => _cell.IsMerged();
 
 
-
+        public Word.Range MergeArea => _cell.MergeArea();
 
         // Property to get or set the text in a cell
         public string Text
@@ -61,7 +61,7 @@ namespace CoverageKiller2
         }
 
         // Property to get the index of the cell in the row
-        public int Index => _cell.ColumnIndex;
+        public int ColumnIndex => _cell.ColumnIndex;
         // Override Equals to compare by DOM object (Range)
         public override bool Equals(object obj)
         {
@@ -77,6 +77,8 @@ namespace CoverageKiller2
         {
             return _cell.Range.GetHashCode();
         }
+
+
     }
     internal static partial class CKCellExtensions
     {
@@ -96,13 +98,7 @@ namespace CoverageKiller2
             }
         }
 
-        public static bool IsMerged(this Word.Cell _cell)
-        {
-            return new[] { _cell.Next, _cell.Down() }
-                .Any(neighbor => neighbor != null &&
-                    _cell.Range.Start == neighbor.Range.Start &&
-                    _cell.Range.End == neighbor.Range.End);
-        }
+
 
         // Extension method to get the cell below
         public static Word.Cell Down(this Word.Cell cell)
@@ -151,5 +147,151 @@ namespace CoverageKiller2
                 return null; // Return null if the cell to the right doesn't exist
             }
         }
+
+        public static Word.Table Table(this Word.Cell cell)
+        {
+            // Check if the cell is null
+            if (cell == null)
+            {
+                throw new ArgumentNullException(nameof(cell));
+            }
+
+            // Access the parent Range and get the Table from that Range
+            Word.Range cellRange = cell.Range;
+            return cellRange.Tables.Count > 0 ? cellRange.Tables[1] : null; // Return the first table if it exists
+        }
+
+        public static bool IsMerged(this Word.Cell cell)
+        {
+            Log.Debug(@"TRACE => EXTENSION:{class}.{func}({param1})",
+                nameof(Word.Cell),
+                nameof(IsMerged),
+                $"{nameof(cell)} = Cell[{cell.RowIndex},{cell.ColumnIndex}]");
+            try
+            {
+                if (cell != null)
+                {
+                    // Get the table that contains the cell
+                    Word.Table table = cell.Table();
+
+                    // Check if the table is not null
+                    if (table != null)
+                    {
+                        // attempt to use rows or columns. It will fail if there is a merge.
+                        _ = table.Rows[1];
+                        _ = table.Columns[1];
+
+
+                    }
+                }
+            }
+            catch (System.Runtime.InteropServices.COMException ex)
+            {
+                // Check for specific error codes for merged cells
+                if (ex.Message.Contains("column") == -2146827284) // Error code for vertically merged cells (5991)
+                {
+                    Log.Debug(@"TRACE => EXTENSION:{class}.{func}({param1}) {message}",
+                        nameof(Word.Cell),
+                        nameof(IsMerged),
+                        string.Empty,
+                        "There was a vertiacally merged cell found in the table");
+
+                    return true;
+                }
+                else if (ex.ErrorCode == -2146827283) // Error code for horizontally merged cells (5992)
+                {
+                    Log.Debug(@"TRACE => EXTENSION:{class}.{func}({param1}) {message}",
+                        nameof(Word.Cell),
+                        nameof(IsMerged),
+                        string.Empty,
+                        "There was a horizontally merged cell found in the table");
+                    // Optionally log the event
+                    // Log.Information("Cell [{0},{1}] has horizontally merged cells.", cell.RowIndex, cell.ColumnIndex);
+                    return true;
+                }
+                else
+                {
+                    // Optionally log the generic error
+                    // Log.Error("Error {0}: {1} in cell [{2},{3}]", ex.ErrorCode, ex.Message, cell.RowIndex, cell.ColumnIndex);
+                    throw; // Rethrow unexpected exceptions
+                }
+            }
+
+            return false; // Not merged
+        }
+
+
+        //Log.Debug(@"TRACE => EXTENSION:{class}.{func}({param1}) ::{internals}:: = {return}",
+        //    nameof(Cell),
+        //    nameof(IsMerged),
+        //    $"{nameof(_cell)} = Cell[{_cell.RowIndex},{_cell.ColumnIndex}]",
+        //    $"{nameof(isHorizontallyMerged)} = {isHorizontallyMerged} || " +
+        //        $"{nameof(isVerticallyMerged)} = {isVerticallyMerged}",
+        //    isHorizontallyMerged || isVerticallyMerged);
+
+        // Helper method to get the cell directly below (Word.Cell does not have a Down property)
+        private static Word.Cell GetCellBelow(Word.Cell cell)
+        {
+            try
+            {
+                Word.Row nextRow = cell.Row.Next;
+                if (nextRow != null)
+                {
+                    return nextRow.Cells[cell.ColumnIndex];
+                }
+            }
+            catch
+            {
+                // Handle any exceptions if accessing the next row or cell fails
+            }
+            return null;
+        }
+
+
+
+
+        public static Word.Range MergeArea(this Word.Cell cell)
+        {
+            // If the cell is not merged, return its own range
+            if (!cell.IsMerged())
+            {
+                return cell.Range;
+            }
+
+            // Create a Range that starts as the current cell's range
+            Word.Range mergedRange = cell.Range.Duplicate;
+
+            // Check for merged cells using Up, Down, Left, and Right properties
+            // Check upwards
+            MergeCellsInDirection(cell, ref mergedRange, cell.Up, true);
+
+            // Check downwards
+            MergeCellsInDirection(cell, ref mergedRange, cell.Down, false);
+
+            // Check left
+            MergeCellsInDirection(cell, ref mergedRange, cell.Left, true, false);
+
+            // Check right
+            MergeCellsInDirection(cell, ref mergedRange, cell.Right, true, true);
+
+            return mergedRange;
+        }
+
+        private static void MergeCellsInDirection(Word.Cell startingCell, ref Word.Range mergedRange,
+            Func<Word.Cell> getNextCell, bool isVertical, bool moveRight = true)
+        {
+            Word.Cell nextCell = getNextCell();
+            while (nextCell != null && nextCell.IsMerged() &&
+                   nextCell.Range.Start == startingCell.Range.Start &&
+                   nextCell.Range.End == startingCell.Range.End)
+            {
+                // Extend the range to include the next cell
+                mergedRange.Start = Math.Min(mergedRange.Start, nextCell.Range.Start);
+                mergedRange.End = Math.Max(mergedRange.End, nextCell.Range.End);
+
+                nextCell = isVertical ? (moveRight ? nextCell.Down() : nextCell.Up()) : (moveRight ? nextCell.Right() : nextCell.Left());
+            }
+        }
     }
 }
+

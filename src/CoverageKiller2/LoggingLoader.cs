@@ -34,4 +34,5 @@ public class LoggingLoader
     {
         Log.CloseAndFlush(); // Flush all log events and close the logger
     }
+
 }

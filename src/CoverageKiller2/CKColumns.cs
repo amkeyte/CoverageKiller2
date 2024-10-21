@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Serilog;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,32 @@ namespace CoverageKiller2
         // Constructor to initialize CKColumns with Word.Columns
         public CKColumns(Word.Columns columns)
         {
-            _columns = columns ?? throw new ArgumentNullException(nameof(columns));
+            var xxx = new CKCells(((Word.Table)columns.Parent).Range.Cells);
+
+            Log.Debug("TRACE => {class}.{func}() = {pVal1}",
+                nameof(CKColumns),
+                "ctor",
+                $"{nameof(columns)}[(Table)Columns.Parent.{nameof(xxx.ContainsMerged)} = {xxx.ContainsMerged}]");
+
+            _columns = columns ?? throw Crash.LogThrow(
+                new ArgumentNullException(nameof(columns)));
+
+            //cant use CKTable because no index.
+
+            if (xxx.ContainsMerged)
+            {
+                throw Crash.LogThrow(
+                    new InvalidOperationException("Cannot access individual columns in this collection because the table has mixed cell widths."));
+            }
+
+            try
+            {
+                _ = columns.Cast<Word.Column>().Any();
+            }
+            catch (Exception ex)
+            {
+                throw Crash.LogThrow(ex);
+            }
         }
 
         public bool ContainsMerged => _columns.Cast<Word.Column>()
@@ -38,7 +64,17 @@ namespace CoverageKiller2
         {
             for (int i = 1; i <= _columns.Count; i++)
             {
-                yield return new CKColumn(_columns[i]);
+                CKColumn col = default;
+                try
+                {
+                    col = new CKColumn(_columns[i]);
+                }
+                catch (Exception ex)
+                {
+                    throw Crash.LogThrow(
+                        new InvalidOperationException($"How did you get here? This object should not init?", ex));
+                }
+                yield return col;
             }
         }
 

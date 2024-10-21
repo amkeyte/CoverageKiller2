@@ -1,5 +1,4 @@
-﻿using CoverageKiller2;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using Word = Microsoft.Office.Interop.Word;
@@ -25,7 +24,7 @@ namespace CoverageKiller2
                 {
                     throw new ArgumentOutOfRangeException(nameof(index), "Index must be between 1 and the number of tables.");
                 }
-                return new CKTable(_tables[index]); // Assuming CKTable wraps a Word.Table instance
+                return new CKTable(_tables[index], index);
             }
         }
 

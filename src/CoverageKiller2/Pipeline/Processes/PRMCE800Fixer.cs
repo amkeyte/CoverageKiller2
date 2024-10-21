@@ -1,4 +1,5 @@
 ﻿using CoverageKiller2.Pipeline.WordHelpers;
+using Microsoft.Office.Interop.Word;
 using Serilog;
 using System;
 using System.Linq;
@@ -58,26 +59,29 @@ namespace CoverageKiller2.Pipeline.Processes
 
 
             Log.Debug("*** fix floor section heading table.");
-            foreach (var table in CKDoc.CKTables
-                .Where(t => t.RowMatches(1, _SS.FloorSectionHeadingTable_F)))
+            foreach (var table in CKDoc.Tables
+                .Where(t => t.RowMatches(1, _SS.FloorSectionHeadingTable_F))
+                .Reverse())
                 FixFloorSectionHeadingTable(table);
 
             Log.Debug("*** remove grid notes table.");
-            foreach (var table in CKDoc.CKTables
+            foreach (var table in CKDoc.Tables
                 .Where(t => t.RowMatches(1, _SS.FloorSectionGridNotesTable_F))
                 .Reverse())
                 table.Delete();
 
 
             Log.Debug("*** remove extra critical point fields: ULPower, DL Loss");
-            foreach (var table in CKDoc.CKTables
-                .Where(t => t.RowMatches(2, _SS.FloorSectionCriticalPointReportTable_F)))
+            foreach (var table in CKDoc.Tables
+                .Where(t => t.RowMatches(2, _SS.FloorSectionCriticalPointReportTable_F))
+                .Reverse())
                 FixFloorSectionCriticalPointReportTable(table);
 
 
             Log.Debug("*** remove extra area fields: ULPower, DL Loss");
-            foreach (var table in CKDoc.CKTables
-                .Where(t => t.RowMatches(2, _SS.FloorSectionAreaReportTable_F)))
+            foreach (var table in CKDoc.Tables
+                .Where(t => t.RowMatches(2, _SS.FloorSectionAreaReportTable_F))
+                .Reverse())
                 FixFloorSectionAreaReportTable(table);
 
 
@@ -95,12 +99,18 @@ namespace CoverageKiller2.Pipeline.Processes
 
         private void FixFloorSectionCriticalPointReportTable(CKTable fixer)
         {
+            Log.Debug("TRACE => {class}.{func}() = {pVal1}",
+               nameof(PRMCE800Fixer),
+               nameof(FixFloorSectionCriticalPointReportTable),
+               $"{nameof(fixer)}[Table.{nameof(Index)} = {fixer.Index}]" +
+               $"[{nameof(fixer.ContainsMerged)} = {fixer.ContainsMerged}]");
+
             Log.Debug("** Fixing table: {_SSID}", nameof(_SS.FloorSectionCriticalPointReportTable_F));
-            fixer.Columns
+            fixer.Columns.Reverse()
                  .First(col => col.Cells[2].Text == _SS.FloorSectionCriticalPointReportTable_ULPower)
                  .Delete();
 
-            fixer.Columns
+            fixer.Columns.Reverse()
                  .First(col => col.Cells[2].Text == _SS.FloorSectionCriticalPointReportTable_DLLoss)
                  .Delete();
 
@@ -121,14 +131,25 @@ namespace CoverageKiller2.Pipeline.Processes
         }
         private static void FixFloorSectionHeadingTable(CKTable fixer)
         {
+            Log.Debug("TRACE => {func}({param1} = {pVal1})",
+                nameof(FixFloorSectionHeadingTable),
+                nameof(fixer),
+                $"Table[{fixer.Index}]");
+
+            Log.Debug("** Fixing table: {_SSID}", nameof(_SS.FloorSectionHeadingTable_F));
+
             var headersToRemove = _SS.FloorSectionHeadingTable_RemoveCols
                 .Split(new[] { '\t' }, StringSplitOptions.RemoveEmptyEntries)
-                .Select(s => NormalizeMatchString(s));
+                .Select(s => NormalizeMatchString(s))
+                .Reverse()
+                .ToList();
+
+
 
             fixer.Columns
                 .Where(col => headersToRemove
                     .Contains(NormalizeMatchString(col.Cells[1].Text)))
-                .ToList().ForEach(col => col.Delete());
+                .Reverse().ToList().ForEach(col => col.Delete());
 
             fixer.SetCell(
                 _SS.FloorSectionHeadingTable_Band_F,
@@ -174,8 +195,15 @@ namespace CoverageKiller2.Pipeline.Processes
             return (part1, part2);
         }
 
+
+        private static int _dbgCounter_NormalizeMatchString = 0;
         private static string NormalizeMatchString(string input)
         {
+            //Log.Debug("Called ({_dbgCounter_NormalizeMatchString}): {nms}(input: {input})",
+            //    _dbgCounter_NormalizeMatchString++,
+            //    nameof(NormalizeMatchString),
+            //    input);
+
             return Regex.Replace(input, @"[\x07\s]+", string.Empty);
         }
     }

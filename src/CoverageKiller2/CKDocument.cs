@@ -38,11 +38,10 @@ namespace CoverageKiller2
         /// <summary>
         /// Gets the collection of tables in the Word document.
         /// </summary>
+
+
+
         public CKTables Tables => new CKTables(WordDoc.Tables);
-
-
-
-        public CKTables CKTables { get; private set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CKDocument"/> class, 
@@ -53,7 +52,6 @@ namespace CoverageKiller2
         {
             _fullPath = fullPath;
             WordDoc = Open(fullPath);
-            CKTables = new CKTables(this);
             Log.Debug("Registering BeforeClose event for document {DocName}", WordDoc.FullName);
             WordDoc.Application.DocumentBeforeClose += OnDocumentBeforeClose;
         }
@@ -68,7 +66,6 @@ namespace CoverageKiller2
             WordDoc = wordDoc;
             _fullPath = WordDoc.FullName;
             documentOpened = true;
-            CKTables = new CKTables(this);
 
             Log.Debug("Registering BeforeClose event for document {DocName}", WordDoc.FullName);
             WordDoc.Application.DocumentBeforeClose += OnDocumentBeforeClose;
