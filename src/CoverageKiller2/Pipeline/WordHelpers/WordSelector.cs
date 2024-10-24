@@ -42,7 +42,7 @@ namespace CoverageKiller2.Pipeline.WordHelpers
         private static void SetSelectionToView(CKDocument ckDoc, Word.WdSeekView seekView)
         {
             ckDoc.Activate();
-            var activeWindow = ckDoc.WordDoc.ActiveWindow;
+            var activeWindow = ckDoc.COMObject.ActiveWindow;
 
             // Ensure the active window is set up correctly for selection
             CloseSplitPaneIfOpen(activeWindow);

@@ -1,5 +1,4 @@
-﻿using Serilog;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,72 +8,69 @@ namespace CoverageKiller2
 {
     public class CKColumns : IEnumerable<CKColumn>
     {
-        private Word.Columns _columns;
-        // Constructor to initialize CKColumns with Word.Columns
-        public CKColumns(Word.Columns columns)
+        public static CKColumns Create(CKTable parent)
         {
-            var xxx = new CKCells(((Word.Table)columns.Parent).Range.Cells);
+            return new CKColumns(parent);
+        }
+        internal Word.Columns COMObject => Parent.COMObject.Columns;
 
-            Log.Debug("TRACE => {class}.{func}() = {pVal1}",
-                nameof(CKColumns),
-                "ctor",
-                $"{nameof(columns)}[(Table)Columns.Parent.{nameof(xxx.ContainsMerged)} = {xxx.ContainsMerged}]");
+        public CKColumns(CKTable parent)
+        {
+            Parent = parent;
+            //var xxx = new CKCells(((Word.Table)columns.Parent).Range.Cells);
 
-            _columns = columns ?? throw Crash.LogThrow(
-                new ArgumentNullException(nameof(columns)));
+            //Log.Debug("TRACE => {class}.{func}() = {pVal1}",
+            //    nameof(CKColumns),
+            //    "ctor",
+            //    $"{nameof(columns)}[(Table)Columns.Parent.{nameof(xxx.ContainsMerged)} = {xxx.ContainsMerged}]");
+
+            //_columns = columns ?? throw LH.LogThrow(
+            //    new ArgumentNullException(nameof(columns)));
 
             //cant use CKTable because no index.
 
-            if (xxx.ContainsMerged)
-            {
-                throw Crash.LogThrow(
-                    new InvalidOperationException("Cannot access individual columns in this collection because the table has mixed cell widths."));
-            }
+            //if (xxx.ContainsMerged)
+            //{
+            //    throw Crash.LogThrow(
+            //        new InvalidOperationException("Cannot access individual columns in this collection because the table has mixed cell widths."));
+            //}
+
 
             try
             {
-                _ = columns.Cast<Word.Column>().Any();
+                //hack for now until merged columns are supported.
+                _ = COMObject.Cast<Word.Column>().Any();
             }
             catch (Exception ex)
             {
-                throw Crash.LogThrow(ex);
+                throw LH.LogThrow(ex);
             }
         }
 
-        public bool ContainsMerged => _columns.Cast<Word.Column>()
-            .Any(col => new CKColumn(col).ContainsMerged);
 
         // Property to get the total number of columns
-        public int Count => _columns.Count;
+        public int Count => COMObject.Count;
 
-        // Access a CKColumn by its index (1-based index in Word)
+        public CKTable Parent { get; private set; }
+
+        // Access a CKColumn by its current index (1-based index in Word)
         public CKColumn this[int index]
         {
             get
             {
-                if (index < 1 || index > _columns.Count)
+                if (index < 1 || index > COMObject.Count)
                     throw new ArgumentOutOfRangeException(nameof(index), "Index must be between 1 and Count.");
 
-                return new CKColumn(_columns[index]);
+                return CKColumn.Create(this, index);
             }
         }
 
         // IEnumerable implementation to allow foreach enumeration
         public IEnumerator<CKColumn> GetEnumerator()
         {
-            for (int i = 1; i <= _columns.Count; i++)
+            for (int index = 1; index <= Count; index++)
             {
-                CKColumn col = default;
-                try
-                {
-                    col = new CKColumn(_columns[i]);
-                }
-                catch (Exception ex)
-                {
-                    throw Crash.LogThrow(
-                        new InvalidOperationException($"How did you get here? This object should not init?", ex));
-                }
-                yield return col;
+                yield return this[index];
             }
         }
 

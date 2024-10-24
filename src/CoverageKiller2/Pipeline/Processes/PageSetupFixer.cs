@@ -17,8 +17,8 @@ namespace CoverageKiller2.Pipeline.Processes
         public override void Process()
         {
             Log.Information("Fixing PageSetup");
-            CopyPageSetup(template.WordDoc, CKDoc.WordDoc);
-            CopyCompleteStyles(template.WordDoc, CKDoc.WordDoc);
+            CopyPageSetup(template.COMObject, CKDoc.COMObject);
+            CopyCompleteStyles(template.COMObject, CKDoc.COMObject);
 
             WordSelector.MainDocument(CKDoc);
 

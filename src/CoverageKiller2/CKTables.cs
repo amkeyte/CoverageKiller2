@@ -7,14 +7,24 @@ namespace CoverageKiller2
 {
     public class CKTables : IEnumerable<CKTable>
     {
-        private readonly Word.Tables _tables;
-
-        public CKTables(Word.Tables tables)
+        internal static CKTables Create(CKDocument parent)
         {
-            _tables = tables ?? throw new ArgumentNullException(nameof(tables));
+            parent = parent ?? throw new ArgumentNullException(nameof(parent));
+            return new CKTables(parent);
+        }
+        internal CKDocument Parent { get; private set; }
+
+        //there is only one Tables property, so calling back to it instead of
+        //storing a reference every time is fine.
+        internal Word.Tables COMObject => Parent.COMObject.Tables;
+
+        private CKTables(CKDocument parent)
+        {
+            Parent = parent;
+
         }
 
-        public int Count => _tables.Count;
+        public int Count => COMObject.Count;
 
         public CKTable this[int index]
         {
@@ -24,7 +34,7 @@ namespace CoverageKiller2
                 {
                     throw new ArgumentOutOfRangeException(nameof(index), "Index must be between 1 and the number of tables.");
                 }
-                return new CKTable(_tables[index], index);
+                return CKTable.Create(this, index);
             }
         }
 

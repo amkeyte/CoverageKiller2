@@ -18,7 +18,7 @@ namespace CoverageKiller2.Pipeline.Processes
         {
             Log.Information("Fixing Footer.");
             var wordApp = CKDoc.WordApp;
-            template.WordDoc.SelectFooterWholeStory(); //needs to be moved out to CKDocument, not an extension to Word.Document.
+            template.COMObject.SelectFooterWholeStory(); //needs to be moved out to CKDocument, not an extension to Word.Document.
             wordApp.Selection.Copy();
 
             CKDoc.Activate();
@@ -27,7 +27,7 @@ namespace CoverageKiller2.Pipeline.Processes
                 Which: Word.WdGoToDirection.wdGoToAbsolute,
                 Count: 1);
 
-            CKDoc.WordDoc.SelectFooterWholeStory();
+            CKDoc.COMObject.SelectFooterWholeStory();
             wordApp.Selection.Delete();
             wordApp.Selection.PasteAndFormat(Word.WdRecoveryType.wdFormatOriginalFormatting);
 

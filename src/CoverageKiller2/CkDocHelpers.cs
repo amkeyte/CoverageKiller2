@@ -93,7 +93,7 @@ namespace CoverageKiller2
             template.Close();
             Log.Information("Cleaning up.");
             ckDoc.Activate();
-            ckDoc.WordDoc.ActiveWindow.ActivePane.View.SeekView = Word.WdSeekView.wdSeekMainDocument;
+            ckDoc.COMObject.ActiveWindow.ActivePane.View.SeekView = Word.WdSeekView.wdSeekMainDocument;
         }
 
         /// <summary>
@@ -110,7 +110,7 @@ namespace CoverageKiller2
                 //{ new PageSetupFixer(template)  },
                 { new HeaderFixer(template) },
                 { new FooterFixer(template) },
-                { new PRMCE800Fixer() },
+                { new PRMCEFixer() },
                 //{ new ResetUserState() },
             };
             pipeline.Run();
@@ -119,7 +119,7 @@ namespace CoverageKiller2
             template.Close();
             Log.Information("Cleaning up.");
             ckDoc.Activate();
-            ckDoc.WordDoc.ActiveWindow.ActivePane.View.SeekView = Word.WdSeekView.wdSeekMainDocument;
+            ckDoc.COMObject.ActiveWindow.ActivePane.View.SeekView = Word.WdSeekView.wdSeekMainDocument;
         }
 
         //public static void FixNativeReport(Word.Document doc)

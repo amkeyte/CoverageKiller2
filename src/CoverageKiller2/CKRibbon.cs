@@ -112,7 +112,7 @@ namespace CoverageKiller2
             }
             catch (Exception ex)
             {
-                throw Crash.LogThrow(
+                throw LH.LogThrow(
                     new Exception($"Fatal Error during {nameof(OnFix_PRMCE_PCTELDoc800Button)}", ex));
 
             }

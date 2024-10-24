@@ -1,61 +1,46 @@
-﻿using Serilog;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using Word = Microsoft.Office.Interop.Word;
 
 namespace CoverageKiller2
 {
-    public class CKCells : IEnumerable<CKCell>
+    public abstract class CKCells : IEnumerable<CKCell>
     {
-        private Word.Cells _cells;
-
-
-        // Constructor to initialize CKCells with Word.Cells
-        public CKCells(Word.Cells cells)
+        public static CKCells Create(CKColumn parent)
         {
-            _cells = cells ?? throw new ArgumentNullException(nameof(cells));
+            return new CKColumnCells(parent);
         }
 
-        // Property to get the total number of cells
-        public int Count => _cells.Count;
-
-        public bool ContainsMerged
+        public static CKCells Create(CKRow parent)
         {
-            get
-            {
-                var isMerged = _cells.Cast<Word.Cell>().Any(c => c.IsMerged());
-
-                Log.Debug("TRACE => {class}.{prop}.get()",
-                nameof(CKCells),
-                nameof(ContainsMerged),
-               $"Return[{nameof(isMerged)} = {isMerged}]");
-
-                return isMerged;
-            }
+            return new CKRowCells(parent);
+        }
+        internal static CKCells Create(CKTable parent)
+        {
+            return new CKTableCells(parent);
         }
 
 
 
-        // Access a CKCell by its index (1-based index in Word)
+        public abstract Word.Cells COMObject { get; }
+        public int Count => COMObject.Count;
         public CKCell this[int index]
         {
             get
             {
-                if (index < 1 || index > _cells.Count)
+                if (index < 1 || index > Count)
                     throw new ArgumentOutOfRangeException(nameof(index), "Index must be between 1 and Count.");
 
-                return new CKCell(_cells[index]);
+                return CKCell.Create(this, index);// new CKCell(COMObject[index]);
             }
         }
 
-        // IEnumerable implementation to allow foreach enumeration
         public IEnumerator<CKCell> GetEnumerator()
         {
-            for (int i = 1; i <= _cells.Count; i++)
+            for (int i = 1; i <= Count; i++)
             {
-                yield return new CKCell(_cells[i]);
+                yield return this[i];
             }
         }
 
@@ -64,6 +49,40 @@ namespace CoverageKiller2
         {
             return GetEnumerator();
         }
+    }
+    internal class CKColumnCells : CKCells
+    {
+        public CKColumnCells(CKColumn parent)
+        {
+            Parent = parent;
+        }
+
+        public override Word.Cells COMObject => Parent.COMObject.Cells;
+        public CKColumn Parent { get; set; }
 
     }
+    internal class CKRowCells : CKCells
+    {
+        public CKRowCells(CKRow parent)
+        {
+            Parent = parent;
+        }
+
+        public override Word.Cells COMObject => Parent.COMObject.Cells;
+        public CKRow Parent { get; private set; }
+        public int Count => COMObject.Count;
+    }
+    internal class CKTableCells : CKCells
+    {
+        public CKTableCells(CKTable parent)
+        {
+            Parent = parent;
+        }
+
+        public override Word.Cells COMObject => Parent.COMObject.Range.Cells;
+        public CKTable Parent { get; set; }
+    }
+
+
+
 }

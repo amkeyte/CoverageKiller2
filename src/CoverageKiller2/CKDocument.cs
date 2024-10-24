@@ -18,17 +18,17 @@ namespace CoverageKiller2
         /// <summary>
         /// Gets the associated Word document.
         /// </summary>
-        public Word.Document WordDoc { get; private set; }
+        public Word.Document COMObject { get; private set; }
 
         /// <summary>
         /// Gets the Word application instance that is managing this document.
         /// </summary>
-        public Word.Application WordApp => WordDoc.Application;
+        public Word.Application WordApp => COMObject.Application;
 
         /// <summary>
         /// Gets the content of the Word document as a <see cref="Word.Range"/>.
         /// </summary>
-        public Word.Range Content => WordDoc.Content;
+        public Word.Range Content => COMObject.Content;
 
         /// <summary>
         /// Gets the full file path of the Word document.
@@ -41,7 +41,7 @@ namespace CoverageKiller2
 
 
 
-        public CKTables Tables => new CKTables(WordDoc.Tables);
+        public CKTables Tables => CKTables.Create(this);
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CKDocument"/> class, 
@@ -51,9 +51,9 @@ namespace CoverageKiller2
         public CKDocument(string fullPath)
         {
             _fullPath = fullPath;
-            WordDoc = Open(fullPath);
-            Log.Debug("Registering BeforeClose event for document {DocName}", WordDoc.FullName);
-            WordDoc.Application.DocumentBeforeClose += OnDocumentBeforeClose;
+            COMObject = Open(fullPath);
+            Log.Debug("Registering BeforeClose event for document {DocName}", COMObject.FullName);
+            COMObject.Application.DocumentBeforeClose += OnDocumentBeforeClose;
         }
 
         /// <summary>
@@ -63,12 +63,12 @@ namespace CoverageKiller2
         /// <param name="wordDoc">The existing Word document instance.</param>
         public CKDocument(Word.Document wordDoc)
         {
-            WordDoc = wordDoc;
-            _fullPath = WordDoc.FullName;
+            COMObject = wordDoc;
+            _fullPath = COMObject.FullName;
             documentOpened = true;
 
-            Log.Debug("Registering BeforeClose event for document {DocName}", WordDoc.FullName);
-            WordDoc.Application.DocumentBeforeClose += OnDocumentBeforeClose;
+            Log.Debug("Registering BeforeClose event for document {DocName}", COMObject.FullName);
+            COMObject.Application.DocumentBeforeClose += OnDocumentBeforeClose;
         }
 
         /// <summary>
@@ -142,7 +142,7 @@ namespace CoverageKiller2
         /// <summary>
         /// Activates the Word document in the application.
         /// </summary>
-        public void Activate() => WordDoc.Activate();
+        public void Activate() => COMObject.Activate();
 
         /// <summary>
         /// Closes the Word document. Optionally saves changes.
@@ -150,7 +150,7 @@ namespace CoverageKiller2
         /// <param name="saveChanges">If true, saves the changes before closing.</param>
         public virtual void Close(bool saveChanges = false)
         {
-            WordDoc.Close(saveChanges);
+            COMObject.Close(saveChanges);
         }
 
         /// <summary>
@@ -165,7 +165,7 @@ namespace CoverageKiller2
             Log.Information("Closed document {DocName}", wordDoc.FullName);
             Log.Debug("Unregistering BeforeClosed event for {DocName}", wordDoc.FullName);
 
-            WordDoc.Application.DocumentBeforeClose -= OnDocumentBeforeClose;
+            COMObject.Application.DocumentBeforeClose -= OnDocumentBeforeClose;
         }
 
 
@@ -176,13 +176,13 @@ namespace CoverageKiller2
         /// <exception cref="ArgumentOutOfRangeException">Thrown when the section index is out of range.</exception>
         public void DeleteSection(int sectionIndex)
         {
-            if (sectionIndex < 1 || sectionIndex > WordDoc.Sections.Count)
+            if (sectionIndex < 1 || sectionIndex > COMObject.Sections.Count)
             {
                 throw new ArgumentOutOfRangeException(nameof(sectionIndex), "Section index is out of range.");
             }
 
             // Get the section to delete
-            Word.Section sectionToDelete = WordDoc.Sections[sectionIndex];
+            Word.Section sectionToDelete = COMObject.Sections[sectionIndex];
 
             // Delete the section
             sectionToDelete.Range.Delete();

@@ -11,36 +11,45 @@ namespace CoverageKiller2
     /// </summary>
     public class CKTable
     {
-        private readonly Word.Table _table;
-        private bool _tableDeleted = false;
-
-        public Word.Table WordTable
+        internal static CKTable Create(CKTables parent, int tableIndex)
         {
-            get
-            {
-                if (_tableDeleted) throw new NullReferenceException("The table has been deleted");
-                if (_table is null) throw new NullReferenceException("A reference to the table does not exist. The CKTable wrapper may be out of sync.");
-                return _table;
-            }
+            return new CKTable(parent, tableIndex);
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CKTable"/> class.
+        /// do something when the table has been deleted??
         /// </summary>
-        /// <param name="table">The Word table to wrap.</param>
-        /// <exception cref="ArgumentNullException">Thrown when the provided table is null.</exception>
-        public CKTable(Word.Table table, int index)
+        internal Word.Table COMObject { get; private set; }
+
+        //the index might change if the table is altered, but pulling from parent index of will 
+        // always return a current value.
+        public int Index => Parent.ToList().IndexOf(this);
+
+
+        private bool _tableDeleted = false;
+
+
+
+
+        private CKTable(CKTables parent, int index)
         {
-            _table = table ?? throw new ArgumentNullException(nameof(table), "Table cannot be null.");
-            Index = index;
+            //here we store a reference to the com table itself in case
+            // the document moves it in the index.
+            // saving by index and repeatedly calling by that would resuly
+            //in accessing the wrong table.
+            // attempts to access this CKTable after it's deleted is an error.
+            //Subsequent calls to a Tables[x] will return whatever table is indexed by x,
+            //which is possibly not the same every time.
+            Parent = parent;
+            COMObject = Parent.COMObject[index];
         }
 
-        public bool ContainsMerged => Rows.ContainsMerged;
-        public CKColumns Columns => new CKColumns(_table.Columns);
+        //public bool ContainsMerged => Rows.ContainsMerged;
+        public CKColumns Columns => CKColumns.Create(this);
 
-        public CKRows Rows => new CKRows(_table.Rows);
+        public CKRows Rows => CKRows.Create(this);
 
-        public object Index { get; private set; }
+        public CKTables Parent { get; private set; }
 
         /// <summary>
         /// Sets the value of a specified cell in the table.
@@ -61,13 +70,13 @@ namespace CoverageKiller2
             }
 
             // Check if the specified row index is valid
-            if (rowIndex < 1 || rowIndex > WordTable.Rows.Count)
+            if (rowIndex < 1 || rowIndex > COMObject.Rows.Count)
             {
                 throw new ArgumentOutOfRangeException(nameof(rowIndex), "Row index is out of range.");
             }
 
             // Set the new value in the specified cell
-            Word.Cell cell = WordTable.Cell(rowIndex, columnIndex);
+            Word.Cell cell = COMObject.Cell(rowIndex, columnIndex);
             cell.Range.Text = newValue; // Replace the cell's text
         }
 
@@ -79,9 +88,9 @@ namespace CoverageKiller2
         private int FindColumnIndexByHeading(string heading)
         {
             // Loop through the columns in the first row to find the heading
-            for (int i = 1; i <= WordTable.Columns.Count; i++)
+            for (int i = 1; i <= COMObject.Columns.Count; i++)
             {
-                string cellText = WordTable.Cell(1, i).Range.Text.Trim('\r', '\a'); // Get the header text in the first row
+                string cellText = COMObject.Cell(1, i).Range.Text.Trim('\r', '\a'); // Get the header text in the first row
 
                 // Compare ignoring case
                 if (cellText.Equals(heading, StringComparison.OrdinalIgnoreCase))
@@ -104,9 +113,9 @@ namespace CoverageKiller2
         {
             Log.Debug("Setting Table width");
 
-            WordTable.PreferredWidthType = Word.WdPreferredWidthType.wdPreferredWidthPercent;
-            WordTable.PreferredWidth = 100f;
-            Log.Debug("Result {Type}, {Width}", WordTable.PreferredWidthType, WordTable.PreferredWidth);
+            COMObject.PreferredWidthType = Word.WdPreferredWidthType.wdPreferredWidthPercent;
+            COMObject.PreferredWidth = 100f;
+            Log.Debug("Result {Type}, {Width}", COMObject.PreferredWidthType, COMObject.PreferredWidth);
         }
 
         /// <summary>
@@ -118,21 +127,21 @@ namespace CoverageKiller2
             Log.Debug("TRACE => {class}.{func}() = {pVal1}",
                nameof(CKTable),
                nameof(Delete),
-               $"{nameof(CKTable)}[{nameof(Index)} = {Index}]" +
-               $"[{nameof(ContainsMerged)} = {ContainsMerged}]");
-            // Remove the table from the document
-            WordTable.Delete();
+               $"{nameof(CKTable)}[{nameof(Index)} = {Index}]");// +
+                                                                //$"[{nameof(ContainsMerged)} = {ContainsMerged}]");////
+                                                                // Remove the table from the document
+            COMObject.Delete();
             _tableDeleted = true;
         }
 
         public bool RowMatches(int oneBasedRowIndex, string target)
         {
-            if (oneBasedRowIndex <= 0 || oneBasedRowIndex > WordTable.Rows.Count)
+            if (oneBasedRowIndex <= 0 || oneBasedRowIndex > COMObject.Rows.Count)
                 throw new ArgumentOutOfRangeException(nameof(oneBasedRowIndex), "Invalid row index.");
 
             // Combine all cell values in the row into one string
             var rowValues = string.Concat(
-                WordTable.Rows[oneBasedRowIndex].Cells
+                COMObject.Rows[oneBasedRowIndex].Cells
                 .Cast<Word.Cell>()
                 .Select(cell => cell.Range.Text));
 
@@ -151,5 +160,30 @@ namespace CoverageKiller2
         {
             return Regex.Replace(input, @"[\x07\s]+", string.Empty);
         }
+
+
+        public CKCell Cell(int row, int column)
+        {
+
+            return CKCell.Create(this, row, column);// new CKCell(COMObject.Cell(row, column));
+        }
+
+        //shameless hack
+
+        public void AddAndMergeFirstRow(string text = "")
+        {
+            // Step 1: Add a new row at the top (first position)
+            var newRow = Rows.Add(Rows[1]);
+
+            // Step 2: Merge the cells in the new first row across all columns
+            int numberOfColumnsToMerge = Columns.Count; // Get the total number of columns
+            var firstCellInRow = Cell(1, 1); // First cell in the new first row
+            var lastCellInRowToMerge = Cell(1, numberOfColumnsToMerge); // Last cell in the new first row
+
+            // Merge the cells in the new first row from column 1 to the last column
+            firstCellInRow.Merge(lastCellInRowToMerge);
+            Cell(1, 1).Text = text;
+        }
+
     }
 }
