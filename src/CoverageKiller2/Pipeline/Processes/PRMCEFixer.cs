@@ -95,26 +95,54 @@ namespace CoverageKiller2.Pipeline.Processes
 
         private void FixFloorSectionCriticalPointReportTable(CKTable fixer)
         {
-            Log.Debug("** Fixing table: {_SSID}", nameof(_SS.FloorSectionCriticalPointReportTable_F));
-
-
-            Log.Debug(LH.TraceCaller(LH.PP.Enter, null,
+            Log.Debug(LH.TraceCaller(LH.PP.Enter, " ** ",
                 nameof(PRMCEFixer), nameof(FixFloorSectionCriticalPointReportTable),
-                $"{nameof(fixer)}({nameof(CKTable)}.{nameof(fixer.Index)}) --> ", fixer.Index));
+                $"{nameof(fixer)}({nameof(CKTable)}.{nameof(fixer.Index)}) --> ", fixer._lastIndex));
 
 
-            fixer.Rows.First().Delete();
+            try
+            {
+                fixer.Rows.First().Delete();
+            }
+            catch (Exception ex)
+            {
+                LH.LogThrow(ex);
+            }
 
-            fixer.Columns.Reverse()
-                 .First(col => col.Cells[1].Text == _SS.FloorSectionCriticalPointReportTable_ULPower)
-                 .Delete();
+            try
+            {
+                fixer.Columns.Reverse()
+                     .First(col => NormalizeMatchStrings(col.Cells[1].Text, _SS.FloorSectionCriticalPointReportTable_ULPower))
+                     .Delete();
 
-            fixer.Columns.Reverse()
-                 .First(col => col.Cells[1].Text == _SS.FloorSectionCriticalPointReportTable_DLLoss)
-                 .Delete();
+            }
+            catch (Exception ex)
+            {
+                LH.LogThrow(ex);
+            }
 
-            fixer.AddAndMergeFirstRow("Critical Points");
-            fixer.MakeFullPage();
+
+            try
+            {
+
+                fixer.Columns.Reverse()
+                     .First(col => NormalizeMatchStrings(col.Cells[1].Text, _SS.FloorSectionCriticalPointReportTable_DLLoss))
+                     .Delete();
+            }
+            catch (Exception ex)
+            {
+                LH.LogThrow(ex);
+            }
+            try
+            {
+
+                fixer.AddAndMergeFirstRow("Critical Points");
+                fixer.MakeFullPage();
+            }
+            catch (Exception ex)
+            {
+                LH.LogThrow(ex);
+            }
         }
         private void FixFloorSectionAreaReportTable(CKTable fixer)
         {
@@ -131,12 +159,12 @@ namespace CoverageKiller2.Pipeline.Processes
         }
         private void FixFloorSectionHeadingTable(CKTable fixer)
         {
-            Log.Debug("TRACE => {func}({param1} = {pVal1})",
-                nameof(FixFloorSectionHeadingTable),
-                nameof(fixer),
-                $"Table[{fixer.Index}]");
+            //Log.Debug("TRACE => {func}({param1} = {pVal1})",
+            //    nameof(FixFloorSectionHeadingTable),
+            //    nameof(fixer),
+            //    $"Table[{fixer.Index}]");
 
-            Log.Debug("** Fixing table: {_SSID}", nameof(_SS.FloorSectionHeadingTable_F));
+            //Log.Debug("** Fixing table: {_SSID}", nameof(_SS.FloorSectionHeadingTable_F));
 
             var headersToRemove = _SS.FloorSectionHeadingTable_RemoveCols
                 .Split(new[] { '\t' }, StringSplitOptions.RemoveEmptyEntries)
@@ -205,6 +233,10 @@ namespace CoverageKiller2.Pipeline.Processes
             //    input);
 
             return Regex.Replace(input, @"[\x07\s]+", string.Empty);
+        }
+        private bool NormalizeMatchStrings(string str1, string str2)
+        {
+            return NormalizeMatchString(str1) == NormalizeMatchString(str2);
         }
     }
 }

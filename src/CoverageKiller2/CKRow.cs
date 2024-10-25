@@ -4,6 +4,8 @@ namespace CoverageKiller2
 {
     public class CKRow
     {
+        internal int _lastIndex;
+
         internal static CKRow Create(CKRows parent, int index)
 
         {
@@ -21,7 +23,15 @@ namespace CoverageKiller2
         public CKCells Cells => CKCells.Create(this);
         //public bool ContainsMerged => Cells.ContainsMerged;
         // Property to access row's index
-        public int Index => COMObject.Index;
+        public int Index
+        {
+            get
+            {
+                _lastIndex = COMObject.Index;
+                return _lastIndex;
+            }
+        }
+
 
 
 
@@ -50,17 +60,20 @@ namespace CoverageKiller2
         // Deletes the row
         public void Delete()
         {
-            Log.Debug(LH.TraceCaller(LH.PP.Enter, "Entering with test points.",
+            Log.Debug(LH.TraceCaller(LH.PP.Enter, null,
                 nameof(CKRow), nameof(Delete),
-                $"{nameof(COMObject)}({nameof(CKCell)}.{nameof(CKCell.RowIndex)}) --> ", Cells[1].RowIndex,
-                $"{nameof(COMObject)}({nameof(CKCell)}[1].{nameof(CKCell.Text)}) --> ", Cells[1].Text));
+                nameof(Index), _lastIndex));
+
+
+            //$"{nameof(COMObject)}({nameof(CKCell)}.{nameof(CKCell.RowIndex)}) --> ", Cells[1].RowIndex,
+            //$"{nameof(COMObject)}({nameof(CKCell)}[1].{nameof(CKCell.Text)}) --> ", Cells[1].Text));
 
             COMObject.Delete();
 
-            Log.Debug(LH.TraceCaller(LH.PP.Result, "After delete",
-                nameof(CKRow), nameof(Delete),
-                $"{nameof(COMObject)}({nameof(CKCell)}.{nameof(CKCell.RowIndex)}) --> ", Cells[1].RowIndex,
-                $"{nameof(COMObject)}({nameof(CKCell)}[1].{nameof(CKCell.Text)}) --> ", Cells[1].Text));
+            //Log.Debug(LH.TraceCaller(LH.PP.Result, "After delete",
+            //    nameof(CKRow), nameof(Delete),
+            //    $"{nameof(COMObject)}({nameof(CKCell)}.{nameof(CKCell.RowIndex)}) --> ", Cells[1].RowIndex,
+            //    $"{nameof(COMObject)}({nameof(CKCell)}[1].{nameof(CKCell.Text)}) --> ", Cells[1].Text));
 
         }
 

@@ -23,16 +23,34 @@ namespace CoverageKiller2
 
         //the index might change if the table is altered, but pulling from parent index of will 
         // always return a current value.
-        public int Index => Parent.ToList().IndexOf(this);
+        internal int _lastIndex;
+        public int Index
+        {
+            get
+            {
+                Log.Debug(LH.TraceCaller(LH.PP.Enter, null,
+                    nameof(CKTable), nameof(Index)));
+
+                _lastIndex = Parent.ToList().IndexOf(this);
+
+                Log.Debug(LH.TraceCaller(LH.PP.PropertyGet, null,
+                    nameof(CKTable), nameof(Index),
+                    $"{LH.ObjectPath(nameof(Parent), "ToList()", "IndexOf(this)")} --> ", _lastIndex));
+
+                return _lastIndex;
+            }
+        }
 
 
-        private bool _tableDeleted = false;
 
 
 
 
         private CKTable(CKTables parent, int index)
         {
+            _lastIndex = index;
+
+
             //here we store a reference to the com table itself in case
             // the document moves it in the index.
             // saving by index and repeatedly calling by that would resuly
@@ -47,9 +65,51 @@ namespace CoverageKiller2
         //public bool ContainsMerged => Rows.ContainsMerged;
         public CKColumns Columns => CKColumns.Create(this);
 
-        public CKRows Rows => CKRows.Create(this);
+        public CKRows Rows
+        {
+            get
+            {
+                Log.Debug(LH.TraceCaller(LH.PP.Enter, null,
+                    nameof(CKTable), nameof(Rows)));
 
-        public CKTables Parent { get; private set; }
+                var result = CKRows.Create(this);
+
+                Log.Debug(LH.TraceCaller(LH.PP.PropertyGet, null,
+                    nameof(CKTable), nameof(Rows),
+                    $"{LH.ObjectPath(nameof(Rows))} --> ", result));
+
+                return result;
+            }
+        }
+        //=> CKRows.Create(this);
+
+        private CKTables _parent;
+        public CKTables Parent
+        {
+            get
+            {
+                Log.Debug(LH.TraceCaller(LH.PP.Enter, null,
+                    nameof(CKTable), nameof(Parent)));
+
+                var result = _parent;
+
+                Log.Debug(LH.TraceCaller(LH.PP.PropertyGet, null,
+                    nameof(CKTable), nameof(Parent),
+                    $"{nameof(Parent)} --> ", result));
+
+                return result;
+            }
+            private set
+            {
+                var setValue = value;
+                Log.Debug(LH.TraceCaller(LH.PP.PropertySet, null,
+                    nameof(CKTable), nameof(Parent),
+                    $"{nameof(Parent)} --> ", setValue));
+
+                _parent = value;
+
+            }
+        }
 
         /// <summary>
         /// Sets the value of a specified cell in the table.
@@ -111,11 +171,11 @@ namespace CoverageKiller2
         /// </remarks>
         public void MakeFullPage()
         {
-            Log.Debug("Setting Table width");
+            //Log.Debug("Setting Table width");
 
             COMObject.PreferredWidthType = Word.WdPreferredWidthType.wdPreferredWidthPercent;
             COMObject.PreferredWidth = 100f;
-            Log.Debug("Result {Type}, {Width}", COMObject.PreferredWidthType, COMObject.PreferredWidth);
+            //Log.Debug("Result {Type}, {Width}", COMObject.PreferredWidthType, COMObject.PreferredWidth);
         }
 
         /// <summary>
@@ -124,14 +184,11 @@ namespace CoverageKiller2
         /// <exception cref="InvalidOperationException">Thrown if the table does not exist.</exception>
         public void Delete()
         {
-            Log.Debug("TRACE => {class}.{func}() = {pVal1}",
-               nameof(CKTable),
-               nameof(Delete),
-               $"{nameof(CKTable)}[{nameof(Index)} = {Index}]");// +
-                                                                //$"[{nameof(ContainsMerged)} = {ContainsMerged}]");////
-                                                                // Remove the table from the document
+            Log.Debug(LH.TraceCaller(LH.PP.Enter, null,
+                nameof(CKTable), nameof(Delete),
+                nameof(Index), _lastIndex));
+
             COMObject.Delete();
-            _tableDeleted = true;
         }
 
         public bool RowMatches(int oneBasedRowIndex, string target)
@@ -149,8 +206,8 @@ namespace CoverageKiller2
 
             string normalizedTarget = NormalizeMatchString(target);
 
-            Log.Debug("{func}: row => {row}\n\ttarget => {target}\n\trowvalues => {rowVals}",
-                nameof(RowMatches), oneBasedRowIndex, normalizedTarget, normalizedRowValues);
+            //Log.Debug("{func}: row => {row}\n\ttarget => {target}\n\trowvalues => {rowVals}",
+            //    nameof(RowMatches), oneBasedRowIndex, normalizedTarget, normalizedRowValues);
 
             // Compare the normalized strings
             return normalizedRowValues == normalizedTarget;

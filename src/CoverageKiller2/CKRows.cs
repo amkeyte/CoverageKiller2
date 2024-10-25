@@ -16,7 +16,13 @@ namespace CoverageKiller2
         public CKTable Parent { get; private set; }
 
 
+        public override string ToString()
+        {
+            //string docName = System.IO.Path.GetFileName(Parent.FullPath);
 
+            return $"Table[{Parent._lastIndex}].Rows[Count: {Count}]";
+
+        }
 
 
 
@@ -80,7 +86,8 @@ namespace CoverageKiller2
 
         internal CKRow Add(CKRow beforeRow)
         {
-            return CKRow.Create(this, COMObject.Add(beforeRow).Index);
+            //Add inserts
+            return CKRow.Create(this, COMObject.Add(beforeRow.COMObject).Index);
         }
     }
 }

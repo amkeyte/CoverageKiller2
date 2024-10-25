@@ -17,7 +17,13 @@ namespace CoverageKiller2
         //there is only one Tables property, so calling back to it instead of
         //storing a reference every time is fine.
         internal Word.Tables COMObject => Parent.COMObject.Tables;
+        public override string ToString()
+        {
+            string docName = System.IO.Path.GetFileName(Parent.FullPath);
 
+            return $"[{docName}].Tables[Count: {Count}]";
+
+        }
         private CKTables(CKDocument parent)
         {
             Parent = parent;
@@ -48,5 +54,9 @@ namespace CoverageKiller2
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
+        internal static object ToList()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
