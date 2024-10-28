@@ -13,6 +13,7 @@ namespace CoverageKiller2.Pipeline.Processes
         public Tracer Tracer { get; } = new Tracer(typeof(PRMCEFixer));
         public PRMCEFixer()
         {
+            Tracer.Enabled = false;
         }
         private _SS.ASubSS _ss = default;
 
@@ -92,14 +93,22 @@ namespace CoverageKiller2.Pipeline.Processes
 
 
             Log.Information("*** remove end Info section");
-            var infoSection = CKDoc.COMObject.Sections.Last; //maybe someday create a CKSection
-            var tf3 = new TextFinder(CKDoc, _SS.FloorPlanF, infoSection.Range);
 
-            // Check if we can find the text in the "Info" section
+            Tracer.Log("DataPoints", new DataPoints()
+                .Add("CKDoc.COMObject.Sections.Count", CKDoc.COMObject.Sections.Count));
+
+            var infoSection = CKDoc.COMObject.Sections.Last; //maybe someday create a CKSection
+            var tf3 = new TextFinder(CKDoc, _SS.SectionAdditionalInfo_F, infoSection.Range);
+
+            // Check if we can find the text in the "Info" section, because it's possibly already removed.
             if (tf3.TryFind(out var foundText))
             {
                 // If found, delete the section
                 CKDoc.DeleteSection(infoSection.Index);
+            }
+            else
+            {
+                Tracer.Log("Section was not deleted.");
             }
         }
 

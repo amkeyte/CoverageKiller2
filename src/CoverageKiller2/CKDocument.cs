@@ -1,4 +1,5 @@
-﻿using Serilog;
+﻿using CoverageKiller2.Logging;
+using Serilog;
 using System;
 using System.Threading;
 using Forms = System.Windows.Forms;
@@ -168,7 +169,7 @@ namespace CoverageKiller2
             COMObject.Application.DocumentBeforeClose -= OnDocumentBeforeClose;
         }
 
-
+        public Tracer Tracer = new Tracer(typeof(CKDocument));
         /// <summary>
         /// Deletes a specified section from the Word document.
         /// </summary>
@@ -176,6 +177,9 @@ namespace CoverageKiller2
         /// <exception cref="ArgumentOutOfRangeException">Thrown when the section index is out of range.</exception>
         public void DeleteSection(int sectionIndex)
         {
+            Tracer.Log("Deleting Section", new DataPoints()
+                .Add(nameof(sectionIndex), sectionIndex));
+
             if (sectionIndex < 1 || sectionIndex > COMObject.Sections.Count)
             {
                 throw new ArgumentOutOfRangeException(nameof(sectionIndex), "Section index is out of range.");
@@ -184,8 +188,11 @@ namespace CoverageKiller2
             // Get the section to delete
             Word.Section sectionToDelete = COMObject.Sections[sectionIndex];
 
-            // Delete the section
-            sectionToDelete.Range.Delete();
+            // Delete the section and hopefully he ssection break ahead of it.
+            Word.Range extendedRange = COMObject.Range(sectionToDelete.Range.Start - 1, sectionToDelete.Range.End);
+
+            //sectionToDelete.Range.Delete();
+            extendedRange.Delete();
         }
     }
 }
