@@ -18,34 +18,29 @@ namespace CoverageKiller2.Pipeline.Processes
 
         public override void Process()
         {
-            Log.Information("Fixing for PRMCE");
+            Log.Information("**** Fixing for PRMCE");
 
-            Log.Debug("*** Building identifier replace");
-
-
-            string exTF = string.Empty;
-            foreach (var ss in searchStrings.Channels)
-            {
-                TextFinder tf1 = new TextFinder(CKDoc, ss.BuildingNameF);
-                exTF = tf1.SearchText;
+            Log.Information("*** Various text relacements");
 
 
-                while (tf1.TryFind(out _, true))
-                {
-                    tf1.Replace(_SS.BuildingNameR);
-                    //find active channel and use it downsteam
-                    _ss = ss;
-                }
+            ReplaceBuildingID();
+            ReplaceTestLocaton();
+            ReplaceChannel();
 
-                if (_ss != null) break;
-            }
+            Log.Information("*** Editing Test Report Summary");
 
-            if (_ss is null)
-            {
-                throw new Exception($"BuildingNameF not found: {exTF}");
+            var TRSTable = CKDoc.Tables
+                .First(t => t.RowMatches(1, _SS.TestReportSummaryTableF));
 
-            }
-            Log.Debug("*** Floor names replace with rebuild.");
+            TRSTable.Columns[1].Delete();
+
+            TRSTable.MakeFullPage();
+            TRSTable.Columns
+                .First(col => NormalizeMatchStrings(col.Cells[1].Text, _SS.TestReportSummaryBandColF))
+                .Cells[2].Text = _ss.TestReportSummaryBandColR;
+
+
+            Log.Information("*** Floor names replace with rebuild.");
             var tf2 = new TextFinder(CKDoc, _SS.FloorPlanF);
 
             while (tf2.TryFind(out var foundRange2, true))
@@ -53,15 +48,20 @@ namespace CoverageKiller2.Pipeline.Processes
                 ReplaceFloorName(tf2, foundRange2);
             }
 
+            var tf2A = new TextFinder(CKDoc, "A.4R");
+            while (tf2A.TryFind(out var foundRange2A))
+            {
+                foundRange2A.Text = "Wing D; Roof";
+            }
 
 
-            Log.Debug("*** fix floor section heading table.");
+            Log.Information("*** fix floor section heading table.");
             foreach (var table in CKDoc.Tables
                 .Where(t => t.RowMatches(1, _SS.FloorSectionHeadingTable_F))
                 .Reverse())
                 FixFloorSectionHeadingTable(table);
 
-            Log.Debug("*** remove grid notes table.");
+            Log.Information("*** remove grid notes table.");
             foreach (var table in CKDoc.Tables
                 .Where(t => t.RowMatches(1, _SS.FloorSectionGridNotesTable_F))
                 .Reverse())
@@ -71,7 +71,7 @@ namespace CoverageKiller2.Pipeline.Processes
             }
 
 
-            Log.Debug("*** remove extra critical point fields: ULPower, DL Loss");
+            Log.Information("*** remove extra critical point fields: ULPower, DL Loss");
             foreach (var table in CKDoc.Tables
                 .Where(t => t.RowMatches(1, _SS.FloorSectionCriticalPointReportTable_F)))
             {
@@ -80,7 +80,7 @@ namespace CoverageKiller2.Pipeline.Processes
             }
 
 
-            Log.Debug("*** remove extra area fields: ULPower, DL Loss");
+            Log.Information("*** remove extra area fields: ULPower, DL Loss");
             foreach (var table in CKDoc.Tables
                 .Where(t => NormalizeMatchStrings(
                     t.Rows[1].Cells
@@ -91,7 +91,7 @@ namespace CoverageKiller2.Pipeline.Processes
 
 
 
-            Log.Debug("*** remove end Info section");
+            Log.Information("*** remove end Info section");
             var infoSection = CKDoc.COMObject.Sections.Last; //maybe someday create a CKSection
             var tf3 = new TextFinder(CKDoc, _SS.FloorPlanF, infoSection.Range);
 
@@ -103,6 +103,51 @@ namespace CoverageKiller2.Pipeline.Processes
             }
         }
 
+        private void ReplaceChannel()
+        {
+            //HACK: do location firt to get _ss
+            TextFinder tf1 = new TextFinder(CKDoc, _ss.ChannelF);
+
+            while (tf1.TryFind(out _, true))
+            {
+                tf1.Replace(_ss.ChannelR);
+
+            }
+        }
+
+        private void ReplaceTestLocaton()
+        {
+            //HACK: do location firt to get _ss
+            TextFinder tf1 = new TextFinder(CKDoc, _ss.TestLocationF);
+
+            while (tf1.TryFind(out _, true))
+            {
+                tf1.Replace(_SS.TestLocationR);
+
+            }
+
+
+        }
+        private void ReplaceBuildingID()
+        {
+            foreach (var ss in searchStrings.Channels)
+            {
+                TextFinder tf1 = new TextFinder(CKDoc, ss.BuildingNameF);
+
+                while (tf1.TryFind(out _, true))
+                {
+                    tf1.Replace(_SS.BuildingNameR);
+                    _ss = ss;
+                }
+
+                if (_ss != null) break;
+            }
+
+            if (_ss is null)
+            {
+                throw new Exception($"BuildingNameF not found.");
+            }
+        }
         private void FixFloorSectionCriticalPointReportTable(CKTable fixer)
         {
 
@@ -181,13 +226,6 @@ namespace CoverageKiller2.Pipeline.Processes
         }
         private void FixFloorSectionHeadingTable(CKTable fixer)
         {
-            //Log.Debug("TRACE => {func}({param1} = {pVal1})",
-            //    nameof(FixFloorSectionHeadingTable),
-            //    nameof(fixer),
-            //    $"Table[{fixer.Index}]");
-
-            //Log.Debug("** Fixing table: {_SSID}", nameof(_SS.FloorSectionHeadingTable_F));
-
             var headersToRemove = _SS.FloorSectionHeadingTable_RemoveCols
                 .Split(new[] { '\t' }, StringSplitOptions.RemoveEmptyEntries)
                 .Select(s => NormalizeMatchString(s))
@@ -208,6 +246,11 @@ namespace CoverageKiller2.Pipeline.Processes
 
             fixer.MakeFullPage();
         }
+
+
+
+
+
 
         private static void ReplaceFloorName(TextFinder tf, Word.Range foundRange)
         {
@@ -249,16 +292,14 @@ namespace CoverageKiller2.Pipeline.Processes
         private static int _dbgCounter_NormalizeMatchString = 0;
         private static string NormalizeMatchString(string input)
         {
-            //Log.Debug("Called ({_dbgCounter_NormalizeMatchString}): {nms}(input: {input})",
-            //    _dbgCounter_NormalizeMatchString++,
-            //    nameof(NormalizeMatchString),
-            //    input);
-
             return Regex.Replace(input, @"[\x07\s]+", string.Empty);
         }
         private bool NormalizeMatchStrings(string str1, string str2)
         {
             return NormalizeMatchString(str1) == NormalizeMatchString(str2);
         }
+
+
+
     }
 }
