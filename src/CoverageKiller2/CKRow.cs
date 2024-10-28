@@ -1,4 +1,4 @@
-﻿using Serilog;
+﻿using CoverageKiller2.Logging;
 using Word = Microsoft.Office.Interop.Word;
 namespace CoverageKiller2
 {
@@ -17,23 +17,14 @@ namespace CoverageKiller2
         // Constructor to initialize CKRow with a Word.Row
         public CKRow(CKRows parent, int index)
         {
+            Tracer.Enabled = false;
             Parent = parent;
             COMObject = Parent.COMObject[index];
         }
         public CKCells Cells => CKCells.Create(this);
         //public bool ContainsMerged => Cells.ContainsMerged;
         // Property to access row's index
-        public int Index
-        {
-            get
-            {
-                _lastIndex = COMObject.Index;
-                return _lastIndex;
-            }
-        }
-
-
-
+        public int Index => Tracer.Trace(COMObject.Index);
 
         // Set or get the row's height
         public float Height
@@ -56,25 +47,14 @@ namespace CoverageKiller2
             set => COMObject.Shading.BackgroundPatternColor = (Word.WdColor)value;
         }
 
+        public Tracer Tracer = new Tracer(typeof(CKRow));
 
         // Deletes the row
         public void Delete()
         {
-            Log.Debug(LH.TraceCaller(LH.PP.Enter, null,
-                nameof(CKRow), nameof(Delete),
-                nameof(Index), _lastIndex));
-
-
-            //$"{nameof(COMObject)}({nameof(CKCell)}.{nameof(CKCell.RowIndex)}) --> ", Cells[1].RowIndex,
-            //$"{nameof(COMObject)}({nameof(CKCell)}[1].{nameof(CKCell.Text)}) --> ", Cells[1].Text));
+            Tracer.Log("Deleting Row", new DataPoints(nameof(Index)));
 
             COMObject.Delete();
-
-            //Log.Debug(LH.TraceCaller(LH.PP.Result, "After delete",
-            //    nameof(CKRow), nameof(Delete),
-            //    $"{nameof(COMObject)}({nameof(CKCell)}.{nameof(CKCell.RowIndex)}) --> ", Cells[1].RowIndex,
-            //    $"{nameof(COMObject)}({nameof(CKCell)}[1].{nameof(CKCell.Text)}) --> ", Cells[1].Text));
-
         }
 
         // Selects the row

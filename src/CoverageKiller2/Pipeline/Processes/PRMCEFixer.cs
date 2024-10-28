@@ -1,4 +1,5 @@
-﻿using CoverageKiller2.Pipeline.WordHelpers;
+﻿using CoverageKiller2.Logging;
+using CoverageKiller2.Pipeline.WordHelpers;
 using Serilog;
 using System;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace CoverageKiller2.Pipeline.Processes
 {
     internal partial class PRMCEFixer : CKWordPipelineProcess
     {
-
+        public Tracer Tracer { get; } = new Tracer(typeof(PRMCEFixer));
         public PRMCEFixer()
         {
         }
@@ -64,21 +65,30 @@ namespace CoverageKiller2.Pipeline.Processes
             foreach (var table in CKDoc.Tables
                 .Where(t => t.RowMatches(1, _SS.FloorSectionGridNotesTable_F))
                 .Reverse())
+            {
+                table.Tracer.Stash(nameof(table.Index), table.Index);
                 table.Delete();
+            }
 
 
             Log.Debug("*** remove extra critical point fields: ULPower, DL Loss");
             foreach (var table in CKDoc.Tables
-                .Where(t => t.RowMatches(2, _SS.FloorSectionCriticalPointReportTable_F))
-                .Reverse())
+                .Where(t => t.RowMatches(1, _SS.FloorSectionCriticalPointReportTable_F)))
+            {
+
                 FixFloorSectionCriticalPointReportTable(table);
+            }
 
 
             Log.Debug("*** remove extra area fields: ULPower, DL Loss");
             foreach (var table in CKDoc.Tables
-                .Where(t => t.RowMatches(2, _SS.FloorSectionAreaReportTable_F))
-                .Reverse())
+                .Where(t => NormalizeMatchStrings(
+                    t.Rows[1].Cells
+                        .Aggregate("", (acc, c) => acc + c.Text), _SS.FloorSectionAreaReportTable_F)))
+            {
                 FixFloorSectionAreaReportTable(table);
+            }
+
 
 
             Log.Debug("*** remove end Info section");
@@ -95,13 +105,14 @@ namespace CoverageKiller2.Pipeline.Processes
 
         private void FixFloorSectionCriticalPointReportTable(CKTable fixer)
         {
-            Log.Debug(LH.TraceCaller(LH.PP.Enter, " ** ",
-                nameof(PRMCEFixer), nameof(FixFloorSectionCriticalPointReportTable),
-                $"{nameof(fixer)}({nameof(CKTable)}.{nameof(fixer.Index)}) --> ", fixer._lastIndex));
 
+            Tracer.Log("Entering", "**", new DataPoints()
+                .Add($"{nameof(fixer)}.Index", fixer.Index));
 
             try
             {
+                Tracer.Log("Deleting first row");
+
                 fixer.Rows.First().Delete();
             }
             catch (Exception ex)
@@ -111,7 +122,9 @@ namespace CoverageKiller2.Pipeline.Processes
 
             try
             {
-                fixer.Columns.Reverse()
+                Tracer.Log("Deleting columns UL Power");
+
+                fixer.Columns
                      .First(col => NormalizeMatchStrings(col.Cells[1].Text, _SS.FloorSectionCriticalPointReportTable_ULPower))
                      .Delete();
 
@@ -124,8 +137,9 @@ namespace CoverageKiller2.Pipeline.Processes
 
             try
             {
+                Tracer.Log("Deleting columns B");
 
-                fixer.Columns.Reverse()
+                fixer.Columns
                      .First(col => NormalizeMatchStrings(col.Cells[1].Text, _SS.FloorSectionCriticalPointReportTable_DLLoss))
                      .Delete();
             }
@@ -135,8 +149,9 @@ namespace CoverageKiller2.Pipeline.Processes
             }
             try
             {
+                Tracer.Log("Returing first row and making fix width");
 
-                fixer.AddAndMergeFirstRow("Critical Points");
+                fixer.AddAndMergeFirstRow("Critical Point Report");
                 fixer.MakeFullPage();
             }
             catch (Exception ex)
@@ -146,16 +161,23 @@ namespace CoverageKiller2.Pipeline.Processes
         }
         private void FixFloorSectionAreaReportTable(CKTable fixer)
         {
-            Log.Debug("** [BYPASSED] Fixing table: {_SSID}", nameof(_SS.FloorSectionAreaReportTable_F));
-            //fixer.Columns
-            //     .First(col => col.Cells[2].Text == _SS.FloorSectionAreaReportTable_ULPower)
-            //     .Delete();
+            Tracer.Log("Entering", "**", new DataPoints($"{nameof(fixer)}.Index", fixer.Index));
 
-            //fixer.Columns
-            //     .First(col => col.Cells[2].Text == _SS.FloorSectionAreaReportTable_DLLoss)
-            //     .Delete();
 
-            //fixer.MakeFullPage();
+            Tracer.Log("Deleting first row");
+            fixer.Rows.First().Delete();
+
+            fixer.Columns
+                 .First(col => NormalizeMatchStrings(col.Cells[1].Text, _SS.FloorSectionAreaReportTable_ULPower))
+                 .Delete();
+
+            fixer.Columns
+                 .First(col => NormalizeMatchStrings(col.Cells[1].Text, _SS.FloorSectionAreaReportTable_DLLoss))
+                 .Delete();
+
+            fixer.AddAndMergeFirstRow("Grid Area Report");
+
+            fixer.MakeFullPage();
         }
         private void FixFloorSectionHeadingTable(CKTable fixer)
         {

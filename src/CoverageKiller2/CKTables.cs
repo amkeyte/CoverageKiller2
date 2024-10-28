@@ -43,7 +43,23 @@ namespace CoverageKiller2
                 return CKTable.Create(this, index);
             }
         }
+        public int IndexOf(CKTable targetTable)
+        {
+            for (int i = 1; i <= Count; i++)
+            {
+                var table = COMObject[i];
 
+                // Compare by checking that both tables have the same start and end range
+                if (table.Range.Start == targetTable.COMObject.Range.Start &&
+                    table.Range.End == targetTable.COMObject.Range.End)
+                {
+                    return i;
+                }
+            }
+
+            // Return -1 if the target table is not found
+            return -1;
+        }
         public IEnumerator<CKTable> GetEnumerator()
         {
             for (int i = 1; i <= Count; i++)

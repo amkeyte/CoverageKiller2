@@ -1,4 +1,4 @@
-﻿using Serilog;
+﻿using CoverageKiller2.Logging;
 using System;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -16,6 +16,8 @@ namespace CoverageKiller2
             return new CKTable(parent, tableIndex);
         }
 
+        public Tracer Tracer { get; } = new Tracer(typeof(CKTable));
+
         /// <summary>
         /// do something when the table has been deleted??
         /// </summary>
@@ -23,33 +25,13 @@ namespace CoverageKiller2
 
         //the index might change if the table is altered, but pulling from parent index of will 
         // always return a current value.
-        internal int _lastIndex;
-        public int Index
-        {
-            get
-            {
-                Log.Debug(LH.TraceCaller(LH.PP.Enter, null,
-                    nameof(CKTable), nameof(Index)));
-
-                _lastIndex = Parent.ToList().IndexOf(this);
-
-                Log.Debug(LH.TraceCaller(LH.PP.PropertyGet, null,
-                    nameof(CKTable), nameof(Index),
-                    $"{LH.ObjectPath(nameof(Parent), "ToList()", "IndexOf(this)")} --> ", _lastIndex));
-
-                return _lastIndex;
-            }
-        }
-
-
-
+        public int Index => Tracer.Trace(Parent.IndexOf(this));
 
 
 
         private CKTable(CKTables parent, int index)
         {
-            _lastIndex = index;
-
+            Tracer.Enabled = false;
 
             //here we store a reference to the com table itself in case
             // the document moves it in the index.
@@ -69,15 +51,8 @@ namespace CoverageKiller2
         {
             get
             {
-                Log.Debug(LH.TraceCaller(LH.PP.Enter, null,
-                    nameof(CKTable), nameof(Rows)));
-
-                var result = CKRows.Create(this);
-
-                Log.Debug(LH.TraceCaller(LH.PP.PropertyGet, null,
-                    nameof(CKTable), nameof(Rows),
-                    $"{LH.ObjectPath(nameof(Rows))} --> ", result));
-
+                var result = Tracer.Trace(CKRows.Create(this));
+                Tracer.Log("Property Returned", new DataPoints(nameof(Rows)));
                 return result;
             }
         }
@@ -88,24 +63,13 @@ namespace CoverageKiller2
         {
             get
             {
-                Log.Debug(LH.TraceCaller(LH.PP.Enter, null,
-                    nameof(CKTable), nameof(Parent)));
-
-                var result = _parent;
-
-                Log.Debug(LH.TraceCaller(LH.PP.PropertyGet, null,
-                    nameof(CKTable), nameof(Parent),
-                    $"{nameof(Parent)} --> ", result));
-
+                var result = Tracer.Trace(_parent);
+                Tracer.Log("Property Returned", new DataPoints(nameof(Parent)));
                 return result;
+
             }
             private set
             {
-                var setValue = value;
-                Log.Debug(LH.TraceCaller(LH.PP.PropertySet, null,
-                    nameof(CKTable), nameof(Parent),
-                    $"{nameof(Parent)} --> ", setValue));
-
                 _parent = value;
 
             }
@@ -184,9 +148,7 @@ namespace CoverageKiller2
         /// <exception cref="InvalidOperationException">Thrown if the table does not exist.</exception>
         public void Delete()
         {
-            Log.Debug(LH.TraceCaller(LH.PP.Enter, null,
-                nameof(CKTable), nameof(Delete),
-                nameof(Index), _lastIndex));
+            Tracer.Log("Deleting Table", new DataPoints(nameof(Index)));
 
             COMObject.Delete();
         }

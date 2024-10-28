@@ -1,4 +1,5 @@
-﻿using Serilog;
+﻿using CoverageKiller2.Logging;
+using Serilog;
 using System;
 
 namespace CoverageKiller2

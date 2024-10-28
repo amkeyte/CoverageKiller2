@@ -1,4 +1,5 @@
-﻿using Serilog;
+﻿using CoverageKiller2.Logging;
+using System.Linq;
 using Word = Microsoft.Office.Interop.Word;
 
 namespace CoverageKiller2
@@ -14,6 +15,7 @@ namespace CoverageKiller2
         //that represents a column, ignoring merged cells
         private CKColumn(CKColumns parent, int index)
         {
+            Tracer.Enabled = false;
             Parent = parent;
             COMObject = Parent.COMObject[index];
 
@@ -33,7 +35,7 @@ namespace CoverageKiller2
         public CKCells Cells => CKCells.Create(this);// new CKCells(COMObject.Cells);
         //public bool ContainsMerged => Cells.ContainsMerged;
         // Property to get the index of the column in the table
-        public int Index => COMObject.Index;
+        public int Index => Tracer.Trace(COMObject.Index);
 
         // Example: Property to get the width of the column
         public float Width
@@ -50,22 +52,21 @@ namespace CoverageKiller2
         }
 
         // Example: Method to select the entire column
-
+        public Tracer Tracer = new Tracer(typeof(CKColumn));
 
         public void Delete()
         {
-            Log.Debug("TRACE => {class}.{func}() = {pVal1}",
-                nameof(CKColumn),
-                nameof(Delete),
-                $"{nameof(CKColumn)}[{nameof(Index)} = {Index}]" +
-                //$"[{nameof(ContainsMerged)} = {ContainsMerged}]" +
-                $"[Cell(1) Text = {Cells[1].Text}]");
+            Tracer.Log("Deleting column",
+                new DataPoints()
+                    .Add(nameof(Index), Index)
+                    .Add("Header", Cells[1].Text)
+                    .Add("Contents", Cells
+                        .Where(c => c.RowIndex > 1)
+                        .Select(c => c.Text)
+                        .Aggregate((current, next) => current + ", " + next))
+                );
 
-            //if (ContainsMerged)
-            //{
-            //    DeleteLeavingMerged();
-            //    return;
-            //}
+
 
             COMObject.Delete();
         }

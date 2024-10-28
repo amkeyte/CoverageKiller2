@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 
-namespace CoverageKiller2
+namespace CoverageKiller2.Logging
 {
     /// <summary>
     /// Handles loading and managing BareTail log files.

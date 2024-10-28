@@ -1,7 +1,8 @@
 ﻿using Serilog;
 using System;
 
-namespace CoverageKiller2
+namespace CoverageKiller2.Logging
+
 {
     internal static class LH
     {

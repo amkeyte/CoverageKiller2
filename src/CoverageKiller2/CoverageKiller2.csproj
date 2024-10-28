@@ -233,9 +233,12 @@
     <Compile Include="CKRow.cs" />
     <Compile Include="CKRows.cs" />
     <Compile Include="CKTables.cs" />
-    <Compile Include="LH.cs" />
-    <Compile Include="LoggingLoader.cs" />
-    <Compile Include="LogTailLoader.cs" />
+    <Compile Include="Logging\LH.cs" />
+    <Compile Include="Logging\LoggingLoader.cs" />
+    <Compile Include="Logging\LogTailLoader.cs" />
+    <Compile Include="Logging\MemberCallerNameAttribute.cs" />
+    <Compile Include="Logging\SomeTestClass.cs" />
+    <Compile Include="Logging\Tracer.cs" />
     <Compile Include="Pipeline\Processes\PageSetupFixer.cs" />
     <Compile Include="Pipeline\Processes\FooterFixer.cs" />
     <Compile Include="Pipeline\Processes\HeaderFixer.cs" />

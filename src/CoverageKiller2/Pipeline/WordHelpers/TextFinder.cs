@@ -1,4 +1,4 @@
-﻿using Serilog;
+﻿using CoverageKiller2.Logging;
 using System;
 using Word = Microsoft.Office.Interop.Word;
 
@@ -10,16 +10,19 @@ namespace CoverageKiller2.Pipeline.WordHelpers
     public class TextFinder
     {
         private readonly CKDocument _ckDoc; // Wrapper for Word.Document
-        private Word.Range _currentRange; // Current range to search within
-        private readonly Word.Range _searchWithinRange; // Range to search for text
+        private readonly Word.Range _selectedRange = default; // Range to search for text
+        private Word.Range _lastFoundRange = default;
         private readonly string _searchText; // Text to search for
 
-        public string SearchText => _searchText;
+        public string SearchText => Tracer.Trace(_searchText);
 
         /// <summary>
         /// Gets a value indicating whether the text was found in the current range.
         /// </summary>
-        public bool TextFound { get; private set; } = false;
+        public bool TextFound
+        {
+            get => Tracer.Trace(_lastFoundRange != null);
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TextFinder"/> class with a specified CKDocument and search text.
@@ -39,20 +42,27 @@ namespace CoverageKiller2.Pipeline.WordHelpers
         /// <param name="searchWithinRange">The range to search within. If null, the entire document will be searched.</param>
         public TextFinder(CKDocument ckDoc, string searchText, Word.Range searchWithinRange)
         {
+            //Tracer.Enabled = false;
+            if (ckDoc == null) throw new ArgumentNullException(nameof(ckDoc));
+            if (string.IsNullOrWhiteSpace(searchText)) throw new ArgumentNullException(nameof(searchText));
+
+
+
             _ckDoc = ckDoc;
-            _searchWithinRange = searchWithinRange ?? _ckDoc.Content; // Use the entire document if no range is provided
-            _currentRange = _searchWithinRange;
+            _selectedRange = searchWithinRange ?? _ckDoc.Content.CKCopy(); // Use the entire document if no range is provided
             _searchText = searchText;
 
-            Log.Debug(LH.TraceCaller(LH.PP.Result, "Values Initialized",
-                nameof(TextFinder), "ctor",
-                nameof(CKDocument), ckDoc.FullPath,
-                nameof(searchText), searchText,
-                nameof(_searchWithinRange.Start), _searchWithinRange.Start,
-                nameof(_searchWithinRange.End), _searchWithinRange.End));
-
-
+            Tracer.Log("Initialized", new DataPoints()
+                .Add(nameof(CKDocument), ckDoc.FullPath)
+                .Add(nameof(SearchText), SearchText)
+                .Add($"{nameof(_selectedRange)}.Start", _selectedRange.Start)
+                .Add($"{nameof(_selectedRange)}.End", _selectedRange.End)
+                .Add($"{nameof(_lastFoundRange)}[Is Null]", _lastFoundRange == null));
         }
+
+
+
+        public Tracer Tracer = new Tracer(typeof(TextFinder));
 
         /// <summary>
         /// Attempts to find the next occurrence of the search text within the specified range.
@@ -63,76 +73,74 @@ namespace CoverageKiller2.Pipeline.WordHelpers
         /// <returns>True if the text is found; otherwise, false.</returns>
         public bool TryFind(out Word.Range foundRange, bool wrap = false)
         {
-            Log.Debug(LH.TraceCaller(LH.PP.Enter, null,
-                nameof(TextFinder), nameof(TryFind),
-                nameof(wrap), wrap));
-
-            Log.Debug(LH.TraceCaller(LH.PP.Result, "Test Point; first find.",
-                nameof(_searchText), _searchText,
-                nameof(_searchWithinRange.Start), _searchWithinRange.Start.ToString(),
-                nameof(_searchWithinRange.End), _searchWithinRange.End.ToString()));
+            Tracer.Log("Finding...", new DataPoints()
+                .Add(nameof(wrap) + "(inop)", wrap)
+                .Add(nameof(SearchText), SearchText)
+                .Add($"{nameof(_selectedRange)}.Start", _selectedRange?.Start)
+                .Add($"{nameof(_selectedRange)}.End", _selectedRange?.End)
+                .Add($"{nameof(_lastFoundRange)}[Is Null]", _lastFoundRange == null));
 
 
-            TextFound = false;
-            int originalStart = _currentRange.Start; // Save the original starting point
+            var searchRangeStart = _lastFoundRange is null
+                ? _selectedRange.Start
+                : _lastFoundRange.End + 1; // not safe for end of document.
 
-            // Move range start to after the last found occurrence
-            //_currentRange.Start = _currentRange.End;
+            var activeSearchRange = _ckDoc.COMObject.Range(searchRangeStart, _selectedRange.End);
+
+            _lastFoundRange = null;
 
             // Try to find the next occurrence
-            bool found = _currentRange.Find.Execute(
-                FindText: _searchText,
+            bool found = activeSearchRange.Find.Execute(
+                FindText: SearchText,
                 MatchWildcards: true);
 
-            //Log.Debug(LH.TraceCaller(
-            //nameof(TextFinder), "TryFind- after first find",
-            //nameof(_searchText), _searchText,
-            //nameof(found), found.ToString(),
-            //nameof(_searchWithinRange.Start), _searchWithinRange.Start.ToString(),
-            //nameof(_searchWithinRange.End), _searchWithinRange.End.ToString()));
+            if (found)
+            {
+                _lastFoundRange = activeSearchRange.CKCopy();
+            }
 
-            // If not found and wrapping is enabled, start from the beginning of the range
-            //if (!found && wrap)
-            //{
-            //    _currentRange = _searchWithinRange; // Reset to the search range
-            //    found = _currentRange.Find.Execute(FindText: _searchText, MatchWildcards: true);
+            foundRange = _lastFoundRange is null ? null : _lastFoundRange.CKCopy();
 
-            //    // Ensure we don't match the same initial occurrence (avoid infinite loop)
-            //    if (found && _currentRange.Start == originalStart)
-            //    {
-            //        found = false;
-            //    }
+            activeSearchRange = null;
 
-            //    Log.Debug(LH.TraceCaller(
-            //    nameof(TextFinder), "TryFind- after wrap",
-            //    nameof(_searchText), _searchText,
-            //    nameof(found), found.ToString(),
-            //    nameof(_searchWithinRange.Start), _searchWithinRange.Start.ToString(),
-            //    nameof(_searchWithinRange.End), _searchWithinRange.End.ToString()));
-            //}
+            Tracer.Log($"Text found: {(found ? foundRange.Text : "[NO TEXT FOUND]")}",
+                new DataPoints()
+                .Add($"{nameof(_selectedRange)}.Start", _selectedRange?.Start)
+                .Add($"{nameof(_selectedRange)}.End", _selectedRange?.End)
+                .Add($"{nameof(_lastFoundRange)}.Start", _lastFoundRange?.Start)
+                .Add($"{nameof(_lastFoundRange)}.End", _lastFoundRange?.End)
+            );
 
-            TextFound = found;
-            foundRange = found ? _currentRange : null;
             return found;
         }
 
-        /// <summary>
-        /// Replaces the found text with the specified replacement text.
-        /// </summary>
-        /// <param name="replaceText">The text to replace the found text with.</param>
-        /// <exception cref="ArgumentException">Thrown when the search text was not found.</exception>
+
         public void Replace(string replaceText)
         {
-            if (TextFound) // Check if the text was found
-            {
-                _currentRange.Text = replaceText;
-            }
-            else
-            {
-                throw new ArgumentException($"Text '{_searchText}' not found in the current search range.");
-            }
+            Tracer.Log("Replacing Text...", new DataPoints()
+                .Add(nameof(replaceText), replaceText)
+                .Add($"{nameof(_lastFoundRange)}.Start", _lastFoundRange?.Start)
+                .Add($"{nameof(_lastFoundRange)}.End", _lastFoundRange?.End)
+            );
 
-            TextFound = false; // Reset TextFound after replacement
+            if (TextFound)
+            {
+                _lastFoundRange.Text = replaceText;
+
+                _lastFoundRange = _ckDoc.COMObject.Range(
+                    _lastFoundRange.Start,
+                    _lastFoundRange.Start + replaceText.Length);
+            }
         }
+    }
+}
+public static class WordRangeExtensions
+{
+
+    public static Word.Range CKCopy(this Word.Range source)
+    {
+        // Create a new range based on the source range's start and end
+        Word.Range copiedRange = source.Document.Range(source.Start, source.End);
+        return copiedRange;
     }
 }

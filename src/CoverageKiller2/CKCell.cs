@@ -14,6 +14,7 @@ namespace CoverageKiller2
         }
         private CKCell(CKCells parent, int index)
         {
+
             Parent = parent;
             COMObject = Parent.COMObject[index];
         }

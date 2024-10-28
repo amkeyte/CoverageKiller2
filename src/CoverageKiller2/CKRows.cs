@@ -18,10 +18,7 @@ namespace CoverageKiller2
 
         public override string ToString()
         {
-            //string docName = System.IO.Path.GetFileName(Parent.FullPath);
-
-            return $"Table[{Parent._lastIndex}].Rows[Count: {Count}]";
-
+            return $"CKRows[Count: {Count}]";
         }
 
 
