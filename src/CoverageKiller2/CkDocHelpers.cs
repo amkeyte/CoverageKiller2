@@ -81,7 +81,7 @@ namespace CoverageKiller2
             var pipeline = new CKWordPipeline(ckDoc)
             {
                 //{ new GetUserState() },
-                { new PageSetupFixer(template)  },
+                //{ new PageSetupFixer(template)  },
                 { new HeaderFixer(template) },
                 { new FooterFixer(template) },
 
