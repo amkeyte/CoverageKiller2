@@ -120,6 +120,32 @@ namespace CoverageKiller2
 
         }
 
+        public async void OnFix_PRMCE_PCTELDocUHFButton(Office.IRibbonControl control)
+        {
+            Log.Information("Fixing PRMCE UHF PCTEL Document");
+            try
+            {
+                if (Globals.ThisAddIn.Application.Documents.Count > 0)
+                {
+                    Word.Document wDoc = Globals.ThisAddIn.Application.ActiveDocument;
+                    CkDocHelpers.FixPRMCEDocUHF(wDoc);
+                }
+                else
+                {
+                    Log.Information("This was not a PCTELDoc report. Trying again...");
+                    MessageBox.Show("Open a PCTEL Report document.");
+                }
+                Log.Information("Done fixing PRMCE UHF PCTEL Document.");
+            }
+            catch (Exception ex)
+            {
+                throw LH.LogThrow(
+                    new Exception($"Fatal Error during {nameof(OnFix_PRMCE_PCTELDocUHFButton)}", ex));
+
+            }
+
+        }
+
         #endregion
 
         #region Helpers

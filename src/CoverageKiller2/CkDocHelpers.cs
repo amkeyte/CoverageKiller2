@@ -110,7 +110,7 @@ namespace CoverageKiller2
                 //{ new PageSetupFixer(template)  },
                 { new HeaderFixer(template) },
                 { new FooterFixer(template) },
-                { new PRMCEFixer() },
+                { new PRMCEFixer("800MHz") },
                 //{ new ResetUserState() },
             };
             pipeline.Run();
@@ -121,7 +121,28 @@ namespace CoverageKiller2
             ckDoc.Activate();
             ckDoc.COMObject.ActiveWindow.ActivePane.View.SeekView = Word.WdSeekView.wdSeekMainDocument;
         }
+        public static void FixPRMCEDocUHF(Word.Document wDoc)
+        {
+            var ckDoc = new CKDocument(wDoc);
+            var template = IndoorReportTemplate.OpenResource();
+            Log.Information("Running Pipeline: Fix Headers and footers for document {Document}", wDoc.Name);
+            var pipeline = new CKWordPipeline(ckDoc)
+            {
+                //{ new GetUserState() },
+                //{ new PageSetupFixer(template)  },
+                { new HeaderFixer(template) },
+                { new FooterFixer(template) },
+                { new PRMCEFixer("UHF") },
+                //{ new ResetUserState() },
+            };
+            pipeline.Run();
+            Log.Information("Pipeline completed.");
 
+            template.Close();
+            Log.Information("Cleaning up.");
+            ckDoc.Activate();
+            ckDoc.COMObject.ActiveWindow.ActivePane.View.SeekView = Word.WdSeekView.wdSeekMainDocument;
+        }
         //public static void FixNativeReport(Word.Document doc)
         //{
         //    doc.FixFirstAndLastPages();

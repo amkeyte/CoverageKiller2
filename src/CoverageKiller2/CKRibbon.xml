@@ -10,6 +10,9 @@
 				<button id="Fix_PRMCE_PCTELDoc800" label="Fix PMCRE PCTEL Doc800"
 					screentip="Text" onAction="OnFix_PRMCE_PCTELDoc800Button"
 					supertip="Reforms the PCTEL doc for PRMCE 800 MHz using PowerCom Template."/>
+				<button id="Fix_PRMCE_PCTELDocUHF" label="Fix PMCRE PCTEL DocUHF"
+					screentip="Text" onAction="OnFix_PRMCE_PCTELDocUHFButton"
+					supertip="Reforms the PCTEL doc for PRMCE UHF System using PowerCom Template."/>
 			</group>
 		</tab>
     </tabs>
