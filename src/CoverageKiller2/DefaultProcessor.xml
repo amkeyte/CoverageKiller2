@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ProcessorConfig
+	Name = "Default Processor"
+	Description = "Run Default Process for {document_name}"
+	SourceTemplate = "default">
+	<PipelineConfig>
+		<Steps>
+			<Step Name =" DefaultFixer1"/>
+			<Step Name =" DefaultFixer2"/>
+		</Steps>
+	</PipelineConfig>
+</ProcessorConfig>		
+	
+			
+

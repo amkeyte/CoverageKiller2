@@ -239,6 +239,8 @@
     <Compile Include="Logging\MemberCallerNameAttribute.cs" />
     <Compile Include="Logging\SomeTestClass.cs" />
     <Compile Include="Logging\Tracer.cs" />
+    <Compile Include="Pipeline\Config\ProcessConfigLoader.cs" />
+    <Compile Include="Pipeline\Config\ProcessorConfig.cs" />
     <Compile Include="Pipeline\Processes\PageSetupFixer.cs" />
     <Compile Include="Pipeline\Processes\FooterFixer.cs" />
     <Compile Include="Pipeline\Processes\HeaderFixer.cs" />
@@ -293,6 +295,10 @@
   <ItemGroup>
     <EmbeddedResource Include="CKRibbon.xml" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="DefaultProcessor.xml" />
+  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
