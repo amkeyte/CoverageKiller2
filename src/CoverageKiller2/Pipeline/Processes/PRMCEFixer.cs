@@ -11,9 +11,21 @@ namespace CoverageKiller2.Pipeline.Processes
     internal partial class PRMCEFixer : CKWordPipelineProcess
     {
         public Tracer Tracer { get; } = new Tracer(typeof(PRMCEFixer));
-        public PRMCEFixer()
+        public PRMCEFixer(string docType)
         {
             Tracer.Enabled = false;
+
+            switch (docType)
+            {
+                case "800Mhz":
+                    _ss = new _SS.SS_800();
+                    break;
+                case "UHF":
+                    _ss = new _SS.SS_UHF();
+                    break;
+                default:
+                    break;
+            }
         }
         private _SS.ASubSS _ss = default;
 
@@ -31,18 +43,32 @@ namespace CoverageKiller2.Pipeline.Processes
             Log.Information("*** Editing Test Report Summary");
 
             var TRSTable = CKDoc.Tables
-                .First(t => t.RowMatches(1, _SS.TestReportSummaryTableF));
+                .First(t => t.RowMatches(1, _ss.TestReportSummaryTableF));
 
             TRSTable.Columns[1].Delete();
 
             TRSTable.MakeFullPage();
+
             TRSTable.Columns
-                .First(col => NormalizeMatchStrings(col.Cells[1].Text, _SS.TestReportSummaryBandColF))
+                .First(col => NormalizeMatchStrings(col.Cells[1].Text, _ss.TestReportSummaryBandColF))
                 .Cells[2].Text = _ss.TestReportSummaryBandColR;
+            TRSTable.Columns
+                .First(col => NormalizeMatchStrings(col.Cells[1].Text, _ss.TestReportSummaryTechColF))
+                .Cells[2].Text = _ss.TestReportSummaryTechColR;
+
+            Log.Information("*** Fix Threshold settings table.");
+
+            var ThresholdSettingsTable = CKDoc.Tables
+                .First(t => t.RowMatches(1, _ss.ThresholdSettingsTable_F));
+
+            ThresholdSettingsTable.SetCell(
+                _ss.ThresholdSettingsTable_Measurement_F,
+                2, // hack
+                _ss.ThresholdSettingsTable_Measurement_R);
 
 
             Log.Information("*** Floor names replace with rebuild.");
-            var tf2 = new TextFinder(CKDoc, _SS.FloorPlanF);
+            var tf2 = new TextFinder(CKDoc, _ss.FloorPlanF);
 
             while (tf2.TryFind(out var foundRange2, true))
             {
@@ -58,13 +84,13 @@ namespace CoverageKiller2.Pipeline.Processes
 
             Log.Information("*** fix floor section heading table.");
             foreach (var table in CKDoc.Tables
-                .Where(t => t.RowMatches(1, _SS.FloorSectionHeadingTable_F))
+                .Where(t => t.RowMatches(1, _ss.FloorSectionHeadingTable_F))
                 .Reverse())
                 FixFloorSectionHeadingTable(table);
 
             Log.Information("*** remove grid notes table.");
             foreach (var table in CKDoc.Tables
-                .Where(t => t.RowMatches(1, _SS.FloorSectionGridNotesTable_F))
+                .Where(t => t.RowMatches(1, _ss.FloorSectionGridNotesTable_F))
                 .Reverse())
             {
                 table.Tracer.Stash(nameof(table.Index), table.Index);
@@ -74,7 +100,7 @@ namespace CoverageKiller2.Pipeline.Processes
 
             Log.Information("*** remove extra critical point fields: ULPower, DL Loss");
             foreach (var table in CKDoc.Tables
-                .Where(t => t.RowMatches(1, _SS.FloorSectionCriticalPointReportTable_F)))
+                .Where(t => t.RowMatches(1, _ss.FloorSectionCriticalPointReportTable_F)))
             {
 
                 FixFloorSectionCriticalPointReportTable(table);
@@ -85,7 +111,7 @@ namespace CoverageKiller2.Pipeline.Processes
             foreach (var table in CKDoc.Tables
                 .Where(t => NormalizeMatchStrings(
                     t.Rows[1].Cells
-                        .Aggregate("", (acc, c) => acc + c.Text), _SS.FloorSectionAreaReportTable_F)))
+                        .Aggregate("", (acc, c) => acc + c.Text), _ss.FloorSectionAreaReportTable_F)))
             {
                 FixFloorSectionAreaReportTable(table);
             }
@@ -98,7 +124,7 @@ namespace CoverageKiller2.Pipeline.Processes
                 .Add("CKDoc.COMObject.Sections.Count", CKDoc.COMObject.Sections.Count));
 
             var infoSection = CKDoc.COMObject.Sections.Last; //maybe someday create a CKSection
-            var tf3 = new TextFinder(CKDoc, _SS.SectionAdditionalInfo_F, infoSection.Range);
+            var tf3 = new TextFinder(CKDoc, _ss.SectionAdditionalInfo_F, infoSection.Range);
 
             // Check if we can find the text in the "Info" section, because it's possibly already removed.
             if (tf3.TryFind(out var foundText))
@@ -131,7 +157,7 @@ namespace CoverageKiller2.Pipeline.Processes
 
             while (tf1.TryFind(out _, true))
             {
-                tf1.Replace(_SS.TestLocationR);
+                tf1.Replace(_ss.TestLocationR);
 
             }
 
@@ -139,23 +165,23 @@ namespace CoverageKiller2.Pipeline.Processes
         }
         private void ReplaceBuildingID()
         {
-            foreach (var ss in searchStrings.Channels)
+            //foreach (var ss in searchStrings.Channels)
+            //{
+            TextFinder tf1 = new TextFinder(CKDoc, _ss.BuildingNameF);
+
+            while (tf1.TryFind(out _, true))
             {
-                TextFinder tf1 = new TextFinder(CKDoc, ss.BuildingNameF);
-
-                while (tf1.TryFind(out _, true))
-                {
-                    tf1.Replace(_SS.BuildingNameR);
-                    _ss = ss;
-                }
-
-                if (_ss != null) break;
+                tf1.Replace(_ss.BuildingNameR);
+                //_ss = ss;
             }
 
-            if (_ss is null)
-            {
-                throw new Exception($"BuildingNameF not found.");
-            }
+            //    if (_ss != null) break;
+            //}
+
+            //if (_ss is null)
+            //{
+            //    throw new Exception($"BuildingNameF not found.");
+            //}
         }
         private void FixFloorSectionCriticalPointReportTable(CKTable fixer)
         {
@@ -179,7 +205,7 @@ namespace CoverageKiller2.Pipeline.Processes
                 Tracer.Log("Deleting columns UL Power");
 
                 fixer.Columns
-                     .First(col => NormalizeMatchStrings(col.Cells[1].Text, _SS.FloorSectionCriticalPointReportTable_ULPower))
+                     .First(col => NormalizeMatchStrings(col.Cells[1].Text, _ss.FloorSectionCriticalPointReportTable_ULPower))
                      .Delete();
 
             }
@@ -194,7 +220,7 @@ namespace CoverageKiller2.Pipeline.Processes
                 Tracer.Log("Deleting columns B");
 
                 fixer.Columns
-                     .First(col => NormalizeMatchStrings(col.Cells[1].Text, _SS.FloorSectionCriticalPointReportTable_DLLoss))
+                     .First(col => NormalizeMatchStrings(col.Cells[1].Text, _ss.FloorSectionCriticalPointReportTable_DLLoss))
                      .Delete();
             }
             catch (Exception ex)
@@ -222,11 +248,11 @@ namespace CoverageKiller2.Pipeline.Processes
             fixer.Rows.First().Delete();
 
             fixer.Columns
-                 .First(col => NormalizeMatchStrings(col.Cells[1].Text, _SS.FloorSectionAreaReportTable_ULPower))
+                 .First(col => NormalizeMatchStrings(col.Cells[1].Text, _ss.FloorSectionAreaReportTable_ULPower))
                  .Delete();
 
             fixer.Columns
-                 .First(col => NormalizeMatchStrings(col.Cells[1].Text, _SS.FloorSectionAreaReportTable_DLLoss))
+                 .First(col => NormalizeMatchStrings(col.Cells[1].Text, _ss.FloorSectionAreaReportTable_DLLoss))
                  .Delete();
 
             fixer.AddAndMergeFirstRow("Grid Area Report");
@@ -235,7 +261,7 @@ namespace CoverageKiller2.Pipeline.Processes
         }
         private void FixFloorSectionHeadingTable(CKTable fixer)
         {
-            var headersToRemove = _SS.FloorSectionHeadingTable_RemoveCols
+            var headersToRemove = _ss.FloorSectionHeadingTable_RemoveCols
                 .Split(new[] { '\t' }, StringSplitOptions.RemoveEmptyEntries)
                 .Select(s => NormalizeMatchString(s))
                 .Reverse()
@@ -249,9 +275,14 @@ namespace CoverageKiller2.Pipeline.Processes
                 .Reverse().ToList().ForEach(col => col.Delete());
 
             fixer.SetCell(
-                _SS.FloorSectionHeadingTable_Band_F,
-                _SS.FloorSectionHeadingTable_Band_Row,
+                _ss.FloorSectionHeadingTable_Band_F,
+                _ss.FloorSectionHeadingTable_Data_Row,
                 _ss.FloorSectionHeadingTable_Band_CellR);
+
+            fixer.SetCell(
+                _ss.FloorSectionHeadingTable_Tech_F,
+                _ss.FloorSectionHeadingTable_Data_Row,
+                _ss.FloorSectionHeadingTable_Tech_CellR);
 
             fixer.MakeFullPage();
         }
@@ -261,7 +292,7 @@ namespace CoverageKiller2.Pipeline.Processes
 
 
 
-        private static void ReplaceFloorName(TextFinder tf, Word.Range foundRange)
+        private void ReplaceFloorName(TextFinder tf, Word.Range foundRange)
         {
             var x = ExtractParts(foundRange.Text);
             switch (x.Item1)
@@ -276,7 +307,7 @@ namespace CoverageKiller2.Pipeline.Processes
                     throw new ArgumentException("A valid wing code was not found.");
             }
 
-            string replaceText = string.Format(_SS.FloorPlanR, x.Item1, x.Item2);
+            string replaceText = string.Format(_ss.FloorPlanR, x.Item1, x.Item2);
             tf.Replace(replaceText);
         }
 

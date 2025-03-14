@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Windows.Forms;
 
 namespace CoverageKiller2.Logging
 {
@@ -18,21 +19,27 @@ namespace CoverageKiller2.Logging
         /// <returns>The file path of the created log file.</returns>
         public static string GetBareTailLog()
         {
-            tempFilePath = @"C:\_LocalFiles\logs\log.txt";
+            //tempFilePath = @"C:\_LocalFiles\logs\log.txt";
+            tempFilePath = Path.GetTempFileName();
+
             File.WriteAllText(tempFilePath, $"Log file created at {DateTime.Now} \n");
             return tempFilePath;
         }
 
-        /// <summary>
-        /// Starts BareTail with the log file if BareTail is not already running.
-        /// </summary>
         public static void StartBareTail()
         {
             // Check if BareTail is already running
             if (!Process.GetProcessesByName("BareTail").Any())
             {
-                string bareTailPath = Properties.Settings.Default.BareTailPath;
-                Process.Start(bareTailPath, $"\"{tempFilePath}\"");
+                // Ask the user if they want to open BareTail
+                var result = MessageBox.Show("Do you want to open the log viewer (BareTail)?", "Open Log Viewer", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                // If the user selects "Yes," start BareTail
+                if (result == DialogResult.Yes)
+                {
+                    string bareTailPath = Properties.Settings.Default.BareTailPath;
+                    Process.Start(bareTailPath, $"\"{tempFilePath}\"");
+                }
             }
         }
 
