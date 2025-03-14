@@ -1,7 +1,11 @@
 ﻿//using Microsoft.Office.Interop.Word;
 using CoverageKiller2.Pipeline;
+using CoverageKiller2.Pipeline.Config;
 using CoverageKiller2.Pipeline.Processes;
+using Microsoft.Office.Interop.Word;
 using Serilog;
+using System;
+using System.Windows.Forms;
 using Word = Microsoft.Office.Interop.Word;
 
 namespace CoverageKiller2
@@ -142,6 +146,57 @@ namespace CoverageKiller2
             Log.Information("Cleaning up.");
             ckDoc.Activate();
             ckDoc.COMObject.ActiveWindow.ActivePane.View.SeekView = Word.WdSeekView.wdSeekMainDocument;
+        }
+
+        internal static void TestProcessor(Document wDoc)
+        {
+            try
+            {
+                string configPath = SelectConfigFile();
+                if (string.IsNullOrEmpty(configPath))
+                {
+                    Log.Warning("No file selected. Aborting.");
+                    return;
+                }
+                var _loader = new ProcessorConfigLoader();
+                bool success = _loader.LoadConfig(configPath);
+
+                if (success)
+                {
+                    Log.Information($"Processor Name: {_loader.ProcessorConfig.Name}");
+                    Log.Information($"Description: {_loader.ProcessorConfig.Description}");
+                    Log.Information($"Source Template: {_loader.ProcessorConfig.SourceTemplate}");
+
+                    foreach (var step in _loader.ProcessorConfig.PipelineConfig.Steps.StepList)
+                    {
+                        Log.Information($"Step: {step.Name}");
+                    }
+                }
+                else
+                {
+                    Log.Error("Failed to load processor configuration.");
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Error($"Exception during processor test: {ex.Message}");
+            }
+        }
+        private static string SelectConfigFile()
+        {
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            {
+                openFileDialog.Title = "Select Processor Config File";
+                openFileDialog.Filter = "XML Files (*.xml)|*.xml|All Files (*.*)|*.*";
+                openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    return openFileDialog.FileName;
+                }
+            }
+
+            return null; // User canceled
         }
         //public static void FixNativeReport(Word.Document doc)
         //{

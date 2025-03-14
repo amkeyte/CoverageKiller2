@@ -1,4 +1,5 @@
 ﻿using CoverageKiller2.Logging;
+using Microsoft.Office.Core;
 using Serilog;
 using System;
 using System.IO;
@@ -57,6 +58,32 @@ namespace CoverageKiller2
             {
                 throw ex;
             }
+        }
+
+        public async void OnTestProcessor(IRibbonControl control)
+        {
+            Log.Information("Testing Process Loader");
+            try
+            {
+                if (Globals.ThisAddIn.Application.Documents.Count > 0)
+                {
+                    Word.Document wDoc = Globals.ThisAddIn.Application.ActiveDocument;
+                    CkDocHelpers.TestProcessor(wDoc);
+                }
+                else
+                {
+                    Log.Information("This was not a PCTELDoc report. Trying again...");
+                    MessageBox.Show("Open a PCTEL Report document.");
+                }
+                Log.Information("Process Loader Test Complete");
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+
+
         }
 
         /// <summary>
