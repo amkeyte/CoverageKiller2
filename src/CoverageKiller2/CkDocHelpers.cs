@@ -5,6 +5,7 @@ using CoverageKiller2.Pipeline.Processes;
 using Microsoft.Office.Interop.Word;
 using Serilog;
 using System;
+using System.IO;
 using System.Windows.Forms;
 using Word = Microsoft.Office.Interop.Word;
 
@@ -15,64 +16,6 @@ namespace CoverageKiller2
     /// </summary>
     public class CkDocHelpers
     {
-        //public static void FixDasReport(Word.Document doc)
-        //{
-        //    doc.FixFirstAndLastPages();
-
-        //    List<Word.Section> sections = doc.GetDataPageSections();
-
-        //    foreach (Word.Section section in sections)
-        //    {
-        //        doc.FixDataPageHeadingText(section, "BDA / DAS Coverage\r");
-
-        //        //Fix tables
-        //        foreach (Word.Table table in section.Range.Tables)
-        //        {
-        //            if (!table.FixMapDataPageTables())
-        //            {
-        //                table.DelColumnsIf("Critical Point Report",
-        //                    "DL Loss (dB)");
-
-        //                table.DelColumnsIf("Area Report",
-        //                    "DL Loss (dB)");
-        //            }
-        //        }
-        //    }
-        //}
-
-        //public static void FixDlHeadroomReport(Word.Document doc)
-        //{
-        //    doc.FixFirstAndLastPages();
-
-        //    List<Word.Section> sections = doc.GetDataPageSections();
-
-        //    foreach (Word.Section section in sections)
-        //    {
-        //        doc.FixDataPageHeadingText(section, "Downlink Dominance Headroom\r");
-
-        //        //Fix tables
-        //        foreach (Word.Table table in section.Range.Tables)
-        //        {
-        //            if (!table.FixMapDataPageTables())
-        //            {
-        //                table.RenameColumn("DL Power (dBm)", "DL\rHeadroom\r(dBm)\r\a");
-
-        //                table.DelColumnsIf("Critical Point Report",
-        //                    "DL DAQ",
-        //                    "UL Power (dBm)",
-        //                    "UL DAQ",
-        //                    "DL Loss (dB)");
-
-        //                table.DelColumnsIf("Area Report",
-        //                    "DL DAQ",
-        //                    "UL Power (dBm)",
-        //                    "UL DAQ",
-        //                    "DL Loss (dB)");
-        //            }
-        //        }
-        //    }
-        //}
-
 
         /// <summary>
         /// depreciate
@@ -167,10 +110,44 @@ namespace CoverageKiller2
                     Log.Information($"Description: {_loader.ProcessorConfig.Description}");
                     Log.Information($"Source Template: {_loader.ProcessorConfig.SourceTemplate}");
 
-                    foreach (var step in _loader.ProcessorConfig.PipelineConfig.Steps.StepList)
+                    foreach (var step in _loader.ProcessorConfig.Pipeline.Steps.StepList)
                     {
                         Log.Information($"Step: {step.Name}");
                     }
+
+                    var ckDoc = new CKDocument(wDoc);
+                    var template = IndoorReportTemplate.OpenResource();
+                    var pipeline = new CKWordPipeline(ckDoc);
+                    foreach (var x in _loader.ProcessorConfig.Pipeline.Steps.StepList)
+                    {
+                        // Get the step class type dynamically using reflection
+                        Type stepType = Type.GetType($"{x.Namespace}.{x.Name}");
+
+                        if (stepType == null)
+                        {
+                            Log.Error($"Step type '{x.Name}' not found.");
+                            continue;
+                        }
+
+                        try
+                        {
+                            // Assuming the constructor takes an instance of IndoorReportTemplate
+                            CKWordPipelineProcess instance = (CKWordPipelineProcess)Activator.CreateInstance(stepType, template);
+                            pipeline.Add(instance);
+                            Log.Information($"Successfully created instance of {x.Name}");
+                        }
+                        catch (Exception ex)
+                        {
+                            Log.Error($"Error creating instance of {x.Name}: {ex.Message}");
+                        }
+                    }
+                    pipeline.Run();
+                    Log.Information("Pipeline completed.");
+
+                    template.Close();
+                    Log.Information("Cleaning up.");
+                    ckDoc.Activate();
+                    ckDoc.COMObject.ActiveWindow.ActivePane.View.SeekView = Word.WdSeekView.wdSeekMainDocument;
                 }
                 else
                 {
@@ -181,79 +158,43 @@ namespace CoverageKiller2
             {
                 Log.Error($"Exception during processor test: {ex.Message}");
             }
+
+
         }
-        private static string SelectConfigFile()
+        private string SelectConfigFile()
         {
+            string lastFolder = Properties.Settings.Default.LastUsedFolder;
+            string lastFile = Properties.Settings.Default.LastOpenedFile;
+
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
                 openFileDialog.Title = "Select Processor Config File";
                 openFileDialog.Filter = "XML Files (*.xml)|*.xml|All Files (*.*)|*.*";
-                openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+
+                // Use last opened file if available, otherwise default to last used folder
+                if (!string.IsNullOrEmpty(lastFile) && File.Exists(lastFile))
+                {
+                    openFileDialog.InitialDirectory = Path.GetDirectoryName(lastFile);
+                    openFileDialog.FileName = lastFile; // Pre-selects the last file
+                }
+                else
+                {
+                    openFileDialog.InitialDirectory = Directory.Exists(lastFolder) ? lastFolder
+                                                     : Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+                }
 
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
+                    // Save selected folder and file path for next time
+                    Properties.Settings.Default.LastUsedFolder = Path.GetDirectoryName(openFileDialog.FileName);
+                    Properties.Settings.Default.LastOpenedFile = openFileDialog.FileName;
+                    Properties.Settings.Default.Save();
+
                     return openFileDialog.FileName;
                 }
             }
 
             return null; // User canceled
         }
-        //public static void FixNativeReport(Word.Document doc)
-        //{
-        //    doc.FixFirstAndLastPages();
 
-        //    List<Word.Section> sections = doc.GetDataPageSections();
-
-        //    foreach (Word.Section section in sections)
-        //    {
-        //        doc.FixDataPageHeadingText(section, "System Macro Coverage\r");
-
-        //        //Fix tables
-        //        foreach (Word.Table table in section.Range.Tables)
-        //        {
-        //            if (!table.FixMapDataPageTables())
-        //            {
-        //                table.DelColumnsIf("Critical Point Report",
-        //                    "DL Loss (dB)");
-
-        //                table.DelColumnsIf("Area Report",
-        //                    "DL Loss (dB)");
-        //            }
-        //        }
-        //    }
-        //}
-
-        //public static void FixUlHeadroomReport(Word.Document doc)
-        //{
-        //    doc.FixFirstAndLastPages();
-
-        //    List<Word.Section> sections = doc.GetDataPageSections();
-
-        //    foreach (Word.Section section in sections)
-        //    {
-        //        doc.FixDataPageHeadingText(section, "Uplink Dominance Headroom\r");
-
-        //        //Fix tables
-        //        foreach (Word.Table table in section.Range.Tables)
-        //        {
-        //            if (!table.FixMapDataPageTables())
-        //            {
-        //                table.RenameColumn("DL Power (dBm)", "UL\rHeadroom\r(dBm)\r\a");
-
-        //                table.DelColumnsIf("Critical Point Report",
-        //                    "DL DAQ",
-        //                    "UL Power (dBm)",
-        //                    "UL DAQ",
-        //                    "DL Loss (dB)");
-
-        //                table.DelColumnsIf("Area Report",
-        //                    "DL DAQ",
-        //                    "UL Power (dBm)",
-        //                    "UL DAQ",
-        //                    "DL Loss (dB)");
-        //            }
-        //        }
-        //    }
-        //}
     }
-}

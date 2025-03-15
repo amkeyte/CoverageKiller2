@@ -241,6 +241,8 @@
     <Compile Include="Logging\Tracer.cs" />
     <Compile Include="Pipeline\Config\ProcessConfigLoader.cs" />
     <Compile Include="Pipeline\Config\ProcessorConfig.cs" />
+    <Compile Include="Pipeline\Processes\DefaultFixer1.cs" />
+    <Compile Include="Pipeline\Processes\DefaultFixer2.cs" />
     <Compile Include="Pipeline\Processes\PageSetupFixer.cs" />
     <Compile Include="Pipeline\Processes\FooterFixer.cs" />
     <Compile Include="Pipeline\Processes\HeaderFixer.cs" />

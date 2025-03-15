@@ -46,5 +46,29 @@ namespace CoverageKiller2.Properties {
                 this["DEBUG"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string LastUsedFolder {
+            get {
+                return ((string)(this["LastUsedFolder"]));
+            }
+            set {
+                this["LastUsedFolder"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string LastOpenedFile {
+            get {
+                return ((string)(this["LastOpenedFile"]));
+            }
+            set {
+                this["LastOpenedFile"] = value;
+            }
+        }
     }
 }

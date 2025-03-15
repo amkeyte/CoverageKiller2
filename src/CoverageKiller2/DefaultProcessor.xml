@@ -3,12 +3,12 @@
 	Name = "Default Processor"
 	Description = "Run Default Process for {document_name}"
 	SourceTemplate = "default">
-	<PipelineConfig>
+	<Pipeline>
 		<Steps>
-			<Step Name =" DefaultFixer1"/>
-			<Step Name =" DefaultFixer2"/>
+			<Step Namespace ="CoverageKiller2.Pipeline.Processes" Name ="DefaultFixer1"/>
+			<Step Namespace ="CoverageKiller2.Pipeline.Processes" Name ="DefaultFixer2"/>
 		</Steps>
-	</PipelineConfig>
+	</Pipeline>
 </ProcessorConfig>		
 	
 			

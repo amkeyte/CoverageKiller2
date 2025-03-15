@@ -15,11 +15,11 @@ namespace CoverageKiller2.Pipeline.Config
         [XmlAttribute("SourceTemplate")]
         public string SourceTemplate { get; set; }
 
-        [XmlElement("PipelineConfig")]
-        public PipelineConfig PipelineConfig { get; set; }
+        [XmlElement("Pipeline")]
+        public Pipeline Pipeline { get; set; }
     }
 
-    public class PipelineConfig
+    public class Pipeline
     {
         [XmlElement("Steps")]
         public Steps Steps { get; set; }
@@ -35,5 +35,8 @@ namespace CoverageKiller2.Pipeline.Config
     {
         [XmlAttribute("Name")]
         public string Name { get; set; }
+
+        [XmlAttribute("Namespace")]
+        public string Namespace { get; set; }
     }
 }
