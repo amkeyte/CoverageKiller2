@@ -161,7 +161,7 @@ namespace CoverageKiller2
 
 
         }
-        private string SelectConfigFile()
+        private static string SelectConfigFile()
         {
             string lastFolder = Properties.Settings.Default.LastUsedFolder;
             string lastFile = Properties.Settings.Default.LastOpenedFile;
@@ -198,3 +198,4 @@ namespace CoverageKiller2
         }
 
     }
+}

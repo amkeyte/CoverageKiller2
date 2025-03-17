@@ -59,6 +59,12 @@ namespace CoverageKiller2
                 throw ex;
             }
         }
+        public async void OnDebugLoader(Office.IRibbonUI ribbonUI)
+        {
+            string logFile = LogTailLoader.GetLogFile();
+            LoggingLoader.Configure(logFile, Serilog.Events.LogEventLevel.Debug);
+            LogTailLoader.StartBareTail(logFile);
+        }
 
         public async void OnTestProcessor(IRibbonControl control)
         {
