@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using CoverageKiller2.Pipeline.Config;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace CoverageKiller2.Pipeline
@@ -14,6 +15,8 @@ namespace CoverageKiller2.Pipeline
         /// Gets the document associated with the pipeline.
         /// </summary>
         public CKDocument Document { get; }
+        public CKDocument Template { get; private set; }
+        public ProcessorConfig ProcessorConfig { get; private set; }
 
         /// <summary>
         /// Gets the number of items in the pipeline.
@@ -34,14 +37,23 @@ namespace CoverageKiller2.Pipeline
             Document = ckDoc;
         }
 
+        public CKWordPipeline(Dictionary<string, object> initVars)
+        {
+            Document = (CKDocument)initVars["ckDoc"];
+            Template = (CKDocument)initVars["template"];
+            ProcessorConfig = (ProcessorConfig)initVars["ProcessorConfig"];
+        }
+
         /// <summary>
         /// Adds a process to the pipeline and assigns the document to the process.
         /// </summary>
         /// <param name="item">The pipeline process to add.</param>
         public void Add(CKWordPipelineProcess item)
         {
-            _items.Add(item);
             item.CKDoc = Document;
+            item.ProcessorConfig = ProcessorConfig;
+            item.Template = Template;
+            _items.Add(item);
         }
 
         /// <summary>

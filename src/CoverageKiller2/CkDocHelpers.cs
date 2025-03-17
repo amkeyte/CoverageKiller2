@@ -5,6 +5,7 @@ using CoverageKiller2.Pipeline.Processes;
 using Microsoft.Office.Interop.Word;
 using Serilog;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
 using Word = Microsoft.Office.Interop.Word;
@@ -117,7 +118,13 @@ namespace CoverageKiller2
 
                     var ckDoc = new CKDocument(wDoc);
                     var template = IndoorReportTemplate.OpenResource();
-                    var pipeline = new CKWordPipeline(ckDoc);
+                    Dictionary<string, object> initVars = new Dictionary<string, object>();
+
+                    initVars.Add(nameof(ckDoc), ckDoc);
+                    initVars.Add(nameof(template), template);
+                    initVars.Add(nameof(_loader.ProcessorConfig), _loader.ProcessorConfig);
+
+                    var pipeline = new CKWordPipeline(initVars);
                     foreach (var x in _loader.ProcessorConfig.Pipeline.Steps.StepList)
                     {
                         // Get the step class type dynamically using reflection
@@ -132,7 +139,8 @@ namespace CoverageKiller2
                         try
                         {
                             // Assuming the constructor takes an instance of IndoorReportTemplate
-                            CKWordPipelineProcess instance = (CKWordPipelineProcess)Activator.CreateInstance(stepType, template);
+                            CKWordPipelineProcess instance =
+                                (CKWordPipelineProcess)Activator.CreateInstance(stepType);
                             pipeline.Add(instance);
                             Log.Information($"Successfully created instance of {x.Name}");
                         }
@@ -156,10 +164,8 @@ namespace CoverageKiller2
             }
             catch (Exception ex)
             {
-                Log.Error($"Exception during processor test: {ex.Message}");
+                Log.Error($"Exception during processor run: {ex.Message}");
             }
-
-
         }
         private static string SelectConfigFile()
         {

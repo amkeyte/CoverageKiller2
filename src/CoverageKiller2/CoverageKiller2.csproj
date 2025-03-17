@@ -250,6 +250,7 @@
     <Compile Include="Pipeline\CKWordPipeline.cs" />
     <Compile Include="Pipeline\CKWordPipelineProcess.cs" />
     <Compile Include="Pipeline\Processes\PRMCEFixer_SearchStrings.cs" />
+    <Compile Include="Pipeline\Processes\SEA2025Fixer.cs" />
     <Compile Include="Pipeline\WordHelpers\TableFinder.cs" />
     <Compile Include="CKTable.cs" />
     <Compile Include="Pipeline\WordHelpers\TextFinder.cs" />

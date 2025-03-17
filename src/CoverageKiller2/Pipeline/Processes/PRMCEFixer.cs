@@ -338,8 +338,5 @@ namespace CoverageKiller2.Pipeline.Processes
         {
             return NormalizeMatchString(str1) == NormalizeMatchString(str2);
         }
-
-
-
     }
 }

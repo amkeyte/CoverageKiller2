@@ -6,11 +6,6 @@ namespace CoverageKiller2.Pipeline.Processes
     {
         private readonly CKDocument template;
 
-        public DefaultFixer2(CKDocument template)
-        {
-            this.template = template;
-        }
-
         public override void Process()
         {
             Log.Information("DefaultFixer1 Processing");

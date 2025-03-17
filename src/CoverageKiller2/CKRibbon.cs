@@ -81,9 +81,29 @@ namespace CoverageKiller2
             {
                 throw ex;
             }
+        }
 
-
-
+        public async void OnRunProcessor(IRibbonControl control)
+        {
+            Log.Information("Running Process Loader");
+            try
+            {
+                if (Globals.ThisAddIn.Application.Documents.Count > 0)
+                {
+                    Word.Document wDoc = Globals.ThisAddIn.Application.ActiveDocument;
+                    CkDocHelpers.TestProcessor(wDoc);
+                }
+                else
+                {
+                    Log.Information("This was not a PCTELDoc report. Trying again...");
+                    MessageBox.Show("Open a PCTEL Report document.");
+                }
+                Log.Information("Process Complete");
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         /// <summary>
