@@ -41,8 +41,13 @@ namespace CoverageKiller2
         /// </summary>
 
 
-
+        // Using Create why? Probably just a conventional to prevent uninttended changes from other code.
+        // if this is the case, probably better to switch to copying around the single refernce and then 
+        // copying the range content if it makes sense in some case. Hell, this could even be for some old
+        // shit im not even doing anymore.
         public CKTables Tables => CKTables.Create(this);
+        public CKSections Sections => CKSections.Create(this);
+
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CKDocument"/> class, 

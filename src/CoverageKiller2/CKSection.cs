@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Word = Microsoft.Office.Interop.Word;
 
 namespace CoverageKiller2
@@ -72,6 +73,28 @@ namespace CoverageKiller2
         public override string ToString()
         {
             return $"Section: Range [{Range.Start}, {Range.End}]";
+        }
+
+        /// <summary>
+        /// Gets an enumerable collection of <see cref="CKTable"/> objects contained within the section.
+        /// </summary>
+        public IEnumerable<CKTable> Tables
+        {
+            get
+            {
+                Word.Tables sectionTables = COMObject.Range.Tables;
+                for (int i = 1; i <= sectionTables.Count; i++)
+                {
+                    yield return new CKTable(sectionTables[i]);
+                }
+            }
+        }
+        public CKTables Tables
+        {
+            get
+            {
+
+            }
         }
     }
 }

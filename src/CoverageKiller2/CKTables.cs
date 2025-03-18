@@ -6,29 +6,29 @@ using Word = Microsoft.Office.Interop.Word;
 namespace CoverageKiller2
 {
     /// <summary>
-    /// Represents a collection of <see cref="CKTable"/> objects associated with a <see cref="CKDocument"/>.
+    /// Represents a collection of <see cref="CKTable"/> objects associated with a <see cref="CKRange"/>.
     /// </summary>
     public class CKTables : IEnumerable<CKTable>
     {
         /// <summary>
-        /// Creates a new instance of <see cref="CKTables"/> for the specified <see cref="CKDocument"/>.
+        /// Creates a new instance of <see cref="CKTables"/> for the specified <see cref="CKRange"/>.
         /// </summary>
-        /// <param name="parent">The parent <see cref="CKDocument"/> that contains the tables.</param>
+        /// <param name="parent">The parent <see cref="CKRange"/> that contains the tables.</param>
         /// <returns>A new instance of <see cref="CKTables"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="parent"/> is null.</exception>
-        internal static CKTables Create(CKDocument parent)
+        internal static CKTables Create(CKRange parent)
         {
             parent = parent ?? throw new ArgumentNullException(nameof(parent));
             return new CKTables(parent);
         }
 
         /// <summary>
-        /// Gets the parent <see cref="CKDocument"/> associated with this instance.
+        /// Gets the parent <see cref="CKRange"/> associated with this instance.
         /// </summary>
-        internal CKDocument Parent { get; private set; }
+        internal CKRange Parent { get; private set; }
 
         /// <summary>
-        /// Gets the underlying Word.Tables COM object from the parent document.
+        /// Gets the underlying Word.Tables COM object from the parent range.
         /// Note that there is only one Tables property, so calling back to it
         /// instead of storing a reference every time is acceptable.
         /// </summary>
@@ -37,24 +37,24 @@ namespace CoverageKiller2
         /// <summary>
         /// Returns a string that represents the current <see cref="CKTables"/> instance.
         /// </summary>
-        /// <returns>A string containing the document name and the count of tables.</returns>
+        /// <returns>A string containing the count of tables.</returns>
         public override string ToString()
         {
-            string docName = System.IO.Path.GetFileName(Parent.FullPath);
-            return $"[{docName}].Tables[Count: {Count}]";
+            // Since CKRange doesn't provide a file path, we simply return the count.
+            return $"CKTables [Count: {Count}]";
         }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CKTables"/> class.
         /// </summary>
-        /// <param name="parent">The parent <see cref="CKDocument"/> to associate with this instance.</param>
-        private CKTables(CKDocument parent)
+        /// <param name="parent">The parent <see cref="CKRange"/> to associate with this instance.</param>
+        private CKTables(CKRange parent)
         {
             Parent = parent;
         }
 
         /// <summary>
-        /// Gets the number of tables in the associated document.
+        /// Gets the number of tables in the associated range.
         /// </summary>
         public int Count => COMObject.Count;
 
@@ -98,8 +98,6 @@ namespace CoverageKiller2
                     return i;
                 }
             }
-
-            // Return -1 if the target table is not found
             return -1;
         }
 

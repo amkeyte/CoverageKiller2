@@ -10,6 +10,15 @@ namespace CoverageKiller2
     /// </summary>
     public class CKSections : IEnumerable<CKSection>
     {
+
+        internal static CKSections Create(CKDocument parent)
+        {
+            parent = parent ?? throw new ArgumentNullException(nameof(parent));
+            return new CKSections(parent);
+        }
+
+
+
         /// <summary>
         /// Gets the parent <see cref="CKDocument"/> that contains this collection of sections.
         /// </summary>

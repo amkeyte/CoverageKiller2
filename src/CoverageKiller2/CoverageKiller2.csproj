@@ -228,6 +228,7 @@
     <Compile Include="CKColumns.cs" />
     <Compile Include="CkDocHelpers.cs" />
     <Compile Include="CKDocument.cs" />
+    <Compile Include="CKRange.cs" />
     <Compile Include="CKRibbon.cs" />
     <Compile Include="CKRow.cs" />
     <Compile Include="CKRows.cs" />
