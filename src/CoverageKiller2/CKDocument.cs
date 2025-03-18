@@ -194,5 +194,51 @@ namespace CoverageKiller2
             //sectionToDelete.Range.Delete();
             extendedRange.Delete();
         }
+
+        // Get primary footer range
+        public Word.Range GetFooterRange()
+        {
+            return COMObject.Sections[1].Footers[Word.WdHeaderFooterIndex.wdHeaderFooterPrimary].Range;
+        }
+
+        // Get primary header range
+        public Word.Range GetHeaderRange()
+        {
+            return COMObject.Sections[1].Headers[Word.WdHeaderFooterIndex.wdHeaderFooterPrimary].Range;
+        }
+
+        // Copy footer from this document to another
+        public void CopyFooterTo(CKDocument targetDocument)
+        {
+            if (targetDocument == null || targetDocument.COMObject == null)
+                throw new ArgumentNullException(nameof(targetDocument));
+
+            Word.Range sourceFooter = GetFooterRange();
+            Word.Range targetFooter = targetDocument.GetFooterRange();
+
+            targetFooter.FormattedText = sourceFooter.FormattedText;
+        }
+
+        // Copy header from this document to another
+        public void CopyHeaderTo(CKDocument targetDocument)
+        {
+            if (targetDocument == null || targetDocument.COMObject == null)
+                throw new ArgumentNullException(nameof(targetDocument));
+
+            Word.Range sourceHeader = GetHeaderRange();
+            Word.Range targetHeader = targetDocument.GetHeaderRange();
+
+            targetHeader.FormattedText = sourceHeader.FormattedText;
+        }
+
+        // Copy both header and footer
+        public void CopyHeaderAndFooterTo(CKDocument targetDocument)
+        {
+            CopyHeaderTo(targetDocument);
+            CopyFooterTo(targetDocument);
+        }
+
+
     }
+
 }

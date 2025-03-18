@@ -52,7 +52,7 @@ namespace CoverageKiller2.Pipeline
         {
             item.CKDoc = Document;
             item.ProcessorConfig = ProcessorConfig;
-            item.Template = Template;
+            if (item.Template is null) item.Template = Template;
             _items.Add(item);
         }
 

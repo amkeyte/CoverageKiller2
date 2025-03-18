@@ -30,8 +30,8 @@ namespace CoverageKiller2
             {
                 //{ new GetUserState() },
                 //{ new PageSetupFixer(template)  },
-                { new HeaderFixer(template) },
-                { new FooterFixer(template) },
+                //{ new HeaderFixer(template) },
+                { new FooterHeaderFixer(template) },
 
                 //{ new ResetUserState() },
             };
@@ -56,8 +56,8 @@ namespace CoverageKiller2
             {
                 //{ new GetUserState() },
                 //{ new PageSetupFixer(template)  },
-                { new HeaderFixer(template) },
-                { new FooterFixer(template) },
+                //{ new HeaderFixer(template) },
+                { new FooterHeaderFixer() },
                 { new PRMCEFixer("800MHz") },
                 //{ new ResetUserState() },
             };
@@ -78,8 +78,8 @@ namespace CoverageKiller2
             {
                 //{ new GetUserState() },
                 //{ new PageSetupFixer(template)  },
-                { new HeaderFixer(template) },
-                { new FooterFixer(template) },
+                //{ new HeaderFixer(template) },
+                { new FooterHeaderFixer(template) },
                 { new PRMCEFixer("UHF") },
                 //{ new ResetUserState() },
             };

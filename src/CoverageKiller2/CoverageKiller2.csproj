@@ -226,7 +226,6 @@
     <Compile Include="CKCells.cs" />
     <Compile Include="CKColumn.cs" />
     <Compile Include="CKColumns.cs" />
-    <Compile Include="CkDoc.cs" />
     <Compile Include="CkDocHelpers.cs" />
     <Compile Include="CKDocument.cs" />
     <Compile Include="CKRibbon.cs" />
@@ -245,7 +244,7 @@
     <Compile Include="Pipeline\Processes\DefaultFixer2.cs" />
     <Compile Include="Pipeline\Processes\FixerHelpers.cs" />
     <Compile Include="Pipeline\Processes\PageSetupFixer.cs" />
-    <Compile Include="Pipeline\Processes\FooterFixer.cs" />
+    <Compile Include="Pipeline\Processes\FooterHeaderFixer.cs" />
     <Compile Include="Pipeline\Processes\HeaderFixer.cs" />
     <Compile Include="IndoorReportTemplate.cs" />
     <Compile Include="Pipeline\CKWordPipeline.cs" />
