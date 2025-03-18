@@ -28,7 +28,7 @@ namespace CoverageKiller2
         /// </summary>
         /// <param name="range">The Word.Range object to wrap.</param>
         /// <exception cref="ArgumentNullException">Thrown when the <paramref name="range"/> is null.</exception>
-        private CKRange(Word.Range range)
+        protected CKRange(Word.Range range)
         {
             COMObject = range ?? throw new ArgumentNullException(nameof(range));
         }

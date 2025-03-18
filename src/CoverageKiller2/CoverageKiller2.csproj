@@ -228,6 +228,7 @@
     <Compile Include="CKColumns.cs" />
     <Compile Include="CkDocHelpers.cs" />
     <Compile Include="CKDocument.cs" />
+    <Compile Include="CKParagraph.cs" />
     <Compile Include="CKRange.cs" />
     <Compile Include="CKRibbon.cs" />
     <Compile Include="CKRow.cs" />
@@ -235,6 +236,7 @@
     <Compile Include="CKSection.cs" />
     <Compile Include="CKSections.cs" />
     <Compile Include="CKTables.cs" />
+    <Compile Include="CLParagraphs.cs" />
     <Compile Include="Logging\LH.cs" />
     <Compile Include="Logging\LoggingLoader.cs" />
     <Compile Include="Logging\LogTailLoader.cs" />
