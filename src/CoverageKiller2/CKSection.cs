@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using Word = Microsoft.Office.Interop.Word;
 
 namespace CoverageKiller2
@@ -27,7 +26,7 @@ namespace CoverageKiller2
         /// <summary>
         /// Gets the range of the section.
         /// </summary>
-        public Word.Range Range => COMObject.Range;
+        public CKRange Range => CKRange.Create(COMObject.Range);
 
         /// <summary>
         /// Gets or sets the primary header range for this section.
@@ -78,23 +77,7 @@ namespace CoverageKiller2
         /// <summary>
         /// Gets an enumerable collection of <see cref="CKTable"/> objects contained within the section.
         /// </summary>
-        public IEnumerable<CKTable> Tables
-        {
-            get
-            {
-                Word.Tables sectionTables = COMObject.Range.Tables;
-                for (int i = 1; i <= sectionTables.Count; i++)
-                {
-                    yield return new CKTable(sectionTables[i]);
-                }
-            }
-        }
-        public CKTables Tables
-        {
-            get
-            {
+        public CKTables Tables => CKTables.Create(Range);
 
-            }
-        }
     }
 }

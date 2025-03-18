@@ -3,6 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 using Word = Microsoft.Office.Interop.Word;
 
+///************
+///Yes, it behaves similarly. When you access the Tables property on a Word.Range, Word returns a collection of all tables that intersect with that range. This means:
+
+//If the range is entirely within a table, you'll get that table.
+//If the range spans across multiple tables, you'll get all tables that the range touches.
+//If the range doesn’t include any tables, the collection will simply be empty.
+//No error is thrown if the range is smaller than a table or doesn’t fully encompass one.
+///************
+
+
 namespace CoverageKiller2
 {
     /// <summary>
