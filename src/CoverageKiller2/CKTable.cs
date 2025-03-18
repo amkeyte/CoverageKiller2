@@ -31,7 +31,7 @@ namespace CoverageKiller2
 
         private CKTable(CKTables parent, int index)
         {
-            Tracer.Enabled = false;
+            Tracer.Enabled = true;
 
             //here we store a reference to the com table itself in case
             // the document moves it in the index.
@@ -167,7 +167,9 @@ namespace CoverageKiller2
             string normalizedRowValues = NormalizeMatchString(rowValues);
 
             string normalizedTarget = NormalizeMatchString(target);
-
+            Tracer.Log("Table search match strings", new DataPoints()
+                .Add(nameof(normalizedRowValues), normalizedRowValues)
+                .Add(nameof(normalizedTarget), normalizedTarget));
             //Log.Debug("{func}: row => {row}\n\ttarget => {target}\n\trowvalues => {rowVals}",
             //    nameof(RowMatches), oneBasedRowIndex, normalizedTarget, normalizedRowValues);
 

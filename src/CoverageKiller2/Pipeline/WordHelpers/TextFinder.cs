@@ -42,7 +42,7 @@ namespace CoverageKiller2.Pipeline.WordHelpers
         /// <param name="searchWithinRange">The range to search within. If null, the entire document will be searched.</param>
         public TextFinder(CKDocument ckDoc, string searchText, Word.Range searchWithinRange)
         {
-            Tracer.Enabled = false;
+            Tracer.Enabled = true;
             if (ckDoc == null) throw new ArgumentNullException(nameof(ckDoc));
             if (string.IsNullOrWhiteSpace(searchText)) throw new ArgumentNullException(nameof(searchText));
 
