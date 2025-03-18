@@ -5,33 +5,67 @@ using Word = Microsoft.Office.Interop.Word;
 
 namespace CoverageKiller2
 {
+    /// <summary>
+    /// Represents a collection of <see cref="CKTable"/> objects associated with a <see cref="CKDocument"/>.
+    /// </summary>
     public class CKTables : IEnumerable<CKTable>
     {
+        /// <summary>
+        /// Creates a new instance of <see cref="CKTables"/> for the specified <see cref="CKDocument"/>.
+        /// </summary>
+        /// <param name="parent">The parent <see cref="CKDocument"/> that contains the tables.</param>
+        /// <returns>A new instance of <see cref="CKTables"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="parent"/> is null.</exception>
         internal static CKTables Create(CKDocument parent)
         {
             parent = parent ?? throw new ArgumentNullException(nameof(parent));
             return new CKTables(parent);
         }
+
+        /// <summary>
+        /// Gets the parent <see cref="CKDocument"/> associated with this instance.
+        /// </summary>
         internal CKDocument Parent { get; private set; }
 
-        //there is only one Tables property, so calling back to it instead of
-        //storing a reference every time is fine.
+        /// <summary>
+        /// Gets the underlying Word.Tables COM object from the parent document.
+        /// Note that there is only one Tables property, so calling back to it
+        /// instead of storing a reference every time is acceptable.
+        /// </summary>
         internal Word.Tables COMObject => Parent.COMObject.Tables;
+
+        /// <summary>
+        /// Returns a string that represents the current <see cref="CKTables"/> instance.
+        /// </summary>
+        /// <returns>A string containing the document name and the count of tables.</returns>
         public override string ToString()
         {
             string docName = System.IO.Path.GetFileName(Parent.FullPath);
-
             return $"[{docName}].Tables[Count: {Count}]";
-
         }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CKTables"/> class.
+        /// </summary>
+        /// <param name="parent">The parent <see cref="CKDocument"/> to associate with this instance.</param>
         private CKTables(CKDocument parent)
         {
             Parent = parent;
-
         }
 
+        /// <summary>
+        /// Gets the number of tables in the associated document.
+        /// </summary>
         public int Count => COMObject.Count;
 
+        /// <summary>
+        /// Gets the <see cref="CKTable"/> at the specified one-based index.
+        /// </summary>
+        /// <param name="index">The one-based index of the table to retrieve.</param>
+        /// <returns>The <see cref="CKTable"/> at the specified index.</returns>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// Thrown when the index is less than 1 or greater than the number of tables.
+        /// </exception>
         public CKTable this[int index]
         {
             get
@@ -43,6 +77,14 @@ namespace CoverageKiller2
                 return CKTable.Create(this, index);
             }
         }
+
+        /// <summary>
+        /// Determines the one-based index of the specified <see cref="CKTable"/> in the collection.
+        /// </summary>
+        /// <param name="targetTable">The table to locate in the collection.</param>
+        /// <returns>
+        /// The one-based index of the table if found; otherwise, -1.
+        /// </returns>
         public int IndexOf(CKTable targetTable)
         {
             for (int i = 1; i <= Count; i++)
@@ -60,6 +102,11 @@ namespace CoverageKiller2
             // Return -1 if the target table is not found
             return -1;
         }
+
+        /// <summary>
+        /// Returns an enumerator that iterates through the <see cref="CKTable"/> objects in the collection.
+        /// </summary>
+        /// <returns>An enumerator for the collection of <see cref="CKTable"/> objects.</returns>
         public IEnumerator<CKTable> GetEnumerator()
         {
             for (int i = 1; i <= Count; i++)
@@ -68,8 +115,16 @@ namespace CoverageKiller2
             }
         }
 
+        /// <summary>
+        /// Returns an enumerator that iterates through the collection.
+        /// </summary>
+        /// <returns>An enumerator for the collection.</returns>
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
+        /// <summary>
+        /// This method is not implemented.
+        /// </summary>
+        /// <returns>Throws a <see cref="NotImplementedException"/> when called.</returns>
         internal static object ToList()
         {
             throw new NotImplementedException();

@@ -231,6 +231,8 @@
     <Compile Include="CKRibbon.cs" />
     <Compile Include="CKRow.cs" />
     <Compile Include="CKRows.cs" />
+    <Compile Include="CKSection.cs" />
+    <Compile Include="CKSections.cs" />
     <Compile Include="CKTables.cs" />
     <Compile Include="Logging\LH.cs" />
     <Compile Include="Logging\LoggingLoader.cs" />
