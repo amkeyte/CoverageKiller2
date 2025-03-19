@@ -79,5 +79,6 @@ namespace CoverageKiller2
         /// </summary>
         public CKTables Tables => CKTables.Create(Range);
 
+        public CKParagraphs Paragraphs => CKParagraphs.Create(Range);
     }
 }

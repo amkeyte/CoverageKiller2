@@ -23,6 +23,8 @@ namespace CoverageKiller2
         /// </summary>
         public int End => COMObject.End;
 
+        public CKParagraphs Paragraphs => CKParagraphs.Create(this);
+        public string Text => COMObject.Text;
         /// <summary>
         /// Initializes a new instance of the <see cref="CKRange"/> class.
         /// </summary>

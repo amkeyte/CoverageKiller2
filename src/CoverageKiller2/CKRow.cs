@@ -62,7 +62,10 @@ namespace CoverageKiller2
         {
             COMObject.Select();
         }
-
+        public override string ToString()
+        {
+            return COMObject.Range.Text;
+        }
 
     }
 }

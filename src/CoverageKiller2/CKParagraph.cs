@@ -14,6 +14,7 @@ namespace CoverageKiller2
         /// </summary>
         public Word.Paragraph COMParagraph { get; private set; }
 
+
         /// <summary>
         /// Initializes a new instance of the <see cref="CKParagraph"/> class.
         /// </summary>

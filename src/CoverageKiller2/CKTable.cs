@@ -31,7 +31,7 @@ namespace CoverageKiller2
 
         private CKTable(CKTables parent, int index)
         {
-            Tracer.Enabled = true;
+            Tracer.Enabled = false;
 
             //here we store a reference to the com table itself in case
             // the document moves it in the index.
@@ -188,6 +188,13 @@ namespace CoverageKiller2
 
             return CKCell.Create(this, row, column);// new CKCell(COMObject.Cell(row, column));
         }
+
+
+        public override string ToString()
+        {
+            return Rows[1].ToString();
+        }
+
 
         //shameless hack
 
