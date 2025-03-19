@@ -70,5 +70,17 @@ namespace CoverageKiller2.Properties {
                 this["LastOpenedFile"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string LastLogFile {
+            get {
+                return ((string)(this["LastLogFile"]));
+            }
+            set {
+                this["LastLogFile"] = value;
+            }
+        }
     }
 }

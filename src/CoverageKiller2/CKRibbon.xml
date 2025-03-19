@@ -16,6 +16,10 @@
 				<button id="TestProcessor" label="Test Process Loader"
 					screentip="Text" onAction="OnTestProcessor"
 					supertip="Test Process Loader."/>
+				
+				<button id="DebugLog" label="Debug Logger"
+					screentip="Text" onAction="OnDebugLoader"
+					supertip="Show/hide the debug logger."/>
 				<button id="RunProcessor" label="Run Process..."
 					screentip="Text" onAction="OnRunProcessor"
 					supertip="Run PCTEL Report Fix Process."/>
