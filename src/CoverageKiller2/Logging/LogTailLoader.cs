@@ -6,6 +6,10 @@ using System.Windows.Forms;
 
 namespace CoverageKiller2.Logging
 {
+
+
+
+
     /// <summary>
     /// Handles loading and managing BareTail log files.
     /// </summary>
@@ -22,18 +26,18 @@ namespace CoverageKiller2.Logging
         {
             string filePath = Properties.Settings.Default.LastLogFile;
 
-            // Check if previous log file exists
-            if (!string.IsNullOrEmpty(filePath))
-            {
-                File.AppendAllText(filePath, $"\nLog file reused at {DateTime.Now} \n");
-                //return tempFilePath;
-            }
-            else
-            {
-                // Otherwise, create a new temporary file
-                filePath = Path.GetTempFileName();
-                File.WriteAllText(filePath, $"Log file created at {DateTime.Now} \n");
-            }
+            //// Check if previous log file exists
+            //if (!string.IsNullOrEmpty(filePath))
+            //{
+            //    File.AppendAllText(filePath, $"\nLog file reused at {DateTime.Now} \n");
+            //    //return tempFilePath;
+            //}
+            //else
+            //{
+            // Otherwise, create a new temporary file
+            filePath = Path.GetTempFileName();
+            File.WriteAllText(filePath, $"Log file created at {DateTime.Now} \n");
+            //}
 
             // Save the new file path for reuse on next run
             Properties.Settings.Default.LastLogFile = filePath;
@@ -47,17 +51,17 @@ namespace CoverageKiller2.Logging
             // Check if BareTail is already running
             if (!Process.GetProcessesByName("BareTail").Any())
             {
-                // Ask the user if they want to open BareTail
-                var result = MessageBox.Show("Do you want to open the log viewer (BareTail)?", "Open Log Viewer", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                //// Ask the user if they want to open BareTail
+                //var result = MessageBox.Show("Do you want to open the log viewer (BareTail)?", "Open Log Viewer", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
                 // If the user selects "Yes," start BareTail
-                if (result == DialogResult.Yes)
-                {
-                    string bareTailPath = Properties.Settings.Default.BareTailPath;
-                    Process.Start(bareTailPath, $"\"{filePath}\"");
-                    LogOpen = true;
-                    LogFileName = filePath;
-                }
+                //if (result == DialogResult.Yes)
+                //{
+                string bareTailPath = Properties.Settings.Default.BareTailPath;
+                Process.Start(bareTailPath, $"\"{filePath}\"");
+                LogOpen = true;
+                LogFileName = filePath;
+                //}
             }
         }
         public static void StopBareTail()
@@ -93,24 +97,33 @@ namespace CoverageKiller2.Logging
                 Console.WriteLine("No BareTail process found.");
             }
         }
-        /// <summary>
-        /// Cleans up by deleting the temporary log file and closing BareTail if running.
-        /// </summary>
+
+
         public static void Cleanup()
         {
             try
             {
-                // Check if the file exists and BareTail is running
-                //if (File.Exists(tempFilePath) && Process.GetProcessesByName("BareTail").Any())
-                //{
-                //    File.Delete(tempFilePath);
-                //    Debug.WriteLine($"Temporary file {tempFilePath} deleted.");
-                //}
+                if (LogOpen)
+                {
+                    // Prompt the user to close the logging viewer.
+                    DialogResult result = MessageBox.Show(
+                        "Close logging viewer?",
+                        "Close Logging Viewer",
+                        MessageBoxButtons.YesNo,
+                        MessageBoxIcon.Warning);
+
+                    // If the user confirms by clicking yes, then stop the logging process.
+                    if (result == DialogResult.Yes)
+                    {
+                        StopBareTail();
+                    }
+                }
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"Error deleting temporary file: {ex.Message}");
+                Debug.WriteLine($"Error during cleanup: {ex.Message}");
             }
         }
+
     }
 }

@@ -17,8 +17,8 @@
 					screentip="Text" onAction="OnTestProcessor"
 					supertip="Test Process Loader."/>
 				<button id="DebugLog" label="Debug Logger"
-					screentip="Text" onAction="OnOpenDebugger"
-					supertip="Show the debug logger."/>
+					screentip="Text" onAction="OnDebugLoader"
+					supertip="Show/hide the debug logger."/>
 			</group>
 		</tab>
     </tabs>

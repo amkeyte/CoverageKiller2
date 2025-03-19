@@ -59,11 +59,16 @@ namespace CoverageKiller2
                 throw ex;
             }
         }
-        public async void OnDebugLoader(Office.IRibbonUI ribbonUI)
+        public async void OnDebugLoader(IRibbonControl control)
         {
-            string logFile = LogTailLoader.GetLogFile();
-            LoggingLoader.Configure(logFile, Serilog.Events.LogEventLevel.Debug);
-            LogTailLoader.StartBareTail(logFile);
+            if (LogTailLoader.LogOpen)
+            {
+                LogTailLoader.StopBareTail();
+            }
+            else
+            {
+                LogTailLoader.StartBareTail(LoggingLoader.LogFile);
+            }
         }
 
         public async void OnTestProcessor(IRibbonControl control)
