@@ -36,9 +36,7 @@ namespace CoverageKiller2.DOM
         /// </summary>
         public string FullPath => _fullPath;
 
-        /// <summary>
-        /// Gets the collection of tables in the Word document.
-        /// </summary>
+
 
 
         // Using Create why? Probably just a conventional to prevent uninttended changes from other code.
@@ -181,6 +179,7 @@ namespace CoverageKiller2.DOM
         /// </summary>
         /// <param name="sectionIndex">The index of the section to delete (1-based).</param>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when the section index is out of range.</exception>
+
         public void DeleteSection(int sectionIndex)
         {
             Tracer.Log("Deleting Section", new DataPoints()

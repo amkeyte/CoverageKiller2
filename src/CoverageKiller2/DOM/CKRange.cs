@@ -32,18 +32,20 @@ namespace CoverageKiller2.DOM
         public CKRange(Word.Range range)
         {
             COMRange = range ?? throw new ArgumentNullException(nameof(range));
+            _originalCharCount = COMRange.Characters.Count;
             _originalText = COMRange.Text;
         }
 
+        private int _originalCharCount;
         private string _originalText;
-        private bool _isDirty;
+        private bool _isDirty = false;
 
         public virtual bool IsDirty
         {
             get
             {
                 _isDirty = _isDirty
-                    || COMRange.Characters.Count != _originalText.Length
+                    || COMRange.Characters.Count != _originalCharCount
                     || COMRange.Text != _originalText;
 
                 return _isDirty;

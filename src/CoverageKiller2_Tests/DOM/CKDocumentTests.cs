@@ -1,68 +1,51 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using CoverageKiller2.Tests;     // Contains VstoTestDocumentLoader.
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace CoverageKiller2.DOM.Tests
+namespace CoverageKiller2.DOM.UnitTests
 {
-    [TestClass()]
+    [TestClass]
     public class CKDocumentTests
     {
-        [TestMethod()]
-        public void CKDocumentTest()
+        // Update the path below to the location of your test document.
+
+
+        [TestMethod]
+        public void CKDocument_Constructor_LoadsDocumentSuccessfully()
         {
-            Assert.Fail();
+            LiveWordDocument.WithTestDocument(LiveWordDocument.Default, doc =>
+            {
+                // Create an instance of CKDocument from the live Word.Document.
+                CKDocument ckDoc = new CKDocument(doc);
+
+                // Assert that the document was loaded and processed correctly.
+                Assert.IsNotNull(ckDoc, "CKDocument should not be null.");
+                Assert.IsTrue(ckDoc.COMObject.Paragraphs.Count > 0, "The document should contain paragraphs.");
+            });
         }
 
-        [TestMethod()]
-        public void CKDocumentTest1()
+        [TestMethod]
+        public void CKDocument_Properties_ReturnExpectedValues()
         {
-            Assert.Fail();
+            LiveWordDocument.WithTestDocument(LiveWordDocument.Default, doc =>
+            {
+                // Create the CKDocument instance.
+                CKDocument ckDoc = new CKDocument(doc);
+
+                // Test that the COMObject property is not null.
+                Assert.IsNotNull(ckDoc.COMObject, "COMObject should not be null.");
+
+                // Test that the WordApp property returns the Application from the COMObject.
+                Assert.IsNotNull(ckDoc.WordApp, "WordApp should not be null.");
+                Assert.AreEqual(ckDoc.COMObject.Application, ckDoc.WordApp, "WordApp should match COMObject.Application.");
+
+                // Test that the Content property is not null.
+                Assert.IsNotNull(ckDoc.Content, "Content should not be null.");
+
+                // Test that the FullPath property matches the provided document path.
+                Assert.AreEqual(LiveWordDocument.Default, ckDoc.FullPath, "FullPath should match the test document path.");
+            });
         }
 
-        [TestMethod()]
-        public void ActivateTest()
-        {
-            Assert.Fail();
-        }
 
-        [TestMethod()]
-        public void CloseTest()
-        {
-            Assert.Fail();
-        }
-
-        [TestMethod()]
-        public void DeleteSectionTest()
-        {
-            Assert.Fail();
-        }
-
-        [TestMethod()]
-        public void GetFooterRangeTest()
-        {
-            Assert.Fail();
-        }
-
-        [TestMethod()]
-        public void GetHeaderRangeTest()
-        {
-            Assert.Fail();
-        }
-
-        [TestMethod()]
-        public void CopyFooterToTest()
-        {
-            Assert.Fail();
-        }
-
-        [TestMethod()]
-        public void CopyHeaderToTest()
-        {
-            Assert.Fail();
-        }
-
-        [TestMethod()]
-        public void CopyHeaderAndFooterToTest()
-        {
-            Assert.Fail();
-        }
     }
 }

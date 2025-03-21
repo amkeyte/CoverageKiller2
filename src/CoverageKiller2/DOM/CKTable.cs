@@ -23,6 +23,8 @@ namespace CoverageKiller2.DOM
             Tracer.Enabled = false;
             COMTable = table;
             Grid = CKTableGrid.GetInstance(table);
+            if (!_cellReferences.ContainsKey(this))
+                _cellReferences.Add(this, new List<CKCellReference>());
         }
 
         private CKTableGrid Grid { get; set; }

@@ -12,14 +12,14 @@ namespace CoverageKiller2.DOM
         /// Do not use: probably will be hidden.
         /// Gets the underlying Word.Section COM object.
         /// </summary>
-        internal Word.Section COMSection { get; private set; }
+        public Word.Section COMSection { get; private set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CKSection"/> class.
         /// </summary>
         /// <param name="section">The Word.Section object to wrap.</param>
         /// <exception cref="ArgumentNullException">Thrown when the section parameter is null.</exception>
-        public CKSection(Word.Section section) : base(section.Range)
+        public CKSection(Word.Section section) : base(section?.Range)
         {
             COMSection = section ?? throw new ArgumentNullException(nameof(section));
         }

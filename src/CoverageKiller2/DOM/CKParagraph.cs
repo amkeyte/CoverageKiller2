@@ -19,7 +19,7 @@ namespace CoverageKiller2.DOM
         /// </summary>
         /// <param name="paragraph">The Word.Paragraph object to wrap.</param>
         /// <exception cref="ArgumentNullException">Thrown when the paragraph parameter is null.</exception>
-        public CKParagraph(Word.Paragraph paragraph) : base(paragraph.Range)
+        public CKParagraph(Word.Paragraph paragraph) : base(paragraph?.Range)
         {
             COMParagraph = paragraph ?? throw new ArgumentNullException(nameof(paragraph));
         }
