@@ -1,4 +1,5 @@
 ﻿using CoverageKiller2.Logging;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,12 @@ namespace CoverageKiller2.DOM
         {
             _cells = columnCells;
         }
+
+        public CKColumn(CKColumns cKColumns, int index)
+        {
+            throw new NotImplementedException();
+        }
+
         public bool IsDirty => _cells.Any(c => c.IsDirty);
 
         public int Index => Tracer.Trace(Index);

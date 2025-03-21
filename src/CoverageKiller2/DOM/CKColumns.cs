@@ -32,7 +32,7 @@ namespace CoverageKiller2.DOM
                 if (index < 1 || index > COMObject.Count)
                     throw new ArgumentOutOfRangeException(nameof(index), "Index must be between 1 and Count.");
 
-                return CKColumn.Create(this, index);
+                return new CKColumn(this, index);
             }
         }
 

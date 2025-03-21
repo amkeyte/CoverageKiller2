@@ -31,7 +31,7 @@ namespace CoverageKiller2.DOM
         /// <exception cref="ArgumentNullException">Thrown when the value is null.</exception>
         public CKRange HeaderRange
         {
-            get => Create(COMSection.Headers[Word.WdHeaderFooterIndex.wdHeaderFooterPrimary].Range);
+            get => new CKRange(COMSection.Headers[Word.WdHeaderFooterIndex.wdHeaderFooterPrimary].Range);
             set
             {
                 if (value == null)
@@ -48,7 +48,7 @@ namespace CoverageKiller2.DOM
         /// <exception cref="ArgumentNullException">Thrown when the value is null.</exception>
         public CKRange FooterRange
         {
-            get => Create(COMSection.Footers[Word.WdHeaderFooterIndex.wdHeaderFooterPrimary].Range);
+            get => new CKRange(COMSection.Footers[Word.WdHeaderFooterIndex.wdHeaderFooterPrimary].Range);
             set
             {
                 if (value == null)

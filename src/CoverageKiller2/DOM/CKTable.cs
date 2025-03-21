@@ -22,12 +22,12 @@ namespace CoverageKiller2.DOM
         {
             Tracer.Enabled = false;
             COMTable = table;
-            Grid = new CKTableGrid(this);
+            Grid = CKTableGrid.GetInstance(table);
         }
 
         private CKTableGrid Grid { get; set; }
 
-        public CKRows Rows => Grid.Rows;
+        public CKRows Rows => throw new NotImplementedException();
         //public CKTables Parent
         //{
         //    get
@@ -276,6 +276,9 @@ namespace CoverageKiller2.DOM
             = new Dictionary<CKTable, IEnumerable<CKCellReference>>();
 
         public List<CKCellReference> CKCellReferences => _cellReferences[this].ToList();
+
+        public IEnumerable<CKColumn> Columns => throw new NotImplementedException();
+
         internal IEnumerable<CKCell> CellItems(CKCellReference cellReference)
         {
             throw new NotImplementedException();

@@ -72,7 +72,7 @@ namespace CoverageKiller2.DOM
 
             // Validate coordinates against table boundaries.
             if (x1 < 1 || y1 < 1 ||
-                x2 > table.Columns.Count || y2 > table.Rows.Count)
+                x2 > table.Columns.Count() || y2 > table.Rows.Count)
             {
                 throw new ArgumentOutOfRangeException("Coordinates are outside of the table bounds.");
             }
@@ -137,7 +137,7 @@ namespace CoverageKiller2.DOM
             {
                 // Select the entire row.
                 this.X1 = 1;                         // first column
-                this.X2 = table.Columns.Count;       // last column in the table
+                this.X2 = table.Columns.Count();       // last column in the table
                 this.Y1 = this.Y2 = index;             // the row number is fixed
             }
             else // Column

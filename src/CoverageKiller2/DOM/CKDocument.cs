@@ -45,10 +45,10 @@ namespace CoverageKiller2.DOM
         // if this is the case, probably better to switch to copying around the single refernce and then 
         // copying the range content if it makes sense in some case. Hell, this could even be for some old
         // shit im not even doing anymore.
-        public CKTables Tables => CKTables.Create(Range);
+        public CKTables Tables => throw new NotImplementedException();
         public CKSections Sections => new CKSections(Range);
 
-        public CKRange Range => CKRange.Create(COMObject.Range());
+        public CKRange Range => new CKRange(COMObject.Range());
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CKDocument"/> class, 

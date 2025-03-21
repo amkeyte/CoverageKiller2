@@ -44,7 +44,7 @@ namespace CoverageKiller2.DOM
                 if (index < 1 || index > Count)
                     throw new ArgumentOutOfRangeException(nameof(index), "Index must be between 1 and Count.");
 
-                return CKRow.Create(this, index);
+                return new CKRow(this, index);
             }
         }
 
@@ -81,10 +81,6 @@ namespace CoverageKiller2.DOM
         //    return new CKRow(_rows[_rows.Count]);
         //}
 
-        internal CKRow Add(CKRow beforeRow)
-        {
-            //Add inserts
-            return CKRow.Create(this, COMObject.Add(beforeRow.COMObject).Index);
-        }
+
     }
 }

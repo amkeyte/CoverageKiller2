@@ -11,23 +11,6 @@ namespace CoverageKiller2.DOM
         internal Word.Cell COMCell { get; private set; }
 
 
-        /// <summary>
-        /// CELLS ARE BROKEN DO NOT USE!!!!
-        /// </summary>
-        /// <param name="parent"></param>
-        /// <param name="index"></param>
-        /// <exception cref="ArgumentNullException"></exception>
-        private CKCell(CKCells parent, int index) : base(parent.COMObject[1].Range)
-        {
-
-            //Parent = parent;
-
-            //if (Parent.COMObject is null) throw new ArgumentNullException("parent");
-
-            //COMObject = Parent.COMObject[index];
-
-
-        }
         public CKCell(Word.Cell cell) : base(cell.Range)
         {
             COMCell = cell;

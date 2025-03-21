@@ -207,7 +207,7 @@ namespace CoverageKiller2.DOM
 
 
 
-            return new CKColumn(columnCells);
+            return new CKColumn(null);
         }
     }
 
