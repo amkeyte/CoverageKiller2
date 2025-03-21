@@ -46,7 +46,7 @@ namespace CoverageKiller2
         // copying the range content if it makes sense in some case. Hell, this could even be for some old
         // shit im not even doing anymore.
         public CKTables Tables => CKTables.Create(Range);
-        public CKSections Sections => CKSections.Create(Range);
+        public CKSections Sections => new CKSections(Range);
 
         public CKRange Range => CKRange.Create(COMObject.Range());
 

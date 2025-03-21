@@ -223,6 +223,7 @@
   -->
   <ItemGroup>
     <Compile Include="CKCell.cs" />
+    <Compile Include="CKCellReference.cs" />
     <Compile Include="CKCells.cs" />
     <Compile Include="CKColumn.cs" />
     <Compile Include="CKColumns.cs" />
@@ -230,13 +231,15 @@
     <Compile Include="CKDocument.cs" />
     <Compile Include="CKParagraph.cs" />
     <Compile Include="CKRange.cs" />
+    <Compile Include="CKRangeCollection.cs" />
     <Compile Include="CKRibbon.cs" />
     <Compile Include="CKRow.cs" />
     <Compile Include="CKRows.cs" />
     <Compile Include="CKSection.cs" />
     <Compile Include="CKSections.cs" />
+    <Compile Include="CKTableGrid.cs" />
     <Compile Include="CKTables.cs" />
-    <Compile Include="CLParagraphs.cs" />
+    <Compile Include="CKParagraphs.cs" />
     <Compile Include="Logging\LH.cs" />
     <Compile Include="Logging\LoggingLoader.cs" />
     <Compile Include="Logging\LogTailLoader.cs" />
@@ -306,7 +309,9 @@
   <ItemGroup>
     <Content Include="DefaultProcessor.xml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="DOM\" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

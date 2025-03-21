@@ -1,7 +1,7 @@
 ﻿using CoverageKiller2.Logging;
 using System;
+using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
 using Word = Microsoft.Office.Interop.Word;
 
 namespace CoverageKiller2
@@ -9,71 +9,40 @@ namespace CoverageKiller2
     /// <summary>
     /// Provides methods for manipulating a Word table.
     /// </summary>
-    public class CKTable
+    public class CKTable : CKRange
     {
-        internal static CKTable Create(CKTables parent, int tableIndex)
-        {
-            return new CKTable(parent, tableIndex);
-        }
-
         public Tracer Tracer { get; } = new Tracer(typeof(CKTable));
 
         /// <summary>
-        /// do something when the table has been deleted??
+        /// Remove from external references. Will be hidden.
         /// </summary>
-        internal Word.Table COMObject { get; private set; }
+        internal Word.Table COMTable { get; private set; }
 
-        //the index might change if the table is altered, but pulling from parent index of will 
-        // always return a current value.
-        public int Index => Tracer.Trace(Parent.IndexOf(this));
-
-
-
-        private CKTable(CKTables parent, int index)
+        internal CKTable(Word.Table table) : base(table.Range)
         {
-            Tracer.Enabled = true;
-
-            //here we store a reference to the com table itself in case
-            // the document moves it in the index.
-            // saving by index and repeatedly calling by that would resuly
-            //in accessing the wrong table.
-            // attempts to access this CKTable after it's deleted is an error.
-            //Subsequent calls to a Tables[x] will return whatever table is indexed by x,
-            //which is possibly not the same every time.
-            Parent = parent;
-            COMObject = Parent.COMObject[index];
+            Tracer.Enabled = false;
+            COMTable = table;
+            Grid = new CKTableGrid(this);
         }
 
-        //public bool ContainsMerged => Rows.ContainsMerged;
-        public CKColumns Columns => CKColumns.Create(this);
+        private CKTableGrid Grid { get; set; }
 
-        public CKRows Rows
-        {
-            get
-            {
-                var result = Tracer.Trace(CKRows.Create(this));
-                Tracer.Log("Property Returned", new DataPoints(nameof(Rows)));
-                return result;
-            }
-        }
-        //=> CKRows.Create(this);
+        public CKRows Rows => Grid.Rows;
+        //public CKTables Parent
+        //{
+        //    get
+        //    {
+        //        var result = Tracer.Trace(_parent);
+        //        Tracer.Log("Property Returned", new DataPoints(nameof(Parent)));
+        //        return result;
 
-        private CKTables _parent;
-        public CKTables Parent
-        {
-            get
-            {
-                var result = Tracer.Trace(_parent);
-                Tracer.Log("Property Returned", new DataPoints(nameof(Parent)));
-                return result;
+        //    }
+        //    private set
+        //    {
+        //        _parent = value;
 
-            }
-            private set
-            {
-                _parent = value;
-
-            }
-        }
+        //    }
+        //}
 
         /// <summary>
         /// Sets the value of a specified cell in the table.
@@ -83,26 +52,26 @@ namespace CoverageKiller2
         /// <param name="newValue">The new value to set in the cell.</param>
         /// <exception cref="ArgumentException">Thrown when the specified heading is not found in the table.</exception>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when the row index is out of range.</exception>
-        public void SetCell(string heading, int rowIndex, string newValue)
-        {
-            // Find the column index for the given heading
-            int columnIndex = FindColumnIndexByHeading(heading);
+        //public void SetCell(string heading, int rowIndex, string newValue)
+        //{
+        //    // Find the column index for the given heading
+        //    int columnIndex = FindColumnIndexByHeading(heading);
 
-            if (columnIndex == -1)
-            {
-                throw new ArgumentException($"Header '{heading}' not found in the table.");
-            }
+        //    if (columnIndex == -1)
+        //    {
+        //        throw new ArgumentException($"Header '{heading}' not found in the table.");
+        //    }
 
-            // Check if the specified row index is valid
-            if (rowIndex < 1 || rowIndex > COMObject.Rows.Count)
-            {
-                throw new ArgumentOutOfRangeException(nameof(rowIndex), "Row index is out of range.");
-            }
+        //    // Check if the specified row index is valid
+        //    if (rowIndex < 1 || rowIndex > COMTable.Rows.Count)
+        //    {
+        //        throw new ArgumentOutOfRangeException(nameof(rowIndex), "Row index is out of range.");
+        //    }
 
-            // Set the new value in the specified cell
-            Word.Cell cell = COMObject.Cell(rowIndex, columnIndex);
-            cell.Range.Text = newValue; // Replace the cell's text
-        }
+        //    // Set the new value in the specified cell
+        //    Word.Cell cell = COMTable.Cell(rowIndex, columnIndex);
+        //    cell.Range.Text = newValue; // Replace the cell's text
+        //}
 
         /// <summary>
         /// Finds the index of the column with the specified heading.
@@ -112,9 +81,9 @@ namespace CoverageKiller2
         private int FindColumnIndexByHeading(string heading)
         {
             // Loop through the columns in the first row to find the heading
-            for (int i = 1; i <= COMObject.Columns.Count; i++)
+            for (int i = 1; i <= COMTable.Columns.Count; i++)
             {
-                string cellText = COMObject.Cell(1, i).Range.Text.Trim('\r', '\a'); // Get the header text in the first row
+                string cellText = COMTable.Cell(1, i).Range.Text.Trim('\r', '\a'); // Get the header text in the first row
 
                 // Compare ignoring case
                 if (cellText.Equals(heading, StringComparison.OrdinalIgnoreCase))
@@ -137,8 +106,8 @@ namespace CoverageKiller2
         {
             //Log.Debug("Setting Table width");
 
-            COMObject.PreferredWidthType = Word.WdPreferredWidthType.wdPreferredWidthPercent;
-            COMObject.PreferredWidth = 100f;
+            COMTable.PreferredWidthType = Word.WdPreferredWidthType.wdPreferredWidthPercent;
+            COMTable.PreferredWidth = 100f;
             //Log.Debug("Result {Type}, {Width}", COMObject.PreferredWidthType, COMObject.PreferredWidth);
         }
 
@@ -148,63 +117,168 @@ namespace CoverageKiller2
         /// <exception cref="InvalidOperationException">Thrown if the table does not exist.</exception>
         public void Delete()
         {
-            Tracer.Log("Deleting Table", new DataPoints(nameof(Index)));
+            //Tracer.Log("Deleting Table", new DataPoints(nameof(Index)));
 
-            COMObject.Delete();
+            COMTable.Delete();
         }
 
         public bool RowMatches(int oneBasedRowIndex, string target)
         {
-            if (oneBasedRowIndex <= 0 || oneBasedRowIndex > COMObject.Rows.Count)
-                throw new ArgumentOutOfRangeException(nameof(oneBasedRowIndex), "Invalid row index.");
+            throw new NotImplementedException("Down for maintenance.");
+            //if (oneBasedRowIndex <= 0 || oneBasedRowIndex > COMTable.Rows.Count)
+            //    throw new ArgumentOutOfRangeException(nameof(oneBasedRowIndex), "Invalid row index.");
 
-            // Combine all cell values in the row into one string
-            var rowValues = string.Concat(
-                COMObject.Rows[oneBasedRowIndex].Cells
-                .Cast<Word.Cell>()
-                .Select(cell => cell.Range.Text));
+            //// Combine all cell values in the row into one string
+            //var rowValues = string.Concat(
+            //    COMTable.Rows[oneBasedRowIndex].Cells
+            //    .Cast<Word.Cell>()
+            //    .Select(cell => cell.Range.Text));
 
-            string normalizedRowValues = NormalizeMatchString(rowValues);
+            //string normalizedRowValues = NormalizeMatchString(rowValues);
 
-            string normalizedTarget = NormalizeMatchString(target);
-            Tracer.Log("Table search match strings", new DataPoints()
-                .Add(nameof(normalizedRowValues), normalizedRowValues)
-                .Add(nameof(normalizedTarget), normalizedTarget));
-            //Log.Debug("{func}: row => {row}\n\ttarget => {target}\n\trowvalues => {rowVals}",
-            //    nameof(RowMatches), oneBasedRowIndex, normalizedTarget, normalizedRowValues);
+            //string normalizedTarget = NormalizeMatchString(target);
+            //Tracer.Log("Table search match strings", new DataPoints()
+            //    .Add(nameof(normalizedRowValues), normalizedRowValues)
+            //    .Add(nameof(normalizedTarget), normalizedTarget));
+            ////Log.Debug("{func}: row => {row}\n\ttarget => {target}\n\trowvalues => {rowVals}",
+            ////    nameof(RowMatches), oneBasedRowIndex, normalizedTarget, normalizedRowValues);
 
-            // Compare the normalized strings
-            return normalizedRowValues == normalizedTarget;
+            //// Compare the normalized strings
+            //return normalizedRowValues == normalizedTarget;
         }
 
         private string NormalizeMatchString(string input)
         {
-            return Regex.Replace(input, @"[\x07\s]+", string.Empty);
+            throw new NotImplementedException("Down for maintenance.");
+            //return Regex.Replace(input, @"[\x07\s]+", string.Empty);
         }
 
 
         public CKCell Cell(int row, int column)
         {
-
-            return CKCell.Create(this, row, column);// new CKCell(COMObject.Cell(row, column));
+            throw new NotImplementedException("Down for maintenance.");
         }
 
         //shameless hack
 
         public void AddAndMergeFirstRow(string text = "")
         {
-            // Step 1: Add a new row at the top (first position)
-            var newRow = Rows.Add(Rows[1]);
+            throw new NotImplementedException("Down for maintenance.");
+            //// Step 1: Add a new row at the top (first position)
+            //var newRow = Rows.Add(Rows[1]);
 
-            // Step 2: Merge the cells in the new first row across all columns
-            int numberOfColumnsToMerge = Columns.Count; // Get the total number of columns
-            var firstCellInRow = Cell(1, 1); // First cell in the new first row
-            var lastCellInRowToMerge = Cell(1, numberOfColumnsToMerge); // Last cell in the new first row
+            //// Step 2: Merge the cells in the new first row across all columns
+            //int numberOfColumnsToMerge = Columns.Count; // Get the total number of columns
+            //var firstCellInRow = Cell(1, 1); // First cell in the new first row
+            //var lastCellInRowToMerge = Cell(1, numberOfColumnsToMerge); // Last cell in the new first row
 
-            // Merge the cells in the new first row from column 1 to the last column
-            firstCellInRow.Merge(lastCellInRowToMerge);
-            Cell(1, 1).Text = text;
+            //// Merge the cells in the new first row from column 1 to the last column
+            //firstCellInRow.Merge(lastCellInRowToMerge);
+            //Cell(1, 1).Text = text;
         }
 
+
+        public void Refresh()
+        {
+            var changes = CKTableGrid.Refresh(this);
+
+            foreach (var x in CKCellReferences)
+            {
+                AdjustCellReference(x, changes);
+            }
+        }
+
+        private void AdjustCellReference(CKCellReference cellRef, IEnumerable<GridChange> changes)
+        {
+            // Process row changes first: sort by RowIndex ascending.
+            var rowChanges = changes
+                .Where(c => c.ChangeType == GridChangeType.RowInserted || c.ChangeType == GridChangeType.RowDeleted)
+                .OrderBy(c => c.RowIndex)
+                .ToList();
+
+            foreach (var change in rowChanges)
+            {
+                switch (change.ChangeType)
+                {
+                    case GridChangeType.RowInserted:
+                        // If the insertion occurred before the reference's starting row, shift both Y1 and Y2 downward.
+                        if (change.RowIndex < cellRef.Y1)
+                        {
+                            cellRef.Y1++;
+                            cellRef.Y2++;
+                        }
+                        // If the insertion is within the referenced region, adjust Y2.
+                        else if (change.RowIndex <= cellRef.Y2)
+                        {
+                            cellRef.Y2++;
+                        }
+                        break;
+                    case GridChangeType.RowDeleted:
+                        // If the deletion occurred before the reference's starting row, shift both Y1 and Y2 upward.
+                        if (change.RowIndex < cellRef.Y1)
+                        {
+                            cellRef.Y1 = Math.Max(cellRef.Y1 - 1, 1);
+                            cellRef.Y2 = Math.Max(cellRef.Y2 - 1, cellRef.Y1);
+                        }
+                        // If the deletion is within the referenced region, adjust Y2.
+                        else if (change.RowIndex <= cellRef.Y2)
+                        {
+                            cellRef.Y2 = Math.Max(cellRef.Y2 - 1, cellRef.Y1);
+                        }
+                        break;
+                }
+            }
+
+            // Process column changes: sort by ColumnIndex ascending.
+            var colChanges = changes
+                .Where(c => c.ChangeType == GridChangeType.ColumnInserted || c.ChangeType == GridChangeType.ColumnDeleted)
+                .OrderBy(c => c.ColumnIndex)
+                .ToList();
+
+            foreach (var change in colChanges)
+            {
+                switch (change.ChangeType)
+                {
+                    case GridChangeType.ColumnInserted:
+                        if (change.ColumnIndex < cellRef.X1)
+                        {
+                            cellRef.X1++;
+                            cellRef.X2++;
+                        }
+                        else if (change.ColumnIndex <= cellRef.X2)
+                        {
+                            cellRef.X2++;
+                        }
+                        break;
+                    case GridChangeType.ColumnDeleted:
+                        if (change.ColumnIndex < cellRef.X1)
+                        {
+                            cellRef.X1 = Math.Max(cellRef.X1 - 1, 1);
+                            cellRef.X2 = Math.Max(cellRef.X2 - 1, cellRef.X1);
+                        }
+                        else if (change.ColumnIndex <= cellRef.X2)
+                        {
+                            cellRef.X2 = Math.Max(cellRef.X2 - 1, cellRef.X1);
+                        }
+                        break;
+                }
+            }
+
+            // Process cell modifications if needed.
+            foreach (var change in changes.Where(c => c.ChangeType == GridChangeType.CellModified))
+            {
+                // Here you can handle individual cell modifications, such as merge/split changes,
+                // if they affect the referenced region. For now, we leave this empty.
+            }
+        }
+
+        private static Dictionary<CKTable, IEnumerable<CKCellReference>> _cellReferences
+            = new Dictionary<CKTable, IEnumerable<CKCellReference>>();
+
+        public List<CKCellReference> CKCellReferences => _cellReferences[this].ToList();
+        internal IEnumerable<CKCell> CellItems(CKCellReference cellReference)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

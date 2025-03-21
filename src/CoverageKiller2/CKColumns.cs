@@ -1,58 +1,28 @@
-﻿using CoverageKiller2.Logging;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using Word = Microsoft.Office.Interop.Word;
 
 namespace CoverageKiller2
 {
     public class CKColumns : IEnumerable<CKColumn>
     {
-        public static CKColumns Create(CKTable parent)
+        public static CKColumns Create(CKRange parent)
         {
             return new CKColumns(parent);
         }
-        internal Word.Columns COMObject => Parent.COMObject.Columns;
+        internal Word.Columns COMObject => Parent.COMRange.Columns;
 
-        public CKColumns(CKTable parent)
+        public CKColumns(CKRange parent)
         {
-            Parent = parent;
-            //var xxx = new CKCells(((Word.Table)columns.Parent).Range.Cells);
-
-            //Log.Debug("TRACE => {class}.{func}() = {pVal1}",
-            //    nameof(CKColumns),
-            //    "ctor",
-            //    $"{nameof(columns)}[(Table)Columns.Parent.{nameof(xxx.ContainsMerged)} = {xxx.ContainsMerged}]");
-
-            //_columns = columns ?? throw LH.LogThrow(
-            //    new ArgumentNullException(nameof(columns)));
-
-            //cant use CKTable because no index.
-
-            //if (xxx.ContainsMerged)
-            //{
-            //    throw Crash.LogThrow(
-            //        new InvalidOperationException("Cannot access individual columns in this collection because the table has mixed cell widths."));
-            //}
-
-
-            try
-            {
-                //hack for now until merged columns are supported.
-                _ = COMObject.Cast<Word.Column>().Any();
-            }
-            catch (Exception ex)
-            {
-                throw LH.LogThrow(ex);
-            }
+            Parent = parent ?? throw new ArgumentNullException(nameof(parent));
         }
 
 
         // Property to get the total number of columns
         public int Count => COMObject.Count;
 
-        public CKTable Parent { get; private set; }
+        public CKRange Parent { get; private set; }
 
         // Access a CKColumn by its current index (1-based index in Word)
         public CKColumn this[int index]

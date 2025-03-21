@@ -1,46 +1,58 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using Word = Microsoft.Office.Interop.Word;
+using System.Linq;
 
 namespace CoverageKiller2
 {
-    public abstract class CKCells : IEnumerable<CKCell>
+    public class CKCells : IEnumerable<CKCell>
     {
-        public static CKCells Create(CKColumn parent)
-        {
-            return new CKColumnCells(parent);
-        }
 
-        public static CKCells Create(CKRow parent)
-        {
-            return new CKRowCells(parent);
-        }
-        internal static CKCells Create(CKTable parent)
-        {
-            return new CKTableCells(parent);
-        }
-
-
-
-        public abstract Word.Cells COMObject { get; }
-        public int Count => COMObject.Count;
-        public CKCell this[int index]
+        private List<CKCell> _cells = new List<CKCell>();
+        private List<CKCell> Items
         {
             get
             {
-                if (index < 1 || index > Count)
-                    throw new ArgumentOutOfRangeException(nameof(index), "Index must be between 1 and Count.");
-
-                return CKCell.Create(this, index);// new CKCell(COMObject[index]);
+                if (IsDirty || Table.IsDirty) _cells = Table.CellItems(CellReference).ToList();
+                return _cells;
             }
         }
+        public CKTable Table { get; private set; }
+
+        public CKCells(CKTable table, CKCellReference cellReference)
+        {
+            Table = table;
+            CellReference = cellReference;
+        }
+        public CKCells(CKRange range)
+        {
+            var table = range.Tables.FirstOrDefault() ??
+                throw new InvalidOperationException("Range does not contain a table");
+
+            Table = table;
+            CellReference = new CKCellReference(range);
+
+        }
+        public int Count => Items.Count;
+
+        public bool IsDirty => Items.Any(c => c.IsDirty);
+
+        public CKCellReference CellReference { get; private set; }
 
         public IEnumerator<CKCell> GetEnumerator()
         {
             for (int i = 1; i <= Count; i++)
             {
                 yield return this[i];
+            }
+        }
+        public CKCell this[int index]
+        {
+            get
+            {
+                if (index < 1 || index > Count)
+                    throw new ArgumentOutOfRangeException(nameof(index), "Index must be between 1 and the number of sections.");
+                return Items.ElementAt(index);
             }
         }
 
@@ -50,39 +62,4 @@ namespace CoverageKiller2
             return GetEnumerator();
         }
     }
-    internal class CKColumnCells : CKCells
-    {
-        public CKColumnCells(CKColumn parent)
-        {
-            Parent = parent;
-        }
-
-        public override Word.Cells COMObject => Parent.COMObject.Cells;
-        public CKColumn Parent { get; set; }
-
-    }
-    internal class CKRowCells : CKCells
-    {
-        public CKRowCells(CKRow parent)
-        {
-            Parent = parent;
-        }
-
-        public override Word.Cells COMObject => Parent.COMObject.Cells;
-        public CKRow Parent { get; private set; }
-        public int Count => COMObject.Count;
-    }
-    internal class CKTableCells : CKCells
-    {
-        public CKTableCells(CKTable parent)
-        {
-            Parent = parent;
-        }
-
-        public override Word.Cells COMObject => Parent.COMObject.Range.Cells;
-        public CKTable Parent { get; set; }
-    }
-
-
-
 }

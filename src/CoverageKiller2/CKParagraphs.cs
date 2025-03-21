@@ -8,44 +8,24 @@ namespace CoverageKiller2
     /// <summary>
     /// Represents a collection of <see cref="CKParagraph"/> objects associated with a <see cref="CKRange"/>.
     /// </summary>
-    public class CKParagraphs : IEnumerable<CKParagraph>
+    public class CKParagraphs : ACKRangeCollection, IEnumerable<CKParagraph>
     {
-        /// <summary>
-        /// Creates a new instance of <see cref="CKParagraphs"/> for the specified <see cref="CKRange"/>.
-        /// </summary>
-        /// <param name="parent">The parent <see cref="CKRange"/> that contains the paragraphs.</param>
-        /// <returns>A new instance of <see cref="CKParagraphs"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown if <paramref name="parent"/> is null.</exception>
-        internal static CKParagraphs Create(CKRange parent)
-        {
-            parent = parent ?? throw new ArgumentNullException(nameof(parent));
-            return new CKParagraphs(parent);
-        }
-
-        /// <summary>
-        /// Gets the parent <see cref="CKRange"/> associated with this collection.
-        /// </summary>
-        public CKRange Parent { get; private set; }
-
         /// <summary>
         /// Gets the underlying Word.Paragraphs COM object from the parent range.
         /// </summary>
-        internal Word.Paragraphs COMObject => Parent.COMObject.Paragraphs;
+        internal Word.Paragraphs COMParagraphs => Parent.COMRange.Paragraphs;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CKParagraphs"/> class.
         /// </summary>
         /// <param name="parent">The parent <see cref="CKRange"/> to associate with this instance.</param>
         /// <exception cref="ArgumentNullException">Thrown when the parent parameter is null.</exception>
-        internal CKParagraphs(CKRange parent)
-        {
-            Parent = parent ?? throw new ArgumentNullException(nameof(parent));
-        }
+        internal CKParagraphs(CKRange parent) : base(parent) { }
 
         /// <summary>
         /// Gets the number of paragraphs in the associated range.
         /// </summary>
-        public int Count => COMObject.Count;
+        public override int Count => COMParagraphs.Count;
 
         /// <summary>
         /// Gets the <see cref="CKParagraph"/> at the specified one-based index.
@@ -61,7 +41,7 @@ namespace CoverageKiller2
             {
                 if (index < 1 || index > Count)
                     throw new ArgumentOutOfRangeException(nameof(index), "Index must be between 1 and the number of paragraphs.");
-                return new CKParagraph(COMObject[index]);
+                return new CKParagraph(COMParagraphs[index]);
             }
         }
 

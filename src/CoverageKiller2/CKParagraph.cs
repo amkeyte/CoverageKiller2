@@ -30,7 +30,7 @@ namespace CoverageKiller2
         /// <returns>A string showing the paragraph's range.</returns>
         public override string ToString()
         {
-            return $"CKParagraph: Range [{COMParagraph.Range.Start}, {COMParagraph.Range.End}]";
+            return $"CKParagraph: Range [{Start}, {End}]";
         }
     }
 }

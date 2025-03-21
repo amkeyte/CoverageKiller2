@@ -11,7 +11,7 @@ namespace CoverageKiller2
         {
             return new CKRows(parent);
         }
-        internal Word.Rows COMObject => Parent.COMObject.Rows;
+        internal Word.Rows COMObject => Parent.COMTable.Rows;
 
         public CKTable Parent { get; private set; }
 
