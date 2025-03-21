@@ -5,7 +5,7 @@ using System.Threading;
 using Forms = System.Windows.Forms;
 using Word = Microsoft.Office.Interop.Word;
 
-namespace CoverageKiller2
+namespace CoverageKiller2.DOM
 {
     /// <summary>
     /// Represents a wrapper for a Word document, managing its lifecycle and interactions

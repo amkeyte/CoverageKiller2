@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Word = Microsoft.Office.Interop.Word;
 
-namespace CoverageKiller2
+namespace CoverageKiller2.DOM
 {
     public class CKColumns : IEnumerable<CKColumn>
     {

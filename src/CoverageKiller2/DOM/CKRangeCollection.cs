@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CoverageKiller2
+namespace CoverageKiller2.DOM
 {
     public abstract class ACKRangeCollection
     {

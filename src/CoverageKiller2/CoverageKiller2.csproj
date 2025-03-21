@@ -222,24 +222,24 @@
     can be found.
   -->
   <ItemGroup>
-    <Compile Include="CKCell.cs" />
-    <Compile Include="CKCellReference.cs" />
-    <Compile Include="CKCells.cs" />
-    <Compile Include="CKColumn.cs" />
-    <Compile Include="CKColumns.cs" />
+    <Compile Include="DOM\CKCell.cs" />
+    <Compile Include="DOM\CKCellReference.cs" />
+    <Compile Include="DOM\CKCells.cs" />
+    <Compile Include="DOM\CKColumn.cs" />
+    <Compile Include="DOM\CKColumns.cs" />
     <Compile Include="CkDocHelpers.cs" />
-    <Compile Include="CKDocument.cs" />
-    <Compile Include="CKParagraph.cs" />
-    <Compile Include="CKRange.cs" />
-    <Compile Include="CKRangeCollection.cs" />
+    <Compile Include="DOM\CKDocument.cs" />
+    <Compile Include="DOM\CKParagraph.cs" />
+    <Compile Include="DOM\CKRangeCollection.cs" />
     <Compile Include="CKRibbon.cs" />
-    <Compile Include="CKRow.cs" />
-    <Compile Include="CKRows.cs" />
-    <Compile Include="CKSection.cs" />
-    <Compile Include="CKSections.cs" />
-    <Compile Include="CKTableGrid.cs" />
-    <Compile Include="CKTables.cs" />
-    <Compile Include="CKParagraphs.cs" />
+    <Compile Include="DOM\CKRow.cs" />
+    <Compile Include="DOM\CKRows.cs" />
+    <Compile Include="DOM\CKSection.cs" />
+    <Compile Include="DOM\CKSections.cs" />
+    <Compile Include="DOM\CKTableGrid.cs" />
+    <Compile Include="DOM\CKTables.cs" />
+    <Compile Include="DOM\CKParagraphs.cs" />
+    <Compile Include="DOM\CKRange.cs" />
     <Compile Include="Logging\LH.cs" />
     <Compile Include="Logging\LoggingLoader.cs" />
     <Compile Include="Logging\LogTailLoader.cs" />
@@ -260,7 +260,7 @@
     <Compile Include="Pipeline\Processes\PRMCEFixer_SearchStrings.cs" />
     <Compile Include="Pipeline\Processes\SEA2025Fixer.cs" />
     <Compile Include="Pipeline\WordHelpers\TableFinder.cs" />
-    <Compile Include="CKTable.cs" />
+    <Compile Include="DOM\CKTable.cs" />
     <Compile Include="Pipeline\WordHelpers\TextFinder.cs" />
     <Compile Include="Pipeline\WordHelpers\WordSelector.cs" />
     <Compile Include="Pipeline\Processes\PRMCEFixer.cs" />
@@ -309,9 +309,7 @@
   <ItemGroup>
     <Content Include="DefaultProcessor.xml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="DOM\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

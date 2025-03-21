@@ -1,7 +1,7 @@
 ﻿using System;
 using Word = Microsoft.Office.Interop.Word;
 
-namespace CoverageKiller2
+namespace CoverageKiller2.DOM
 {
     public class CKCell : CKRange
     {

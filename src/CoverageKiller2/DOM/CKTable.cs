@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Word = Microsoft.Office.Interop.Word;
 
-namespace CoverageKiller2
+namespace CoverageKiller2.DOM
 {
     /// <summary>
     /// Provides methods for manipulating a Word table.

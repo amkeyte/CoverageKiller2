@@ -1,5 +1,4 @@
-﻿using static CoverageKiller2.CKCellReference;
-namespace CoverageKiller2
+﻿namespace CoverageKiller2.DOM
 {
     public class CKRow : CKCells
     {

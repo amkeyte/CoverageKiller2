@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Word = Microsoft.Office.Interop.Word;
 
-namespace CoverageKiller2
+namespace CoverageKiller2.DOM
 {
     /// <summary>
     /// Represents a grid abstraction for a Word table,

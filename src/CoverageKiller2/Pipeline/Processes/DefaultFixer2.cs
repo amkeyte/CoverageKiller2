@@ -1,4 +1,5 @@
-﻿using Serilog;
+﻿using CoverageKiller2.DOM;
+using Serilog;
 
 namespace CoverageKiller2.Pipeline.Processes
 {

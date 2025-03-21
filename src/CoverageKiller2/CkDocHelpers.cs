@@ -1,4 +1,5 @@
 ﻿//using Microsoft.Office.Interop.Word;
+using CoverageKiller2.DOM;
 using CoverageKiller2.Pipeline;
 using CoverageKiller2.Pipeline.Config;
 using CoverageKiller2.Pipeline.Processes;
@@ -11,6 +12,7 @@ using System.Windows.Forms;
 using Word = Microsoft.Office.Interop.Word;
 
 namespace CoverageKiller2
+
 {
     /// <summary>
     /// depreciate

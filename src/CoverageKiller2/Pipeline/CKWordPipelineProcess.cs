@@ -1,4 +1,5 @@
-﻿using CoverageKiller2.Pipeline.Config;
+﻿using CoverageKiller2.DOM;
+using CoverageKiller2.Pipeline.Config;
 
 namespace CoverageKiller2.Pipeline
 {

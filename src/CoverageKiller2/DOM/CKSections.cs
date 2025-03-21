@@ -37,7 +37,7 @@ using Word = Microsoft.Office.Interop.Word;
 
 
 
-namespace CoverageKiller2
+namespace CoverageKiller2.DOM
 {
     /// <summary>
     /// Represents a collection of <see cref="CKSection"/> objects associated with a <see cref="CKRange"/>.
@@ -63,6 +63,8 @@ namespace CoverageKiller2
         /// Gets the number of sections in the range.
         /// </summary>
         public override int Count => COMSection.Count;
+
+        public override bool IsDirty => throw new NotImplementedException();
 
         /// <summary>
         /// Gets the <see cref="CKSection"/> at the specified one-based index.

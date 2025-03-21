@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace CoverageKiller2
+namespace CoverageKiller2.DOM
 {
     public class CKColumn : IEnumerable<CKCell>
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using Word = Microsoft.Office.Interop.Word;
 
-namespace CoverageKiller2
+namespace CoverageKiller2.DOM
 {
     /// <summary>
     /// Represents a simple wrapper for the Word.Range object.

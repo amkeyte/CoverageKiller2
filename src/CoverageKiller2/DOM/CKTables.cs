@@ -14,7 +14,7 @@ using Word = Microsoft.Office.Interop.Word;
 ///************
 
 
-namespace CoverageKiller2
+namespace CoverageKiller2.DOM
 {
     /// <summary>
     /// Represents a collection of <see cref="CKTable"/> objects associated with a <see cref="CKRange"/>.

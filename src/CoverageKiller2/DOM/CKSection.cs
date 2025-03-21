@@ -1,7 +1,7 @@
 ﻿using System;
 using Word = Microsoft.Office.Interop.Word;
 
-namespace CoverageKiller2
+namespace CoverageKiller2.DOM
 {
     /// <summary>
     /// Represents a wrapper for the Word.Section object, exposing common functionality for a section in a Word document.

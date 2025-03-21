@@ -1,4 +1,5 @@
-﻿using Serilog;
+﻿using CoverageKiller2.DOM;
+using Serilog;
 using System.IO;
 using System.Reflection;
 

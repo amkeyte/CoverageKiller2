@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Word = Microsoft.Office.Interop.Word;
 
-namespace CoverageKiller2
+namespace CoverageKiller2.DOM
 {
     /// <summary>
     /// Represents a collection of <see cref="CKParagraph"/> objects associated with a <see cref="CKRange"/>.
@@ -26,6 +26,8 @@ namespace CoverageKiller2
         /// Gets the number of paragraphs in the associated range.
         /// </summary>
         public override int Count => COMParagraphs.Count;
+
+        public override bool IsDirty => throw new NotImplementedException();
 
         /// <summary>
         /// Gets the <see cref="CKParagraph"/> at the specified one-based index.
