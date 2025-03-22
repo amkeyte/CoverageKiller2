@@ -44,7 +44,91 @@ namespace CoverageKiller2.DOM
                     "The range start of the underlying COMTable should match.");
             });
         }
+        [TestMethod]
+        public void CKTable_RCP_Bug()
+        {
+            //it seems that calling some tests in consecutive calls can cause the following failure:
+            //
+            //            CKTable_Constructor_LoadsTableSuccessfully
+            //            Source: CKTableTests.cs line 30
 
+            //  Duration: 2.9 sec
+
+            //  Message: 
+            //Test method CoverageKiller2.DOM.CKTableTests.CKTable_Constructor_LoadsTableSuccessfully threw exception:
+            //            System.Runtime.InteropServices.COMException: The RPC server is unavailable. (Exception from HRESULT: 0x800706BA)
+
+            //              Stack Trace:
+            //            Range.get_Start()
+            //CKRange.Equals(CKRange other) line 153
+            //CKRange.Equals(Object obj) line 142
+            //ObjectEqualityComparer`1.Equals(T x, T y)
+            //Dictionary`2.FindEntry(TKey key)
+            //Dictionary`2.TryGetValue(TKey key, TValue & value)
+            //CKTableGrid.GetInstance(Table table) line 18
+            //CKTable.ctor(Table table) line 19
+            //<> c.< CKTable_Constructor_LoadsTableSuccessfully > b__0_0(Document doc) line 39
+            //LiveWordDocument.WithTestDocument(String documentPath, Action`1 testAction) line 97
+            //CKTableTests.CKTable_Constructor_LoadsTableSuccessfully() line 32
+
+            //Testing if this is reproducable in a single test by running another test routine 
+            //in succession. running each test one at a time does not cause the failure.
+            //this has also been discovered in some other test classes, but less frequently.
+
+            LiveWordDocument.WithTestDocument(LiveWordDocument.Default, doc =>
+            {
+                // Ensure the document contains at least one table.
+                Assert.IsTrue(doc.Tables.Count > 0, "Test document must contain at least one table.");
+
+                // Retrieve the first table.
+                Word.Table wordTable = doc.Tables[1];
+
+                // Create a CKTable from the Word table.
+                CKTable ckTable = new CKTable(wordTable);
+
+                // Create a CKCellReference for cell (1,1) using the CKTable-based constructor.
+                // Retrieve the CKCell using our CKTable.Cell() method.
+                CKCell ckCell = ckTable.Cell(CKCellRefRect.ForCell(1, 1));
+
+                // Directly retrieve the Word cell for (1,1) from the Word table and wrap it.
+                Word.Cell wordCell = wordTable.Cell(1, 1);
+                CKCell directCell = new CKCell(wordCell);
+
+
+
+                // Use the new equality method to compare the CKCell wrappers.
+                Assert.AreEqual(ckCell, directCell,
+                    "The CKCell from CKTable.Cell(x,y) should equal the COM Table.Cell(x,y).");
+            });
+
+            //insert time here?
+
+            LiveWordDocument.WithTestDocument(LiveWordDocument.Default, doc =>
+            {
+                // Ensure the document contains at least one table.
+                Assert.IsTrue(doc.Tables.Count > 0, "Test document must contain at least one table.");
+
+                // Retrieve the first table.
+                Word.Table wordTable = doc.Tables[1];
+
+                // Create a CKTable from the Word table.
+                CKTable ckTable = new CKTable(wordTable);
+
+                // Create a CKCellReference for cell (1,1) using the CKTable-based constructor.
+                // Retrieve the CKCell using our CKTable.Cell() method.
+                CKCell ckCell = ckTable.Cell(CKCellRefRect.ForCell(1, 1));
+
+                // Directly retrieve the Word cell for (1,1) from the Word table and wrap it.
+                Word.Cell wordCell = wordTable.Cell(1, 1);
+                CKCell directCell = new CKCell(wordCell);
+
+
+
+                // Use the new equality method to compare the CKCell wrappers.
+                Assert.AreEqual(ckCell, directCell,
+                    "The CKCell from CKTable.Cell(x,y) should equal the COM Table.Cell(x,y).");
+            });
+        }
 
         [TestMethod]
         public void CKTable_Cell_MatchesDirectWordCell()
