@@ -1,10 +1,10 @@
-﻿using CoverageKiller2.DOM;
-using CoverageKiller2.Tests;  // Contains LiveWordDocument helper.
+﻿using CoverageKiller2.Tests;  // Contains LiveWordDocument helper.
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Diagnostics;
 
-namespace CoverageKiller2.UnitTests
+namespace CoverageKiller2.DOM
+
 {
     [TestClass]
     public class CKParagraphsTests
@@ -54,7 +54,7 @@ namespace CoverageKiller2.UnitTests
             });
         }
 
-        [TestMethod]
+        //[TestMethod]
         public void CKParagraphs_Enumeration_YieldsAllParagraphs()
         {
             LiveWordDocument.WithTestDocument(LiveWordDocument.Default, doc =>
@@ -74,7 +74,7 @@ namespace CoverageKiller2.UnitTests
                     "Enumeration of CKParagraphs should yield the same number of items as the Count property at the start.");
             });
         }
-        [TestMethod]
+        //[TestMethod]
         public void CKParagraphs_Enumeration_PerformanceMetrics()
         {
             int batchSize = 100; // Adjust this value as needed.

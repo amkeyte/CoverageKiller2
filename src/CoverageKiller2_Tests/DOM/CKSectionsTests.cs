@@ -1,9 +1,8 @@
-﻿using CoverageKiller2.DOM;
-using CoverageKiller2.Tests;  // Contains LiveWordDocument helper.
+﻿using CoverageKiller2.Tests;  // Contains LiveWordDocument helper.
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 
-namespace CoverageKiller2.UnitTests
+namespace CoverageKiller2.DOM
 {
     [TestClass]
     public class CKSectionsTests

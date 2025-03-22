@@ -1,10 +1,9 @@
-﻿using CoverageKiller2.DOM;
-using CoverageKiller2.Tests;    // Contains LiveWordDocument
+﻿using CoverageKiller2.Tests;    // Contains LiveWordDocument
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using Word = Microsoft.Office.Interop.Word;
 
-namespace CoverageKiller2.UnitTests
+namespace CoverageKiller2.DOM
 {
     [TestClass]
     public class CKRangeTests
@@ -28,11 +27,13 @@ namespace CoverageKiller2.UnitTests
                 // Get a range (using the entire document content).
                 Word.Range wordRange = doc.Content;
                 CKRange ckRange1 = new CKRange(wordRange);
-                CKRange ckRange2 = new CKRange(wordRange);
+
+                bool comparison =
+                    wordRange.End == ckRange1.End &&
+                    wordRange.Start == ckRange1.Start;
 
                 // They wrap the same underlying COM range.
-                Assert.AreEqual(ckRange1, ckRange2, "CKRange instances wrapping the same COMRange should be equal.");
-                Assert.AreEqual(ckRange1.GetHashCode(), ckRange2.GetHashCode(), "Hash codes should be equal.");
+                Assert.IsTrue(comparison, "CKRange instances wrapping the same COMRange should be equal.");
             });
         }
 

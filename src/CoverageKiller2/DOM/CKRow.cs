@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using static CoverageKiller2.DOM.CKCellReference;
 
 namespace CoverageKiller2.DOM
 {
@@ -14,10 +13,7 @@ namespace CoverageKiller2.DOM
             throw new NotImplementedException();
         }
 
-        public CKRow(CKTable table, int index) :
-            base(table, new CKCellReference(table, index, ReferenceTypes.Row))
-        {
-        }
+
 
         public CKRow(CKRows cKRows, int index) : base(null)
         {

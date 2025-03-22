@@ -76,7 +76,26 @@ namespace CoverageKiller2.DOM
                 return null;
             return _grid[row, col];
         }
+        /// <summary>
+        /// Retrieves the grid cell corresponding to the top‐left coordinates of the given CKCellReference.
+        /// Returns null if the coordinates are out of range.
+        /// </summary>
+        /// <param name="cellReference">A CKCellReference instance specifying a range (the top‐left cell is used).</param>
+        /// <returns>The GridCell at the converted coordinates, or null if out of range.</returns>
+        public GridCell GetCellAt(CKCellRefRect cellReference)
+        {
+            if (cellReference == null)
+                throw new ArgumentNullException(nameof(cellReference));
 
+            // Convert one-based coordinates from the cellReference to zero-based indices.
+            int row = cellReference.Y1 - 1;
+            int col = cellReference.X1 - 1;
+
+            if (row < 0 || row >= RowCount || col < 0 || col >= ColCount)
+                return null;
+
+            return _grid[row, col];
+        }
         public GridCell GetMasterGridCellForWordCell(CKCell cell)
         {
             return _grid.Cast<GridCell>()

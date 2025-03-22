@@ -222,8 +222,9 @@
     can be found.
   -->
   <ItemGroup>
+    <Compile Include="CKTextHelper.cs" />
     <Compile Include="DOM\CKCell.cs" />
-    <Compile Include="DOM\CKCellReference.cs" />
+    <Compile Include="DOM\CKCellRefRect.cs" />
     <Compile Include="DOM\CKCells.cs" />
     <Compile Include="DOM\CKColumn.cs" />
     <Compile Include="DOM\CKColumns.cs" />
