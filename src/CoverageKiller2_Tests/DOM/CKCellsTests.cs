@@ -27,7 +27,7 @@ namespace CoverageKiller2.DOM
                 CKRange range = new CKRange(wordTable.Range);
 
                 // Construct CKCells from the range.
-                CKCells cells = new CKCells(range);
+                CKCells cells = new CKCellsLinear(range);
 
                 // The cells collection should not be null and should contain at least one cell.
                 Assert.IsNotNull(cells, "CKCells instance should not be null.");
@@ -55,7 +55,7 @@ namespace CoverageKiller2.DOM
                 ICellRef cellRef = CKCellRefLinear.ForCells(1, cellCount);
 
                 // Construct the CKCells collection.
-                CKCells cells = new CKCells(ckTable, cellRef);
+                CKCells cells = new CKCellsLinear(ckTable, cellRef);
 
                 // Verify that the cells collection count matches the table's cells count.
                 Assert.AreEqual(cellCount, cells.Count, "The number of CKCells should match the table's cell count.");
@@ -74,7 +74,7 @@ namespace CoverageKiller2.DOM
                 CKTable ckTable = new CKTable(wordTable);
                 int cellCount = wordTable.Range.Cells.Count;
                 ICellRef cellRef = CKCellRefLinear.ForCells(1, cellCount);
-                CKCells cells = new CKCells(ckTable, cellRef);
+                CKCells cells = new CKCellsLinear(ckTable, cellRef);
 
                 // Test valid index.
                 CKCell firstCell = cells[1];
@@ -106,7 +106,7 @@ namespace CoverageKiller2.DOM
                 CKTable ckTable = new CKTable(wordTable);
                 int cellCount = wordTable.Range.Cells.Count;
                 ICellRef cellRef = CKCellRefLinear.ForCells(1, cellCount);
-                CKCells cells = new CKCells(ckTable, cellRef);
+                CKCells cells = new CKCellsLinear(ckTable, cellRef);
 
                 int enumeratedCount = cells.Count();
                 Assert.AreEqual(cellCount, enumeratedCount, "Enumeration should yield the same number of cells as the Count property.");

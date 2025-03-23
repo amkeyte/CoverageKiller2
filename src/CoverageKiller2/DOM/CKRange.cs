@@ -197,7 +197,7 @@ namespace CoverageKiller2.DOM
         /// <summary>
         /// Gets the cells contained in the range.
         /// </summary>
-        public CKCells Cells => new CKCells(this);
+        public CKCells Cells => new CKCellsLinear(this);
 
         #endregion
 
