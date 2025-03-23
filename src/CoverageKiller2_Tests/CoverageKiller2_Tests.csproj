@@ -66,6 +66,7 @@
     <Compile Include="DOM\CKParagraphsTests.cs" />
     <Compile Include="DOM\CKParagraphTests.cs" />
     <Compile Include="DOM\CKRangeTests.cs" />
+    <Compile Include="DOM\CKRowsTests.cs" />
     <Compile Include="DOM\CKRowTests.cs" />
     <Compile Include="DOM\CKSectionsTests.cs" />
     <Compile Include="DOM\CKSectionTests.cs" />
