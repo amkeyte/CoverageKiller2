@@ -17,12 +17,7 @@ namespace CoverageKiller2.DOM
 
 
 
-        // Property to get or set the text in a cell
-        public string Text
-        {
-            get => COMRange.Text;
-            set => COMRange.Text = value;
-        }
+
 
         // Property to get or set the background color for the cell
         public Word.WdColor BackgroundColor

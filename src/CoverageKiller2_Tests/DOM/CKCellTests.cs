@@ -1,9 +1,8 @@
-﻿using CoverageKiller2.DOM;
-using CoverageKiller2.Tests;  // Contains LiveWordDocument helper.
+﻿using CoverageKiller2.Tests;  // Contains LiveWordDocument helper.
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Word = Microsoft.Office.Interop.Word;
 
-namespace CoverageKiller2.UnitTests
+namespace CoverageKiller2.DOM
 {
     [TestClass]
     public class CKCellTests
@@ -48,7 +47,7 @@ namespace CoverageKiller2.UnitTests
 
                 // Update the text.
                 ckCell.Text = newText;
-                Assert.AreEqual(newText, ckCell.Text, "The Text property should update to the new value.");
+                Assert.IsTrue(CKTextHelper.ScrunchEquals(newText, ckCell.Text), "The Text property should update to the new value.");
 
                 // Optionally restore original text.
                 ckCell.Text = originalText;

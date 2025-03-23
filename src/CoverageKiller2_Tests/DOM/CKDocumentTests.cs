@@ -19,31 +19,31 @@ namespace CoverageKiller2.DOM
 
                 // Assert that the document was loaded and processed correctly.
                 Assert.IsNotNull(ckDoc, "CKDocument should not be null.");
-                Assert.IsTrue(ckDoc.COMObject.Paragraphs.Count > 0, "The document should contain paragraphs.");
+                Assert.IsTrue(ckDoc.COMDocument.Paragraphs.Count > 0, "The document should contain paragraphs.");
             });
         }
 
         [TestMethod]
         public void CKDocument_Properties_ReturnExpectedValues()
         {
-            LiveWordDocument.WithTestDocument(LiveWordDocument.Default, doc =>
+            LiveWordDocument.WithTestDocument(LiveWordDocument.Default, (System.Action<Microsoft.Office.Interop.Word.Document>)(doc =>
             {
                 // Create the CKDocument instance.
                 CKDocument ckDoc = new CKDocument(doc);
 
                 // Test that the COMObject property is not null.
-                Assert.IsNotNull(ckDoc.COMObject, "COMObject should not be null.");
+                Assert.IsNotNull(ckDoc.COMDocument, "COMObject should not be null.");
 
                 // Test that the WordApp property returns the Application from the COMObject.
-                Assert.IsNotNull(ckDoc.WordApp, "WordApp should not be null.");
-                Assert.AreEqual(ckDoc.COMObject.Application, ckDoc.WordApp, "WordApp should match COMObject.Application.");
+                Assert.IsNotNull((object)ckDoc.Application, "WordApp should not be null.");
+                Assert.AreEqual(ckDoc.COMDocument.Application, (Microsoft.Office.Interop.Word.Application)ckDoc.Application, "WordApp should match COMObject.Application.");
 
                 // Test that the Content property is not null.
                 Assert.IsNotNull(ckDoc.Content, "Content should not be null.");
 
                 // Test that the FullPath property matches the provided document path.
                 Assert.AreEqual(LiveWordDocument.Default, ckDoc.FullPath, "FullPath should match the test document path.");
-            });
+            }));
         }
 
 

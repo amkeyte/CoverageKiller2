@@ -1,6 +1,7 @@
 ﻿using CoverageKiller2.Logging;
 using Serilog;
 using System;
+using System.Runtime.InteropServices;
 using System.Threading;
 using Forms = System.Windows.Forms;
 using Word = Microsoft.Office.Interop.Word;
@@ -11,7 +12,7 @@ namespace CoverageKiller2.DOM
     /// Represents a wrapper for a Word document, managing its lifecycle and interactions
     /// with the Word application, including event handling for opening and closing.
     /// </summary>
-    public class CKDocument
+    public class CKDocument : IDOMObject
     {
         private readonly string _fullPath;
         private bool documentOpened = false;
@@ -19,17 +20,17 @@ namespace CoverageKiller2.DOM
         /// <summary>
         /// Gets the associated Word document.
         /// </summary>
-        public Word.Document COMObject { get; private set; }
+        public Word.Document COMDocument { get; private set; }
 
         /// <summary>
         /// Gets the Word application instance that is managing this document.
         /// </summary>
-        public Word.Application WordApp => COMObject.Application;
+        public Word.Application Application => COMDocument.Application;
 
         /// <summary>
         /// Gets the content of the Word document as a <see cref="Word.Range"/>.
         /// </summary>
-        public Word.Range Content => COMObject.Content;
+        public Word.Range Content => COMDocument.Content;
 
         /// <summary>
         /// Gets the full file path of the Word document.
@@ -44,9 +45,48 @@ namespace CoverageKiller2.DOM
         // copying the range content if it makes sense in some case. Hell, this could even be for some old
         // shit im not even doing anymore.
         public CKTables Tables => throw new NotImplementedException();
-        public CKSections Sections => new CKSections(Range);
+        public CKSections Sections => new CKSections(Range());
 
-        public CKRange Range => new CKRange(COMObject.Range());
+        //circular; find a way to fix.
+        public CKDocument Document => this;
+
+
+        public IDOMObject Parent => throw new NotSupportedException("Call Application on a CKDocument object.");
+
+        public bool IsDirty => throw new NotImplementedException();
+
+        /// <summary>
+        /// Gets a value indicating whether this CKDocument no longer has a valid COMDocument reference.
+        /// This becomes true if the document is closed or the COM object has been released.
+        /// </summary>
+        public bool IsOrphan
+        {
+            get
+            {
+                try
+                {
+                    // Accessing COMDocument.Application should throw if the COM object is no longer valid.
+                    // Alternatively, accessing COMDocument.FullName is often sufficient.
+                    _ = COMDocument.FullName;
+                    return false;
+                }
+                catch (COMException)
+                {
+                    return true;
+                }
+                catch (Exception)
+                {
+                    return true;
+                }
+            }
+        }
+        public CKRange Range() => new CKRange(COMDocument.Range(), this);
+
+        public CKRange Range(Word.Range range, IDOMObject parent = null)
+        {
+            return new CKRange(COMDocument.Range(), parent);
+        }
+
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CKDocument"/> class, 
@@ -56,9 +96,9 @@ namespace CoverageKiller2.DOM
         public CKDocument(string fullPath)
         {
             _fullPath = fullPath;
-            COMObject = Open(fullPath);
-            Log.Debug("Registering BeforeClose event for document {DocName}", COMObject.FullName);
-            COMObject.Application.DocumentBeforeClose += OnDocumentBeforeClose;
+            COMDocument = Open(fullPath);
+            Log.Debug("Registering BeforeClose event for document {DocName}", COMDocument.FullName);
+            COMDocument.Application.DocumentBeforeClose += OnDocumentBeforeClose;
         }
 
         /// <summary>
@@ -68,12 +108,12 @@ namespace CoverageKiller2.DOM
         /// <param name="wordDoc">The existing Word document instance.</param>
         public CKDocument(Word.Document wordDoc)
         {
-            COMObject = wordDoc;
-            _fullPath = COMObject.FullName;
+            COMDocument = wordDoc;
+            _fullPath = COMDocument.FullName;
             documentOpened = true;
 
-            Log.Debug("Registering BeforeClose event for document {DocName}", COMObject.FullName);
-            COMObject.Application.DocumentBeforeClose += OnDocumentBeforeClose;
+            Log.Debug("Registering BeforeClose event for document {DocName}", COMDocument.FullName);
+            COMDocument.Application.DocumentBeforeClose += OnDocumentBeforeClose;
         }
 
         /// <summary>
@@ -147,7 +187,7 @@ namespace CoverageKiller2.DOM
         /// <summary>
         /// Activates the Word document in the application.
         /// </summary>
-        public void Activate() => COMObject.Activate();
+        public void Activate() => COMDocument.Activate();
 
         /// <summary>
         /// Closes the Word document. Optionally saves changes.
@@ -155,7 +195,7 @@ namespace CoverageKiller2.DOM
         /// <param name="saveChanges">If true, saves the changes before closing.</param>
         public virtual void Close(bool saveChanges = false)
         {
-            COMObject.Close(saveChanges);
+            COMDocument.Close(saveChanges);
         }
 
         /// <summary>
@@ -167,10 +207,17 @@ namespace CoverageKiller2.DOM
         {
             if (!IsThisDocument(wordDoc)) return;
 
+            PurgeGlobalRefernces();
+
             Log.Information("Closed document {DocName}", wordDoc.FullName);
             Log.Debug("Unregistering BeforeClosed event for {DocName}", wordDoc.FullName);
 
-            COMObject.Application.DocumentBeforeClose -= OnDocumentBeforeClose;
+            COMDocument.Application.DocumentBeforeClose -= OnDocumentBeforeClose;
+        }
+
+        private void PurgeGlobalRefernces()
+        {
+            CKTableGrid.PurgeInstances(this);
         }
 
         public Tracer Tracer = new Tracer(typeof(CKDocument));
@@ -185,16 +232,16 @@ namespace CoverageKiller2.DOM
             Tracer.Log("Deleting Section", new DataPoints()
                 .Add(nameof(sectionIndex), sectionIndex));
 
-            if (sectionIndex < 1 || sectionIndex > COMObject.Sections.Count)
+            if (sectionIndex < 1 || sectionIndex > COMDocument.Sections.Count)
             {
                 throw new ArgumentOutOfRangeException(nameof(sectionIndex), "Section index is out of range.");
             }
 
             // Get the section to delete
-            Word.Section sectionToDelete = COMObject.Sections[sectionIndex];
+            Word.Section sectionToDelete = COMDocument.Sections[sectionIndex];
 
             // Delete the section and hopefully he ssection break ahead of it.
-            Word.Range extendedRange = COMObject.Range(sectionToDelete.Range.Start - 1, sectionToDelete.Range.End);
+            Word.Range extendedRange = COMDocument.Range(sectionToDelete.Range.Start - 1, sectionToDelete.Range.End);
 
             //sectionToDelete.Range.Delete();
             extendedRange.Delete();
@@ -203,19 +250,19 @@ namespace CoverageKiller2.DOM
         // Get primary footer range
         public Word.Range GetFooterRange()
         {
-            return COMObject.Sections[1].Footers[Word.WdHeaderFooterIndex.wdHeaderFooterPrimary].Range;
+            return COMDocument.Sections[1].Footers[Word.WdHeaderFooterIndex.wdHeaderFooterPrimary].Range;
         }
 
         // Get primary header range
         public Word.Range GetHeaderRange()
         {
-            return COMObject.Sections[1].Headers[Word.WdHeaderFooterIndex.wdHeaderFooterPrimary].Range;
+            return COMDocument.Sections[1].Headers[Word.WdHeaderFooterIndex.wdHeaderFooterPrimary].Range;
         }
 
         // Copy footer from this document to another
         public void CopyFooterTo(CKDocument targetDocument)
         {
-            if (targetDocument == null || targetDocument.COMObject == null)
+            if (targetDocument == null || targetDocument.COMDocument == null)
                 throw new ArgumentNullException(nameof(targetDocument));
 
             Word.Range sourceFooter = GetFooterRange();
@@ -227,7 +274,7 @@ namespace CoverageKiller2.DOM
         // Copy header from this document to another
         public void CopyHeaderTo(CKDocument targetDocument)
         {
-            if (targetDocument == null || targetDocument.COMObject == null)
+            if (targetDocument == null || targetDocument.COMDocument == null)
                 throw new ArgumentNullException(nameof(targetDocument));
 
             Word.Range sourceHeader = GetHeaderRange();
@@ -243,7 +290,10 @@ namespace CoverageKiller2.DOM
             CopyFooterTo(targetDocument);
         }
 
-
+        internal CKRange Range(int start, int end, IDOMObject parent = null)
+        {
+            return Range(COMDocument.Range(start, end), parent ?? this);
+        }
     }
 
 }

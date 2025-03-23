@@ -230,6 +230,8 @@
     <Compile Include="DOM\CKColumns.cs" />
     <Compile Include="CkDocHelpers.cs" />
     <Compile Include="DOM\CKDocument.cs" />
+    <Compile Include="DOM\CKDocuments.cs" />
+    <Compile Include="DOM\CKDomObject.cs" />
     <Compile Include="DOM\CKParagraph.cs" />
     <Compile Include="DOM\CKRangeCollection.cs" />
     <Compile Include="CKRibbon.cs" />

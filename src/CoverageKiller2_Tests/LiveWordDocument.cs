@@ -1,7 +1,7 @@
-﻿using System;
+﻿using CoverageKiller2.Logging;
+using System;
 using System.Runtime.InteropServices;
 using Word = Microsoft.Office.Interop.Word;
-
 namespace CoverageKiller2.Tests
 {
     /// <summary>
@@ -35,6 +35,7 @@ namespace CoverageKiller2.Tests
         /// <returns>A live Word.Document object for testing.</returns>
         public Word.Document LoadFromFile(string documentPath)
         {
+            LH.Ping(GetType());
             if (string.IsNullOrEmpty(documentPath))
             {
                 throw new ArgumentNullException(nameof(documentPath));
@@ -44,6 +45,7 @@ namespace CoverageKiller2.Tests
             Word.Document doc = _wordApp.Documents.Open(documentPath,
                                                           ReadOnly: true,
                                                           Visible: false);
+            LH.Pong(GetType());
             return doc;
         }
 
@@ -53,11 +55,15 @@ namespace CoverageKiller2.Tests
         /// <param name="document">The Word.Document to close.</param>
         public void Close(Word.Document document)
         {
+            LH.Ping(GetType());
+
             if (document != null)
             {
                 document.Close(false);
                 Marshal.ReleaseComObject(document);
             }
+            LH.Pong(GetType());
+
         }
 
         /// <summary>
@@ -65,6 +71,8 @@ namespace CoverageKiller2.Tests
         /// </summary>
         public void Dispose()
         {
+            LH.Ping(GetType());
+
             if (_wordApp != null)
             {
                 try
@@ -78,6 +86,8 @@ namespace CoverageKiller2.Tests
                     _wordApp = null;
                 }
             }
+            LH.Pong(GetType());
+
         }
 
         /// <summary>
@@ -87,6 +97,8 @@ namespace CoverageKiller2.Tests
         /// <param name="testAction">The action to perform using the loaded Word.Document.</param>
         public static void WithTestDocument(string documentPath, Action<Word.Document> testAction)
         {
+            LH.Ping(typeof(LiveWordDocument));
+
             using (var loader = new LiveWordDocument())
             {
                 if (!string.IsNullOrEmpty(documentPath)) documentPath = Default;
@@ -101,6 +113,8 @@ namespace CoverageKiller2.Tests
                     loader.Close(doc);
                 }
             }
+            LH.Pong(typeof(LiveWordDocument));
+
         }
 
     }

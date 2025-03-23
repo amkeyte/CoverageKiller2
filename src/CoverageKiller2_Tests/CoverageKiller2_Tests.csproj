@@ -60,13 +60,16 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="DOM\CKCellsTests.cs" />
     <Compile Include="DOM\CKCellTests.cs" />
     <Compile Include="DOM\CKDocumentTests.cs" />
     <Compile Include="DOM\CKParagraphsTests.cs" />
     <Compile Include="DOM\CKParagraphTests.cs" />
     <Compile Include="DOM\CKRangeTests.cs" />
+    <Compile Include="DOM\CKRowTests.cs" />
     <Compile Include="DOM\CKSectionsTests.cs" />
     <Compile Include="DOM\CKSectionTests.cs" />
+    <Compile Include="DOM\CKTableGridTests.cs" />
     <Compile Include="DOM\CKTableTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="LiveWordDocument.cs" />

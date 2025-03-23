@@ -1,5 +1,7 @@
-﻿using System;
+﻿using CoverageKiller2.Logging;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using Word = Microsoft.Office.Interop.Word;
 
@@ -13,20 +15,51 @@ namespace CoverageKiller2.DOM
     {
         public static CKTableGrid GetInstance(Word.Table table)
         {
+            LH.Ping(typeof(CKTableGrid));
             var tableRange = new CKRange(table.Range);
 
+            Debug.WriteLine("purging...");
+            if (tableRange.IsOrphan) throw new Exception("problem");
+            _tableGrids.Keys.Where(r => r.IsOrphan).ToList()
+                .ForEach(r => _tableGrids.Remove(r));
+
+            Debug.WriteLine("Checking _tableGrids.TryGetValue");
             if (_tableGrids.TryGetValue(tableRange, out CKTableGrid grid))
             {
+
+                LH.Pong("_tableGrids had value", typeof(CKTableGrid));
+
                 return grid;
             }
             else
             {
+                Debug.WriteLine("_tableGrids had no value; creating.");
+
                 grid = new CKTableGrid(table);
                 _tableGrids.Add(tableRange, grid);
+
+                LH.Pong("Added new grid.", typeof(CKTableGrid));
+
+
                 return grid;
             }
         }
 
+        //remove any GridTable instances before they get orphaned.
+        // also--- this is a bit hacky.
+        internal static void PurgeInstances(CKDocument cKDocument)
+        {
+            LH.Ping(typeof(CKTableGrid));
+
+            var x = _tableGrids.Keys.Where(r => r.Document == cKDocument);
+            foreach (var kvp in _tableGrids)
+            {
+                _tableGrids.Remove(kvp.Key);
+            }
+
+            LH.Pong(typeof(CKTableGrid));
+
+        }
         public static IEnumerable<GridChange> Refresh(CKTable table, bool getDiffs = false)
         {
             var oldGrid = _tableGrids[table];
@@ -61,8 +94,11 @@ namespace CoverageKiller2.DOM
         /// <param name="table">The Word table to map.</param>
         private CKTableGrid(Word.Table table)
         {
+            LH.Ping(GetType());
             _table = table;
             BuildGrid();
+            LH.Pong(GetType());
+
         }
 
         /// <summary>
@@ -108,6 +144,7 @@ namespace CoverageKiller2.DOM
         /// </summary>
         private void BuildGrid()
         {
+            LH.Ping();
             Word.Table wordTable = _table;
             int rowCount = wordTable.Rows.Count;
             int colCount = GetMaxColumns(wordTable);
@@ -159,7 +196,9 @@ namespace CoverageKiller2.DOM
                     }
                     currentGridCol += colSpan;
                 }
+
             }
+            LH.Pong();
         }
         /// <summary>
         /// Determines the maximum number of columns in the table.
@@ -190,7 +229,7 @@ namespace CoverageKiller2.DOM
         }
 
 
-        public CKRow GetRowCells(int rowNumber)
+        public IEnumerable<GridCell> GetRowCells(int rowNumber)
         {
             // Convert the 1-based row number (Word Interop) to 0-based index for the grid.
             int gridRowIndex = rowNumber - 1;
@@ -206,11 +245,10 @@ namespace CoverageKiller2.DOM
                 .Select(g => new { FirstCol = g.Min(x => x.ColIndex), GridCell = g.First().GridCell })
                 .OrderBy(x => x.FirstCol)
                 .Select(x => x.GridCell);
-
-            return new CKRow(rowCells);
+            return rowCells;
         }
 
-        public CKColumn GetColumnCells(int columnNumber)
+        public IEnumerable<GridCell> GetColumnCells(int columnNumber)
         {
             // Convert the 1-based column number (Word Interop) to a 0-based index for our grid.
             int gridColIndex = columnNumber - 1;
@@ -224,10 +262,9 @@ namespace CoverageKiller2.DOM
                 .OrderBy(x => x.FirstRow)
                 .Select(x => x.GridCell);
 
-
-
-            return new CKColumn(null);
+            return columnGridCells;
         }
+
     }
 
 

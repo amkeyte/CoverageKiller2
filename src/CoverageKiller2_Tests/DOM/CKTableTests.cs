@@ -43,6 +43,21 @@ namespace CoverageKiller2.DOM
                 Assert.AreEqual(wordTable.Range.Start, ckTable.COMTable.Range.Start,
                     "The range start of the underlying COMTable should match.");
             });
+
+            LiveWordDocument.WithTestDocument(LiveWordDocument.Default, doc =>
+            {
+                // Ensure the document has at least one table.
+                Assert.IsTrue(doc.Tables.Count > 0, "Test document must contain at least one table.");
+
+                // Get the first table (Word collections are 1-based).
+                Word.Table wordTable2 = doc.Tables[1];
+                CKTable ckTable2 = new CKTable(wordTable2);
+
+                // Verify that the underlying COMTable property is set correctly.
+                Assert.IsNotNull(ckTable2.COMTable, "COMTable property should not be null.");
+                Assert.AreEqual(wordTable2.Range.Start, ckTable2.COMTable.Range.Start,
+                    "The range start of the underlying COMTable should match.");
+            });
         }
         [TestMethod]
         public void CKTable_RCP_Bug()
@@ -101,7 +116,7 @@ namespace CoverageKiller2.DOM
                     "The CKCell from CKTable.Cell(x,y) should equal the COM Table.Cell(x,y).");
             });
 
-            //insert time here?
+
 
             LiveWordDocument.WithTestDocument(LiveWordDocument.Default, doc =>
             {

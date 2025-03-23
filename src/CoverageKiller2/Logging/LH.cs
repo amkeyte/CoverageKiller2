@@ -1,10 +1,11 @@
 ﻿using Serilog;
 using System;
+using System.Runtime.CompilerServices;
 
 namespace CoverageKiller2.Logging
 
 {
-    internal static class LH
+    public static class LH
     {
 
         public static Exception LogThrow(Exception exception)
@@ -100,5 +101,31 @@ namespace CoverageKiller2.Logging
 
             return string.Join(".", objectNames);
         }
+
+        private const string _UNKNOWN_ = "UNKNOWN";
+        public static void Ping(Type caller, [CallerMemberName] string callerName = "")
+        {
+            //Debug.WriteLine($" -> Ping from {caller?.Name ?? _UNKNOWN_}::{callerName}");
+        }
+
+        public static void Ping([CallerMemberName] string callerName = "")
+        {
+            //Debug.WriteLine($" -> Ping from {_UNKNOWN_}::{callerName}");
+        }
+
+        public static void Pong([CallerMemberName] string callerName = "")
+        {
+            //Debug.WriteLine($" <- Pong from {_UNKNOWN_}::{callerName}");
+        }
+        public static void Pong(Type caller, [CallerMemberName] string callerName = "")
+        {
+            //Debug.WriteLine($" <- Pong from {caller?.Name ?? _UNKNOWN_}::{callerName}");
+        }
+
+        public static void Pong(string message, Type caller, [CallerMemberName] string callerName = "")
+        {
+            //Debug.WriteLine($" <- Pong from {caller?.Name ?? _UNKNOWN_}::{callerName} --- {message}");
+        }
+
     }
 }

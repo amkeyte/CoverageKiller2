@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Office.Interop.Word;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace CoverageKiller2.DOM
     /// Represents an arbitrary collection of CKCell objects.
     /// This collection may be non-rectangular.
     /// </summary>
-    public class CKCells : IEnumerable<CKCell>
+    public class CKCells : IEnumerable<CKCell>, IDOMObject
     {
         protected List<CKCell> _cells;
 
@@ -62,6 +63,15 @@ namespace CoverageKiller2.DOM
 
         public int Count => _cells.Count;
 
+        public CKDocument Document => throw new NotImplementedException();
+
+        public Application Application => throw new NotImplementedException();
+
+        public IDOMObject Parent => throw new NotImplementedException();
+
+        public bool IsDirty => throw new NotImplementedException();
+
+        public bool IsOrphan => throw new NotImplementedException();
 
         public CKCell this[int index]
         {
@@ -86,10 +96,11 @@ namespace CoverageKiller2.DOM
 
     /// <summary>
     /// Represents a collection of CKCell objects that form a contiguous rectangular grid.
+    /// possibly better to do this with a factory method.
     /// </summary>
-    public class CKCellsRectangle : CKCells
+    public class CKCellsRect : CKCells
     {
-        public CKCellsRectangle(CKTable table, ICellRef cellReference)
+        public CKCellsRect(CKTable table, CKCellRefRect cellReference)
             : base(table, cellReference)
         {
             if (cellReference.Mode != nameof(CKCellRefRect))

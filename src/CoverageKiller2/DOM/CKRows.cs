@@ -1,40 +1,40 @@
-﻿using System;
+﻿using Microsoft.Office.Interop.Word;
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using Word = Microsoft.Office.Interop.Word;
+using System.Linq;
 
 namespace CoverageKiller2.DOM
 {
-    public class CKRows : IEnumerable<CKRow>
+    public class CKRows : IEnumerable<CKRow>, IDOMObject
     {
-        public static CKRows Create(CKTable parent)
-        {
-            return new CKRows(parent);
-        }
-        internal Word.Rows COMObject => Parent.COMTable.Rows;
 
-        public CKTable Parent { get; private set; }
-
-
+        private List<CKRow> _rows = new List<CKRow>();
         public override string ToString()
         {
             return $"CKRows[Count: {Count}]";
         }
 
-
-
-
-
-        // Constructor to initialize CKRows with Word.Rows
-        public CKRows(CKTable parent)
+        public CKRows(IEnumerable<CKRow> rows, IDOMObject parent)
         {
+            _rows = rows.ToList();
             Parent = parent;
         }
 
-        //public bool ContainsMerged => _rows.Cast<Word.Row>()
-        //    .Any(row => new CKRow(row).ContainsMerged);
-        // Property to get the total number of rows
-        public int Count => COMObject.Count;
+        public int Count => _rows.Count;
+
+        public CKDocument Document => throw new NotImplementedException();
+
+        public Application Application => throw new NotImplementedException();
+
+        public IDOMObject Parent { get; private set; }
+
+
+        IDOMObject IDOMObject.Parent => throw new NotImplementedException();
+
+        public bool IsOrphan => _rows.Any(r => r.IsOrphan);
+
+        public bool IsDirty => throw new NotImplementedException();
 
         // Access a CKRow by its index (1-based index in Word)
         public CKRow this[int index]
@@ -44,7 +44,7 @@ namespace CoverageKiller2.DOM
                 if (index < 1 || index > Count)
                     throw new ArgumentOutOfRangeException(nameof(index), "Index must be between 1 and Count.");
 
-                return new CKRow(this, index);
+                return _rows[index];
             }
         }
 
@@ -62,25 +62,5 @@ namespace CoverageKiller2.DOM
         {
             return GetEnumerator();
         }
-
-        //// Additional helper method to get the first row
-        //public CKRow First()
-        //{
-        //    if (Count == 0)
-        //        throw new InvalidOperationException("No rows in the collection.");
-
-        //    return new CKRow.Create(this,1);
-        //}
-
-        //// Additional helper method to get the last row
-        //public CKRow Last()
-        //{
-        //    if (_rows.Count == 0)
-        //        throw new InvalidOperationException("No rows in the collection.");
-
-        //    return new CKRow(_rows[_rows.Count]);
-        //}
-
-
     }
 }
