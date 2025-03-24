@@ -4,8 +4,6 @@
     {
         string Mode { get; }
 
-        CKCellRefRect ToRect();
-
         int Start { get; }
 
         int End { get; }

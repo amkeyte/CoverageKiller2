@@ -225,7 +225,7 @@
     <Compile Include="CKTextHelper.cs" />
     <Compile Include="DOM\CKCell.cs" />
     <Compile Include="DOM\CKCellRefLinear.cs" />
-    <Compile Include="DOM\CKCellRefRect.cs" />
+    <Compile Include="DOM\CKGridCellRefRect.cs" />
     <Compile Include="DOM\CKCells.cs" />
     <Compile Include="DOM\CKColumn.cs" />
     <Compile Include="DOM\CKColumns.cs" />

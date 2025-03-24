@@ -11,17 +11,17 @@ namespace CoverageKiller2.DOM
 
 
         //if cellref is more than one cell, the top left is given. (Consistent with Range.Tables)
-        public CKCell(CKCells cellsCol, CKCellRefLinear cellRef) :
-            this(cellsCol.Table,
-                cellsCol,
-                cellsCol.Table.WordCell(cellRef.ToRect(table)),
+        public CKCell(CKCells cellsCollection, CKCellRefLinear cellRef, int Index) :
+            this(cellsCollection.Table,
+                cellsCollection,
+                cellsCollection.Table.WordCell(xxx),
                 cellRef.X1,
                 cellRef.Y1)
         {
 
         }
 
-        public CKCell(CKTable table, CKCellRefRect cellRef) :
+        public CKCell(CKTable table, CKGridCellRefRect cellRef) :
             this(table, table, table.WordCell(cellRef), cellRef.X1, cellRef.Y1)
         {
 
@@ -31,7 +31,7 @@ namespace CoverageKiller2.DOM
             base(wdCell.Range, parent)
         {
             Table = table;
-            CellRef = CKCellRefRect.ForCell(row, col);
+            CellRef = CKGridCellRefRect.ForCell(row, col);
         }
 
         // Property to get or set the background color for the cell
@@ -50,7 +50,7 @@ namespace CoverageKiller2.DOM
 
         //Table is not nessisarily the parent!!
         public CKTable Table { get; private set; }
-        public CKCellRefRect CellRef { get; }
+        public CKGridCellRefRect CellRef { get; }
     }
 }
 

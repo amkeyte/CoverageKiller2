@@ -76,7 +76,7 @@ namespace CoverageKiller2.DOM
                 Assert.IsTrue(grid.ColCount > 0, "ColCount should be greater than 0.");
 
                 // Using zero-based indices, get the top-left cell.
-                GridCell cell = grid.GetCellAt(0, 0);
+                GridCell cell = grid.GetGridCellAt(0, 0);
                 Assert.IsNotNull(cell, "GetCellAt for valid coordinates should return a non-null GridCell.");
             });
         }
@@ -93,7 +93,7 @@ namespace CoverageKiller2.DOM
                 CKTableGrid grid = CKTableGrid.GetInstance(wordTable);
 
                 // Try invalid (negative) indices.
-                GridCell cell = grid.GetCellAt(-1, -1);
+                GridCell cell = grid.GetGridCellAt(-1, -1);
                 Assert.IsNull(cell, "GetCellAt with invalid indices should return null.");
             });
         }

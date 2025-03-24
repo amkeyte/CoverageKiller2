@@ -105,7 +105,7 @@ namespace CoverageKiller2.DOM
         /// Retrieves the grid cell at the given row and column indices (0-based).
         /// Returns null if the coordinates are out of range.
         /// </summary>
-        public GridCell GetCellAt(int row, int col)
+        public GridCell GetGridCellAt(int row, int col)
         {
             if (row < 0 || row >= RowCount ||
                 col < 0 || col >= ColCount)
@@ -113,13 +113,15 @@ namespace CoverageKiller2.DOM
             return _grid[row, col];
         }
         /// <summary>
+        /// !!!!!! Broken for merged cell grids.
         /// Retrieves the grid cell corresponding to the top‐left coordinates of the given CKCellReference.
         /// Returns null if the coordinates are out of range.
         /// </summary>
         /// <param name="cellReference">A CKCellReference instance specifying a range (the top‐left cell is used).</param>
         /// <returns>The GridCell at the converted coordinates, or null if out of range.</returns>
-        public GridCell GetCellAt(CKCellRefRect cellReference)
+        public GridCell GetGridCellAt(CKGridCellRefRect cellReference)
         {
+
             if (cellReference == null)
                 throw new ArgumentNullException(nameof(cellReference));
 
@@ -132,19 +134,14 @@ namespace CoverageKiller2.DOM
 
             return _grid[row, col];
         }
-        public GridCell GetMasterGridCellForWordCell(CKCell cell)
-        {
-            return _grid.Cast<GridCell>()
-                        .Where(gc => gc != null && gc.COMCell == cell.COMCell && gc.IsMasterCell)
-                        .FirstOrDefault();
-        }
+
 
         /// <summary>
         /// Builds the grid representation from the Word table.
         /// </summary>
         private void BuildGrid()
         {
-            LH.Ping();
+
             Word.Table wordTable = _table;
             int rowCount = wordTable.Rows.Count;
             int colCount = GetMaxColumns(wordTable);
@@ -365,8 +362,8 @@ namespace CoverageKiller2.DOM
             {
                 for (int c = 0; c < minCols; c++)
                 {
-                    GridCell oldCell = oldGrid.GetCellAt(r, c);
-                    GridCell newCell = newGrid.GetCellAt(r, c);
+                    GridCell oldCell = oldGrid.GetGridCellAt(r, c);
+                    GridCell newCell = newGrid.GetGridCellAt(r, c);
                     if (!Equals(oldCell, newCell))
                     {
                         changes.Add(new GridChange
@@ -394,8 +391,8 @@ namespace CoverageKiller2.DOM
             {
                 for (int c = 0; c < minCols; c++)
                 {
-                    GridCell oldCell = oldGrid.GetCellAt(r, c);
-                    GridCell newCell = newGrid.GetCellAt(r, c);
+                    GridCell oldCell = oldGrid.GetGridCellAt(r, c);
+                    GridCell newCell = newGrid.GetGridCellAt(r, c);
                     if (!Equals(oldCell, newCell))
                         return r;
                 }
@@ -413,8 +410,8 @@ namespace CoverageKiller2.DOM
             {
                 for (int r = 0; r < minRows; r++)
                 {
-                    GridCell oldCell = oldGrid.GetCellAt(r, c);
-                    GridCell newCell = newGrid.GetCellAt(r, c);
+                    GridCell oldCell = oldGrid.GetGridCellAt(r, c);
+                    GridCell newCell = newGrid.GetGridCellAt(r, c);
                     if (!Equals(oldCell, newCell))
                         return c;
                 }

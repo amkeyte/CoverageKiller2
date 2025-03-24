@@ -16,7 +16,7 @@ namespace CoverageKiller2.DOM
         /// <param name="cellRef">A rectangular cell reference representing one column (X1 must equal X2).</param>
         /// <exception cref="ArgumentNullException">Thrown when table or cellRef is null.</exception>
         /// <exception cref="ArgumentException">Thrown when the cell reference does not represent exactly one column.</exception>
-        public CKColumn(CKTable table, CKCellRefRect cellRef)
+        public CKColumn(CKTable table, CKGridCellRefRect cellRef)
             : base(table, cellRef)
         {
             if (table == null)
@@ -32,7 +32,7 @@ namespace CoverageKiller2.DOM
         /// <summary>
         /// Gets the one-based column index.
         /// </summary>
-        public int Index => ((CKCellRefRect)CellRef).X1;
+        public int Index => ((CKGridCellRefRect)CellRef).X1;
 
         ///// <summary>
         ///// Gets the parent DOM object. For CKColumn, the parent is the CKTable.

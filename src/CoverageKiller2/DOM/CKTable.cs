@@ -42,23 +42,27 @@ namespace CoverageKiller2.DOM
         public IEnumerable<CKColumn> Columns => throw new NotImplementedException();
 
         // calling a cell from the table requres a CKCellRefRect.
-        public CKCell Cell(CKCellRefRect cellReference)
+        public CKCell Cell(ICellRef cellReference)
         {
-            return new CKCell(this, cellReference);
+            return new CKCell(this, ConvertRefToRect(cellReference));
         }
 
-        public Word.Cell WordCell(CKCellRefRect cellRefRect)
+        public Word.Cell WordCell(CKGridCellRefRect cellRefRect)
         {
-            return Grid.GetCellAt(cellRefRect).COMCell;
+            return Grid.GetGridCellAt(cellRefRect).COMCell;
         }
 
+        public CKGridCellRefRect ConvertRefToRect(ICellRef cellRef)
+        {
+            //use Mode property to dispatch to correct conversion.
+        }
 
         /// <summary>
         /// Returns the collection of cells in the table that fall within the specified cell reference.
         /// </summary>
         /// <param name="cellReference">The cell reference specifying a range within the table.</param>
         /// <returns>A collection of CKCell objects.</returns>
-        internal IEnumerable<CKCell> CellItems(CKCellRefRect cellReference)
+        internal IEnumerable<CKCell> CellItems(CKGridCellRefRect cellReference)
         {
             throw new NotImplementedException();
         }

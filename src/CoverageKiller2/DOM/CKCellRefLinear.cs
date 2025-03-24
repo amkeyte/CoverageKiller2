@@ -72,7 +72,7 @@ namespace CoverageKiller2.DOM
             return $"CKCellLinear: Cells {Start} to {End}";
         }
 
-        public CKCellRefRect ToRect()
+        public CKGridCellRefRect ToRect()
         {
             throw new NotImplementedException();
         }
