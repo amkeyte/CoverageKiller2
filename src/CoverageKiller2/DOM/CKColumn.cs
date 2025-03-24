@@ -1,58 +1,51 @@
-﻿using CoverageKiller2.Logging;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System;
 
 namespace CoverageKiller2.DOM
 {
-    public class CKColumn : IEnumerable<CKCell>
+    /// <summary>
+    /// Represents a single column in a Word table, implemented as a rectangular cell collection.
+    /// This column is defined by a cell reference that must represent exactly one column.
+    /// </summary>
+    public class CKColumn : CKCellsRect, IDOMObject
     {
-        public CKTable Parent { get; private set; }
-
-        private IEnumerable<CKCell> _cells;
-        public CKColumn(IEnumerable<CKCell> columnCells)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CKColumn"/> class using the specified table and cell reference.
+        /// The cell reference must represent exactly one column.
+        /// </summary>
+        /// <param name="table">The parent CKTable that contains this column.</param>
+        /// <param name="cellRef">A rectangular cell reference representing one column (X1 must equal X2).</param>
+        /// <exception cref="ArgumentNullException">Thrown when table or cellRef is null.</exception>
+        /// <exception cref="ArgumentException">Thrown when the cell reference does not represent exactly one column.</exception>
+        public CKColumn(CKTable table, CKCellRefRect cellRef)
+            : base(table, cellRef)
         {
-            _cells = columnCells;
+            if (table == null)
+                throw new ArgumentNullException(nameof(table));
+            if (cellRef == null)
+                throw new ArgumentNullException(nameof(cellRef));
+            if (cellRef.X1 != cellRef.X2)
+                throw new ArgumentException("A CKColumn must represent exactly one column.", nameof(cellRef));
+
+            Table = table;
         }
 
-        public CKColumn(CKColumns cKColumns, int index)
-        {
-            throw new NotImplementedException();
-        }
+        /// <summary>
+        /// Gets the one-based column index.
+        /// </summary>
+        public int Index => ((CKCellRefRect)CellRef).X1;
 
-        public bool IsDirty => _cells.Any(c => c.IsDirty);
-
-        public int Index => Tracer.Trace(Index);
-
-        // Example: Method to select the entire column
-        public Tracer Tracer = new Tracer(typeof(CKColumn));
-
-        //public void Delete()
-        //{
-        //    Tracer.Log("Deleting column",
-        //        new DataPoints()
-        //            .Add(nameof(Index), Index)
-        //            .Add("Header", Cells[1].Text)
-        //            .Add("Contents", Cells
-        //                .Where(c => c.RowIndex > 1)
-        //                .Select(c => c.Text)
-        //                .Aggregate((current, next) => current + ", " + next))
-        //        );
+        ///// <summary>
+        ///// Gets the parent DOM object. For CKColumn, the parent is the CKTable.
+        ///// </summary>
+        //public IDOMObject Parent { get; private set; }
 
 
 
-        //    COMObject.Delete();
-        //}
 
-        public IEnumerator<CKCell> GetEnumerator()
-        {
-            throw new System.NotImplementedException();
-        }
 
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            throw new System.NotImplementedException();
-        }
+        /// <summary>
+        /// Returns a string representation of this CKColumn.
+        /// </summary>
+        public override string ToString() => $"CKColumn[Index: {Index}, Cells: {Count}]";
     }
 }

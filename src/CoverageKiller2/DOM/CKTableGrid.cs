@@ -275,7 +275,6 @@ namespace CoverageKiller2.DOM
     public class GridCell
     {
         public Word.Cell COMCell { get; private set; }
-        public CKCell Item => new CKCell(COMCell);
         public bool IsMasterCell { get; private set; }
         public int Row { get; private set; }
         public int Col { get; private set; }

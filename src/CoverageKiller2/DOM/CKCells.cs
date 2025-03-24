@@ -34,7 +34,7 @@ namespace CoverageKiller2.DOM
         public Word.Application Application => Table.Application;
         public IDOMObject Parent => Table;
         public bool IsDirty => Table.IsDirty || _cells.Any(c => c.IsDirty);
-        public bool IsOrphan => Table.IsOrphan;
+        public bool IsOrphan => Document.IsOrphan;
 
         public CKCell this[int index]
         {
@@ -75,7 +75,7 @@ namespace CoverageKiller2.DOM
             for (int i = CellRef.Start; i <= CellRef.End; i++)
             {
                 // Table.COMTable.Cells is assumed to be a one-based collection.
-                yield return new CKCell(Table.COMTable.Range.Cells[i]);
+                yield return Table.Cell();
             }
         }
     }
@@ -99,7 +99,7 @@ namespace CoverageKiller2.DOM
             {
                 for (int col = CellRef.X1; col <= CellRef.X2; col++)
                 {
-                    yield return new CKCell(Table.COMTable.Cell(row, col));
+                    yield return Table.COMTable.Cell(row, col);
                 }
             }
         }

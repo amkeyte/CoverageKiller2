@@ -41,12 +41,16 @@ namespace CoverageKiller2.DOM
         /// </summary>
         public IEnumerable<CKColumn> Columns => throw new NotImplementedException();
 
-        // Methods
+        // calling a cell from the table requres a CKCellRefRect.
         public CKCell Cell(CKCellRefRect cellReference)
         {
-            return new CKCell(Grid.GetCellAt(cellReference).COMCell);
+            return new CKCell(this, cellReference);
         }
 
+        public Word.Cell WordCell(CKCellRefRect cellRefRect)
+        {
+            return Grid.GetCellAt(cellRefRect).COMCell;
+        }
 
 
         /// <summary>

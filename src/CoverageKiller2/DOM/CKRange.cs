@@ -167,7 +167,7 @@ namespace CoverageKiller2.DOM
         /// <summary>
         /// Gets the parent DOM object.
         /// </summary>
-        public IDOMObject Parent { get; private set; }
+        public IDOMObject Parent { get; protected set; }
 
         /// <summary>
         /// Gets the document associated with this CKRange.

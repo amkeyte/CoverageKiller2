@@ -12,10 +12,10 @@ namespace CoverageKiller2.DOM
     {
         #region Fields
 
-        /// <summary>
-        /// Stores the last column index of the row.
-        /// </summary>
-        internal int _lastIndex;
+        ///// <summary>
+        ///// Stores the last column index of the row.
+        ///// </summary>
+        //internal int _lastIndex;
 
         #endregion
 
@@ -34,7 +34,7 @@ namespace CoverageKiller2.DOM
             if (cellReference.Y1 != cellReference.Y2)
                 throw new ArgumentException("A CKRow must represent exactly one row.", nameof(cellReference));
 
-            _lastIndex = cellReference.X2;
+            //_lastIndex = cellReference.X2;
         }
 
         #endregion

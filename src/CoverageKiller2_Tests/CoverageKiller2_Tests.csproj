@@ -62,6 +62,7 @@
   <ItemGroup>
     <Compile Include="DOM\CKCellsTests.cs" />
     <Compile Include="DOM\CKCellTests.cs" />
+    <Compile Include="DOM\CKColumnTests.cs" />
     <Compile Include="DOM\CKDocumentTests.cs" />
     <Compile Include="DOM\CKParagraphsTests.cs" />
     <Compile Include="DOM\CKParagraphTests.cs" />
