@@ -223,9 +223,10 @@
   -->
   <ItemGroup>
     <Compile Include="CKTextHelper.cs" />
+    <Compile Include="DOM\CellRefCoord.cs" />
     <Compile Include="DOM\CKCell.cs" />
     <Compile Include="DOM\CKCellRefLinear.cs" />
-    <Compile Include="DOM\CKGridCellRefRect.cs" />
+    <Compile Include="DOM\CKGridCellRef.cs" />
     <Compile Include="DOM\CKCells.cs" />
     <Compile Include="DOM\CKColumn.cs" />
     <Compile Include="DOM\CKColumns.cs" />
@@ -271,6 +272,7 @@
     <None Include="CoverageKiller2_TemporaryKey.pfx" />
     <EmbeddedResource Include="PCTELReportHeaderFooterTemplate.docx" />
     <None Include="docfx.json" />
+    <Compile Include="DOM\ConverterServiceExtensions.cs" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

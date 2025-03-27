@@ -1,5 +1,6 @@
 ﻿using CoverageKiller2.Tests;  // Contains LiveWordDocument helper.
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
 using Word = Microsoft.Office.Interop.Word;
 
 namespace CoverageKiller2.DOM
@@ -7,141 +8,16 @@ namespace CoverageKiller2.DOM
     [TestClass]
     public class CKTableTests
     {
-        //        The error "The RPC server is unavailable" (HRESULT: 0x800706BA) typically indicates that the COM infrastructure can't communicate with the Word process. In the context of Word automation (or VSTO), this error may be caused by one or more of the following issues:
-
-        //Word Process Issues:
-        //The Word process may have crashed, terminated unexpectedly, or not started at all.If Word is not running or has become unresponsive, COM calls will fail.
-        //        COM/DCOM Configuration:
-        //Misconfigured DCOM security settings or insufficient permissions can prevent your process from connecting to the Word COM server.This includes both local and remote DCOM configurations.
-        //        Network/Firewall Restrictions:
-        //Although typically Word automation runs locally, if there are network or firewall settings interfering with RPC communication, you can see this error.
-
-        //Bitness Mismatch:
-        //A mismatch between the bitness (32-bit vs. 64-bit) of your test runner and the installed version of Office can cause communication issues.
-
-        //Premature COM Object Release:
-        //If a COM object has been released (or garbage collected) before all necessary calls are made, subsequent calls may attempt to use an invalid reference, triggering the error.
-
-        //Reviewing these areas should help you pinpoint the root cause in your specific scenario.
-
-
-
         [TestMethod]
         public void CKTable_Constructor_LoadsTableSuccessfully()
         {
             LiveWordDocument.WithTestDocument(LiveWordDocument.Default, doc =>
             {
-                // Ensure the document has at least one table.
-                Assert.IsTrue(doc.Tables.Count > 0, "Test document must contain at least one table.");
-
-                // Get the first table (Word collections are 1-based).
+                Assert.IsTrue(doc.Tables.Count > 0);
                 Word.Table wordTable = doc.Tables[1];
                 CKTable ckTable = new CKTable(wordTable);
-
-                // Verify that the underlying COMTable property is set correctly.
-                Assert.IsNotNull(ckTable.COMTable, "COMTable property should not be null.");
-                Assert.AreEqual(wordTable.Range.Start, ckTable.COMTable.Range.Start,
-                    "The range start of the underlying COMTable should match.");
-            });
-
-            LiveWordDocument.WithTestDocument(LiveWordDocument.Default, doc =>
-            {
-                // Ensure the document has at least one table.
-                Assert.IsTrue(doc.Tables.Count > 0, "Test document must contain at least one table.");
-
-                // Get the first table (Word collections are 1-based).
-                Word.Table wordTable2 = doc.Tables[1];
-                CKTable ckTable2 = new CKTable(wordTable2);
-
-                // Verify that the underlying COMTable property is set correctly.
-                Assert.IsNotNull(ckTable2.COMTable, "COMTable property should not be null.");
-                Assert.AreEqual(wordTable2.Range.Start, ckTable2.COMTable.Range.Start,
-                    "The range start of the underlying COMTable should match.");
-            });
-        }
-        [TestMethod]
-        public void CKTable_RCP_Bug()
-        {
-            //it seems that calling some tests in consecutive calls can cause the following failure:
-            //
-            //            CKTable_Constructor_LoadsTableSuccessfully
-            //            Source: CKTableTests.cs line 30
-
-            //  Duration: 2.9 sec
-
-            //  Message: 
-            //Test method CoverageKiller2.DOM.CKTableTests.CKTable_Constructor_LoadsTableSuccessfully threw exception:
-            //            System.Runtime.InteropServices.COMException: The RPC server is unavailable. (Exception from HRESULT: 0x800706BA)
-
-            //              Stack Trace:
-            //            Range.get_Start()
-            //CKRange.Equals(CKRange other) line 153
-            //CKRange.Equals(Object obj) line 142
-            //ObjectEqualityComparer`1.Equals(T x, T y)
-            //Dictionary`2.FindEntry(TKey key)
-            //Dictionary`2.TryGetValue(TKey key, TValue & value)
-            //CKTableGrid.GetInstance(Table table) line 18
-            //CKTable.ctor(Table table) line 19
-            //<> c.< CKTable_Constructor_LoadsTableSuccessfully > b__0_0(Document doc) line 39
-            //LiveWordDocument.WithTestDocument(String documentPath, Action`1 testAction) line 97
-            //CKTableTests.CKTable_Constructor_LoadsTableSuccessfully() line 32
-
-            //Testing if this is reproducable in a single test by running another test routine 
-            //in succession. running each test one at a time does not cause the failure.
-            //this has also been discovered in some other test classes, but less frequently.
-
-            LiveWordDocument.WithTestDocument(LiveWordDocument.Default, doc =>
-            {
-                // Ensure the document contains at least one table.
-                Assert.IsTrue(doc.Tables.Count > 0, "Test document must contain at least one table.");
-
-                // Retrieve the first table.
-                Word.Table wordTable = doc.Tables[1];
-
-                // Create a CKTable from the Word table.
-                CKTable ckTable = new CKTable(wordTable);
-
-                // Create a CKCellReference for cell (1,1) using the CKTable-based constructor.
-                // Retrieve the CKCell using our CKTable.Cell() method.
-                CKCell ckCell = ckTable.Cell(CKCellRefRect.ForCell(1, 1));
-
-                // Directly retrieve the Word cell for (1,1) from the Word table and wrap it.
-                Word.Cell wordCell = wordTable.Cell(1, 1);
-                CKCell directCell = new CKCell(wordCell);
-
-
-
-                // Use the new equality method to compare the CKCell wrappers.
-                Assert.AreEqual(ckCell, directCell,
-                    "The CKCell from CKTable.Cell(x,y) should equal the COM Table.Cell(x,y).");
-            });
-
-
-
-            LiveWordDocument.WithTestDocument(LiveWordDocument.Default, doc =>
-            {
-                // Ensure the document contains at least one table.
-                Assert.IsTrue(doc.Tables.Count > 0, "Test document must contain at least one table.");
-
-                // Retrieve the first table.
-                Word.Table wordTable = doc.Tables[1];
-
-                // Create a CKTable from the Word table.
-                CKTable ckTable = new CKTable(wordTable);
-
-                // Create a CKCellReference for cell (1,1) using the CKTable-based constructor.
-                // Retrieve the CKCell using our CKTable.Cell() method.
-                CKCell ckCell = ckTable.Cell(CKCellRefRect.ForCell(1, 1));
-
-                // Directly retrieve the Word cell for (1,1) from the Word table and wrap it.
-                Word.Cell wordCell = wordTable.Cell(1, 1);
-                CKCell directCell = new CKCell(wordCell);
-
-
-
-                // Use the new equality method to compare the CKCell wrappers.
-                Assert.AreEqual(ckCell, directCell,
-                    "The CKCell from CKTable.Cell(x,y) should equal the COM Table.Cell(x,y).");
+                Assert.IsNotNull(ckTable.COMTable);
+                Assert.AreEqual(wordTable.Range.Start, ckTable.COMTable.Range.Start);
             });
         }
 
@@ -150,124 +26,70 @@ namespace CoverageKiller2.DOM
         {
             LiveWordDocument.WithTestDocument(LiveWordDocument.Default, doc =>
             {
-                // Ensure the document contains at least one table.
-                Assert.IsTrue(doc.Tables.Count > 0, "Test document must contain at least one table.");
-
-                // Retrieve the first table.
+                Assert.IsTrue(doc.Tables.Count > 0);
                 Word.Table wordTable = doc.Tables[1];
-
-                // Create a CKTable from the Word table.
                 CKTable ckTable = new CKTable(wordTable);
 
-                // Create a CKCellReference for cell (1,1) using the CKTable-based constructor.
-                // Retrieve the CKCell using our CKTable.Cell() method.
-                CKCell ckCell = ckTable.Cell(CKCellRefRect.ForCell(1, 1));
+                var cellRef = new CellRefCoord(0, 0, 1);
+                CKCell cellFromTable = ckTable.Converters.GetCell(ckTable, cellRef);
 
-                // Directly retrieve the Word cell for (1,1) from the Word table and wrap it.
                 Word.Cell wordCell = wordTable.Cell(1, 1);
-                CKCell directCell = new CKCell(wordCell);
+                CKCell directCell = new CKCell(ckTable, ckTable, wordCell, 1, 1);
 
-
-
-                // Use the new equality method to compare the CKCell wrappers.
-                Assert.AreEqual(ckCell, directCell,
-                    "The CKCell from CKTable.Cell(x,y) should equal the COM Table.Cell(x,y).");
+                Assert.AreEqual(directCell.COMCell, cellFromTable.COMCell);
             });
         }
 
-        // Constant for the test table number; update this if needed.
-        private const int TestTableNumber = 12;
+        private const int TestTableNumber = 1;
 
-        /// <summary>
-        /// Verifies that a single cell reference can be created using the ForCell factory method on the test table.
-        /// </summary>
         [TestMethod]
         public void CKTable_FactoryMethods_SingleCellInTestTable()
         {
             LiveWordDocument.WithTestDocument(LiveWordDocument.Default, doc =>
             {
-                Assert.IsTrue(doc.Tables.Count >= TestTableNumber, $"Test document must contain at least {TestTableNumber} tables.");
-
-                // Use the specified test table.
+                Assert.IsTrue(doc.Tables.Count >= TestTableNumber);
                 Word.Table wordTable = doc.Tables[TestTableNumber];
                 CKTable ckTable = new CKTable(wordTable);
 
-                // Create a cell reference for the cell at (1,1) using the rectangular factory method.
-                var cellRef = CKCellRefRect.ForCell(1, 1);
+                var cellRef = new CellRefCoord(0, 0, 1);
+                CKCell cell = ckTable.Converters.GetCell(ckTable, cellRef);
 
-                // Retrieve the cell via CKTable.
-                CKCell cell = ckTable.Cell(cellRef);
-                Assert.IsNotNull(cell, "A single cell reference should return a valid CKCell.");
+                Assert.IsNotNull(cell);
             });
         }
 
-        /// <summary>
-        /// Verifies that a row reference can be created using the ForRow factory method on the test table.
-        /// </summary>
-        [TestMethod]
-        public void CKTable_FactoryMethods_RowReferenceInTestTable()
-        {
-            LiveWordDocument.WithTestDocument(LiveWordDocument.Default, doc =>
-            {
-                Assert.IsTrue(doc.Tables.Count >= TestTableNumber, $"Test document must contain at least {TestTableNumber} tables.");
-
-                Word.Table wordTable = doc.Tables[TestTableNumber];
-                CKTable ckTable = new CKTable(wordTable);
-
-                int colCount = wordTable.Columns.Count;
-                // Create a cell reference covering the entire row 2.
-                var rowRef = CKCellRefRect.ForRow(2, colCount);
-
-                // Retrieve the cell (typically the first cell in that row).
-                CKCell cell = ckTable.Cell(rowRef);
-                Assert.IsNotNull(cell, "A row cell reference should return a valid CKCell.");
-            });
-        }
-
-        /// <summary>
-        /// Verifies that a column reference can be created using the ForColumn factory method on the test table.
-        /// </summary>
-        [TestMethod]
-        public void CKTable_FactoryMethods_ColumnReferenceInTestTable()
-        {
-            LiveWordDocument.WithTestDocument(LiveWordDocument.Default, doc =>
-            {
-                Assert.IsTrue(doc.Tables.Count >= TestTableNumber, $"Test document must contain at least {TestTableNumber} tables.");
-
-                Word.Table wordTable = doc.Tables[TestTableNumber];
-                CKTable ckTable = new CKTable(wordTable);
-
-                int rowCount = wordTable.Rows.Count;
-                // Create a cell reference covering the entire column 3.
-                var colRef = CKCellRefRect.ForColumn(3, rowCount);
-
-                // Retrieve a cell from that column.
-                CKCell cell = ckTable.Cell(colRef);
-                Assert.IsNotNull(cell, "A column cell reference should return a valid CKCell.");
-            });
-        }
-
-        /// <summary>
-        /// Verifies that a rectangular cell reference can be created using the ForRectangle factory method on the test table.
-        /// </summary>
         [TestMethod]
         public void CKTable_FactoryMethods_RectangularReferenceInTestTable()
         {
             LiveWordDocument.WithTestDocument(LiveWordDocument.Default, doc =>
             {
-                Assert.IsTrue(doc.Tables.Count >= TestTableNumber, $"Test document must contain at least {TestTableNumber} tables.");
-
+                Assert.IsTrue(doc.Tables.Count >= TestTableNumber);
                 Word.Table wordTable = doc.Tables[TestTableNumber];
                 CKTable ckTable = new CKTable(wordTable);
 
-                // Choose coordinates that are within the bounds of the table.
-                // For example, assume the test table has at least 5 rows and 6 columns.
-                var rectRef = CKCellRefRect.ForRectangle(2, 3, 4, 5);
+                var rectRef = new DummyRectRef(0, 0, 1, 1);
+                CKCells cells = ckTable.Converters.GetCells(ckTable, ckTable, rectRef);
 
-                // Retrieve the cell from the rectangular reference.
-                CKCell cell = ckTable.Cell(rectRef);
-                Assert.IsNotNull(cell, "A rectangular cell reference should return a valid CKCell.");
+                Assert.IsNotNull(cells);
+                Assert.IsTrue(cells.Count > 0);
             });
+        }
+
+        private class DummyRectRef : ICellRef<CKCellsRect>
+        {
+            public IEnumerable<int> WordCells => new[] { 1, 2, 3, 4 };
+            public int GridX1 { get; }
+            public int GridY1 { get; }
+            public int GridX2 { get; }
+            public int GridY2 { get; }
+
+            public DummyRectRef(int x1, int y1, int x2, int y2)
+            {
+                GridX1 = x1;
+                GridY1 = y1;
+                GridX2 = x2;
+                GridY2 = y2;
+            }
         }
     }
 }

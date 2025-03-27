@@ -7,17 +7,21 @@ namespace CoverageKiller2.DOM
     /// <summary>
     /// Provides methods for manipulating a Word table.
     /// </summary>
+
+
     public class CKTable : CKRange
     {
+
         // Instance Fields
         private CKTableGrid Grid { get; set; }
+        private CKCellRefConverterService _converterService;
 
         // Constructors
         public CKTable(Word.Table table) : base(table.Range)
         {
             COMTable = table;
             Grid = CKTableGrid.GetInstance(table);
-
+            _converterService = new CKCellRefConverterService(this);
         }
 
         // Properties
@@ -41,30 +45,19 @@ namespace CoverageKiller2.DOM
         /// </summary>
         public IEnumerable<CKColumn> Columns => throw new NotImplementedException();
 
-        // calling a cell from the table requres a CKCellRefRect.
-        public CKCell Cell(ICellRef cellReference)
-        {
-            return new CKCell(this, ConvertRefToRect(cellReference));
-        }
+        public CKCellRefConverterService Converters => _converterService;
 
-        public Word.Cell WordCell(CKGridCellRefRect cellRefRect)
+        public class CKCellRefConverterService
         {
-            return Grid.GetGridCellAt(cellRefRect).COMCell;
-        }
+            public CKCellRefConverterService(CKTable table)
+            {
+                Table = table;
+            }
+            public CKTable Table { get; private set; }
 
-        public CKGridCellRefRect ConvertRefToRect(ICellRef cellRef)
-        {
-            //use Mode property to dispatch to correct conversion.
-        }
+            internal CKTableGrid Grid => Table.Grid;
 
-        /// <summary>
-        /// Returns the collection of cells in the table that fall within the specified cell reference.
-        /// </summary>
-        /// <param name="cellReference">The cell reference specifying a range within the table.</param>
-        /// <returns>A collection of CKCell objects.</returns>
-        internal IEnumerable<CKCell> CellItems(CKGridCellRefRect cellReference)
-        {
-            throw new NotImplementedException();
         }
     }
+
 }

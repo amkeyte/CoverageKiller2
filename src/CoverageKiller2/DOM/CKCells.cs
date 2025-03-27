@@ -13,9 +13,9 @@ namespace CoverageKiller2.DOM
     {
         protected List<CKCell> _cells;
         public CKTable Table { get; protected set; }
-        public ICellRef CellRef { get; protected set; }
+        public ICellRef<IDOMObject> CellRef { get; protected set; }
 
-        protected CKCells(CKTable table, ICellRef cellReference)
+        protected CKCells(CKTable table, ICellRef<CKCells> cellReference)
         {
             Table = table ?? throw new ArgumentNullException(nameof(table));
             CellRef = cellReference ?? throw new ArgumentNullException(nameof(cellReference));
@@ -50,58 +50,42 @@ namespace CoverageKiller2.DOM
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
     }
 
-    /// <summary>
-    /// Represents a collection of CKCell objects built from a linear cell reference.
-    /// </summary>
-    public class CKCellsLinear : CKCells
-    {
-        public CKCellsLinear(CKTable table, ICellRef cellReference)
-            : base(table, cellReference)
-        {
-            if (cellReference.Mode != nameof(CKCellRefLinear))
-                throw new NotSupportedException($"For CKCellsLinear, cellReference must be of type {nameof(CKCellRefLinear)}.");
-        }
-        /// <summary>
-        /// Constructs a CKCells collection from a CKRange.
-        /// Assumes the first table in the range.
-        /// </summary>
-        public CKCellsLinear(CKRange range) : this(range.Tables[1], CKCellRefLinear.ForCells(range))
-        {
-        }
 
-        protected override IEnumerable<CKCell> BuildCells()
-        {
-            // In linear mode, iterate over the table's Cells based on sequential indices.
-            for (int i = CellRef.Start; i <= CellRef.End; i++)
-            {
-                // Table.COMTable.Cells is assumed to be a one-based collection.
-                yield return Table.Cell();
-            }
-        }
-    }
+    /// <summary>
+
+    ///Broken do not use    
+    /// </summary>
+    //public class CKCellsLinear : CKCells
+    //{
+    //    public CKCellsLinear(CKTable table, ICellRef<CKCellsLinear> cellReference)
+    //        : base(table, cellReference)
+    //    {
+    //    }
+
+    //    protected override IEnumerable<CKCell> BuildCells()
+    //    {
+    //        var cellsRect = Table.Converters.GetCells(Table, this, (ICellRef<CKCellsLinear>)CellRef);
+    //        return cellsRect;
+    //    }
+
+    //}
 
     /// <summary>
     /// Represents a collection of CKCell objects that form a contiguous rectangular grid.
     /// </summary>
     public class CKCellsRect : CKCells
     {
-        public CKCellsRect(CKTable table, ICellRef cellReference)
+        public CKCellsRect(CKTable table, ICellRef<CKCellsRect> cellReference)
             : base(table, cellReference)
         {
-            if (cellReference.Mode != nameof(CKCellRefRect))
-                throw new NotSupportedException($"For CKCellsRect, cellReference must be of type {nameof(CKCellRefRect)}.");
         }
 
         protected override IEnumerable<CKCell> BuildCells()
         {
-            // In rectangular mode, iterate over rows and columns.
-            for (int row = CellRef.Y1; row <= CellRef.Y2; row++)
-            {
-                for (int col = CellRef.X1; col <= CellRef.X2; col++)
-                {
-                    yield return Table.COMTable.Cell(row, col);
-                }
-            }
+            var cellsRect = Table.Converters.GetCells(Table, this, (ICellRef<CKCellsRect>)CellRef);
+            return cellsRect;
         }
     }
+
 }
+

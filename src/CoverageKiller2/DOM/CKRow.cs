@@ -10,6 +10,9 @@ namespace CoverageKiller2.DOM
     /// </summary>
     public class CKRow : CKCellsRect, IDOMObject
     {
+        public CKRow(CKTable table, ICellRef<CKCellsRect> cellReference) : base(table, cellReference)
+        {
+        }
         #region Fields
 
         ///// <summary>
@@ -28,14 +31,14 @@ namespace CoverageKiller2.DOM
         /// <param name="table">The parent table that contains the row.</param>
         /// <param name="cellReference">A rectangular cell reference for one row.</param>
         /// <exception cref="ArgumentException">Thrown when the cell reference does not represent exactly one row.</exception>
-        public CKRow(CKTable table, CKGridCellRefRect cellReference)
-            : base(table, cellReference)
-        {
-            if (cellReference.Y1 != cellReference.Y2)
-                throw new ArgumentException("A CKRow must represent exactly one row.", nameof(cellReference));
+        //public CKRow(CKTable table, CKGridCellRefRect cellReference)
+        //    : base(table, cellReference)
+        //{
+        //    if (cellReference.Y1 != cellReference.Y2)
+        //        throw new ArgumentException("A CKRow must represent exactly one row.", nameof(cellReference));
 
-            //_lastIndex = cellReference.X2;
-        }
+        //    //_lastIndex = cellReference.X2;
+        //}
 
         #endregion
 
@@ -51,7 +54,7 @@ namespace CoverageKiller2.DOM
         /// Gets the one-based row index.
         /// Since the cell reference is rectangular and represents a single row, this returns the Y1 coordinate.
         /// </summary>
-        public int Index => ((CKGridCellRefRect)CellRef).Y1;
+        //public int Index => ((CKGridCellRefRect)CellRef).Y1;
 
         /// <summary>
         /// Gets a CKRange that spans the entire row.

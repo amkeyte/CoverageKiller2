@@ -1,31 +1,15 @@
-﻿namespace CoverageKiller2.DOM
+﻿using System.Collections.Generic;
+
+namespace CoverageKiller2.DOM
 {
-    public interface ICellRef
+    public interface ICellRef<out T> where T : IDOMObject
     {
-        string Mode { get; }
-
-        int Start { get; }
-
-        int End { get; }
-
-        /// <summary>
-        /// Gets the starting column index.
-        /// </summary>
-        int X1 { get; }
-
-        /// <summary>
-        /// Gets the starting row index.
-        /// </summary>
-        int Y1 { get; }
-
-        /// <summary>
-        /// Gets the ending column index.
-        /// </summary>
-        int X2 { get; }
-
-        /// <summary>
-        /// Gets the ending row index.
-        /// </summary>
-        int Y2 { get; }
+        // Removed table-dependent logic from interface
+        // Conversion will be handled within CKTable
+        IEnumerable<int> WordCells { get; }
+        int GridX1 { get; }
+        int GridY1 { get; }
+        int GridX2 { get; }
+        int GridY2 { get; }
     }
 }

@@ -207,7 +207,7 @@ namespace CoverageKiller2.DOM
         {
             if (!IsThisDocument(wordDoc)) return;
 
-            PurgeGlobalRefernces();
+            //PurgeGlobalRefernces();
 
             Log.Information("Closed document {DocName}", wordDoc.FullName);
             Log.Debug("Unregistering BeforeClosed event for {DocName}", wordDoc.FullName);
@@ -215,10 +215,10 @@ namespace CoverageKiller2.DOM
             COMDocument.Application.DocumentBeforeClose -= OnDocumentBeforeClose;
         }
 
-        private void PurgeGlobalRefernces()
-        {
-            CKTableGrid.PurgeInstances(this);
-        }
+        //private void PurgeGlobalRefernces()
+        //{
+        //    CKTableGrid.PurgeInstances(this);
+        //}
 
         public Tracer Tracer = new Tracer(typeof(CKDocument));
         /// <summary>
