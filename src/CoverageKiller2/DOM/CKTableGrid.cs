@@ -41,7 +41,7 @@ namespace CoverageKiller2.DOM
 
         private void BuildGrid()
         {
-            int rowCount = _table.Rows.Count;
+            int rowCount = _table.Rows.Count; //change to GetMaxColumns if needed.
             int colCount = GetMaxColumns(_table);
             RowCount = rowCount;
             ColCount = colCount;
@@ -98,6 +98,14 @@ namespace CoverageKiller2.DOM
             return (1, 1);
         }
 
+        public IEnumerable<GridCell> GetMasterCells()
+        {
+            return Enumerable.Range(0, _grid.GetLength(0))
+                .SelectMany(row => Enumerable.Range(0, _grid.GetLength(1))
+                    .Select(col => _grid[row, col]))
+                .Where(cell => cell != null && cell.IsMasterCell);
+        }
+
         public IEnumerable<GridCell> GetMasterCells(CKGridCellRef area)
         {
             for (int row = area.Y1; row <= area.Y2; row++)
@@ -109,6 +117,7 @@ namespace CoverageKiller2.DOM
 
                     var cell = _grid[row, col];
                     if (cell != null && cell.IsMasterCell)
+                        //if null cell (how?) thee could be unexpected behavior
                         yield return cell;
                 }
             }

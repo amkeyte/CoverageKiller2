@@ -1,7 +1,6 @@
-﻿using CoverageKiller2.Tests;  // Contains LiveWordDocument helper.
+﻿using CoverageKiller2.Tests;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Collections.Generic;
-using Word = Microsoft.Office.Interop.Word;
+using System.Linq;
 
 namespace CoverageKiller2.DOM
 {
@@ -9,87 +8,65 @@ namespace CoverageKiller2.DOM
     public class CKTableTests
     {
         [TestMethod]
-        public void CKTable_Constructor_LoadsTableSuccessfully()
+        public void FromRange_ShouldReturnValidCKTable()
         {
             LiveWordDocument.WithTestDocument(LiveWordDocument.Default, doc =>
             {
-                Assert.IsTrue(doc.Tables.Count > 0);
-                Word.Table wordTable = doc.Tables[1];
-                CKTable ckTable = new CKTable(wordTable);
-                Assert.IsNotNull(ckTable.COMTable);
-                Assert.AreEqual(wordTable.Range.Start, ckTable.COMTable.Range.Start);
+                var range = doc.Tables[1].Range;
+                var table = CKTable.FromRange(range);
+
+                Assert.IsNotNull(table);
+                Assert.IsNotNull(table.COMTable);
+                Assert.AreEqual(range.Text, table.COMTable.Range.Text);
             });
         }
 
         [TestMethod]
-        public void CKTable_Cell_MatchesDirectWordCell()
+        public void IndexesOf_WordCells_ShouldReturnCorrectIndexes()
         {
             LiveWordDocument.WithTestDocument(LiveWordDocument.Default, doc =>
             {
-                Assert.IsTrue(doc.Tables.Count > 0);
-                Word.Table wordTable = doc.Tables[1];
-                CKTable ckTable = new CKTable(wordTable);
+                var table = CKTable.FromRange(doc.Tables[1].Range);
+                var cellList = doc.Tables[1].Range.Cells;
+                var indexes = table.IndexesOf(cellList).ToList();
 
-                var cellRef = new CellRefCoord(0, 0, 1);
-                CKCell cellFromTable = ckTable.Converters.GetCell(ckTable, cellRef);
-
-                Word.Cell wordCell = wordTable.Cell(1, 1);
-                CKCell directCell = new CKCell(ckTable, ckTable, wordCell, 1, 1);
-
-                Assert.AreEqual(directCell.COMCell, cellFromTable.COMCell);
-            });
-        }
-
-        private const int TestTableNumber = 1;
-
-        [TestMethod]
-        public void CKTable_FactoryMethods_SingleCellInTestTable()
-        {
-            LiveWordDocument.WithTestDocument(LiveWordDocument.Default, doc =>
-            {
-                Assert.IsTrue(doc.Tables.Count >= TestTableNumber);
-                Word.Table wordTable = doc.Tables[TestTableNumber];
-                CKTable ckTable = new CKTable(wordTable);
-
-                var cellRef = new CellRefCoord(0, 0, 1);
-                CKCell cell = ckTable.Converters.GetCell(ckTable, cellRef);
-
-                Assert.IsNotNull(cell);
+                Assert.AreEqual(cellList.Count, indexes.Count);
+                Assert.IsTrue(indexes.All(i => i >= 0));
             });
         }
 
         [TestMethod]
-        public void CKTable_FactoryMethods_RectangularReferenceInTestTable()
+        public void Cell_FromCKCellRef_ShouldReturnCorrectCell()
         {
             LiveWordDocument.WithTestDocument(LiveWordDocument.Default, doc =>
             {
-                Assert.IsTrue(doc.Tables.Count >= TestTableNumber);
-                Word.Table wordTable = doc.Tables[TestTableNumber];
-                CKTable ckTable = new CKTable(wordTable);
+                var table = CKTable.FromRange(doc.Tables[1].Range);
+                var firstCell = doc.Tables[1].Cell(1, 1);
+                var refCell = new CKCellRef(firstCell);
+                var ckCell = table.Cell(refCell);
 
-                var rectRef = new DummyRectRef(0, 0, 1, 1);
-                CKCells cells = ckTable.Converters.GetCells(ckTable, ckTable, rectRef);
-
-                Assert.IsNotNull(cells);
-                Assert.IsTrue(cells.Count > 0);
+                Assert.AreEqual(1, ckCell.WordRow);
+                Assert.AreEqual(1, ckCell.WordColumn);
+                Assert.AreEqual(firstCell.Range.Text, ckCell.COMCell.Range.Text);
             });
         }
 
-        private class DummyRectRef : ICellRef<CKCellsRect>
+        [TestMethod]
+        public void IndexesOf_CKCells_ShouldMatchMasterCells()
         {
-            public IEnumerable<int> WordCells => new[] { 1, 2, 3, 4 };
-            public int GridX1 { get; }
-            public int GridY1 { get; }
-            public int GridX2 { get; }
-            public int GridY2 { get; }
-
-            public DummyRectRef(int x1, int y1, int x2, int y2)
+            LiveWordDocument.WithTestDocument(LiveWordDocument.Default, doc =>
             {
-                GridX1 = x1;
-                GridY1 = y1;
-                GridX2 = x2;
-                GridY2 = y2;
-            }
+                var table = CKTable.FromRange(doc.Tables[1].Range);
+                var firstCell = doc.Tables[1].Cell(1, 1);
+                var refCell = new CKCellRef(firstCell);
+                var ckCell = table.Cell(refCell);
+                var ckCells = CKCells.FromRef(table, ckCell.CellRef as ICellRef<CKCells>);
+
+                var indexes = table.IndexesOf(ckCells).ToList();
+
+                Assert.AreEqual(1, indexes.Count);
+                Assert.IsTrue(indexes[0] >= 0);
+            });
         }
     }
 }

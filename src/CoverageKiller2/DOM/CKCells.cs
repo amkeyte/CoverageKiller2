@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CoverageKiller2.DOM;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,30 +7,46 @@ using Word = Microsoft.Office.Interop.Word;
 
 namespace CoverageKiller2.DOM
 {
-    /// <summary>
-    /// Represents an arbitrary collection of CKCell objects.
-    /// </summary>
-    public abstract class CKCells : IEnumerable<CKCell>, IDOMObject
+    public class CKCells : IEnumerable<CKCell>, IDOMObject
     {
-        protected List<CKCell> _cells;
+        protected List<CKCell> _cells = new List<CKCell>();
         public CKTable Table { get; protected set; }
-        public ICellRef<IDOMObject> CellRef { get; protected set; }
+        public ICellRef<CKCells> CellRef { get; protected set; }
 
-        protected CKCells(CKTable table, ICellRef<CKCells> cellReference)
+        protected CKCells() { }
+
+        protected virtual IEnumerable<CKCell> BuildCells()
         {
-            Table = table ?? throw new ArgumentNullException(nameof(table));
-            CellRef = cellReference ?? throw new ArgumentNullException(nameof(cellReference));
-            _cells = BuildCells().ToList();
+            if (CellRef == null || CellRef.CellIndexes == null)
+                throw new InvalidOperationException("CellRef or CellIndexes is null.");
+
+            foreach (var i in CellRef.CellIndexes)
+            {
+                var gcr = Table.Converters.GetGridCellRef(i);
+                var cellRef = Table.Converters.GetCellRef(gcr);
+                _cells.Add(Table.Cell(cellRef));
+            }
+
+            return _cells;
         }
 
-        /// <summary>
-        /// Derived classes implement this method to build the cell collection.
-        /// </summary>
-        /// <returns>An enumerable of CKCell objects.</returns>
-        protected abstract IEnumerable<CKCell> BuildCells();
+
+        public static CKCells FromRef(CKTable table, ICellRef<CKCells> cellRef)
+        {
+            if (table == null || cellRef == null)
+                throw new ArgumentNullException();
+
+            var instance = new CKCells
+            {
+                Table = table,
+                CellRef = cellRef
+            };
+
+            instance._cells = instance.BuildCells().ToList();
+            return instance;
+        }
 
         public int Count => _cells.Count;
-
         public CKDocument Document => Table.Document;
         public Word.Application Application => Table.Application;
         public IDOMObject Parent => Table;
@@ -48,43 +65,6 @@ namespace CoverageKiller2.DOM
 
         public IEnumerator<CKCell> GetEnumerator() => _cells.GetEnumerator();
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
-    }
-
-
-    /// <summary>
-
-    ///Broken do not use    
-    /// </summary>
-    //public class CKCellsLinear : CKCells
-    //{
-    //    public CKCellsLinear(CKTable table, ICellRef<CKCellsLinear> cellReference)
-    //        : base(table, cellReference)
-    //    {
-    //    }
-
-    //    protected override IEnumerable<CKCell> BuildCells()
-    //    {
-    //        var cellsRect = Table.Converters.GetCells(Table, this, (ICellRef<CKCellsLinear>)CellRef);
-    //        return cellsRect;
-    //    }
-
-    //}
-
-    /// <summary>
-    /// Represents a collection of CKCell objects that form a contiguous rectangular grid.
-    /// </summary>
-    public class CKCellsRect : CKCells
-    {
-        public CKCellsRect(CKTable table, ICellRef<CKCellsRect> cellReference)
-            : base(table, cellReference)
-        {
-        }
-
-        protected override IEnumerable<CKCell> BuildCells()
-        {
-            var cellsRect = Table.Converters.GetCells(Table, this, (ICellRef<CKCellsRect>)CellRef);
-            return cellsRect;
-        }
     }
 
 }
