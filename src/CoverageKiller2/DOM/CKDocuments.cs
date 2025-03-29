@@ -24,7 +24,7 @@ namespace CoverageKiller2.DOM
         }
 
         // The internal list of CKDocument objects.
-        private List<CKDocument> _documents = new List<CKDocument>();
+        private HashSet<CKDocument> _documents = new HashSet<CKDocument>();
 
         // Private constructor prevents external instantiation.
         private CKDocuments() { }
@@ -40,14 +40,12 @@ namespace CoverageKiller2.DOM
         /// </summary>
         /// <param name="document">The CKDocument to add.</param>
         /// <returns>The added CKDocument.</returns>
-        internal CKDocument Add(CKDocument document)
+        public CKDocument Add(CKDocument document)
         {
             if (document == null)
                 throw new ArgumentNullException(nameof(document));
 
             // Use FullName as the unique identifier.
-            if (_documents.Any(d => d.FullPath.Equals(document.FullPath, StringComparison.OrdinalIgnoreCase)))
-                throw new InvalidOperationException("A document with the same FullName already exists in the collection.");
 
             _documents.Add(document);
             return document;
@@ -57,7 +55,7 @@ namespace CoverageKiller2.DOM
         /// Removes the specified CKDocument from the collection.
         /// </summary>
         /// <param name="document">The document to remove.</param>
-        internal void Remove(CKDocument document)
+        public void Remove(CKDocument document)
         {
             if (document == null)
                 throw new ArgumentNullException(nameof(document));
@@ -79,16 +77,11 @@ namespace CoverageKiller2.DOM
         }
 
         /// <summary>
-        /// Gets the CKDocument at the specified zero-based index.
-        /// </summary>
-        public CKDocument this[int index] => _documents[index];
-
-        /// <summary>
         /// Retrieves a CKDocument by its full name.
         /// Returns null if no document with that full name exists.
         /// </summary>
         /// <param name="fullName">The full name (path) of the document.</param>
-        internal static CKDocument GetByName(string fullName)
+        public static CKDocument GetByName(string fullName)
         {
             if (string.IsNullOrEmpty(fullName))
                 throw new ArgumentNullException(nameof(fullName));
@@ -103,16 +96,23 @@ namespace CoverageKiller2.DOM
         /// </summary>
         /// <param name="document">The COM Document.</param>
         /// <returns>A CKDocument that wraps the specified COM Document.</returns>
-        internal static CKDocument GetByCOMDocument(Document document)
+        public static CKDocument GetByCOMDocument(Document document)
         {
             if (document == null)
                 throw new ArgumentNullException(nameof(document));
+
+            // Clean out orphaned ghosts
+            var docs = _instance;
+            var deadOnes = docs.Where(d => d.IsOrphan).ToList();
+            foreach (var dead in deadOnes)
+            {
+                docs.Remove(dead);
+            }
 
             CKDocument ckDoc = GetByName(document.FullName);
             if (ckDoc == null)
             {
                 ckDoc = new CKDocument(document);
-                GetInstance().Add(ckDoc);
             }
             return ckDoc;
         }

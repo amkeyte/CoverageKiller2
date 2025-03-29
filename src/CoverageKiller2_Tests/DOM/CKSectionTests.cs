@@ -21,7 +21,7 @@ namespace CoverageKiller2.DOM
         [TestMethod]
         public void CKSection_Constructor_LoadsSectionSuccessfully()
         {
-            LiveWordDocument.WithTestDocument(LiveWordDocument.Default, doc =>
+            LiveWordDocument.WithTestDocument(LiveWordDocument.DefaultTestFile, doc =>
             {
                 // Get the first section (Word collections are 1-based).
                 Word.Section wordSection = doc.Sections[1];
@@ -34,7 +34,7 @@ namespace CoverageKiller2.DOM
         [TestMethod]
         public void CKSection_HeaderRange_GetAndSet_Works()
         {
-            LiveWordDocument.WithTestDocument(LiveWordDocument.Default, doc =>
+            LiveWordDocument.WithTestDocument(LiveWordDocument.DefaultTestFile, doc =>
             {
                 Word.Section wordSection = doc.Sections[1];
                 CKSection ckSection = new CKSection(wordSection);
@@ -65,7 +65,7 @@ namespace CoverageKiller2.DOM
         [TestMethod]
         public void CKSection_FooterRange_GetAndSet_Works()
         {
-            LiveWordDocument.WithTestDocument(LiveWordDocument.Default, doc =>
+            LiveWordDocument.WithTestDocument(LiveWordDocument.DefaultTestFile, doc =>
             {
                 Word.Section wordSection = doc.Sections[1];
                 CKSection ckSection = new CKSection(wordSection);
@@ -96,7 +96,7 @@ namespace CoverageKiller2.DOM
         [TestMethod]
         public void CKSection_PageSetup_ReturnsValidObject()
         {
-            LiveWordDocument.WithTestDocument(LiveWordDocument.Default, doc =>
+            LiveWordDocument.WithTestDocument(LiveWordDocument.DefaultTestFile, doc =>
             {
                 Word.Section wordSection = doc.Sections[1];
                 CKSection ckSection = new CKSection(wordSection);
@@ -108,7 +108,7 @@ namespace CoverageKiller2.DOM
         [TestMethod]
         public void CKSection_ToString_ReturnsValidString()
         {
-            LiveWordDocument.WithTestDocument(LiveWordDocument.Default, doc =>
+            LiveWordDocument.WithTestDocument(LiveWordDocument.DefaultTestFile, doc =>
             {
                 Word.Section wordSection = doc.Sections[1];
                 CKSection ckSection = new CKSection(wordSection);

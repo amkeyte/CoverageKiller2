@@ -94,7 +94,7 @@ namespace CoverageKiller2.Logging
         }
 
 
-        internal static string ObjectPath(params string[] objectNames)
+        public static string ObjectPath(params string[] objectNames)
         {
             if (objectNames == null || objectNames.Length == 0)
                 throw new ArgumentException("At least one object name must be provided.", nameof(objectNames));

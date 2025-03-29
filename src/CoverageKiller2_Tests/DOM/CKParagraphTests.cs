@@ -21,7 +21,7 @@ namespace CoverageKiller2.DOM
         [TestMethod]
         public void CKParagraph_Constructor_WrapsParagraphSuccessfully()
         {
-            LiveWordDocument.WithTestDocument(LiveWordDocument.Default, doc =>
+            LiveWordDocument.WithTestDocument(LiveWordDocument.DefaultTestFile, doc =>
             {
                 // Ensure the document contains at least one paragraph.
                 Word.Paragraph firstParagraph = doc.Paragraphs[1]; // Word collections are 1-based.
@@ -40,7 +40,7 @@ namespace CoverageKiller2.DOM
         [TestMethod]
         public void CKParagraph_ToString_ReturnsValidString()
         {
-            LiveWordDocument.WithTestDocument(LiveWordDocument.Default, doc =>
+            LiveWordDocument.WithTestDocument(LiveWordDocument.DefaultTestFile, doc =>
             {
                 Word.Paragraph firstParagraph = doc.Paragraphs[1];
                 CKParagraph ckParagraph = new CKParagraph(firstParagraph);

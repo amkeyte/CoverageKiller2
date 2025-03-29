@@ -13,7 +13,7 @@ namespace CoverageKiller2.DOM
         [TestMethod]
         public void CKTableGrid_GetInstance_ReturnsSameInstanceForSameTableRange()
         {
-            LiveWordDocument.WithTestDocument(LiveWordDocument.Default, doc =>
+            LiveWordDocument.WithTestDocument(LiveWordDocument.DefaultTestFile, doc =>
             {
                 Assert.IsTrue(doc.Tables.Count >= TestTableNumber);
                 Word.Table wordTable = doc.Tables[TestTableNumber];
@@ -29,7 +29,7 @@ namespace CoverageKiller2.DOM
         [TestMethod]
         public void CKTableGrid_GetCellAt_ValidCoordinates_ReturnsGridCell()
         {
-            LiveWordDocument.WithTestDocument(LiveWordDocument.Default, doc =>
+            LiveWordDocument.WithTestDocument(LiveWordDocument.DefaultTestFile, doc =>
             {
                 Assert.IsTrue(doc.Tables.Count >= TestTableNumber);
                 Word.Table wordTable = doc.Tables[TestTableNumber];
@@ -47,7 +47,7 @@ namespace CoverageKiller2.DOM
         [TestMethod]
         public void CKTableGrid_GetCellAt_InvalidCoordinates_ReturnsNull()
         {
-            LiveWordDocument.WithTestDocument(LiveWordDocument.Default, doc =>
+            LiveWordDocument.WithTestDocument(LiveWordDocument.DefaultTestFile, doc =>
             {
                 Assert.IsTrue(doc.Tables.Count >= TestTableNumber);
                 Word.Table wordTable = doc.Tables[TestTableNumber];

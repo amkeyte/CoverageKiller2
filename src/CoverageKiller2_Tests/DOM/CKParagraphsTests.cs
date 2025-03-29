@@ -12,7 +12,7 @@ namespace CoverageKiller2.DOM
         [TestMethod]
         public void CKParagraphs_Count_MatchesUnderlyingWordParagraphsCount()
         {
-            LiveWordDocument.WithTestDocument(LiveWordDocument.Default, doc =>
+            LiveWordDocument.WithTestDocument(LiveWordDocument.DefaultTestFile, doc =>
             {
                 // Create a CKRange from the document content.
                 CKRange range = new CKRange(doc.Content);
@@ -28,7 +28,7 @@ namespace CoverageKiller2.DOM
         [TestMethod]
         public void CKParagraphs_Indexer_ReturnsValidCKParagraph_And_ThrowsOnInvalidIndex()
         {
-            LiveWordDocument.WithTestDocument(LiveWordDocument.Default, doc =>
+            LiveWordDocument.WithTestDocument(LiveWordDocument.DefaultTestFile, doc =>
             {
                 CKRange range = new CKRange(doc.Content);
                 CKParagraphs paragraphs = range.Paragraphs;
@@ -57,7 +57,7 @@ namespace CoverageKiller2.DOM
         //[TestMethod]
         public void CKParagraphs_Enumeration_YieldsAllParagraphs()
         {
-            LiveWordDocument.WithTestDocument(LiveWordDocument.Default, doc =>
+            LiveWordDocument.WithTestDocument(LiveWordDocument.DefaultTestFile, doc =>
             {
                 CKRange range = new CKRange(doc.Content);
                 CKParagraphs paragraphs = range.Paragraphs;
@@ -78,7 +78,7 @@ namespace CoverageKiller2.DOM
         public void CKParagraphs_Enumeration_PerformanceMetrics()
         {
             int batchSize = 100; // Adjust this value as needed.
-            LiveWordDocument.WithTestDocument(LiveWordDocument.Default, doc =>
+            LiveWordDocument.WithTestDocument(LiveWordDocument.DefaultTestFile, doc =>
             {
                 Debug.WriteLine($"Starting Enumeration Performance Test");
 
@@ -109,7 +109,7 @@ namespace CoverageKiller2.DOM
         [TestMethod]
         public void CKParagraphs_ToString_ReturnsValidString()
         {
-            LiveWordDocument.WithTestDocument(LiveWordDocument.Default, doc =>
+            LiveWordDocument.WithTestDocument(LiveWordDocument.DefaultTestFile, doc =>
             {
                 CKRange range = new CKRange(doc.Content);
                 CKParagraphs paragraphs = range.Paragraphs;

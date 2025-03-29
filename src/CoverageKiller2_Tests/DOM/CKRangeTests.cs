@@ -16,17 +16,19 @@ namespace CoverageKiller2.DOM
         [TestMethod]
         public void CKRange_SetText_OnMixedRange_ThrowsCOMException()
         {
-            LiveWordDocument.WithTestDocument(LiveWordDocument.Default, doc =>
+            LiveWordDocument.WithTestDocument(LiveWordDocument.DefaultTestFile, doc =>
             {
                 // Create a range that likely spans mixed content (partial table and text).
-                CKRange range = new CKRange(doc.Range(20, 100));
+                var tbl = doc.Range().Tables[1];
+                var start = tbl.Range.Start + 3;
+                var end = tbl.Range.End + 20;
+                CKRange brokenRange = new CKRange(doc.Range(start, end));
 
                 // Attempt to set the Text property, expecting a COMException.
                 Assert.ThrowsException<COMException>(() =>
                 {
-                    range.COMRange.Text = "Test new text";
+                    brokenRange.COMRange.Text = "Test new text";
                 }, "Setting Text on a mixed-content range should throw COMException.");
-                Assert.Fail("Flagged: Correct exception thrown.");
             });
         }
 
@@ -38,7 +40,7 @@ namespace CoverageKiller2.DOM
         [TestMethod]
         public void CKRange_Refresh_UpdatesCachesAndResetsDirtyFlag()
         {
-            LiveWordDocument.WithTestDocument(LiveWordDocument.Default, doc =>
+            LiveWordDocument.WithTestDocument(LiveWordDocument.DefaultTestFile, doc =>
             {
                 // Create a CKRange from the document's content.
                 CKRange range = new CKRange(doc.Paragraphs[20].Range);
@@ -77,7 +79,7 @@ namespace CoverageKiller2.DOM
         [TestMethod]
         public void CKRange_TextEquals_IgnoresWhitespaceDifferences()
         {
-            LiveWordDocument.WithTestDocument(LiveWordDocument.Default, doc =>
+            LiveWordDocument.WithTestDocument(LiveWordDocument.DefaultTestFile, doc =>
             {
                 CKRange range = new CKRange(doc.Range(20, 100));
                 // Get the raw text.
@@ -99,7 +101,7 @@ namespace CoverageKiller2.DOM
         [TestMethod]
         public void CKRange_PrettyText_ProcessesControlCharactersCorrectly()
         {
-            LiveWordDocument.WithTestDocument(LiveWordDocument.Default, doc =>
+            LiveWordDocument.WithTestDocument(LiveWordDocument.DefaultTestFile, doc =>
             {
                 // For testing, assign a known sample text to the COMRange.
                 // NOTE: This test assumes that modifying COMRange.Text is acceptable for your test document.

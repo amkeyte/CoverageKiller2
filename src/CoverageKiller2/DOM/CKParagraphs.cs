@@ -13,14 +13,14 @@ namespace CoverageKiller2.DOM
         /// <summary>
         /// Gets the underlying Word.Paragraphs COM object from the parent range.
         /// </summary>
-        internal Word.Paragraphs COMParagraphs => Parent.COMRange.Paragraphs;
+        public Word.Paragraphs COMParagraphs => Parent.COMRange.Paragraphs;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CKParagraphs"/> class.
         /// </summary>
         /// <param name="parent">The parent <see cref="CKRange"/> to associate with this instance.</param>
         /// <exception cref="ArgumentNullException">Thrown when the parent parameter is null.</exception>
-        internal CKParagraphs(CKRange parent) : base(parent) { }
+        public CKParagraphs(CKRange parent) : base(parent) { }
 
         /// <summary>
         /// Gets the number of paragraphs in the associated range.

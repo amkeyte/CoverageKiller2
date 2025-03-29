@@ -19,7 +19,7 @@ namespace CoverageKiller2.DOM
                 throw new ArgumentException($"{nameof(wordRange)} does not contain a table.");
 
             Word.Document wordDoc = wordRange.Document;
-            CKDocument doc = CKDocuments.GetByName(wordDoc.FullName);
+            CKDocument doc = CKDocuments.GetByCOMDocument(wordDoc);
             var foundTable = doc.Tables
                 .Where(t => t.COMRange.Contains(wordRange))
                 .FirstOrDefault();
@@ -70,7 +70,7 @@ namespace CoverageKiller2.DOM
             }
             public CKTable Table { get; private set; }
 
-            internal CKTableGrid Grid => Table.Grid;
+            public CKTableGrid Grid => Table.Grid;
 
         }
 
@@ -78,7 +78,7 @@ namespace CoverageKiller2.DOM
         {
             var gridCellRef = Converters.GetGridCellRef(cellRef);
             var wordCell = COMTable.Cell(cellRef.WordRow, cellRef.WordCol);
-            return new CKCell(this, cellRef.Parent, wordCell, gridCellRef.X1, gridCellRef.Y1);
+            return new CKCell(this, cellRef.Parent, wordCell, gridCellRef.Y1 + 1, gridCellRef.X1 + 1);
         }
 
         public IEnumerable<int> IndexesOf(Word.Cells wordCells)
@@ -91,10 +91,10 @@ namespace CoverageKiller2.DOM
             return matches;
         }
 
-        internal int IndexOf(Word.Cell wordCell, List<Word.Cell> tableCells = null)
+        public int IndexOf(Word.Cell wordCell, List<Word.Cell> tableCells = null)
         {
             var tableCellList = tableCells ?? COMTable.Range.Cells.ToList(); //expensive!!
-            return tableCellList.IndexOf(wordCell);
+            return tableCellList.FindIndex(c => c.Range.Contains(wordCell.Range)) + 1;
         }
 
         public IEnumerable<int> IndexesOf(CKCells cells)

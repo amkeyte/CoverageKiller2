@@ -85,7 +85,7 @@ namespace CoverageKiller2
             //ckDoc.COMObject.ActiveWindow.ActivePane.View.SeekView = Word.WdSeekView.wdSeekMainDocument;
         }
 
-        internal static void TestProcessor(Document wDoc)
+        public static void TestProcessor(Document wDoc)
         {
             //try
             //{

@@ -70,7 +70,7 @@ namespace CoverageKiller2.DOM
 
                 CKCell firstCell = Cells.First();
                 CKCell lastCell = Cells.Last();
-                return Document.Range(firstCell.Start, lastCell.End, this);
+                return Document.Range(firstCell.Start, lastCell.End);
             }
         }
 

@@ -1,121 +1,62 @@
-﻿using CoverageKiller2.Logging;
+﻿using CoverageKiller2.DOM;
 using System;
-using System.Runtime.InteropServices;
 using Word = Microsoft.Office.Interop.Word;
 namespace CoverageKiller2.Tests
 {
-    /// <summary>
-    /// Helper class for integration tests that require a live Word instance.
-    /// It loads a document from disk and returns the Word.Document DOM.
-    /// Remember to dispose of the instance to clean up the Word process.
-    /// </summary>
     public class LiveWordDocument : IDisposable
     {
-        public const string Default = @"C:\Users\akeyte.PCM\source\repos\CoverageKiller2\src\CoverageKiller2_Tests\TestFiles\SEA Garage (Noise Floor)_20250313_152027.docx";
+        public const string DefaultTestFile = "C:\\Users\\akeyte.PCM\\source\\repos\\CoverageKiller2\\src\\CoverageKiller2_Tests\\TestFiles\\SEA Garage (Noise Floor)_20250313_152027.docx";
+        public CKDocument Document { get; private set; }
+        public Word.Document WordDocument => Document.COMDocument;
+        public Word.Application Application => Document.Application;
 
+        public string FullPath { get; private set; }
 
-
-        private Word.Application _wordApp;
-
-        public LiveWordDocument()
+        public LiveWordDocument(string fullPath = null)
         {
-            // Initialize the Word Application.
-            _wordApp = new Word.Application
-            {
-                // Hide the UI during tests.
-                Visible = false
-            };
+            FullPath = fullPath ?? DefaultTestFile;
+            Document = new CKDocument(FullPath, true);
         }
 
-        /// <summary>
-        /// Loads a document from the specified file path.
-        /// Opens the document in read-only mode.
-        /// </summary>
-        /// <param name="documentPath">Full file path to the document.</param>
-        /// <returns>A live Word.Document object for testing.</returns>
-        public Word.Document LoadFromFile(string documentPath)
-        {
-            LH.Ping(GetType());
-            if (string.IsNullOrEmpty(documentPath))
-            {
-                throw new ArgumentNullException(nameof(documentPath));
-            }
 
-            // Open the document in read-only mode.
-            Word.Document doc = _wordApp.Documents.Open(documentPath,
-                                                          ReadOnly: true,
-                                                          Visible: false);
-            LH.Pong(GetType());
-            return doc;
+        public void Close(bool saveChanges = false)
+        {
+            Document.Close(saveChanges);
         }
 
-        /// <summary>
-        /// Closes the specified document and releases its COM object.
-        /// </summary>
-        /// <param name="document">The Word.Document to close.</param>
-        public void Close(Word.Document document)
+        public static void WithTestDocument(Action<CKDocument> testAction)
         {
-            LH.Ping(GetType());
-
-            if (document != null)
-            {
-                document.Close(false);
-                Marshal.ReleaseComObject(document);
-            }
-            LH.Pong(GetType());
-
-        }
-
-        /// <summary>
-        /// Disposes the Word Application instance.
-        /// </summary>
-        public void Dispose()
-        {
-            LH.Ping(GetType());
-
-            if (_wordApp != null)
+            using (var loader = new LiveWordDocument(DefaultTestFile))
             {
                 try
                 {
-                    _wordApp.Quit();
+                    testAction(loader.Document);
                 }
-                catch { /* Ignore any exceptions on quitting */ }
                 finally
                 {
-                    Marshal.ReleaseComObject(_wordApp);
-                    _wordApp = null;
+                    loader.Close();
                 }
             }
-            LH.Pong(GetType());
-
         }
 
-        /// <summary>
-        /// Loads the specified document, executes the given test action, and ensures the document is closed.
-        /// </summary>
-        /// <param name="documentPath">The full path to the test document.</param>
-        /// <param name="testAction">The action to perform using the loaded Word.Document.</param>
         public static void WithTestDocument(string documentPath, Action<Word.Document> testAction)
         {
-            LH.Ping(typeof(LiveWordDocument));
-
-            using (var loader = new LiveWordDocument())
+            using (var loader = new LiveWordDocument(documentPath))
             {
-                if (!string.IsNullOrEmpty(documentPath)) documentPath = Default;
-
-                Word.Document doc = loader.LoadFromFile(documentPath);
                 try
                 {
-                    testAction(doc);
+                    testAction(loader.WordDocument);
                 }
                 finally
                 {
-                    loader.Close(doc);
+                    loader.Close();
                 }
             }
-            LH.Pong(typeof(LiveWordDocument));
-
         }
 
+        public void Dispose()
+        {
+            //anything goes here? CKDocument is already disposable
+        }
     }
 }

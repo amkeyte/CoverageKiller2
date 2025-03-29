@@ -9,7 +9,7 @@ namespace CoverageKiller2.Logging
     /// <summary>
     /// Handles loading and managing BareTail log files.
     /// </summary>
-    internal class LogTailLoader
+    public class LogTailLoader
     {
         private static string tempFilePath;
 

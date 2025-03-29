@@ -29,7 +29,7 @@ namespace CoverageKiller2.DOM
         public CKTable Table { get; }
         public int WordRow { get; }
         public int WordColumn { get; }
-        public ICellRef<CKCell> CellRef { get; }
+        public CKCellRef CellRef { get; }
         public CKCell(CKTable table, IDOMObject parent, Word.Cell wdCell, int wordRow, int wordColumn)
             : base(wdCell.Range, parent)
         {

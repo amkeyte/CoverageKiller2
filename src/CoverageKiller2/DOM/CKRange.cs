@@ -1,5 +1,4 @@
-﻿using CoverageKiller2.Logging;
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using Word = Microsoft.Office.Interop.Word;
@@ -36,7 +35,6 @@ namespace CoverageKiller2.DOM
         /// <exception cref="ArgumentNullException">Thrown when the <paramref name="range"/> parameter is null.</exception>
         public CKRange(Word.Range range, IDOMObject parent = null)
         {
-            LH.Ping(GetType());
             COMRange = range ?? throw new ArgumentNullException(nameof(range));
             Parent = parent ?? CKDocuments.GetByCOMDocument(COMRange.Document);
             _cachedCharCount = COMRange.Characters.Count;
@@ -44,7 +42,6 @@ namespace CoverageKiller2.DOM
             // Initialize cached boundary values.
             _cachedStart = COMRange.Start;
             _cachedEnd = COMRange.End;
-            LH.Pong(GetType());
         }
 
         #endregion

@@ -10,7 +10,7 @@ namespace CoverageKiller2.DOM
         [TestMethod]
         public void FromRange_ShouldReturnValidCKTable()
         {
-            LiveWordDocument.WithTestDocument(LiveWordDocument.Default, doc =>
+            LiveWordDocument.WithTestDocument(LiveWordDocument.DefaultTestFile, doc =>
             {
                 var range = doc.Tables[1].Range;
                 var table = CKTable.FromRange(range);
@@ -24,7 +24,7 @@ namespace CoverageKiller2.DOM
         [TestMethod]
         public void IndexesOf_WordCells_ShouldReturnCorrectIndexes()
         {
-            LiveWordDocument.WithTestDocument(LiveWordDocument.Default, doc =>
+            LiveWordDocument.WithTestDocument(LiveWordDocument.DefaultTestFile, doc =>
             {
                 var table = CKTable.FromRange(doc.Tables[1].Range);
                 var cellList = doc.Tables[1].Range.Cells;
@@ -38,7 +38,7 @@ namespace CoverageKiller2.DOM
         [TestMethod]
         public void Cell_FromCKCellRef_ShouldReturnCorrectCell()
         {
-            LiveWordDocument.WithTestDocument(LiveWordDocument.Default, doc =>
+            LiveWordDocument.WithTestDocument(LiveWordDocument.DefaultTestFile, doc =>
             {
                 var table = CKTable.FromRange(doc.Tables[1].Range);
                 var firstCell = doc.Tables[1].Cell(1, 1);
@@ -50,17 +50,29 @@ namespace CoverageKiller2.DOM
                 Assert.AreEqual(firstCell.Range.Text, ckCell.COMCell.Range.Text);
             });
         }
+        [TestMethod]
+        public void Constructor_ShouldInitializeCKTable()
+        {
+            LiveWordDocument.WithTestDocument(LiveWordDocument.DefaultTestFile, doc =>
+            {
+                var wordTable = doc.Tables[1];
+                var table = new CKTable(wordTable);
 
+                Assert.IsNotNull(table);
+                Assert.IsNotNull(table.COMTable);
+                Assert.AreEqual(wordTable.Range.Text, table.COMTable.Range.Text);
+            });
+        }
         [TestMethod]
         public void IndexesOf_CKCells_ShouldMatchMasterCells()
         {
-            LiveWordDocument.WithTestDocument(LiveWordDocument.Default, doc =>
+            LiveWordDocument.WithTestDocument(LiveWordDocument.DefaultTestFile, doc =>
             {
                 var table = CKTable.FromRange(doc.Tables[1].Range);
                 var firstCell = doc.Tables[1].Cell(1, 1);
                 var refCell = new CKCellRef(firstCell);
                 var ckCell = table.Cell(refCell);
-                var ckCells = CKCells.FromRef(table, ckCell.CellRef as ICellRef<CKCells>);
+                var ckCells = CKCells.FromRef(table, ckCell.CellRef);
 
                 var indexes = table.IndexesOf(ckCells).ToList();
 

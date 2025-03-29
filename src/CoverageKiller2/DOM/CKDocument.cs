@@ -12,7 +12,7 @@ namespace CoverageKiller2.DOM
     /// Represents a wrapper for a Word document, managing its lifecycle and interactions
     /// with the Word application, including event handling for opening and closing.
     /// </summary>
-    public class CKDocument : IDOMObject
+    public class CKDocument : IDOMObject, IDisposable
     {
         private readonly string _fullPath;
         private bool documentOpened = false;
@@ -25,12 +25,7 @@ namespace CoverageKiller2.DOM
         /// <summary>
         /// Gets the Word application instance that is managing this document.
         /// </summary>
-        public Word.Application Application => COMDocument.Application;
-
-        /// <summary>
-        /// Gets the content of the Word document as a <see cref="Word.Range"/>.
-        /// </summary>
-        public Word.Range Content => COMDocument.Content;
+        public Word.Application Application { get; private set; }
 
         /// <summary>
         /// Gets the full file path of the Word document.
@@ -40,16 +35,9 @@ namespace CoverageKiller2.DOM
 
 
 
-        // Using Create why? Probably just a conventional to prevent uninttended changes from other code.
-        // if this is the case, probably better to switch to copying around the single refernce and then 
-        // copying the range content if it makes sense in some case. Hell, this could even be for some old
-        // shit im not even doing anymore.
-        public CKTables Tables => throw new NotImplementedException();
+        public CKTables Tables => new CKTables(Range());
         public CKSections Sections => new CKSections(Range());
-
-        //circular; find a way to fix.
         public CKDocument Document => this;
-
 
         public IDOMObject Parent => throw new NotSupportedException("Call Application on a CKDocument object.");
 
@@ -80,12 +68,7 @@ namespace CoverageKiller2.DOM
                 }
             }
         }
-        public CKRange Range() => new CKRange(COMDocument.Range(), this);
 
-        public CKRange Range(Word.Range range, IDOMObject parent = null)
-        {
-            return new CKRange(COMDocument.Range(), parent);
-        }
 
 
         /// <summary>
@@ -93,12 +76,12 @@ namespace CoverageKiller2.DOM
         /// opening the Word document located at the specified <paramref name="fullPath"/>.
         /// </summary>
         /// <param name="fullPath">The full path to the Word document.</param>
-        public CKDocument(string fullPath)
+        public CKDocument(string fullPath, bool standAlone = false)
         {
             _fullPath = fullPath;
-            COMDocument = Open(fullPath);
-            Log.Debug("Registering BeforeClose event for document {DocName}", COMDocument.FullName);
-            COMDocument.Application.DocumentBeforeClose += OnDocumentBeforeClose;
+            GetApplication(true);
+            COMDocument = Open(fullPath, standAlone);
+            Application.DocumentBeforeClose += OnDocumentBeforeClose;
         }
 
         /// <summary>
@@ -110,27 +93,49 @@ namespace CoverageKiller2.DOM
         {
             COMDocument = wordDoc;
             _fullPath = COMDocument.FullName;
+            GetApplication();
             documentOpened = true;
-
-            Log.Debug("Registering BeforeClose event for document {DocName}", COMDocument.FullName);
-            COMDocument.Application.DocumentBeforeClose += OnDocumentBeforeClose;
+            CKDocuments.GetInstance().Add(this);
+            Application.DocumentBeforeClose += OnDocumentBeforeClose;
         }
-
+        private void GetApplication(bool standAlone = false)
+        {
+            try
+            {
+                if (standAlone)//mainly for unit testing
+                {
+                    Application = new Word.Application
+                    {
+                        Visible = false
+                    };
+                }
+                else
+                {
+                    Application = Globals.ThisAddIn.Application;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Could not start Word Application.", ex);
+            }
+        }
         /// <summary>
         /// Opens a Word document at the specified path and waits for it to fully load.
         /// </summary>
         /// <param name="fullPath">The full path to the Word document.</param>
         /// <returns>The opened <see cref="Word.Document"/>.</returns>
-        private Word.Document Open(string fullPath)
+        private Word.Document Open(string fullPath, bool standAlone = false)
         {
             Log.Information("Accessing Word Document {fullPath}", fullPath);
-            Globals.ThisAddIn.Application.DocumentOpen += OnDocumentOpen;
             Word.Document openedDoc = null;
 
             try
             {
+                Application.DocumentOpen += OnDocumentOpen;
+
                 // Attempt to open the document
-                openedDoc = Globals.ThisAddIn.Application.Documents.Open(
+                //openedDoc = Globals.ThisAddIn.Application.Documents.Open(
+                openedDoc = Application.Documents.Open(
                     FileName: fullPath,
                     AddToRecentFiles: false,
                     ReadOnly: true,
@@ -147,23 +152,30 @@ namespace CoverageKiller2.DOM
                     Forms.Application.DoEvents();
                     totalSleepTime += sleepTime;
                 }
-
                 Log.Debug("Time to load {totalSleepTime} ms", totalSleepTime);
                 Log.Information("Document access success.");
+
             }
             catch (Exception ex)
             {
                 Log.Error("Error opening document: {Message}", ex.Message);
-                Forms.MessageBox.Show($"Error opening document: {ex.Message}");
+                if (!standAlone) Forms.MessageBox.Show($"Error opening document: {ex.Message}");
                 throw;
             }
             finally
             {
-                Globals.ThisAddIn.Application.DocumentOpen -= OnDocumentOpen;
+                Application.DocumentOpen -= OnDocumentOpen;
             }
 
             return openedDoc;
         }
+
+
+
+        //private void WordApp_DocumentOpen(Word.Document Doc)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
         /// <summary>
         /// Determines whether the specified Word document matches this document.
@@ -180,6 +192,7 @@ namespace CoverageKiller2.DOM
         {
             if (IsThisDocument(doc))
             {
+                CKDocuments.GetInstance().Add(this); //find a better spot for this. Also.. unique add only.
                 documentOpened = true;
             }
         }
@@ -195,7 +208,40 @@ namespace CoverageKiller2.DOM
         /// <param name="saveChanges">If true, saves the changes before closing.</param>
         public virtual void Close(bool saveChanges = false)
         {
+            //Application.DocumentBeforeClose += Application_DocumentBeforeClose;
             COMDocument.Close(saveChanges);
+
+            // Wait for the document to finish loading
+            int sleepTime = 100;
+            int totalSleepTime = 0;
+
+            // Wait until the documentOpened flag is set
+            while (documentOpened && totalSleepTime < 5000)
+            {
+                Thread.Sleep(sleepTime);
+                Forms.Application.DoEvents();
+                totalSleepTime += sleepTime;
+
+
+                try
+                {
+                    if (string.IsNullOrEmpty(COMDocument.FullName)) //crash if document is closed
+                        throw new Exception("How did you get here!?");
+                }
+                catch (COMException ex)
+                {
+                    //supress. Document is closed. 
+                    //Exception from HRESULT: 0x80010108(RPC_E_DISCONNECTED)
+                    break;
+                }
+            }
+            Marshal.ReleaseComObject(COMDocument);
+            Application.DocumentBeforeClose -= Application_DocumentBeforeClose;
+        }
+
+        private void Application_DocumentBeforeClose(Word.Document Doc, ref bool Cancel)
+        {
+            if (IsThisDocument(Doc)) documentOpened = false;
         }
 
         /// <summary>
@@ -205,20 +251,16 @@ namespace CoverageKiller2.DOM
         /// <param name="Cancel">Cancel the closing operation if set to true.</param>
         private void OnDocumentBeforeClose(Word.Document wordDoc, ref bool Cancel)
         {
-            if (!IsThisDocument(wordDoc)) return;
 
-            //PurgeGlobalRefernces();
+            if (!IsThisDocument(wordDoc)) return;
+            documentOpened = false; documentOpened = false; // ☕💡 Eureka
+            CKDocuments.GetInstance().Remove(this);
 
             Log.Information("Closed document {DocName}", wordDoc.FullName);
             Log.Debug("Unregistering BeforeClosed event for {DocName}", wordDoc.FullName);
 
-            COMDocument.Application.DocumentBeforeClose -= OnDocumentBeforeClose;
+            Application.DocumentBeforeClose -= OnDocumentBeforeClose;
         }
-
-        //private void PurgeGlobalRefernces()
-        //{
-        //    CKTableGrid.PurgeInstances(this);
-        //}
 
         public Tracer Tracer = new Tracer(typeof(CKDocument));
         /// <summary>
@@ -289,10 +331,31 @@ namespace CoverageKiller2.DOM
             CopyHeaderTo(targetDocument);
             CopyFooterTo(targetDocument);
         }
+        public CKRange Range() => Range(COMDocument.Range());
 
-        internal CKRange Range(int start, int end, IDOMObject parent = null)
+        public CKRange Range(int start, int end) => Range(COMDocument.Range(start, end));
+
+
+        public CKRange Range(Word.Range range) => new CKRange(range);
+
+
+
+
+        public void Dispose()
         {
-            return Range(COMDocument.Range(start, end), parent ?? this);
+            if (Application != null)
+            {
+                try
+                {
+                    Application.Quit();
+                }
+                catch { }
+                finally
+                {
+                    Marshal.ReleaseComObject(Application);
+                    Application = null;
+                }
+            }
         }
     }
 

@@ -26,7 +26,7 @@ namespace CoverageKiller2.DOM
         /// Note that there is only one Tables property, so calling back to it
         /// instead of storing a reference every time is acceptable.
         /// </summary>
-        internal Word.Tables COMTables => Parent.COMRange.Tables;
+        public Word.Tables COMTables => Parent.COMRange.Tables;
 
         /// <summary>
         /// Returns a string that represents the current <see cref="CKTables"/> instance.
@@ -42,7 +42,7 @@ namespace CoverageKiller2.DOM
         /// Initializes a new instance of the <see cref="CKTables"/> class.
         /// </summary>
         /// <param name="parent">The parent <see cref="CKRange"/> to associate with this instance.</param>
-        internal CKTables(CKRange parent) : base(parent) { }
+        public CKTables(CKRange parent) : base(parent) { }
 
         /// <summary>
         /// Gets the number of tables in the associated range.

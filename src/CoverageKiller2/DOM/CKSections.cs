@@ -55,7 +55,7 @@ namespace CoverageKiller2.DOM
         /// </summary>
         /// <param name="parent">The parent <see cref="CKRange"/> to associate with this instance.</param>
         /// <exception cref="ArgumentNullException">Thrown when the parent parameter is null.</exception>
-        internal CKSections(CKRange parent) : base(parent)
+        public CKSections(CKRange parent) : base(parent)
         {
         }
 

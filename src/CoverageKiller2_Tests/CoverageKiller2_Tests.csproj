@@ -41,7 +41,7 @@
   <ItemGroup>
     <Reference Include="Microsoft.Office.Interop.Word, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Microsoft.Office.Interop.Word.15.0.4797.1004\lib\net20\Microsoft.Office.Interop.Word.dll</HintPath>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
     </Reference>
     <Reference Include="Microsoft.VisualStudio.TestPlatform.TestFramework, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\..\packages\MSTest.TestFramework.2.2.10\lib\net45\Microsoft.VisualStudio.TestPlatform.TestFramework.dll</HintPath>
@@ -63,6 +63,7 @@
     <Compile Include="DOM\CKCellsTests.cs" />
     <Compile Include="DOM\CKCellTests.cs" />
     <Compile Include="DOM\CKColumnTests.cs" />
+    <Compile Include="DOM\CKDocumentsTests.cs" />
     <Compile Include="DOM\CKDocumentTests.cs" />
     <Compile Include="DOM\CKParagraphsTests.cs" />
     <Compile Include="DOM\CKParagraphTests.cs" />

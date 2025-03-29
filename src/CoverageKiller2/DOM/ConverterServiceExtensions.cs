@@ -5,7 +5,7 @@ using Word = Microsoft.Office.Interop.Word;
 
 namespace CoverageKiller2.DOM
 {
-
+    //NEVER cal other conversion methods.
     public static class ConverterServiceExtensions
     {
         public static CKCellRef GetCellRef(
@@ -13,11 +13,7 @@ namespace CoverageKiller2.DOM
             CKGridCellRef gridRef,
             IDOMObject parent = null)
         {
-            var grid = service.Grid;
-            var master = grid.GetMasterCells(gridRef).FirstOrDefault();
-            if (master == null)
-                throw new ArgumentException("No master cell found in specified grid region.", nameof(gridRef));
-
+            var master = service.Grid.GetMasterCells(gridRef).First();
             return new CKCellRef(master.COMCell, parent ?? service.Table);
         }
 
@@ -29,36 +25,37 @@ namespace CoverageKiller2.DOM
             if (index < 1) throw new ArgumentOutOfRangeException(nameof(index));
 
             var wordCell = service.Table.COMTable.Range.Cells[index];
-            return service.GetGridCellRef(wordCell);
+            return new CKGridCellRef(
+                wordCell.RowIndex - 1,
+                wordCell.ColumnIndex - 1,
+                wordCell.RowIndex - 1,
+                wordCell.ColumnIndex - 1);
         }
 
 
         public static CKGridCellRef GetGridCellRef(
             this CKTable.CKCellRefConverterService service,
-            ICellRef<CKCell> cellRef)
+            CKCellRef cellRef)
         {
             if (cellRef == null) throw new ArgumentNullException(nameof(cellRef));
-            return service.GetGridCellRef(
-                service.Table.COMTable.Cell(
-                    (cellRef as CKCellRef)?.WordRow ?? 1,
-                    (cellRef as CKCellRef)?.WordCol ?? 1
-                )
-            );
+            return new CKGridCellRef(
+                cellRef.WordRow - 1,
+                cellRef.WordCol - 1,
+                cellRef.WordRow - 1,
+                cellRef.WordCol - 1);
         }
 
         public static CKGridCellRef GetGridCellRef(
             this CKTable.CKCellRefConverterService service,
-            Word.Cell cellRef)
+            Word.Cell wordCell)
         {
-            if (cellRef == null) throw new ArgumentNullException(nameof(cellRef));
+            if (wordCell == null) throw new ArgumentNullException(nameof(wordCell));
 
-            var master = service.Grid.GetMasterCells()
-                .FirstOrDefault(g => g.COMCell == cellRef);
-
-            if (master == null)
-                throw new ArgumentException("Cell is not a master cell in the grid.", nameof(cellRef));
-
-            return new CKGridCellRef(master.GridCol, master.GridRow, master.GridCol, master.GridRow);
+            return new CKGridCellRef(
+                wordCell.RowIndex - 1,
+                wordCell.ColumnIndex - 1,
+                wordCell.RowIndex - 1,
+                wordCell.ColumnIndex - 1);
         }
     }
 

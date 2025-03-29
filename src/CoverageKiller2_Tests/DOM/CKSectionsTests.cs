@@ -10,7 +10,7 @@ namespace CoverageKiller2.DOM
         [TestMethod]
         public void CKSections_Count_MatchesUnderlyingWordSectionsCount()
         {
-            LiveWordDocument.WithTestDocument(LiveWordDocument.Default, doc =>
+            LiveWordDocument.WithTestDocument(LiveWordDocument.DefaultTestFile, doc =>
             {
                 // Create a CKRange from the document content.
                 CKRange range = new CKRange(doc.Content);
@@ -26,7 +26,7 @@ namespace CoverageKiller2.DOM
         [TestMethod]
         public void CKSections_Indexer_ReturnsValidCKSection_And_ThrowsOnInvalidIndex()
         {
-            LiveWordDocument.WithTestDocument(LiveWordDocument.Default, doc =>
+            LiveWordDocument.WithTestDocument(LiveWordDocument.DefaultTestFile, doc =>
             {
                 CKRange range = new CKRange(doc.Content);
                 CKSections sections = range.Sections;
@@ -55,7 +55,7 @@ namespace CoverageKiller2.DOM
         [TestMethod]
         public void CKSections_Enumeration_YieldsAllSections()
         {
-            LiveWordDocument.WithTestDocument(LiveWordDocument.Default, doc =>
+            LiveWordDocument.WithTestDocument(LiveWordDocument.DefaultTestFile, doc =>
             {
                 CKRange range = new CKRange(doc.Content);
                 CKSections sections = range.Sections;
@@ -74,7 +74,7 @@ namespace CoverageKiller2.DOM
         [TestMethod]
         public void CKSections_ToString_ReturnsValidString()
         {
-            LiveWordDocument.WithTestDocument(LiveWordDocument.Default, doc =>
+            LiveWordDocument.WithTestDocument(LiveWordDocument.DefaultTestFile, doc =>
             {
                 CKRange range = new CKRange(doc.Content);
                 CKSections sections = range.Sections;

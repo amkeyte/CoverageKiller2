@@ -11,7 +11,7 @@ namespace CoverageKiller2.DOM
     {
         protected List<CKCell> _cells = new List<CKCell>();
         public CKTable Table { get; protected set; }
-        public ICellRef<CKCells> CellRef { get; protected set; }
+        public CKCellRef CellRef { get; protected set; }
 
         protected CKCells() { }
 
@@ -31,7 +31,7 @@ namespace CoverageKiller2.DOM
         }
 
 
-        public static CKCells FromRef(CKTable table, ICellRef<CKCells> cellRef)
+        public static CKCells FromRef(CKTable table, CKCellRef cellRef)
         {
             if (table == null || cellRef == null)
                 throw new ArgumentNullException();
