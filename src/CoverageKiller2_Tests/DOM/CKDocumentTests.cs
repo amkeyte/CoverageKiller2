@@ -1,5 +1,4 @@
-﻿using CoverageKiller2.Tests;     // Contains VstoTestDocumentLoader.
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace CoverageKiller2.DOM
 {

@@ -104,6 +104,9 @@
   -->
   <ItemGroup>
     <Reference Include="Accessibility" />
+    <Reference Include="K4os.Hash.xxHash, Version=1.0.8.0, Culture=neutral, PublicKeyToken=32cd54395057cec3, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\K4os.Hash.xxHash.1.0.8\lib\net462\K4os.Hash.xxHash.dll</HintPath>
+    </Reference>
     <Reference Include="Serilog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Serilog.4.0.2\lib\net471\Serilog.dll</HintPath>
     </Reference>
@@ -223,14 +226,9 @@
   -->
   <ItemGroup>
     <Compile Include="CKTextHelper.cs" />
-    <Compile Include="DOM\CellRefCoord.cs" />
-    <Compile Include="DOM\CKCell.cs" />
-    <Compile Include="DOM\CKCellsListRef.cs" />
-    <Compile Include="DOM\CKCellsRect.cs" />
-    <Compile Include="DOM\CKGridCellRef.cs" />
-    <Compile Include="DOM\CKCells.cs" />
-    <Compile Include="DOM\CKColumn.cs" />
-    <Compile Include="DOM\CKColumns.cs" />
+    <Compile Include="DOM\Tables\CKCell.cs" />
+    <Compile Include="DOM\Tables\CKGridCellRef.cs" />
+    <Compile Include="DOM\Tables\CKColumn.cs" />
     <Compile Include="CkDocHelpers.cs" />
     <Compile Include="DOM\CKDocument.cs" />
     <Compile Include="DOM\CKDocuments.cs" />
@@ -238,15 +236,13 @@
     <Compile Include="DOM\CKParagraph.cs" />
     <Compile Include="DOM\CKRangeCollection.cs" />
     <Compile Include="CKRibbon.cs" />
-    <Compile Include="DOM\CKRow.cs" />
-    <Compile Include="DOM\CKRows.cs" />
+    <Compile Include="DOM\Tables\CKRow.cs" />
     <Compile Include="DOM\CKSection.cs" />
     <Compile Include="DOM\CKSections.cs" />
-    <Compile Include="DOM\CKTableGrid.cs" />
-    <Compile Include="DOM\CKTables.cs" />
+    <Compile Include="DOM\Tables\CKTableGrid.cs" />
     <Compile Include="DOM\CKParagraphs.cs" />
     <Compile Include="DOM\CKRange.cs" />
-    <Compile Include="DOM\ICellRef.cs" />
+    <Compile Include="DOM\Tables\TableGridCrawler.cs" />
     <Compile Include="DOM\WordInteropExtensions.cs" />
     <Compile Include="Logging\LH.cs" />
     <Compile Include="Logging\LoggingLoader.cs" />
@@ -255,7 +251,7 @@
     <Compile Include="Logging\SomeTestClass.cs" />
     <Compile Include="Logging\Tracer.cs" />
     <Compile Include="IndoorReportTemplate.cs" />
-    <Compile Include="DOM\CKTable.cs" />
+    <Compile Include="DOM\Tables\CKTable.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -274,7 +270,7 @@
     <None Include="CoverageKiller2_TemporaryKey.pfx" />
     <EmbeddedResource Include="PCTELReportHeaderFooterTemplate.docx" />
     <None Include="docfx.json" />
-    <Compile Include="DOM\ConverterServiceExtensions.cs" />
+    <Compile Include="DOM\Tables\ConverterServiceExtensions.cs" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

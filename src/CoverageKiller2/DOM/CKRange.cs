@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CoverageKiller2.DOM.Tables;
+using System;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using Word = Microsoft.Office.Interop.Word;
@@ -284,11 +285,5 @@ namespace CoverageKiller2.DOM
         #endregion
 
     }
-    public static class RangeExtensions
-    {
-        public static bool Contains(this Word.Range outer, Word.Range inner)
-        {
-            return inner.Start >= outer.Start && inner.End <= outer.End;
-        }
-    }
+
 }

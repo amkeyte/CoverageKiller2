@@ -1,5 +1,4 @@
-﻿using CoverageKiller2.Tests;  // Contains LiveWordDocument helper.
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Runtime.InteropServices;
 
 namespace CoverageKiller2.DOM

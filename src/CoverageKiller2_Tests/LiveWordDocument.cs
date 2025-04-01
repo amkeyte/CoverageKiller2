@@ -1,11 +1,11 @@
 ﻿using CoverageKiller2.DOM;
 using System;
 using Word = Microsoft.Office.Interop.Word;
-namespace CoverageKiller2.Tests
+namespace CoverageKiller2
 {
     public class LiveWordDocument : IDisposable
     {
-        public const string DefaultTestFile = "C:\\Users\\akeyte.PCM\\source\\repos\\CoverageKiller2\\src\\CoverageKiller2_Tests\\TestFiles\\SEA Garage (Noise Floor)_20250313_152027.docx";
+        public const string DefaultTestFile = "C:\\Users\\akeyte.PCM\\source\\repos\\CoverageKiller2\\src\\CoverageKiller2_Tests\\TestFiles\\SEA Garage (Noise Floor)_Test1.docx";
         public CKDocument Document { get; private set; }
         public Word.Document WordDocument => Document.COMDocument;
         public Word.Application Application => Document.Application;

@@ -1,4 +1,5 @@
-﻿using CoverageKiller2.Logging;
+﻿using CoverageKiller2.DOM.Tables;
+using CoverageKiller2.Logging;
 using Serilog;
 using System;
 using System.Runtime.InteropServices;

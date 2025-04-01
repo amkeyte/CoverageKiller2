@@ -1,8 +1,7 @@
-﻿using CoverageKiller2.Tests;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Linq;
 
-namespace CoverageKiller2.DOM
+namespace CoverageKiller2.DOM.Tables
 {
     [TestClass]
     public class CKTableTests
