@@ -29,14 +29,16 @@ namespace CoverageKiller2.DOM.Tables
         }
 
         // Instance Fields
-        private CKTableGrid Grid { get; set; }
+        //private CKTableGrid Grid { get; set; }
+        private CKTableGrid Grid => throw new NotImplementedException("DEBUG");//DEBUG
         private CKCellRefConverterService _converterService;
 
         // Constructors
         public CKTable(Word.Table table) : base(table.Range)
         {
             COMTable = table;
-            Grid = CKTableGrid.GetInstance(table);
+
+            //Grid = CKTableGrid.GetInstance(table);//DEBUG
             _converterService = new CKCellRefConverterService(this);
         }
 

@@ -16,14 +16,53 @@ namespace CoverageKiller2.DOM.Tables
         {
             _table = table ?? throw new ArgumentNullException(nameof(table));
         }
+        public Word.Cell GetBottomRightCell()
+        {
+            Word.Cell bottomRight = null;
+            int maxRow = -1;
+            int maxCol = -1;
 
+            foreach (Word.Cell cell in _table.Range.Cells)
+            {
+                try
+                {
+                    int row = cell.RowIndex;
+                    int col = cell.ColumnIndex;
+
+                    if (row > maxRow || (row == maxRow && col > maxCol))
+                    {
+                        maxRow = row;
+                        maxCol = col;
+                        bottomRight = cell;
+                    }
+                }
+                catch (System.Runtime.InteropServices.COMException)
+                {
+                    // Skip phantom cells. Word loves its ghosts.
+                    continue;
+                }
+            }
+
+            return bottomRight;
+        }
         public Base1JaggedList<GridCell> CrawlRows()
         {
             return CrawlDirection(
                 crawlToVert: 0,
                 crawlToHoriz: 1,
                 makeGridCell: (row, col, cell) =>
-                    new GridCell(cell, row, col, true)
+                    new GridCell(cell, row, col, true),
+                true
+            );
+        }
+        public Base1JaggedList<GridCell> CrawlRowsReverse()
+        {
+            return CrawlDirection(
+                crawlToVert: 0,
+                crawlToHoriz: -1,
+                makeGridCell: (row, col, cell) =>
+                    new GridCell(cell, row, col, true),
+                true
             );
         }
 
@@ -42,11 +81,13 @@ namespace CoverageKiller2.DOM.Tables
         private Base1JaggedList<GridCell> CrawlDirection(
             int crawlToVert,
             int crawlToHoriz,
-            Func<int, int, Word.Cell, GridCell> makeGridCell)
+            Func<int, int, Word.Cell, GridCell> makeGridCell,
+            bool reverse = false)
         {
             var visitedFastHashes = new HashSet<ulong>();//track what cells have been seen
             var outputLists = new Base1JaggedList<GridCell>();
             var wordAppCells = new Base1List<Word.Cell>(_table.Range.Cells.ToList());
+            if (reverse) { wordAppCells.Reverse(); }
 
             foreach (var wordAppCell in wordAppCells)
             {
@@ -151,7 +192,7 @@ namespace CoverageKiller2.DOM.Tables
                         break;
 
                     case GridCell.GetNeighborResult.COMExceptionThrownMergedCell:
-                        break;
+                    //break;//broken. somethins this is actually out of range.
                     case GridCell.GetNeighborResult.OutOfBounds:
                     case GridCell.GetNeighborResult.SameCell:
                     case GridCell.GetNeighborResult.NotFound:

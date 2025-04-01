@@ -22,9 +22,49 @@ namespace CoverageKiller2.DOM.Tables
 
             return lines;
         }
+        [TestMethod]
+        public void GetBottomRightCell_Returns_Correct_Cell()
+        {
+            LiveWordDocument.WithTestDocument(doc =>
+            {
+                var table = doc.Tables[testTable];
+                var crawler = new TableGridCrawler(table.COMTable);
+                foreach (var msg in DescribeTableRawCells(table.COMTable))
+                    Debug.WriteLine($"{msg}");
 
-
+                var cell = crawler.GetBottomRightCell();
+                Debug.WriteLine($"\nBottom Right: {cell.Range.Text} ({cell.RowIndex},{cell.ColumnIndex})");
+            });
+        }
         private int testTable = 2;
+        [TestMethod]
+        public void Crawler_CrawlRowsReverse_ReturnsExpectedRows()
+        {
+            LiveWordDocument.WithTestDocument(doc =>
+            {
+                var table = doc.Tables[testTable];
+                var crawler = new TableGridCrawler(table.COMTable);
+
+                var rows = crawler.CrawlRowsReverse();
+                foreach (var msg in DescribeTableRawCells(table.COMTable))
+                    Debug.WriteLine($"{msg}");
+
+                Debug.WriteLine("CrawlRows Result:");
+                foreach (var row in rows)
+                {
+                    string message = string.Join(" | ", row.Select(c =>
+                    {
+                        string text = CKTextHelper.Scrunch(c.COMCell.Range.Text);
+                        return $"{text}({c.GridRow},{c.GridCol})";
+                    }));
+
+                    Debug.Print(message);
+                }
+
+                Assert.IsTrue(rows.Count > 0);
+                Assert.IsTrue(rows.All(r => r.Count > 0));
+            });
+        }
         [TestMethod]
         public void Crawler_CrawlRows_ReturnsExpectedRows()
         {

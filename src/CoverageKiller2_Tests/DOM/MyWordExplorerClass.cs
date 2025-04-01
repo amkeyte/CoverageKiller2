@@ -10,6 +10,29 @@ namespace CoverageKiller2.DOM
     public class MyWordExplorerClass
     {
         [TestMethod]
+        public void SeeWhatWordDoes2()
+        {
+            LiveWordDocument.WithTestDocument(doc =>
+            {
+                var table = doc.Tables[2];
+                var table2 = table.COMTable;
+                var sb = new StringBuilder();
+                var cells = table.COMRange.Cells.ToList();
+                //var chars = table.COMRange.Characters;
+
+
+                var x = table2.Columns;
+
+
+                var y = table2.Columns[1];
+
+                var z = table2.Columns[2];
+
+            });
+        }
+
+
+        [TestMethod]
         public void SeeWhatWordDoes()
         {
             LiveWordDocument.WithTestDocument(doc =>

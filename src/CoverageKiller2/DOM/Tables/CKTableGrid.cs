@@ -96,6 +96,7 @@ namespace CoverageKiller2.DOM.Tables
             int startRow = cell.RowIndex;
             int startCol = cell.ColumnIndex;
             int rowSpan = 1;
+
             int colSpan = 1;
 
             bool IsSameCell(Word.Cell a, Word.Cell b)
