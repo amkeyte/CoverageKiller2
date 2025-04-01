@@ -23,11 +23,11 @@ namespace CoverageKiller2
             try
             {
 
-                string logFile = LogTailLoader.GetBareTailLog();
+                string logFile = LogTailLoader.GetLogFile();
                 LoggingLoader.Configure(logFile, Serilog.Events.LogEventLevel.Debug);
 
                 //debugging the big hangup.
-                LogTailLoader.StartBareTail();
+                //LogTailLoader.StartBareTail(logFile);
 
                 Log.Debug("Logging started: Level {logEventLevel}", LoggingLoader.Level);
                 Log.Information("ThisAddIn started.");
