@@ -73,12 +73,6 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\CoverageKiller2\CoverageKiller2.csproj">
-      <Project>{52FB1F91-5FEC-4EE3-848A-2FC0A775284B}</Project>
-      <Name>CoverageKiller2</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>
