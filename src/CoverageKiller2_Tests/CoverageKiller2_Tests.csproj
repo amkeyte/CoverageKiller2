@@ -88,6 +88,8 @@
     <Compile Include="DOM\MyWordExplorerClass.cs" />
     <Compile Include="DOM\RangeSnapshotTests.cs" />
     <Compile Include="DOM\TableGridCrawlerTests.cs" />
+    <Compile Include="DOM\Tables\ShadowWorkspaceTests.cs" />
+    <Compile Include="DOM\Tables\TableGridCrawler3Tests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="LiveWordDocument.cs" />
     <Compile Include="TestHelpers.cs" />

@@ -80,7 +80,7 @@ namespace CoverageKiller2.DOM
         public CKDocument(string fullPath, bool standAlone = false)
         {
             _fullPath = fullPath;
-            GetApplication(true);
+            GetApplication(standAlone);
             COMDocument = Open(fullPath, standAlone);
             Application.DocumentBeforeClose += OnDocumentBeforeClose;
         }

@@ -244,7 +244,10 @@ namespace CoverageKiller2.DOM.Tables
             if (row == null) throw new ArgumentNullException(nameof(row));
             _rows.Insert(index, row);
         }
-
+        public T Get2D(int row, int col)
+        {
+            return _rows[row][col];
+        }
         public void RemoveAt(int index)
         {
             if (index < 1 || index > Count)
