@@ -72,10 +72,7 @@ namespace CoverageKiller2.DOM
             return $"Section: Range [{Start}, {End}]";
         }
 
-        /// <summary>
-        /// Gets an enumerable collection of <see cref="CKTable"/> objects contained within the section.
-        /// </summary>
-        public CKTables Tables => CKTables.Create(Range);
+
 
     }
 }

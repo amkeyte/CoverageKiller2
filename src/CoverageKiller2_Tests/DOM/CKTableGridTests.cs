@@ -1,5 +1,4 @@
-﻿using CoverageKiller2.Tests.Tables;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Linq;
 using System.Reflection;
 using Word = Microsoft.Office.Interop.Word;
@@ -14,7 +13,7 @@ namespace CoverageKiller2.DOM.Tables
         {
             LiveWordDocument.WithTestDocument(doc =>
             {
-                var table = TableTestHelpers.FindNthMergedTable(doc, 1);
+                var table = TestHelpers.FindNthMergedTable(doc, 1);
                 var grid = CKTableGrid.GetInstance(table.COMTable);
 
                 var master = grid.GetMasterCells().First();
@@ -47,7 +46,7 @@ namespace CoverageKiller2.DOM.Tables
         {
             LiveWordDocument.WithTestDocument(doc =>
             {
-                var table = TableTestHelpers.FindNthMergedTable(doc, 1);
+                var table = TestHelpers.FindNthMergedTable(doc, 1);
                 var grid = CKTableGrid.GetInstance(table.COMTable);
 
                 var master = grid.GetMasterCells().First();

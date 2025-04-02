@@ -215,6 +215,22 @@ namespace CoverageKiller2.DOM.Tables
             _rows.Add(null); // index 0 = tombstone
         }
 
+        public Base1JaggedList(List<List<T>> list)
+        {
+            if (list == null) throw new ArgumentNullException(nameof(list));
+
+            _rows = new List<Base1List<T>> { null }; // tombstone at index 0
+
+            foreach (var row in list)
+            {
+                if (row == null)
+                    throw new ArgumentException("Row list cannot contain null elements.", nameof(list));
+
+                _rows.Add(new Base1List<T>(row));
+            }
+        }
+
+
         public void Add(Base1List<T> row)
         {
             if (row == null) throw new ArgumentNullException(nameof(row));
@@ -274,6 +290,13 @@ namespace CoverageKiller2.DOM.Tables
         {
             _items.Add(default); // index 0 = tombstone
         }
+
+        public Base1List(Base1List<T> items)
+        {
+            _items.Add(default);
+            _items.AddRange(items);
+        }
+
         public Base1List(IEnumerable<T> items)
         {
             _items.Add(default);
@@ -281,7 +304,7 @@ namespace CoverageKiller2.DOM.Tables
         }
         public void Add(T item)
         {
-            if (item == null) throw new ArgumentNullException(nameof(item));
+            //if (item == null) throw new ArgumentNullException(nameof(item));
             _items.Add(item);
         }
 
@@ -289,7 +312,7 @@ namespace CoverageKiller2.DOM.Tables
         {
             if (index < 1 || index > Count + 1)
                 throw new ArgumentOutOfRangeException(nameof(index));
-            if (item == null) throw new ArgumentNullException(nameof(item));
+            //if (item == null) throw new ArgumentNullException(nameof(item));
             _items.Insert(index, item);
         }
 
@@ -317,7 +340,17 @@ namespace CoverageKiller2.DOM.Tables
                 return _items[index];
             }
         }
+        public void PadToCount(int targetCount, T padWith = default)
+        {
 
+            if (targetCount < 1) throw new ArgumentOutOfRangeException(nameof(targetCount));
+
+            int paddingNeeded = (targetCount + 1) - _items.Count;
+
+            if (paddingNeeded > 0)
+                _items.AddRange(Enumerable.Repeat(padWith, paddingNeeded));
+
+        }
         public IEnumerator<T> GetEnumerator()
         {
             for (int i = 1; i < _items.Count; i++)
@@ -325,6 +358,12 @@ namespace CoverageKiller2.DOM.Tables
         }
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+
+        internal void Clear()
+        {
+            _items.Clear();
+            _items.Add(default);
+        }
     }
 
 

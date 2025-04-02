@@ -243,7 +243,9 @@
     <Compile Include="DOM\CKParagraphs.cs" />
     <Compile Include="DOM\CKRange.cs" />
     <Compile Include="DOM\Tables\TableGridCrawler.cs" />
+    <Compile Include="DOM\Tables\TableGridCrawler2.cs" />
     <Compile Include="DOM\WordInteropExtensions.cs" />
+    <Compile Include="ExceptionDetail.cs" />
     <Compile Include="Logging\LH.cs" />
     <Compile Include="Logging\LoggingLoader.cs" />
     <Compile Include="Logging\LogTailLoader.cs" />
