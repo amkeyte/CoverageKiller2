@@ -11,20 +11,21 @@ namespace CoverageKiller2.DOM
     /// Represents a wrapper for a Word document, managing its lifecycle and interactions
     /// with the Word application, including event handling for opening and closing.
     /// </summary>
-    public class CKDocument
+    public class CKDocument : IDisposable
     {
         private readonly string _fullPath;
         private bool documentOpened = false;
 
         /// <summary>
         /// Gets the associated Word document.
+        /// TODO hide this
         /// </summary>
         public Word.Document COMObject { get; private set; }
 
         /// <summary>
         /// Gets the Word application instance that is managing this document.
         /// </summary>
-        public Word.Application WordApp => COMObject.Application;
+        public CKApplication Application { get; private set; }
 
         /// <summary>
         /// Gets the content of the Word document as a <see cref="Word.Range"/>.
@@ -174,6 +175,8 @@ namespace CoverageKiller2.DOM
         }
 
         public Tracer Tracer = new Tracer(typeof(CKDocument));
+        private bool disposedValue;
+
         /// <summary>
         /// Deletes a specified section from the Word document.
         /// </summary>
@@ -243,7 +246,34 @@ namespace CoverageKiller2.DOM
             CopyFooterTo(targetDocument);
         }
 
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (disposing)
+                {
+                    // TODO: dispose managed state (managed objects)
+                }
 
+                // TODO: free unmanaged resources (unmanaged objects) and override finalizer
+                // TODO: set large fields to null
+                disposedValue = true;
+            }
+        }
+
+        // // TODO: override finalizer only if 'Dispose(bool disposing)' has code to free unmanaged resources
+        // ~CKDocument()
+        // {
+        //     // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
+        //     Dispose(disposing: false);
+        // }
+
+        public void Dispose()
+        {
+            // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
+        }
     }
 
 }

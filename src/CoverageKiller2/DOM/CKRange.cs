@@ -6,7 +6,7 @@ namespace CoverageKiller2.DOM
     /// <summary>
     /// Represents a simple wrapper for the Word.Range object.
     /// </summary>
-    public class CKRange
+    public class CKRange : IDisposable
     {
         /// <summary>
         /// Gets the underlying Word.Range COM object.
@@ -39,6 +39,7 @@ namespace CoverageKiller2.DOM
         private int _originalCharCount;
         private string _originalText;
         private bool _isDirty = false;
+        private bool disposedValue;
 
         public virtual bool IsDirty
         {
@@ -84,6 +85,33 @@ namespace CoverageKiller2.DOM
             }
         }
 
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (disposing)
+                {
+                    // TODO: dispose managed state (managed objects)
+                }
 
+                // TODO: free unmanaged resources (unmanaged objects) and override finalizer
+                // TODO: set large fields to null
+                disposedValue = true;
+            }
+        }
+
+        // // TODO: override finalizer only if 'Dispose(bool disposing)' has code to free unmanaged resources
+        // ~CKRange()
+        // {
+        //     // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
+        //     Dispose(disposing: false);
+        // }
+
+        void IDisposable.Dispose()
+        {
+            // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
+        }
     }
 }
