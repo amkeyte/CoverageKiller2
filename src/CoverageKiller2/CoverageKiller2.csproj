@@ -225,12 +225,19 @@
     can be found.
   -->
   <ItemGroup>
+    <Compile Include="DOM\CKApplication.cs" />
+    <Compile Include="DOM\CKCell.cs" />
+    <Compile Include="DOM\CKCellReference.cs" />
+    <Compile Include="DOM\CKCells.cs" />
+    <Compile Include="DOM\CKColumn.cs" />
+    <Compile Include="DOM\CKColumns.cs" />
     <Compile Include="CKTextHelper.cs" />
     <Compile Include="DOM\Tables\CKCell.cs" />
     <Compile Include="DOM\Tables\CKGridCellRef.cs" />
     <Compile Include="DOM\Tables\CKColumn.cs" />
     <Compile Include="CkDocHelpers.cs" />
     <Compile Include="DOM\CKDocument.cs" />
+    <Compile Include="DOM\CKOffice.cs" />
     <Compile Include="DOM\CKDocuments.cs" />
     <Compile Include="DOM\CKDomObject.cs" />
     <Compile Include="DOM\CKParagraph.cs" />

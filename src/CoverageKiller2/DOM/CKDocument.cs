@@ -20,13 +20,14 @@ namespace CoverageKiller2.DOM
 
         /// <summary>
         /// Gets the associated Word document.
+        /// TODO hide this
         /// </summary>
         public Word.Document COMDocument { get; private set; }
 
         /// <summary>
         /// Gets the Word application instance that is managing this document.
         /// </summary>
-        public Word.Application Application { get; private set; }
+        public CKApplication Application { get; private set; }
 
         /// <summary>
         /// Gets the full file path of the Word document.
@@ -264,6 +265,8 @@ namespace CoverageKiller2.DOM
         }
 
         public Tracer Tracer = new Tracer(typeof(CKDocument));
+        private bool disposedValue;
+
         /// <summary>
         /// Deletes a specified section from the Word document.
         /// </summary>
@@ -332,6 +335,21 @@ namespace CoverageKiller2.DOM
             CopyHeaderTo(targetDocument);
             CopyFooterTo(targetDocument);
         }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (disposing)
+                {
+                    // TODO: dispose managed state (managed objects)
+                }
+
+                // TODO: free unmanaged resources (unmanaged objects) and override finalizer
+                // TODO: set large fields to null
+                disposedValue = true;
+            }
+        }
         public CKRange Range() => Range(COMDocument.Range());
 
         public CKRange Range(int start, int end) => Range(COMDocument.Range(start, end));
@@ -341,22 +359,18 @@ namespace CoverageKiller2.DOM
 
 
 
+        // // TODO: override finalizer only if 'Dispose(bool disposing)' has code to free unmanaged resources
+        // ~CKDocument()
+        // {
+        //     // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
+        //     Dispose(disposing: false);
+        // }
 
         public void Dispose()
         {
-            if (Application != null)
-            {
-                try
-                {
-                    Application.Quit();
-                }
-                catch { }
-                finally
-                {
-                    Marshal.ReleaseComObject(Application);
-                    Application = null;
-                }
-            }
+            // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
         }
     }
 
