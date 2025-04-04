@@ -92,11 +92,19 @@
     <Compile Include="DOM\Tables\TableGridCrawler3Tests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="LiveWordDocument.cs" />
+    <Compile Include="RandomTestHarness.cs" />
     <Compile Include="TestHelpers.cs" />
+    <Compile Include="TestSetup.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CoverageKiller2\CoverageKiller2.csproj">
+      <Project>{52fb1f91-5fec-4ee3-848a-2fc0a775284b}</Project>
+      <Name>CoverageKiller2</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

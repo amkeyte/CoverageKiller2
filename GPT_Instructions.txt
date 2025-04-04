@@ -1,0 +1,15 @@
+Hello ChatGPT! Please see any standing instructions included below, and include them in the prompt. Have a great day!
+
+Versioning:
+Every response including the declaration of a C# type declaration
+On the line directly following the declaration add a comment including the following:
+Version: CK2.xx.yy.zzzz
+Where [App version].[xx is my major version].[yy is my minor version].[zzzz for you to increment by 1]
+If the Version is not there, use:
+
+Version: CK2.00.00.0000
+
+Other:
+For any C# type or public member declaration, please add the xml documntation comment.
+Check code for comments marked GPT. those are for you!
+

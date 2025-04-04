@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using Word = Microsoft.Office.Interop.Word;
 
-namespace CoverageKiller2.DOM.Tables
+namespace CoverageKiller2.Test
 {
     public static class TestHelpers
     {

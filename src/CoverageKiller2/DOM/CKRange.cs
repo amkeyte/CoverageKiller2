@@ -11,9 +11,10 @@ namespace CoverageKiller2.DOM
     /// Provides caching of text and boundary values for robust equality and hash code calculations,
     /// even if the underlying COM object becomes orphaned.
     /// </summary>
-    public class CKRange : IDOMObject
-    public class CKRange : IDisposable
+    public class CKRange : IDOMObject, IDisposable
     {
+        CKApplication IDOMObject.Application => Parent.Application;
+
         #region Fields & Caching
 
         private string _cachedText;
@@ -24,6 +25,7 @@ namespace CoverageKiller2.DOM
         private int _cachedEnd;
         private bool _isDirty = false;
         private bool _isOrphan = false;
+        private bool disposedValue;
 
         #endregion
 
@@ -176,7 +178,7 @@ namespace CoverageKiller2.DOM
         /// <summary>
         /// Gets the Word application managing the document.
         /// </summary>
-        public Word.Application Application => Document.Application;
+        public CKApplication Application => Document.Application;
 
         /// <summary>
         /// Gets the sections contained in the range.
@@ -230,7 +232,7 @@ namespace CoverageKiller2.DOM
 
         #endregion
 
-        #region Equality Overrides
+
 
         public override bool Equals(object obj)
         {
