@@ -1,12 +1,68 @@
-﻿using System;
+﻿using CoverageKiller2.DOM;
+using CoverageKiller2.DOM.Tables;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
-using Word = Microsoft.Office.Interop.Word;
 
 namespace CoverageKiller2.Test
 {
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using System;
+    using System.Runtime.InteropServices;
+    using Word = Microsoft.Office.Interop.Word;
+    [TestClass]
+    public class WordSlayer
+    {
+        [TestMethod]
+        public void ShowWordInstanceCount()
+        {
+            Console.WriteLine($"Number of open word applications found: {Process.GetProcessesByName("WINWORD").Length}");
+        }
+        [TestMethod]
+        public void CloseAllWordInstances()
+        {
+            try
+            {
+                // Try to get a running instance of Word
+                Word.Application wordApp = (Word.Application)Marshal.GetActiveObject("Word.Application");
+
+                // Only close if there are no documents open (to avoid ruining someone's work)
+                if (wordApp != null && wordApp.Documents.Count == 0)
+                {
+                    wordApp.Quit(false);
+                    Marshal.ReleaseComObject(wordApp);
+                    Console.WriteLine("Closed an idle Word instance.");
+                }
+                else
+                {
+                    Console.WriteLine("Word is busy. Not closing.");
+                }
+            }
+            catch (COMException)
+            {
+                Console.WriteLine("No running Word instance found.");
+            }
+        }
+        [TestMethod]
+        public void KillAllWordProcesses()
+        {
+            foreach (var process in Process.GetProcessesByName("WINWORD"))
+            {
+                try
+                {
+                    process.Kill();
+                    process.WaitForExit(); // Optional
+                    Console.WriteLine("Process Killed.");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Failed to kill process {process.Id}: {ex.Message}");
+                }
+            }
+        }
+    }
+
     public static class TestHelpers
     {
         public static string DumpVisualRows(Base1JaggedList<Word.Cell> visualRows)

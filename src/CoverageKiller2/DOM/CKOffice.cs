@@ -1,7 +1,9 @@
 ﻿using CoverageKiller2.Logging;
+using Newtonsoft.Json;
 using Serilog;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using Word = Microsoft.Office.Interop.Word;
 
@@ -12,7 +14,7 @@ namespace CoverageKiller2.DOM
     /// Handles lifecycle and cleanup, including the special VSTO ThisAddIn instance.
     /// </summary>
     /// <remarks>
-    /// Version: CK2.00.00.0005
+    /// Version: CK2.00.00.0010
     /// </remarks>
     public class CKOffice_Word : IDisposable
     {
@@ -52,6 +54,8 @@ namespace CoverageKiller2.DOM
         /// </summary>
         public CKApplication AddInApp => _applications.FirstOrDefault(a => a.IsAddIn);
 
+        public static Tracer Tracer => new Tracer(typeof(CKOffice_Word), indentTabs: 20);
+
         /// <summary>
         /// Registers the VSTO add-in as a known guest instance. It will not be owned or disposed.
         /// </summary>
@@ -59,9 +63,10 @@ namespace CoverageKiller2.DOM
         /// <returns>0 if registered successfully.</returns>
         public int TryPutAddin(ThisAddIn addin)
         {
-            if (addin == null) throw new ArgumentNullException(nameof(addin));
-            _addinInstance = addin;
-            var addInApp = new CKApplication(addin.Application);
+            var wordApp = Globals.ThisAddIn.Application;
+            LH.Ping(GetType());
+            _addinInstance = addin ?? throw new ArgumentNullException(nameof(addin));
+            var addInApp = new CKApplication(addin.Application, default, isOwned: false);
             _applications.Add(addInApp);
             Log.Information("Registered ThisAddIn instance.");
             return 0;
@@ -73,31 +78,57 @@ namespace CoverageKiller2.DOM
         /// <param name="app">The created application wrapper, or null if failed.</param>
         /// <param name="visible">Whether the Word UI should be visible.</param>
         /// <returns>The count of owned applications if successful; -1 if failed.</returns>
+        /// <remarks>
+        /// Version: CK2.00.00.0010
+        /// </remarks>
         public int TryGetNewApp(out CKApplication app, bool visible = false)
         {
+            LH.Ping($"Found {_applications.Count} open CKApplication instances.", GetType());
+            int pid = -1;
+
             try
             {
+                var before = Process.GetProcessesByName("WINWORD").Select(p => p.Id).ToHashSet();
                 Word.Application wordApp = new Word.Application { Visible = visible };
-                app = new CKApplication(wordApp);
+                System.Threading.Thread.Sleep(250);
+
+                var after = Process.GetProcessesByName("WINWORD")
+                                   .Where(p => !before.Contains(p.Id))
+                                   .OrderByDescending(p => p.StartTime)
+                                   .FirstOrDefault();
+
+                if (after != null)
+                    pid = after.Id;
+                else
+                    Log.Warning("Could not determine PID of new Word instance. Using -1.");
+
+                app = new CKApplication(wordApp, pid, isOwned: true);
                 _applications.Add(app);
-                Log.Information("New CKApplication created and registered.");
+
+                AppRecordManager.Add(app.PID);
+                AppRecordManager.Save();
+
+                Log.Information("New CKApplication({PID}) created and registered.", app.PID);
+                LH.Pong(GetType());
                 return _applications.Count;
             }
             catch (Exception ex)
             {
-                Log.Error("Failed to create CKApplication: {Message}", ex.Message);
+                Log.Error("Failed to create CKApplication:{PID} {Message}", pid, ex.Message);
                 app = null;
+                LH.Pong(GetType());
                 return -1;
             }
         }
 
         /// <summary>
         /// Starts CKOffice_Word and configures logging.
-        /// Safe to call multiple times; subsequent calls are no-ops.
+        /// Also cleans up orphaned Word processes from previous runs.
         /// </summary>
         /// <returns>0 if started; 1 if already running; -1 if error occurred.</returns>
         public int Start()
         {
+            LH.Ping("Start()", GetType());
             if (_isRunning)
             {
                 Log.Information("CKOffice_Word.Start called while already running. No action taken.");
@@ -107,9 +138,15 @@ namespace CoverageKiller2.DOM
             try
             {
                 string logFile = LogTailLoader.GetLogFile();
-                LoggingLoader.Configure(logFile, Serilog.Events.LogEventLevel.Debug);
-                Log.Information("CKOffice_Word started.");
+                LoggingLoader.Configure(logFile, Serilog.Events.LogEventLevel.Verbose);
+                Log.Information("******************************************************************** CKOffice_Word started. ******************************************************************");
+
                 _isRunning = true;
+
+                Log.Information("Cleaning orphaned instances.");
+                AppRecordManager.Load();
+                AppRecordManager.CleanupOrphanedProcesses();
+
                 return 0;
             }
             catch (Exception ex)
@@ -119,13 +156,9 @@ namespace CoverageKiller2.DOM
             }
         }
 
-        /// <summary>
-        /// Shuts down all owned applications and cleans up logging.
-        /// If ThisAddIn is still running, CKOffice_Word stays active.
-        /// </summary>
-        /// <returns>0 if shutdown was performed; 1 if not needed.</returns>
         public int ShutDown()
         {
+            LH.Ping(GetType());
             if (!_isRunning)
             {
                 Log.Warning("CKOffice_Word.ShutDown called but instance is not running.");
@@ -158,37 +191,157 @@ namespace CoverageKiller2.DOM
             if (hasAddIn)
             {
                 Log.Information("ThisAddIn still running. CKOffice_Word remains available.");
+                LH.Pong(GetType());
                 return 0;
             }
 
             _isRunning = false;
+            LH.Pong(GetType());
             return 0;
         }
 
-        /// <summary>
-        /// Disposes the CKOffice_Word singleton.
-        /// </summary>
-        /// <param name="disposing">True when called directly, false during finalization.</param>
         protected virtual void Dispose(bool disposing)
         {
+            LH.Ping(GetType());
             if (!_disposedValue)
             {
                 if (disposing)
                 {
                     ShutDown();
                 }
-
                 _disposedValue = true;
             }
         }
 
-        /// <summary>
-        /// Disposes the singleton and performs shutdown logic.
-        /// </summary>
         public void Dispose()
         {
+            LH.Ping(GetType());
             Dispose(disposing: true);
             GC.SuppressFinalize(this);
+        }
+    }
+
+    /// <summary>
+    /// Represents a record of a previously created Word application process.
+    /// Used for crash recovery and cleanup of orphaned instances.
+    /// </summary>
+    /// <remarks>
+    /// Version: CK2.00.00.0009
+    /// </remarks>
+    public class AppRecord
+    {
+        /// <summary>
+        /// The process ID of the Word instance.
+        /// </summary>
+        public int PID { get; set; }
+
+        /// <summary>
+        /// Optional tag for diagnostics or identification (e.g., "12345#ThisAddIn").
+        /// </summary>
+        public string Tag { get; set; }
+    }
+
+    /// <summary>
+    /// Tracks known Word application process records for crash recovery.
+    /// </summary>
+    /// <remarks>
+    /// Version: CK2.00.00.0010
+    /// </remarks>
+    public static class AppRecordManager
+    {
+        private static readonly List<AppRecord> _records = new List<AppRecord>();
+
+        /// <summary>
+        /// Gets the current list of tracked AppRecords.
+        /// </summary>
+        public static IReadOnlyList<AppRecord> Records => _records.AsReadOnly();
+
+        /// <summary>
+        /// Adds a new AppRecord to the list.
+        /// </summary>
+        public static void Add(string pid, string tag = null)
+        {
+            var pid2 = int.Parse(pid);
+            if (pid2 <= 0) return;
+            _records.Add(new AppRecord { PID = pid2, Tag = tag });
+            Save();
+        }
+
+        /// <summary>
+        /// Saves the current list to Properties.Settings.Default as JSON.
+        /// </summary>
+        public static void Save()
+        {
+            try
+            {
+                string json = JsonConvert.SerializeObject(_records, Formatting.Indented);
+                Properties.Settings.Default.PreviousAppRecords = json;
+                Properties.Settings.Default.Save();
+            }
+            catch (Exception ex)
+            {
+                Log.Error("Failed to save AppRecords: {Message}", ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Loads AppRecords from Properties.Settings.Default.
+        /// </summary>
+        public static void Load()
+        {
+            try
+            {
+                _records.Clear();
+                var json = Properties.Settings.Default.PreviousAppRecords;
+                if (!string.IsNullOrWhiteSpace(json))
+                {
+                    var list = JsonConvert.DeserializeObject<List<AppRecord>>(json);
+                    if (list != null) _records.AddRange(list);
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Warning("Could not load AppRecords from settings: {Message}", ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Kills orphaned WINWORD processes based on AppRecords.
+        /// </summary>
+        public static void CleanupOrphanedProcesses()
+        {
+            Log.Information("Checking for orphaned WINWORD processes...");
+
+            var toRemove = new List<AppRecord>();
+
+            foreach (var record in _records)
+            {
+                try
+                {
+                    var proc = Process.GetProcessById(record.PID);
+                    if (proc.ProcessName.Equals("WINWORD", StringComparison.OrdinalIgnoreCase))
+                    {
+                        Log.Warning("Found orphaned WINWORD process (PID={PID}, Tag={Tag}). Attempting to terminate...", record.PID, record.Tag);
+                        proc.Kill();
+                        proc.WaitForExit(3000);
+                        Log.Information("Terminated WINWORD process {PID}.", record.PID);
+                        toRemove.Add(record);
+                    }
+                }
+                catch (ArgumentException)
+                {
+                    toRemove.Add(record); // Process no longer exists
+                }
+                catch (Exception ex)
+                {
+                    Log.Warning("Could not terminate process {PID}: {Message}", record.PID, ex.Message);
+                }
+            }
+
+            foreach (var rec in toRemove)
+                _records.Remove(rec);
+
+            Save();
         }
     }
 }

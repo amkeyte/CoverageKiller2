@@ -2,6 +2,7 @@
 using Serilog;
 using System.IO;
 using System.Reflection;
+using Word = Microsoft.Office.Interop.Word;
 
 namespace CoverageKiller2
 {
@@ -10,6 +11,7 @@ namespace CoverageKiller2
     /// It inherits from <see cref="CKDocument"/> and provides functionality
     /// to load the report template from an embedded resource.
     /// </summary>
+    [System.Obsolete]
     public class IndoorReportTemplate : CKDocument
     {
         /// <summary>
@@ -21,17 +23,18 @@ namespace CoverageKiller2
         /// Initializes a new instance of the <see cref="IndoorReportTemplate"/> class using the specified document path.
         /// </summary>
         /// <param name="wDoc">The path to the Word document.</param>
-        private IndoorReportTemplate(string wDoc) : base(wDoc) { }
+        //private IndoorReportTemplate(string wDoc) : base(wDoc) { }
+        private IndoorReportTemplate(Word.Document wDoc) : base(wDoc) { }
 
         /// <summary>
         /// Closes the indoor report template without saving changes.
         /// </summary>
         /// <param name="saveChanges">Whether to save changes; this is ignored and always set to false.</param>
-        public override void Close(bool saveChanges = false)
-        {
-            Log.Information("Closing Indoor Report Template");
-            base.Close(false);  // Always close without saving changes.
-        }
+        //public override void Close(bool saveChanges = false)
+        //{
+        //    Log.Information("Closing Indoor Report Template");
+        //    base.Close(false);  // Always close without saving changes.
+        //}
 
         /// <summary>
         /// Opens the PCTEL report template from an embedded resource, saves it as a temporary file,
@@ -44,7 +47,8 @@ namespace CoverageKiller2
         {
             Log.Information("Opening PCTELDoc template resource...");
             string temporaryFileName = LoadResourceAndCreateTempFile();
-            return new IndoorReportTemplate(temporaryFileName);
+            return new IndoorReportTemplate(null);
+            //return new IndoorReportTemplate(temporaryFileName);
         }
 
         /// <summary>

@@ -102,29 +102,37 @@ namespace CoverageKiller2.Logging
             return string.Join(".", objectNames);
         }
 
+
+        private static int pingDepth = 0;
         private const string _UNKNOWN_ = "UNKNOWN";
         public static void Ping(Type caller, [CallerMemberName] string callerName = "")
         {
-            //Debug.WriteLine($" -> Ping from {caller?.Name ?? _UNKNOWN_}::{callerName}");
+
+            Log.Verbose($"{new string('\t', pingDepth++)}-> Ping from {caller?.Name ?? _UNKNOWN_}::{callerName}");
         }
 
         public static void Ping([CallerMemberName] string callerName = "")
         {
-            //Debug.WriteLine($" -> Ping from {_UNKNOWN_}::{callerName}");
-        }
 
+            Log.Verbose($"{new string('\t', pingDepth++)}-> Ping from {_UNKNOWN_}::{callerName}");
+        }
+        public static void Ping(string message, Type caller, [CallerMemberName] string callerName = "")
+
+        {
+            Log.Verbose($"{new string('\t', pingDepth++)}-> Ping from {caller?.Name ?? _UNKNOWN_}::{callerName} --- {message}");
+        }
         public static void Pong([CallerMemberName] string callerName = "")
         {
-            //Debug.WriteLine($" <- Pong from {_UNKNOWN_}::{callerName}");
+            Log.Verbose($"{new string('\t', --pingDepth)}<- Pong from {_UNKNOWN_}::{callerName}");
         }
         public static void Pong(Type caller, [CallerMemberName] string callerName = "")
         {
-            //Debug.WriteLine($" <- Pong from {caller?.Name ?? _UNKNOWN_}::{callerName}");
+            Log.Verbose($"{new string('\t', --pingDepth)}<- Pong from {caller?.Name ?? _UNKNOWN_}::{callerName}");
         }
 
         public static void Pong(string message, Type caller, [CallerMemberName] string callerName = "")
         {
-            //Debug.WriteLine($" <- Pong from {caller?.Name ?? _UNKNOWN_}::{callerName} --- {message}");
+            Log.Verbose($"{new string('\t', pingDepth--)}<- Pong from {caller?.Name ?? _UNKNOWN_}::{callerName} --- {message}");
         }
 
     }

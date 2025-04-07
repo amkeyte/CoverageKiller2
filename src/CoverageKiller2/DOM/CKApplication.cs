@@ -1,7 +1,9 @@
-﻿using Serilog;
+﻿using CoverageKiller2.Logging;
+using Microsoft.Office.Interop.Word;
+using Serilog;
 using System;
 using System.Collections.Generic;
-using Word = Microsoft.Office.Interop.Word;
+using System.Diagnostics;
 
 namespace CoverageKiller2.DOM
 {
@@ -10,27 +12,25 @@ namespace CoverageKiller2.DOM
     /// and closing documents in a controlled environment.
     /// </summary>
     /// <remarks>
-    /// Version: CK2.00.00.0002
+    /// Version: CK2.00.00.0009
     /// </remarks>
     public class CKApplication : IDisposable
     {
-        private readonly Word.Application _wordApp;
+        private readonly Application _wordApp;
         private readonly List<CKDocument> _documents = new List<CKDocument>();
+        private readonly Dictionary<CKDocument, Document> _comDocs = new Dictionary<CKDocument, Document>();
+        private readonly string _PID;
+        private bool disposedValue;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CKApplication"/> class with an existing Word.Application.
+        /// Whether this CKApplication instance is responsible for disposing the Word instance.
         /// </summary>
-        /// <param name="wordApp">The Word application instance to wrap.</param>
-        public CKApplication(Word.Application wordApp)
-        {
-            _wordApp = wordApp ?? throw new ArgumentNullException(nameof(wordApp));
-            Log.Information("CKApplication created.");
-        }
+        public bool IsOwned { get; private set; }
 
         /// <summary>
-        /// The raw Word application instance.
+        /// Gets the raw Word application instance.
         /// </summary>
-        public Word.Application WordApp => _wordApp;//<GPT no more public COM objects.
+        public Application WordApp => _wordApp;
 
         /// <summary>
         /// Indicates whether this application is the VSTO ThisAddIn instance.
@@ -38,33 +38,56 @@ namespace CoverageKiller2.DOM
         public bool IsAddIn => ReferenceEquals(_wordApp, Globals.ThisAddIn?.Application);
 
         /// <summary>
-        /// Gets the documents currently open in this application.
+        /// Gets the process ID of the associated Word instance.
+        /// </summary>
+        public string PID => _PID;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CKApplication"/> class.
+        /// </summary>
+        /// <param name="wordApp">The Word application to wrap.</param>
+        /// <param name="pid">The process ID of the Word instance.</param>
+        /// <param name="isOwned">Whether CKOffice is responsible for cleanup.</param>
+        public CKApplication(Application wordApp, int pid, bool isOwned = true)
+        {
+            LH.Ping(GetType());
+            _wordApp = wordApp ?? throw new ArgumentNullException(nameof(wordApp));
+            IsOwned = isOwned;
+            _PID = pid.ToString();
+
+            Log.Verbose("CKApplication ctor success [{PID}] (Owned={IsOwned})", _PID, IsOwned);
+            LH.Pong(GetType());
+        }
+
+        /// <summary>
+        /// Gets all CKDocuments currently tracked by this application.
         /// </summary>
         public IReadOnlyList<CKDocument> Documents => _documents.AsReadOnly();
 
         /// <summary>
-        /// Opens a document and wraps it in a <see cref="CKDocument"/>.
+        /// Opens a document from disk and wraps it in a CKDocument.
         /// </summary>
-        /// <param name="fullPath">The full file path to the document.</param>
-        /// <param name="visible">Whether the document should be visible when opened.</param>
-        /// <returns>A new <see cref="CKDocument"/> wrapping the opened Word document.</returns>
-        public CKDocument GetDocument(string fullPath, bool visible)
+        public CKDocument GetDocument(string fullPath, bool visible = false)
         {
+            LH.Ping(GetType());
             if (string.IsNullOrWhiteSpace(fullPath))
                 throw new ArgumentException("Invalid file path.", nameof(fullPath));
 
             try
             {
                 Log.Information("Opening document from path: {Path}", fullPath);
-                var doc = _wordApp.Documents.Open(
+                var comDoc = _wordApp.Documents.Open(
                     FileName: fullPath,
-                    ReadOnly: false,
+                    ReadOnly: true,
                     Visible: visible
                 );
 
-                var ckDoc = new CKDocument(doc, this);
+                var ckDoc = new CKDocument(comDoc, this);
                 _documents.Add(ckDoc);
-                Log.Information("Document opened and tracked: {Path}", fullPath);
+                _comDocs[ckDoc] = comDoc;
+
+                Log.Information("Document opened and tracked: {fileName}", ckDoc.FileName);
+                LH.Pong(GetType());
                 return ckDoc;
             }
             catch (Exception ex)
@@ -75,20 +98,36 @@ namespace CoverageKiller2.DOM
         }
 
         /// <summary>
-        /// Closes and removes the specified document from the application.
+        /// Closes and removes the specified document.
         /// </summary>
-        /// <param name="doc">The document to close and remove.</param>
-        /// <returns>True if successfully closed and removed; otherwise false.</returns>
-        public bool CloseDocument(CKDocument doc)
+        public bool CloseDocument(CKDocument doc, bool force = false)
         {
             if (doc == null || !_documents.Contains(doc))
                 return false;
 
             try
             {
-                doc.Dispose();
+                if (force && _comDocs.TryGetValue(doc, out var comDoc))
+                {
+                    try
+                    {
+                        comDoc.Close(SaveChanges: false);
+                    }
+                    catch (Exception ex)
+                    {
+                        Log.Warning("Force-close failed on COM document: {Message}", ex.Message);
+                    }
+                }
+                else
+                {
+                    if (Debugger.IsAttached) Debugger.Break();
+                }
+
+                doc.Dispose(); // Calls UntrackDocument internally
                 _documents.Remove(doc);
-                Log.Information("Document closed and removed from tracking: {Path}", doc.FullPath);
+                _comDocs.Remove(doc);
+
+                Log.Information("Document closed and removed from tracking: {FileName}", doc.FileName);
                 return true;
             }
             catch (Exception ex)
@@ -99,17 +138,16 @@ namespace CoverageKiller2.DOM
         }
 
         /// <summary>
-        /// Unregisters a document that has been disposed or closed externally.
+        /// Stops tracking a disposed document.
         /// </summary>
-        /// <param name="doc">The document to unregister.</param>
-        /// <returns>True if the document was removed; otherwise false.</returns>
         public bool UntrackDocument(CKDocument doc)
         {
+            _comDocs.Remove(doc);
             return _documents.Remove(doc);
         }
 
         /// <summary>
-        /// Closes and disposes of this application and all associated documents.
+        /// Disposes the application and optionally quits Word.
         /// </summary>
         public void Dispose()
         {
@@ -117,33 +155,20 @@ namespace CoverageKiller2.DOM
             GC.SuppressFinalize(this);
         }
 
-        private bool disposedValue;
-
         /// <summary>
-        /// Internal dispose logic.
+        /// Internal dispose logic. Quits Word only if this is an owned instance.
         /// </summary>
-        /// <param name="disposing">True if called from Dispose(), false if from finalizer.</param>
         protected virtual void Dispose(bool disposing)
         {
             if (!disposedValue)
             {
                 if (disposing)
                 {
-                    Log.Information("Disposing CKApplication and closing documents.");
+                    Log.Information($"Disposing CKApplication({PID}) and closing documents.");
 
                     foreach (var doc in _documents.ToArray())
                     {
-                        try
-                        {
-                            if (doc.IsOrphan)
-                            {
-                                Log.Warning("Skipping orphaned document: {Path}", doc.FullPath);
-                            }
-                            else
-                            {
-                                doc.Dispose();
-                            }
-                        }
+                        try { CloseDocument(doc, force: true); }
                         catch (Exception ex)
                         {
                             Log.Error("Error disposing document: {Message}", ex.Message);
@@ -151,14 +176,22 @@ namespace CoverageKiller2.DOM
                     }
 
                     _documents.Clear();
+                    _comDocs.Clear();
 
-                    try
+                    if (!IsOwned)
                     {
-                        _wordApp.Quit();
+                        Log.Information("CKApplication({PID}) is not owned; skipping WordApp.Quit().", PID);
                     }
-                    catch (Exception ex)
+                    else
                     {
-                        Log.Warning("Word application failed to quit cleanly: {Message}", ex.Message);
+                        try
+                        {
+                            _wordApp.Quit();
+                        }
+                        catch (Exception ex)
+                        {
+                            Log.Warning("Word application failed to quit cleanly: {Message}", ex.Message);
+                        }
                     }
                 }
 

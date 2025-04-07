@@ -1,5 +1,9 @@
 Hello ChatGPT! Please see any standing instructions included below, and include them in the prompt. Have a great day!
 
+C# version 7.3 
+.Net Framework 4.7.2
+MS Office COM library: Microsoft.Office.Interop.Word
+
 Versioning:
 Every response including the declaration of a C# type declaration
 On the line directly following the declaration add a comment including the following:
@@ -13,3 +17,4 @@ Other:
 For any C# type or public member declaration, please add the xml documntation comment.
 Check code for comments marked GPT. those are for you!
 
+Tracking of Word Applications: Instances are primarily headless. Hwnd should not be used.

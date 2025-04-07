@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CoverageKiller2.Logging;
+using System;
 using Word = Microsoft.Office.Interop.Word;
 
 namespace CoverageKiller2.DOM
@@ -22,7 +23,9 @@ namespace CoverageKiller2.DOM
         /// <exception cref="ArgumentNullException">Thrown when the paragraph parameter is null.</exception>
         public CKParagraph(Word.Paragraph paragraph) : base(paragraph?.Range)
         {
+            LH.Ping(GetType());
             COMParagraph = paragraph ?? throw new ArgumentNullException(nameof(paragraph));
+            LH.Pong(GetType());
         }
 
         /// <summary>

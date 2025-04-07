@@ -82,5 +82,29 @@ namespace CoverageKiller2.Properties {
                 this["LastLogFile"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Program Files\\LogExpert.1.12.0\\LogExpert.exe")]
+        public string LogExpertPath {
+            get {
+                return ((string)(this["LogExpertPath"]));
+            }
+            set {
+                this["LogExpertPath"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string PreviousAppRecords {
+            get {
+                return ((string)(this["PreviousAppRecords"]));
+            }
+            set {
+                this["PreviousAppRecords"] = value;
+            }
+        }
     }
 }

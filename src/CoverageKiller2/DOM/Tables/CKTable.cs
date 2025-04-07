@@ -9,42 +9,45 @@ namespace CoverageKiller2.DOM.Tables
     /// <summary>
     /// Provides methods for manipulating a Word table.
     /// </summary>
-
-
+    /// <remarks>
+    /// Version: CK2.00.00.0000
+    /// </remarks>
     public class CKTable : CKRange
     {
-        public static CKTable FromRange(Word.Range wordRange)
+        /// <summary>
+        /// Creates a CKTable from a Word range, using the provided parent to resolve document context.
+        /// </summary>
+        /// <param name="wordRange">The Word.Range to extract the table from.</param>
+        /// <param name="parent">The logical parent DOM object.</param>
+        /// <returns>A CKTable instance for the contained table.</returns>
+        [Obsolete("Requires exposed COM object")]
+        public static CKTable FromRange(Word.Range wordRange, IDOMObject parent)
         {
             if (wordRange == null) throw new ArgumentNullException(nameof(wordRange));
             if (wordRange.Tables.Count == 0)
                 throw new ArgumentException($"{nameof(wordRange)} does not contain a table.");
 
-            Word.Document wordDoc = wordRange.Document;
-            CKDocument doc = CKDocuments.GetByCOMDocument(wordDoc);
+            var doc = parent.Document;
             var foundTable = doc.Tables
                 .Where(t => t.COMRange.Contains(wordRange))
                 .FirstOrDefault();
 
-            return foundTable ?? new CKTable(wordRange.Tables[1]);
+            return foundTable ?? new CKTable(wordRange.Tables[1], parent);
         }
 
-        // Instance Fields
-        //private CKTableGrid Grid { get; set; }
-        private CKTableGrid Grid => throw new NotImplementedException("DEBUG");//DEBUG
+        private CKTableGrid Grid => CKTableGrid.GetInstance(this, COMTable);
         private CKCellRefConverterService _converterService;
 
-        // Constructors
-        public CKTable(Word.Table table) : base(table.Range)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CKTable"/> class.
+        /// </summary>
+        /// <param name="table">The Word table to wrap.</param>
+        /// <param name="parent">The logical parent DOM object.</param>
+        public CKTable(Word.Table table, IDOMObject parent) : base(table.Range, parent)
         {
-            COMTable = table;
-
-            //Grid = CKTableGrid.GetInstance(table);//DEBUG
+            COMTable = table ?? throw new ArgumentNullException(nameof(table));
             _converterService = new CKCellRefConverterService(this);
         }
-
-        // Properties
-
-
 
         /// <summary>
         /// Remove from external references. Will be hidden.
@@ -56,60 +59,55 @@ namespace CoverageKiller2.DOM.Tables
         /// </summary>
         public CKRows Rows => throw new NotImplementedException();
 
-
-
         /// <summary>
         /// Gets the columns of the table.
         /// </summary>
         public IEnumerable<CKColumn> Columns => throw new NotImplementedException();
 
+        /// <summary>
+        /// Gets the conversion helper service for this table.
+        /// </summary>
         public CKCellRefConverterService Converters => _converterService;
 
-        public class CKCellRefConverterService
-        {
-            public CKCellRefConverterService(CKTable table)
-            {
-                Table = table;
-            }
-            public CKTable Table { get; private set; }
-
-            public CKTableGrid Grid => Table.Grid;
-
-        }
-
+        /// <summary>
+        /// Retrieves the CKCell at the given reference.
+        /// </summary>
         public CKCell Cell(CKCellRef cellRef)
         {
             var gridCellRef = Converters.GetGridCellRef(cellRef);
             var wordCell = COMTable.Cell(cellRef.WordRow, cellRef.WordCol);
             return new CKCell(this, cellRef.Parent, wordCell, gridCellRef.Y1 + 1, gridCellRef.X1 + 1);
         }
-
+        /// <summary>
+        /// Returns one-based indexes of cells in the given Word.Cells collection.
+        /// </summary>
         public IEnumerable<int> IndexesOf(Word.Cells wordCells)
         {
             var tableCellList = COMTable.Range.Cells.ToList();
-
-            var matches = wordCells.AsEnumerable().
-                Select(c => IndexOf(c, tableCellList));
-
-            return matches;
+            return wordCells.AsEnumerable()
+                .Select(c => IndexOf(c, tableCellList));
         }
 
+        /// <summary>
+        /// Returns the one-based index of a Word.Cell within the table.
+        /// </summary>
         public int IndexOf(Word.Cell wordCell, List<Word.Cell> tableCells = null)
         {
-            var tableCellList = tableCells ?? COMTable.Range.Cells.ToList(); //expensive!!
+            var tableCellList = tableCells ?? COMTable.Range.Cells.ToList();
             return tableCellList.FindIndex(c => c.Range.COMEquals(wordCell.Range)) + 1;
         }
 
+        /// <summary>
+        /// Returns one-based indexes of cells in a CKCells collection.
+        /// </summary>
         public IEnumerable<int> IndexesOf(CKCells cells)
         {
             IEnumerable<GridCell> masterCells = Grid.GetMasterCells();
-
             IEnumerable<GridCell> findCells = cells
                 .Select(c => Converters.GetGridCellRef(c.CellRef))
                 .Select(c => Grid.GetMasterCells(c).First());
 
-            var matches = findCells.Select(c => IndexOf(c, masterCells));
-            return matches;
+            return findCells.Select(c => IndexOf(c, masterCells));
         }
 
         private int IndexOf(GridCell c, IEnumerable<GridCell> masterCells = null)
@@ -118,39 +116,52 @@ namespace CoverageKiller2.DOM.Tables
             return masterList.IndexOf(c);
         }
 
+        /// <summary>
+        /// Retrieves a CKCell by one-based linear index.
+        /// </summary>
         public CKCell Cell(int index)
         {
             var gridCellRef = Converters.GetGridCellRef(index);
             var wordCell = COMTable.Range.Cells[index];
             return new CKCell(this, this, wordCell, gridCellRef.Y1 + 1, gridCellRef.X1 + 1);
         }
+
+        /// <summary>
+        /// Provides conversion services for cell reference and grid mapping.
+        /// </summary>
+        public class CKCellRefConverterService
+        {
+            /// <summary>
+            /// Initializes a new instance for the given CKTable.
+            /// </summary>
+            public CKCellRefConverterService(CKTable table)
+            {
+                Table = table;
+            }
+
+            /// <summary>
+            /// The owning CKTable.
+            /// </summary>
+            public CKTable Table { get; private set; }
+
+            /// <summary>
+            /// The associated CKTableGrid for the table.
+            /// </summary>
+            public CKTableGrid Grid => Table.Grid;
+        }
     }
     /// <summary>
     /// Represents a collection of <see cref="CKTable"/> objects associated with a <see cref="CKRange"/>.
     /// </summary>
+    /// <remarks>
+    /// Version: CK2.00.00.0000
+    /// </remarks>
     public class CKTables : ACKRangeCollection, IEnumerable<CKTable>
     {
         /// <summary>
-        /// Gets the underlying Word.Tables COM object from the parent range.
-        /// Note that there is only one Tables property, so calling back to it
-        /// instead of storing a reference every time is acceptable.
+        /// Initializes a new instance of the <see cref="CKTables"/> class from the specified parent range.
         /// </summary>
-        public Word.Tables COMTables => Parent.COMRange.Tables;
-
-        /// <summary>
-        /// Returns a string that represents the current <see cref="CKTables"/> instance.
-        /// </summary>
-        /// <returns>A string containing the count of tables.</returns>
-        public override string ToString()
-        {
-            // Since CKRange doesn't provide a file path, we simply return the count.
-            return $"CKTables [Count: {Count}]";
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="CKTables"/> class.
-        /// </summary>
-        /// <param name="parent">The parent <see cref="CKRange"/> to associate with this instance.</param>
+        /// <param name="parent">The parent <see cref="CKRange"/> object that owns the tables.</param>
         public CKTables(CKRange parent) : base(parent) { }
 
         /// <summary>
@@ -159,9 +170,9 @@ namespace CoverageKiller2.DOM.Tables
         public override int Count => COMTables.Count;
 
         /// <summary>
-        /// optimize this if there's a big delay here.
+        /// Gets the underlying Word.Tables COM object from the parent range.
         /// </summary>
-        public override bool IsDirty => _isDirty || this.Any(x => x.IsDirty);
+        public Word.Tables COMTables => Parent.COMRange.Tables;
 
         /// <summary>
         /// Gets the <see cref="CKTable"/> at the specified one-based index.
@@ -179,32 +190,25 @@ namespace CoverageKiller2.DOM.Tables
                 {
                     throw new ArgumentOutOfRangeException(nameof(index), "Index must be between 1 and the number of tables.");
                 }
-                return new CKTable(COMTables[index]);
+                return new CKTable(COMTables[index], this);
             }
         }
 
         /// <summary>
-        /// Determines the one-based index of the specified <see cref="CKTable"/> in the collection.
+        /// Returns a string that represents the current <see cref="CKTables"/> instance.
         /// </summary>
-        /// <param name="targetTable">The table to locate in the collection.</param>
-        /// <returns>
-        /// The one-based index of the table if found; otherwise, -1.
-        /// </returns>
-        //public int IndexOf(CKTable targetTable)
-        //{
-        //    for (int i = 1; i <= Count; i++)
-        //    {
-        //        var table = COMTables[i];
+        /// <returns>A string containing the count of tables.</returns>
+        public override string ToString()
+        {
+            return $"CKTables [Count: {Count}]";
+        }
 
-        //        // Compare by checking that both tables have the same start and end range
-        //        if (table.Range.Start == targetTable.COMObject.Range.Start &&
-        //            table.Range.End == targetTable.COMObject.Range.End)
-        //        {
-        //            return i;
-        //        }
-        //    }
-        //    return -1;
-        //}
+        /// <summary>
+        /// Gets whether this collection or any contained table is dirty.
+        /// </summary>
+        public override bool IsDirty => _isDirty || this.Any(x => x.IsDirty);
+
+        public override bool IsOrphan => throw new NotImplementedException();
 
         /// <summary>
         /// Returns an enumerator that iterates through the <see cref="CKTable"/> objects in the collection.
@@ -224,4 +228,5 @@ namespace CoverageKiller2.DOM.Tables
         /// <returns>An enumerator for the collection.</returns>
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
     }
+
 }

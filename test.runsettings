@@ -3,5 +3,6 @@
 	<RunConfiguration>
 		<TargetPlatform>x64</TargetPlatform>
 		<ExecutionThread apartmentState="STA" />
+		<MaxCpuCount>1</MaxCpuCount>
 	</RunConfiguration>
 </RunSettings>

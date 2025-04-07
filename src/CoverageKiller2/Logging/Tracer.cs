@@ -6,87 +6,89 @@ using System.Runtime.CompilerServices;
 
 namespace CoverageKiller2.Logging
 {
+    /// <summary>
+    /// Marker attribute indicating that a property is unsafe for tracing.
+    /// </summary>
     [AttributeUsage(AttributeTargets.Property)]
-    public class UnsafeTraceAttribute : Attribute
-    {
-        // This attribute class doesn't need to store any values.
-        // It serves as a marker to identify properties as unsafe for tracing.
-    }
+    public class UnsafeTraceAttribute : Attribute { }
+
+    /// <summary>
+    /// Provides structured tracing and stashing of values for debugging.
+    /// </summary>
+    /// <remarks>CK2.00.00.0000</remarks>
     public class Tracer
     {
         public bool Enabled { get; set; } = true;
+        public int IndentTabs { get; }
+
         private readonly Dictionary<string, string> _dict = new Dictionary<string, string>();
         private readonly Type _ownerType;
-        public Tracer(Type ownerType)
+
+        public Tracer(Type ownerType, int indentTabs = 1)
         {
             _ownerType = ownerType;
+            IndentTabs = indentTabs;
         }
 
-
+        /// <summary>
+        /// Stores a named value (converted to string).
+        /// </summary>
         public void Stash(string name, object value)
         {
             _dict[name] = value?.ToString() ?? "[NULL]";
         }
+
+        /// <summary>
+        /// Retrieves a previously stashed value by name.
+        /// </summary>
         public string Recall(string name)
         {
-            var recallSuccess = _dict.TryGetValue(name, out var value);
-            if (!recallSuccess)
-                value = "[NO RECALL]";
-            else if (value == string.Empty)
-                value = " -- ";
-
-            return value;
+            return _dict.TryGetValue(name, out var value)
+                ? (string.IsNullOrEmpty(value) ? " -- " : value)
+                : "[NO RECALL]";
         }
-        public void StashProperty<T>(string propertyName, T valueToStash)
+
+        /// <summary>
+        /// Tries to stash the value of a specific property from an object.
+        /// Honors UnsafeTraceAttribute.
+        /// </summary>
+        public void StashProperty<T>(string propertyName, T target)
         {
             try
             {
-                var propertyInfo = typeof(T).GetProperty(propertyName);
+                var prop = typeof(T).GetProperty(propertyName);
 
-                if (propertyInfo == null)
+                if (prop == null)
                 {
-                    Serilog.Log.Debug("[WARNING] Trace => Could not Stash. Property {propertyName} is not a member of {valueToStashType}",
-                        propertyName,
-                        valueToStash.GetType());
-                    return; // Exit early if property is not found
+                    Serilog.Log.Debug("[WARNING] Trace => Could not Stash. Property {Property} is not a member of {Type}", propertyName, target?.GetType());
+                    return;
                 }
 
-                // Check if the property has the UnsafeTraceAttribute
-                if (Attribute.IsDefined(propertyInfo, typeof(UnsafeTraceAttribute)))
+                if (Attribute.IsDefined(prop, typeof(UnsafeTraceAttribute)))
                 {
                     Stash(propertyName, "[UNSAFE]");
                 }
                 else
                 {
-                    // Safely access and stash property value if no UnsafeTrace attribute is present
-                    try
-                    {
-                        var value = propertyInfo.GetValue(valueToStash)?.ToString() ?? "[NULL]";
-                        Stash(propertyName, value);
-                    }
-                    catch (Exception ex)
-                    {
-                        Serilog.Log.Debug("Trace [ERROR] => Failed to access property {propertyName} on {valueToStashType}: {message}",
-                            propertyName,
-                            valueToStash.GetType(),
-                            ex.Message);
-                    }
+                    var val = prop.GetValue(target)?.ToString() ?? "[NULL]";
+                    Stash(propertyName, val);
                 }
             }
             catch (Exception ex)
             {
-                Serilog.Log.Debug("Trace [ERROR] => Unexpected error in StashProperty: {message}", ex.Message);
+                Serilog.Log.Debug("Trace [ERROR] => Failed to stash property {Property} on {Type}: {Error}", propertyName, target?.GetType(), ex.Message);
                 Debugger.Break();
             }
         }
 
+        /// <summary>
+        /// Stashes a value and returns it, using the caller's method name by default.
+        /// </summary>
         public T Trace<T>(T operation, string name = "", [CallerMemberName] string callerName = "")
         {
-            name = !string.IsNullOrEmpty(name) ? name : callerName;
-            {
-                Stash(name, operation);
-                return operation;
-            }
+            var finalName = string.IsNullOrWhiteSpace(name) ? callerName : name;
+            Stash(finalName, operation);
+            return operation;
         }
 
         [Flags]
@@ -97,118 +99,63 @@ namespace CoverageKiller2.Logging
             Force = 1 << 1
         }
 
-        public void Log(
-            string message,
-            LogOptions logOptions = LogOptions.None,
-            [CallerMemberName] string memberName = "")
+        public void Log(string message, LogOptions options = LogOptions.None, [CallerMemberName] string memberName = "")
+            => Log(message, string.Empty, new DataPoints(), options, memberName);
+
+        public void Log(string message, IEnumerable<(string, object)> dataPoints, LogOptions options = LogOptions.None, [CallerMemberName] string memberName = "")
+            => Log(message, string.Empty, dataPoints, options, memberName);
+
+        public void Log(string message, string tag, LogOptions options = LogOptions.None, [CallerMemberName] string memberName = "")
+            => Log(message, tag, new DataPoints(), options, memberName);
+
+        public void Log(string message, string tag, IEnumerable<(string, object)> dataPoints, LogOptions options = LogOptions.None, [CallerMemberName] string memberName = "")
         {
-            Log(message,
-                string.Empty,
-                new DataPoints(),
-                logOptions,
-                memberName);
-        }
-
-        public void Log(
-            string message,
-            IEnumerable<(string, object)> dataPoints,
-            LogOptions logOptions = LogOptions.None,
-            [CallerMemberName] string memberName = "")
-        {
-            Log(message,
-                string.Empty,
-                dataPoints,
-                logOptions,
-                memberName);
-        }
-
-        public void Log(
-            string message,
-            string tag,
-            LogOptions logOptions = LogOptions.None,
-            [CallerMemberName] string memberName = "")
-        {
-            Log(message,
-                tag,
-                new DataPoints(),
-                logOptions,
-                memberName);
-        }
-
-
-
-        public void Log(
-            string message,
-            string tag,
-            IEnumerable<(string, object)> dataPoints,
-            LogOptions options = LogOptions.None,
-            [CallerMemberName] string memberName = "")
-        {
-            if (!options.HasFlag(LogOptions.Force))
-            {
-                if (options.HasFlag(LogOptions.Ignore) || !Enabled) return;
-            }
+            if (!options.HasFlag(LogOptions.Force) && (!Enabled || options.HasFlag(LogOptions.Ignore)))
+                return;
 
             try
             {
-                // Prepare the base of the message template
-                var formattedMessage = $"Trace {tag ?? string.Empty} => {_ownerType.Name}.{memberName}";
+                var formatted = $"Trace {tag ?? string.Empty} => {_ownerType.Name}.{memberName}";
+                formatted += message is null ? "\n" : $" :: {message}";
 
-                // Check if the message is null
-                formattedMessage += message is null ? "\n" : $" :: {message}";
-
-
-
-
-                // Add recalled values to the message
-                foreach (var dataPoint in dataPoints)
+                foreach (var (key, val) in dataPoints)
                 {
-                    string stashedName = string.Empty;
-
-                    if (dataPoint.Item2 is DataPoints.Actions action && action == DataPoints.Actions.RecallValue)
+                    if (val is DataPoints.Actions action && action == DataPoints.Actions.RecallValue)
                     {
-                        stashedName = dataPoint.Item1;
+                        formatted += $"\n{new string('\t', IndentTabs)}{key} = {Recall(key)}";
                     }
                     else
                     {
-                        stashedName = dataPoint.Item1;
-                        Stash(stashedName, dataPoint.Item2);
+                        Stash(key, val);
+                        formatted += $"\n{new string('\t', IndentTabs)}{key} = {val}";
                     }
-
-                    formattedMessage += $"\n\t\t{stashedName} = {Recall(stashedName)}";
                 }
 
-                // Perform the logging
-                Serilog.Log.Debug(formattedMessage);
+                Serilog.Log.Verbose(formatted);
             }
             catch (Exception ex)
             {
-                Serilog.Log.Debug($"Trace [ERROR] => Unexpected error in {nameof(Tracer)}.{nameof(Log)}: {message}", ex.Message);
+                Serilog.Log.Verbose($"Trace [ERROR] => Unexpected error in {nameof(Tracer)}.{nameof(Log)}: {message} :: {ex.Message}");
                 Debugger.Break();
             }
         }
-
-        //internal void Log(string message, string tag, Type className, string memberName)
-        //{
-        //    if (!Enabled) return;
-
-        //    var formattedMessage = $"Trace {tag ?? string.Empty} => {className.Name}.{memberName}";
-
-        //    // Check if the message is null
-        //    formattedMessage += message is null ? "\n" : $" :: {message}";
-
-        //    Serilog.Log.Debug(formattedMessage);
-        //}
-
-
     }
+
+    /// <summary>
+    /// A collection of named data points used in logging and tracing.
+    /// </summary>
+    /// <remarks>CK2.00.00.0000</remarks>
     public class DataPoints : IEnumerable<(string, object)>
     {
         private readonly List<(string, object)> _items = new List<(string, object)>();
-        public enum Actions
-        {
-            RecallValue
-        }
+
+        public enum Actions { RecallValue }
+
+        public DataPoints() { }
+
+        public DataPoints(string recallName) => Add(recallName);
+
+        public DataPoints(string name, object value) => Add(name, value);
 
         public DataPoints Add(string name, object value)
         {
@@ -222,63 +169,19 @@ namespace CoverageKiller2.Logging
             return this;
         }
 
-        public DataPoints()
-        {
+        public IEnumerator<(string, object)> GetEnumerator() => _items.GetEnumerator();
 
-        }
-        public DataPoints(string recallName)
-        {
-            _items.Add((recallName, (object)Actions.RecallValue));
-        }
-
-        public DataPoints(string dataPointName, object dataPoint)
-        {
-            _items.Add((dataPointName, dataPoint));
-        }
-        //public DataPoints(params object[] dataPoints)
-        //{
-        //    foreach (object item in dataPoints)
-        //    {
-        //        (string, object) dataPoint;
-
-        //        bool isTwoParamTuple = item != null
-        //            && item.GetType().IsGenericType
-        //            && item.GetType().GetGenericTypeDefinition() == typeof(ValueTuple<,>);
-        //        if (isTwoParamTuple)
-        //        {
-        //            dataPoint = //what to do here?
-
-
-        //        }
-        //        else if (item is string)
-        //        {
-        //            dataPoint = ((string)item, Actions.RecallValue);
-        //        }
-        //        else
-        //        {
-        //            dataPoint = ("[ERROR]",
-        //                $"Attempt to log invalid Datapoint: {item.ToString()}. Are you casting your Tuple item 2 to (object)?");
-        //        }
-
-        //        _items.Add(dataPoint);
-        //    }
-        //}
-
-        public IEnumerator<(string, object)> GetEnumerator()
-        {
-            return _items.GetEnumerator();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
-        }
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
     }
+
+    /// <summary>
+    /// Extension method for enums to test flag presence (mainly for LogOptions).
+    /// </summary>
+    /// <remarks>CK2.00.00.0000</remarks>
     public static class TracerEnumExtensions
     {
         public static bool HasFlag(this Enum flags, Enum flag)
         {
-            // Convert enums to integers and perform a bitwise AND comparison
             int flagsValue = Convert.ToInt32(flags);
             int flagValue = Convert.ToInt32(flag);
             return (flagsValue & flagValue) == flagValue;

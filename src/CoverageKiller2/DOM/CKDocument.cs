@@ -1,6 +1,8 @@
 ﻿using CoverageKiller2.DOM.Tables;
 using CoverageKiller2.Logging;
+using K4os.Hash.xxHash;
 using System;
+using System.IO;
 using System.Runtime.InteropServices;
 using Word = Microsoft.Office.Interop.Word;
 
@@ -27,6 +29,8 @@ namespace CoverageKiller2.DOM
         /// The full file path of the underlying document.
         /// </summary>
         public string FullPath => _fullPath;
+
+        public string FileName => Path.GetFileName(_fullPath);
 
         /// <summary>
         /// Provides access to the document's tables as a CKTables collection.
@@ -57,6 +61,27 @@ namespace CoverageKiller2.DOM
                 catch (Exception) { return true; }
             }
         }
+        private string _logId;
+
+        /// <summary>
+        /// Gets a short unique identifier for this document instance, suitable for log tracing.
+        /// </summary>
+        public string LogId => _logId is null ? GenerateLogId() : _logId;
+
+        private string GenerateLogId()
+        {
+            try
+            {
+                var seed = $"{DateTime.UtcNow.Ticks}|{Guid.NewGuid()}|DOC|{_fullPath}";
+                var bytes = System.Text.Encoding.UTF8.GetBytes(seed);
+                ulong hash = XXH64.DigestOf(bytes);
+                return hash.ToString("X8");
+            }
+            catch
+            {
+                return "UNKNOWN";
+            }
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CKDocument"/> class from an existing Word.Document.
@@ -78,14 +103,38 @@ namespace CoverageKiller2.DOM
         /// </summary>
         /// <param name="sectionIndex">The 1-based index of the section to delete.</param>
         /// <exception cref="ArgumentOutOfRangeException">Thrown if index is outside valid range.</exception>
+        /// <summary>
+        /// Deletes the specified section in a Word document, including all its content
+        /// and the section break that follows it.
+        /// </summary>
+        /// <param name="doc">The Word document containing the section.</param>
+        /// <param name="sectionIndex">The 1-based index of the section to delete.</param>
         public void DeleteSection(int sectionIndex)
         {
-            Tracer.Log("Deleting Section", new DataPoints().Add(nameof(sectionIndex), sectionIndex));
-            if (sectionIndex < 1 || sectionIndex > _comDocument.Sections.Count)
-                throw new ArgumentOutOfRangeException(nameof(sectionIndex), "Section index is out of range.");
-            Word.Section sectionToDelete = _comDocument.Sections[sectionIndex];
-            Word.Range extendedRange = _comDocument.Range(sectionToDelete.Range.Start - 1, sectionToDelete.Range.End);
-            extendedRange.Delete();
+            var sections = _comDocument.Sections;
+            // Word uses 1-based indexing for sections.
+            if (sectionIndex < 1 || sectionIndex > sections.Count)
+                throw new ArgumentOutOfRangeException(nameof(sectionIndex), "Invalid section index.");
+
+            // Get the section to delete.
+            Word.Section section = sections[sectionIndex];
+
+            // Get the full range of the section. This includes the section break that follows it.
+            Word.Range sectionRange = section.Range;
+
+            // If this is the *last* section, the range includes the final paragraph mark of the document.
+            // Trying to delete that will make Word sad (and by sad, I mean unstable or crashy).
+            if (sectionIndex == sections.Count)
+            {
+                // So we shrink the range by 1 character to preserve the final paragraph mark.
+                sectionRange.End -= 1;
+            }
+
+            // Delete the section and everything in it, including the section break *after* it.
+            // The section break *before* it (if any) is NOT deleted, so the document remains well-formed.
+            sectionRange.Delete();
+
+            // Done. Word will automatically renumber the remaining sections.
         }
 
         /// <summary>

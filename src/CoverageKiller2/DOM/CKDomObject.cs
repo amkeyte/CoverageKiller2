@@ -34,4 +34,17 @@
         /// </summary>
         bool IsOrphan { get; }
     }
+
+    public abstract class CKDOMObject : IDOMObject
+    {
+        public CKDocument Document => Parent.Document;
+
+        public CKApplication Application => Parent.Application;
+
+        public abstract IDOMObject Parent { get; protected set; }
+
+        public abstract bool IsDirty { get; protected set; }
+
+        public abstract bool IsOrphan { get; protected set; }
+    }
 }

@@ -40,7 +40,7 @@ namespace CoverageKiller2.DOM
         public CKRange(Word.Range range, IDOMObject parent = null)
         {
             COMRange = range ?? throw new ArgumentNullException(nameof(range));
-            Parent = parent ?? CKDocuments.GetByCOMDocument(COMRange.Document);
+            //Parent = parent ?? CKDocuments.GetByCOMDocument(COMRange.Document);
             _cachedCharCount = COMRange.Characters.Count;
             _cachedText = COMRange.Text;
             // Initialize cached boundary values.
@@ -51,6 +51,8 @@ namespace CoverageKiller2.DOM
         #endregion
 
         #region Public Properties
+
+        public CKCells Cells => throw new NotImplementedException();
 
         /// <summary>
         /// Gets the underlying Word.Range COM object.

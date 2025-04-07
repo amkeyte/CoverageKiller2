@@ -17,5 +17,11 @@
     <Setting Name="LastLogFile" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
+    <Setting Name="LogExpertPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\Program Files\LogExpert.1.12.0\LogExpert.exe</Value>
+    </Setting>
+    <Setting Name="PreviousAppRecords" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
   </Settings>
 </SettingsFile>

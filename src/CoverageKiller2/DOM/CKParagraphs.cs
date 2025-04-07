@@ -29,6 +29,8 @@ namespace CoverageKiller2.DOM
 
         public override bool IsDirty => throw new NotImplementedException();
 
+        public override bool IsOrphan => throw new NotImplementedException();
+
         /// <summary>
         /// Gets the <see cref="CKParagraph"/> at the specified one-based index.
         /// </summary>

@@ -9,35 +9,36 @@ namespace CoverageKiller2.DOM.Tables
 {
     public class CKTableGrid
     {
-        private static Dictionary<CKRange, CKTableGrid> _tableGrids = new Dictionary<CKRange, CKTableGrid>();
-
+        private static Dictionary<CKTable, CKTableGrid> _tableGrids = new Dictionary<CKTable, CKTableGrid>();
+        private CKTable _parent;
         private Word.Table _table;
-        private GridCell[,] _grid;
+        internal GridCell[,] _grid;
 
         // 🍽 Shared across all internal grid ops
         internal int RowCount { get; set; }
         internal int ColCount { get; set; }
 
-        public static CKTableGrid GetInstance(Word.Table table)
+        public static CKTableGrid GetInstance(CKTable parent, Word.Table table)
         {
-            var tableRange = new CKRange(table.Range);
+
 
             _tableGrids.Keys.Where(r => r.IsOrphan).ToList()
                 .ForEach(r => _tableGrids.Remove(r));
 
-            if (_tableGrids.TryGetValue(tableRange, out CKTableGrid grid))
+            if (_tableGrids.TryGetValue(parent, out CKTableGrid grid))
             {
                 return grid;
             }
 
-            grid = new CKTableGrid(table);
-            _tableGrids.Add(tableRange, grid);
+            grid = new CKTableGrid(parent, table);
+            _tableGrids.Add(parent, grid);
 
             return grid;
         }
 
-        private CKTableGrid(Word.Table table)
+        private CKTableGrid(CKTable parent, Word.Table table)
         {
+            _parent = parent;
             _table = table;
             BuildGrid();
         }

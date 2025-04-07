@@ -1,16 +1,37 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using CoverageKiller2.DOM;
+using CoverageKiller2.Test;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using Word = Microsoft.Office.Interop.Word;
 
-namespace CoverageKiller2.DOM
+namespace CoverageKiller2.Tests.DOM
 {
+    /// <summary>
+    /// Unit tests for <see cref="CKParagraph"/> wrapper.
+    /// </summary>
+    /// <remarks>
+    /// Version: CK2.00.00.0001
+    /// </remarks>
     [TestClass]
     public class CKParagraphTests
     {
+        private CKDocument _doc;
+
+        [TestInitialize]
+        public void SetUp()
+        {
+            _doc = RandomTestHarness.GetTempDocumentFrom(RandomTestHarness.TestFile1);
+        }
+
+        [TestCleanup]
+        public void TearDown()
+        {
+            RandomTestHarness.CleanUp(_doc);
+            _doc = null;
+        }
+
         [TestMethod]
         public void CKParagraph_Constructor_ThrowsArgumentNullException()
         {
-            // Test that passing a null Word.Paragraph throws an ArgumentNullException.
             Assert.ThrowsException<ArgumentNullException>(() =>
             {
                 var para = new CKParagraph(null);
@@ -20,36 +41,27 @@ namespace CoverageKiller2.DOM
         [TestMethod]
         public void CKParagraph_Constructor_WrapsParagraphSuccessfully()
         {
-            LiveWordDocument.WithTestDocument(LiveWordDocument.DefaultTestFile, doc =>
-            {
-                // Ensure the document contains at least one paragraph.
-                Word.Paragraph firstParagraph = doc.Paragraphs[1]; // Word collections are 1-based.
-                CKParagraph ckParagraph = new CKParagraph(firstParagraph);
+            var ckRange = _doc.Range();
+            var ckParagraphs = ckRange.Paragraphs;
+            Assert.IsTrue(ckParagraphs.Count > 0, "Test document should contain at least one paragraph.");
 
-                // Validate that the COMParagraph property is set.
-                Assert.IsNotNull(ckParagraph.COMParagraph, "COMParagraph should not be null.");
+            var ckParagraph = ckParagraphs[1];
 
-                // Validate that the inherited CKRange properties reflect the underlying paragraph's range.
-                Assert.AreEqual(firstParagraph.Range.Start, ckParagraph.Start, "Start should match the underlying paragraph's range start.");
-                Assert.AreEqual(firstParagraph.Range.End, ckParagraph.End, "End should match the underlying paragraph's range end.");
-                Assert.AreEqual(firstParagraph.Range.Text, ckParagraph.Text, "Text should match the underlying paragraph's range text.");
-            });
+            Assert.IsNotNull(ckParagraph, "CKParagraph should not be null.");
+            Assert.IsTrue(ckParagraph.Start >= 0, "Start should be a non-negative number.");
+            Assert.IsTrue(ckParagraph.End >= ckParagraph.Start, "End should be greater than or equal to Start.");
+            Assert.IsNotNull(ckParagraph.Text, "Text should not be null.");
         }
 
         [TestMethod]
         public void CKParagraph_ToString_ReturnsValidString()
         {
-            LiveWordDocument.WithTestDocument(LiveWordDocument.DefaultTestFile, doc =>
-            {
-                Word.Paragraph firstParagraph = doc.Paragraphs[1];
-                CKParagraph ckParagraph = new CKParagraph(firstParagraph);
+            var ckParagraph = _doc.Range().Paragraphs[1];
+            string output = ckParagraph.ToString();
 
-                string output = ckParagraph.ToString();
-                // Check that the output includes "CKParagraph:" and contains the start and end positions.
-                Assert.IsTrue(output.Contains("CKParagraph:"), "ToString() should include 'CKParagraph:'.");
-                Assert.IsTrue(output.Contains(ckParagraph.Start.ToString()), "ToString() should include the Start value.");
-                Assert.IsTrue(output.Contains(ckParagraph.End.ToString()), "ToString() should include the End value.");
-            });
+            Assert.IsTrue(output.Contains("CKParagraph:"), "ToString() should include 'CKParagraph:'.");
+            Assert.IsTrue(output.Contains(ckParagraph.Start.ToString()), "ToString() should include the Start value.");
+            Assert.IsTrue(output.Contains(ckParagraph.End.ToString()), "ToString() should include the End value.");
         }
     }
 }

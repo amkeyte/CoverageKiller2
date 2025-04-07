@@ -27,8 +27,8 @@ public class ShadowWorkspace : IDisposable
 
         if (_doc != null)
         {
-            _doc.COMDocument.Windows[1].Visible = true;
-            _doc.COMDocument.Activate();
+            //_doc.COMDocument.Windows[1].Visible = true;
+            //_doc.COMDocument.Activate();
         }
         else
         {
@@ -37,13 +37,14 @@ public class ShadowWorkspace : IDisposable
     }
     public Word.Table CloneTable(Word.Table source)
     {
+        throw new NotImplementedException();
         EnsureShadowDocument();
 
-        _doc.COMDocument.Content.Delete();
-        source.Range.Copy();
-        _doc.COMDocument.Content.Paste();
+        //_doc.COMDocument.Content.Delete();
+        //source.Range.Copy();
+        //_doc.COMDocument.Content.Paste();
 
-        return _doc.COMDocument.Tables[1];
+        /// return _doc.COMDocument.Tables[1];
     }
 
     private void EnsureShadowDocument()
@@ -56,10 +57,10 @@ public class ShadowWorkspace : IDisposable
 
     public void Dispose()
     {
-        if (_keepOpen) return;
+        //if (_keepOpen) return;
 
-        _doc?.Close(false);
-        _doc?.Dispose();
-        _doc = null;
+        //_doc?.Close(false);
+        //_doc?.Dispose();
+        //_doc = null;
     }
 }
