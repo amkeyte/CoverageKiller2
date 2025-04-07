@@ -1,9 +1,8 @@
-﻿using CoverageKiller2.DOM;
-using CoverageKiller2.Test;
+﻿using CoverageKiller2.Test;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 
-namespace CoverageKiller2.Tests.DOM
+namespace CoverageKiller2.DOM
 {
     /// <summary>
     /// Unit tests for <see cref="CKSections"/> collection wrapper.

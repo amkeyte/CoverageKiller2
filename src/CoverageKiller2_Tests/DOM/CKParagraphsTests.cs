@@ -1,11 +1,10 @@
-﻿using CoverageKiller2.DOM;
-using CoverageKiller2.Logging;
+﻿using CoverageKiller2.Logging;
 using CoverageKiller2.Test;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Serilog;
 using System;
 using System.IO;
-namespace CoverageKiller2.Tests.DOM
+namespace CoverageKiller2.DOM
 {
     /// <summary>
     /// Unit tests for <see cref="CKParagraphs"/> collection wrapper.

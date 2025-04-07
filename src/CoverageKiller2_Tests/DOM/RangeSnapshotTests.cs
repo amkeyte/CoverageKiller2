@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 
-namespace CoverageKiller2.Tests.DOM
+namespace CoverageKiller2.DOM
 {
     /// <summary>
     /// Tests for verifying that <see cref="RangeSnapshot"/> detects changes in Word ranges.

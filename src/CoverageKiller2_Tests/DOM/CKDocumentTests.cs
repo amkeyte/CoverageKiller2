@@ -3,7 +3,7 @@ using CoverageKiller2.Test;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Linq;
 
-namespace CoverageKiller2.Tests.DOM
+namespace CoverageKiller2.DOM
 {
     /// <summary>
     /// Tests for the CKDocument class.

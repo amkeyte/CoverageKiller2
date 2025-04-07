@@ -1,5 +1,6 @@
 ﻿using CoverageKiller2.Test;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Serilog;
 using System.Linq;
 
 namespace CoverageKiller2.DOM.Tables
@@ -14,12 +15,14 @@ namespace CoverageKiller2.DOM.Tables
     public class CKTableTests
     {
         //******* Standard Rigging ********
+        public TestContext TestContext { get; set; }
         private string _testFilePath;
         private CKDocument _testFile;
 
         [TestInitialize]
         public void Setup()
         {
+            Log.Information($"Running test => {GetType().Name}::{TestContext.TestName}");
             _testFilePath = RandomTestHarness.TestFile1;
             _testFile = RandomTestHarness.GetTempDocumentFrom(_testFilePath);
         }
@@ -27,6 +30,7 @@ namespace CoverageKiller2.DOM.Tables
         public void Cleanup()
         {
             RandomTestHarness.CleanUp(_testFile, force: true);
+            Log.Information($"Completed test => {GetType().Name}::{TestContext.TestName}; status: {TestContext.CurrentTestOutcome}");
         }
         //******* End Standard Rigging ********
 

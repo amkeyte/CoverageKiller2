@@ -5,7 +5,8 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 
-namespace CoverageKiller2.Test
+namespace CoverageKiller2._TestOperators
+
 {
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using System;

@@ -1,11 +1,11 @@
-﻿using CoverageKiller2.DOM;
-using CoverageKiller2.DOM.Tables;
+﻿using CoverageKiller2.DOM.Tables;
 using CoverageKiller2.Test;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Serilog;
 using System.Linq;
 using System.Runtime.InteropServices;
 
-namespace CoverageKiller2.Tests.DOM
+namespace CoverageKiller2.DOM
 {
     /// <summary>
     /// Unit tests for the CKRange class.
@@ -15,19 +15,22 @@ namespace CoverageKiller2.Tests.DOM
     public class CKRangeTests
     {
         //******* Standard Rigging ********
+        public TestContext TestContext { get; set; }
         private string _testFilePath;
-        private CKDocument _testDoc;
+        private CKDocument _testFile;
 
         [TestInitialize]
         public void Setup()
         {
+            Log.Information($"Running test => {GetType().Name}::{TestContext.TestName}");
             _testFilePath = RandomTestHarness.TestFile1;
-            _testDoc = RandomTestHarness.GetTempDocumentFrom(_testFilePath);
+            _testFile = RandomTestHarness.GetTempDocumentFrom(_testFilePath);
         }
         [TestCleanup]
         public void Cleanup()
         {
-            RandomTestHarness.CleanUp(_testDoc, force: true);
+            RandomTestHarness.CleanUp(_testFile, force: true);
+            Log.Information($"Completed test => {GetType().Name}::{TestContext.TestName}; status: {TestContext.CurrentTestOutcome}");
         }
         //******* End Standard Rigging ********
 
@@ -40,13 +43,13 @@ namespace CoverageKiller2.Tests.DOM
         [TestMethod]
         public void CKRange_SetText_OnMixedRange_ThrowsCOMException()
         {
-            CKTable table = _testDoc.Tables.FirstOrDefault();
+            CKTable table = _testFile.Tables.FirstOrDefault();
             Assert.IsNotNull(table, "Test document must contain at least one table.");
 
             int start = table.Start + 3;
             int end = table.End + 20;
 
-            var mixedRange = _testDoc.Range(start, end);
+            var mixedRange = _testFile.Range(start, end);
             //var ckRange = new CKRange(mixedRange.COMRange); // okay to use COMRange if already wrapped
 
             Assert.ThrowsException<COMException>(() =>
@@ -61,7 +64,7 @@ namespace CoverageKiller2.Tests.DOM
         [TestMethod]
         public void CKRange_Refresh_UpdatesCachesAndResetsDirtyFlag()
         {
-            var ckRange = _testDoc.Range(30, 40);
+            var ckRange = _testFile.Range(30, 40);
 
             string original = ckRange.Text;
             string newText = original + " extra";
@@ -83,7 +86,7 @@ namespace CoverageKiller2.Tests.DOM
         [TestMethod]
         public void CKRange_TextEquals_IgnoresWhitespaceDifferences()
         {
-            var range = _testDoc.Range(20, 100);
+            var range = _testFile.Range(20, 100);
             var ckRange = new CKRange(range.COMRange);
             var modified = ckRange.Text + "   \t\n ";
 
@@ -98,7 +101,7 @@ namespace CoverageKiller2.Tests.DOM
         //{
         //    string rawText = "Hello\r\nWorld\aNext";
 
-        //    var range = _testDoc.Range(0, 0); // empty range to inject text
+        //    var range = _testFile.Range(0, 0); // empty range to inject text
         //    var ckRange = new CKRange(range.COMRange);
 
         //    ckRange.Text = rawText;
