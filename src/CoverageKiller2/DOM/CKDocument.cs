@@ -19,7 +19,26 @@ namespace CoverageKiller2.DOM
     {
         protected readonly string _fullPath;
         protected Word.Document _comDocument;
-        public Word.Document GiveMeCOMDocumentIWillOwnItAndPromiseToCleanUpAfterMyself() => _comDocument;
+        private CKTables _tables;
+        private CKSections _sections;
+        private CKParagraphs _paragraphs;
+
+
+
+        /// <summary>
+        /// Returns a duplicated COM reference to the underlying Word.Document.
+        /// Caller is responsible for releasing it via <see cref="System.Runtime.InteropServices.Marshal.ReleaseComObject"/>.
+        /// </summary>
+        /// <returns>A new RCW to the internal Word.Document.</returns>
+        /// <remarks>Version: CK2.00.01.0020</remarks>
+        public Word.Document GiveMeCOMDocumentIWillOwnItAndPromiseToCleanUpAfterMyself()
+        {
+            if (_comDocument == null)
+                throw new InvalidOperationException("Underlying COM document is not initialized.");
+
+            return _comDocument.Application.Documents.Open(FullPath);
+        }
+
         /// <summary>
         /// The CKApplication instance that owns and opened this document.
         /// </summary>
@@ -35,12 +54,33 @@ namespace CoverageKiller2.DOM
         /// <summary>
         /// Provides access to the document's tables as a CKTables collection.
         /// </summary>
-        public CKTables Tables => new CKTables(_comDocument.Tables, this);
+
+        public CKTables Tables
+        {
+            get
+            {
+                if (_tables == null || _tables.IsDirty)
+                {
+                    _tables = new CKTables(_comDocument.Tables, this);
+                }
+                return _tables;
+            }
+        }
 
         /// <summary>
-        /// Provides access to the document's sections.
+        /// Provides access to the document's sections as a <see cref="CKSections"/> collection.
         /// </summary>
-        public CKSections Sections => new CKSections(_comDocument.Sections, this);
+        public CKSections Sections
+        {
+            get
+            {
+                if (_sections == null || _sections.IsDirty)
+                {
+                    _sections = new CKSections(_comDocument.Sections, this);
+                }
+                return _sections;
+            }
+        }
 
         /// <inheritdoc/>
         public CKDocument Document => this;
@@ -48,8 +88,36 @@ namespace CoverageKiller2.DOM
         /// <inheritdoc/>
         public IDOMObject Parent => throw new NotSupportedException("Call Application on a CKDocument object.");
 
+        private bool _isDirty = false;
+        private bool _isCheckingDirty = false;
+
         /// <inheritdoc/>
-        public bool IsDirty => throw new NotImplementedException();
+        public bool IsDirty
+        {
+            get
+            {
+                if (_isDirty || _isCheckingDirty)
+                    return _isDirty;
+
+                _isCheckingDirty = true;
+                try
+                {
+                    _isDirty =
+                        _tables?.IsDirty == true ||
+                        _sections?.IsDirty == true ||
+                        _paragraphs?.IsDirty == true;
+                }
+
+                finally
+                {
+                    _isCheckingDirty = false;
+                }
+
+                return _isDirty;
+            }
+            protected set => _isDirty = value;
+        }
+
 
         /// <inheritdoc/>
         public bool IsOrphan
@@ -75,9 +143,24 @@ namespace CoverageKiller2.DOM
         }
         public CKRange Content => new CKRange(_comDocument.Content, this);
 
-        public CKParagraphs Paragraphs => Range().Paragraphs;
+
+        /// <summary>
+        /// Provides access to the document's paragraphs as a <see cref="CKParagraphs"/> collection.
+        /// </summary>
+        public CKParagraphs Paragraphs
+        {
+            get
+            {
+                if (_paragraphs == null || _paragraphs.IsDirty)
+                {
+                    _paragraphs = new CKParagraphs(_comDocument.Paragraphs, this);
+                }
+                return _paragraphs;
+            }
+        }
         public void Activate()
         {
+
             _comDocument.Activate();
         }
         private string GenerateLogId()

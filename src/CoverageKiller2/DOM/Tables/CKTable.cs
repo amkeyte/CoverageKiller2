@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CoverageKiller2.Logging;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,26 +15,7 @@ namespace CoverageKiller2.DOM.Tables
     /// </remarks>
     public class CKTable : CKRange
     {
-        /// <summary>
-        /// Creates a CKTable from a Word range, using the provided parent to resolve document context.
-        /// </summary>
-        /// <param name="wordRange">The Word.Range to extract the table from.</param>
-        /// <param name="parent">The logical parent DOM object.</param>
-        /// <returns>A CKTable instance for the contained table.</returns>
-        [Obsolete("Requires exposed COM object")]
-        public static CKTable FromRange(Word.Range wordRange, IDOMObject parent)
-        {
-            if (wordRange == null) throw new ArgumentNullException(nameof(wordRange));
-            if (wordRange.Tables.Count == 0)
-                throw new ArgumentException($"{nameof(wordRange)} does not contain a table.");
 
-            var doc = parent.Document;
-            var foundTable = doc.Tables
-                .Where(t => t.COMRange.Contains(wordRange))
-                .FirstOrDefault();
-
-            return foundTable ?? new CKTable(wordRange.Tables[1], parent);
-        }
 
         private CKTableGrid Grid => CKTableGrid.GetInstance(this, COMTable);
         private CKCellRefConverterService _converterService;
@@ -45,8 +27,10 @@ namespace CoverageKiller2.DOM.Tables
         /// <param name="parent">The logical parent DOM object.</param>
         public CKTable(Word.Table table, IDOMObject parent) : base(table.Range, parent)
         {
+            LH.Ping(GetType());
             COMTable = table ?? throw new ArgumentNullException(nameof(table));
             _converterService = new CKCellRefConverterService(this);
+            LH.Pong(GetType());
         }
         /// <summary>
         /// Determines whether the specified <see cref="Word.Cell"/> exists within this table.
@@ -59,6 +43,7 @@ namespace CoverageKiller2.DOM.Tables
         public bool Contains(Word.Cell cell)
         {
             if (cell == null) throw new ArgumentNullException(nameof(cell));
+            if (!RangeSnapshot.FastMatch(COMRange, cell.Range.Tables[1].Range)) return false;
 
             try
             {
@@ -112,42 +97,17 @@ namespace CoverageKiller2.DOM.Tables
 
             return new CKCell(gridCell.COMCell, cellRef);
         }
-        /// <summary>
-        /// Returns one-based indexes of cells in the given Word.Cells collection.
-        /// </summary>
-        public IEnumerable<int> IndexesOf(Word.Cells wordCells)
-        {
-            var tableCellList = COMTable.Range.Cells.ToList();
-            return wordCells.AsEnumerable()
-                .Select(c => IndexOf(c, tableCellList));
-        }
+
 
         /// <summary>
         /// Returns the one-based index of a Word.Cell within the table.
         /// </summary>
-        public int IndexOf(Word.Cell wordCell, List<Word.Cell> tableCells = null)
+        public int IndexOf(Word.Cell wordCell)
         {
-            var tableCellList = tableCells ?? COMTable.Range.Cells.ToList();
-            return tableCellList.FindIndex(c => c.Range.COMEquals(wordCell.Range)) + 1;
-        }
-
-        /// <summary>
-        /// Returns one-based indexes of cells in a CKCells collection.
-        /// </summary>
-        public IEnumerable<int> IndexesOf(CKCells cells)
-        {
-            IEnumerable<GridCell> masterCells = Grid.GetMasterCells();
-            IEnumerable<GridCell> findCells = cells
-                .Select(c => Converters.GetGridCellRef(c.CellRef))
-                .Select(c => Grid.GetMasterCells(c).First());
-
-            return findCells.Select(c => IndexOf(c, masterCells));
-        }
-
-        private int IndexOf(GridCell c, IEnumerable<GridCell> masterCells = null)
-        {
-            var masterList = new List<GridCell>(masterCells ?? Grid.GetMasterCells());
-            return masterList.IndexOf(c);
+            LH.Ping(GetType());
+            var index = Cells.IndexOf(wordCell);
+            LH.Pong(GetType());
+            return index;
         }
 
         /// <summary>
@@ -161,7 +121,7 @@ namespace CoverageKiller2.DOM.Tables
             var gridCell = Grid.GetMasterCells(gridCellRef).FirstOrDefault()
                 ?? throw new ArgumentException($"{nameof(index)} did not fetch a master GridCell");
 
-            var cellRef = Converters.GetCellRef(gridCellRef);
+            var cellRef = Converters.GetCellRef(gridCellRef, this);
             return new CKCell(gridCell.COMCell, cellRef);
         }
 
@@ -203,7 +163,9 @@ namespace CoverageKiller2.DOM.Tables
         /// <param name="parent">The parent <see cref="CKRange"/> object that owns the tables.</param>
         public CKTables(Word.Tables collection, IDOMObject parent) : base(parent)
         {
+            LH.Ping(GetType());
             COMTables = collection;
+            LH.Pong(GetType());
         }
 
         private List<CKTable> TablesList
@@ -228,8 +190,30 @@ namespace CoverageKiller2.DOM.Tables
         public override int Count => COMTables.Count;
 
         /// <inheritdoc/>
-        public override bool IsDirty { get; protected set; } = false;
+        private bool _isCheckingDirty = false;
 
+        /// <inheritdoc/>
+        public override bool IsDirty
+        {
+            get
+            {
+                if (_isDirty || _isCheckingDirty)
+                    return _isDirty;
+
+                _isCheckingDirty = true;
+                try
+                {
+                    _isDirty = _cachedTables?.Any(t => t.IsDirty) == true || Parent.IsDirty;
+                }
+                finally
+                {
+                    _isCheckingDirty = false;
+                }
+
+                return _isDirty;
+            }
+            protected set => _isDirty = value;
+        }
         /// <inheritdoc/>
         public override bool IsOrphan => throw new NotImplementedException();
 
@@ -257,7 +241,29 @@ namespace CoverageKiller2.DOM.Tables
             }
             return -1;
         }
+        /// <summary>
+        /// Adds a new <see cref="CKTable"/> at the specified range with the given number of rows and columns.
+        /// </summary>
+        /// <param name="insertAt">The <see cref="CKRange"/> at which to insert the table.</param>
+        /// <param name="numRows">The number of rows in the new table.</param>
+        /// <param name="numColumns">The number of columns in the new table.</param>
+        /// <returns>The newly created <see cref="CKTable"/> instance.</returns>
+        /// <exception cref="ArgumentNullException">If <paramref name="insertAt"/> is null.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">If <paramref name="numRows"/> or <paramref name="numColumns"/> is less than 1.</exception>
+        /// <remarks>
+        /// Version: CK2.00.01.0006
+        /// </remarks>
+        public CKTable Add(CKRange insertAt, int numRows, int numColumns)
+        {
+            if (insertAt == null) throw new ArgumentNullException(nameof(insertAt));
+            if (numRows < 1) throw new ArgumentOutOfRangeException(nameof(numRows));
+            if (numColumns < 1) throw new ArgumentOutOfRangeException(nameof(numColumns));
 
+            var wordTable = COMTables.Add(insertAt.COMRange, numRows, numColumns);
+
+            IsDirty = true;
+            return new CKTable(wordTable, this);
+        }
         /// <summary>
         /// Returns the <see cref="CKTable"/> that owns the given <see cref="Word.Cell"/>, if present.
         /// </summary>
@@ -269,10 +275,14 @@ namespace CoverageKiller2.DOM.Tables
         /// </remarks>
         internal CKTable ItemOf(Word.Cell cell)
         {
+            LH.Ping(GetType());
             if (cell == null) throw new ArgumentNullException(nameof(cell));
 
-            return TablesList.FirstOrDefault(t => t.Contains(cell))
+            var ckTable = TablesList.FirstOrDefault(t => t.Contains(cell))
                 ?? throw new ArgumentOutOfRangeException(nameof(cell), "Cell is not contained in any known table.");
+            LH.Pong(GetType());
+            return ckTable;
+
         }
 
         /// <inheritdoc/>

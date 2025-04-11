@@ -13,10 +13,9 @@ namespace CoverageKiller2.DOM.Tables
         public static CKCellRef GetCellRef(
             this CKTable.CKCellRefConverterService service,
             CKGridCellRef gridRef,
-            IDOMObject parent = null)
+            IDOMObject parent)
         {
             var master = service.Grid.GetMasterCells(gridRef).First();
-            //return new CKCellRef(master.COMCell, parent ?? service.Table);
             return new CKCellRef(master.COMCell.RowIndex, master.COMCell.ColumnIndex, master.Snapshot, parent);
         }
 

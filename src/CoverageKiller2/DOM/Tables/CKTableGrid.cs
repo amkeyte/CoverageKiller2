@@ -1,4 +1,5 @@
 ﻿
+using Serilog;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -21,7 +22,7 @@ namespace CoverageKiller2.DOM.Tables
         public static CKTableGrid GetInstance(CKTable parent, Word.Table table)
         {
 
-
+            Log.Debug($"Getting CKTableGrid Instance for table {parent.Document.Tables.IndexOf(parent)}");
             _tableGrids.Keys.Where(r => r.IsOrphan).ToList()
                 .ForEach(r => _tableGrids.Remove(r));
 
