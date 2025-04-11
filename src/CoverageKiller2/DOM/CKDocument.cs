@@ -158,6 +158,9 @@ namespace CoverageKiller2.DOM
                 return _paragraphs;
             }
         }
+
+        public bool KeepAlive { get; internal set; }
+
         public void Activate()
         {
 
@@ -306,8 +309,11 @@ namespace CoverageKiller2.DOM
 
         public void Dispose()
         {
-            Dispose(disposing: true);
-            GC.SuppressFinalize(this);
+            if (!KeepAlive)
+            {
+                Dispose(disposing: true);
+                GC.SuppressFinalize(this);
+            }
         }
     }
 }

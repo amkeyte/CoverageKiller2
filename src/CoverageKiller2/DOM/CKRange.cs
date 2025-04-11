@@ -1,7 +1,7 @@
 ﻿using CoverageKiller2.DOM.Tables;
+using Serilog;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Runtime.InteropServices;
 using Word = Microsoft.Office.Interop.Word;
 
@@ -178,19 +178,18 @@ namespace CoverageKiller2.DOM
                 {
                     // Access a property to check if the COM object is valid.
                     _ = COMRange.Text;
-                    return false;
+                    _isOrphan = false;
                 }
                 catch (COMException ex)
                 {
-                    Debug.WriteLine(ex.Message);
+                    Log.Error("Attempt to access orphan range failed.", ex);
                     _isOrphan = true;
-                    return true;
                 }
                 catch (Exception)
                 {
                     _isOrphan = true;
-                    return true;
                 }
+                return _isOrphan;
             }
         }
 

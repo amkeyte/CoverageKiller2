@@ -33,29 +33,31 @@ namespace CoverageKiller2.DOM.Tables
         [TestMethod]
         public void VisualizeMergedCellsInShadowGrid()
         {
-            Assert.Fail();
-            //var sourceTable = _testFile.Tables[2];
-            //var shadow = ShadowWorkspace.GetTempDocument(visible: false, keepOpen: true);
 
-            //try
-            //{
-            //    shadow.ShowDebuggerWindow();
-            //    var cloneTable = shadow.CloneRange(sourceTable);
-            //    var grid = TableGridCrawler3.NormalizeVisualGrid(cloneTable.COMTable);
+            var sourceTable = _testFile.Tables[2];
+            var shadow = _testFile.Application.GetShadowWorkspace(true);
+            shadow.ShowDebuggerWindow();
 
-            //    Assert.IsNotNull(grid, "Grid was null.");
-            //    Assert.IsTrue(grid.Count > 0, "Grid was empty.");
 
-            //    TableGridCrawler3.PrepareGridForLayout(grid);
-            //    TableGridCrawler3.ColorMasterCells(grid);
+            try
+            {
+                shadow.ShowDebuggerWindow();
+                var cloneTable = shadow.CloneRange(sourceTable);
+                var grid = TableGridCrawler3.NormalizeVisualGrid(cloneTable.COMTable);
 
-            //    TestContext.WriteLine("=== Grid with Merged Cell Highlighting ===");
-            //    TestContext.WriteLine(TableGridCrawler3.DumpGrid(grid));
-            //}
-            //finally
-            //{
-            //    shadow.Dispose();
-            //}
+                Assert.IsNotNull(grid, "Grid was null.");
+                Assert.IsTrue(grid.Count > 0, "Grid was empty.");
+
+                TableGridCrawler3.PrepareGridForLayout(grid);
+                TableGridCrawler3.ColorMasterCells(grid);
+
+                TestContext.WriteLine("=== Grid with Merged Cell Highlighting ===");
+                TestContext.WriteLine(TableGridCrawler3.DumpGrid(grid));
+            }
+            finally
+            {
+                shadow.Dispose();
+            }
         }
 
         [TestMethod]

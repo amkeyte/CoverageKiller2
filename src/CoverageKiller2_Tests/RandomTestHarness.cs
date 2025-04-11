@@ -112,7 +112,6 @@ namespace CoverageKiller2.Test
         public static void CleanUp(CKDocument doc, bool force = false)
         {
             if (doc == null) return;
-
             try
             {
                 doc.Application.CloseDocument(doc, force);

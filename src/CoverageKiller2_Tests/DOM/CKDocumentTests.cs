@@ -25,10 +25,29 @@ namespace CoverageKiller2.DOM
         [TestCleanup]
         public void Cleanup()
         {
-            RandomTestHarness.CleanUp(_testFile, force: true);
+
+            RandomTestHarness.CleanUp(_testFile, force: !_testFile.KeepAlive);
         }
         //******* End Standard Rigging ********
 
+        [TestMethod]
+        public void CKDocument_KeepAlive_PreventsDisposalCleanup()
+        {
+            var doc = RandomTestHarness.GetTempDocumentFrom(_testFilePath);
+            doc.KeepAlive = true;
+            doc.Visible = true;
+
+            var app = doc.Application;
+            Assert.IsTrue(app.Documents.Contains(doc), "Document should be tracked before disposal.");
+            Assert.IsTrue(doc.KeepAlive, "KeepAlive should be enabled.");
+            Assert.IsTrue(app.HasKeepOpenDocuments, "App should report having keep-alive documents.");
+
+            doc.Dispose();
+
+            // Still tracked and not closed
+            Assert.IsTrue(app.Documents.Contains(doc), "Document should remain tracked after Dispose when KeepAlive is true.");
+            Assert.IsFalse(doc.IsOrphan, "KeepAlive document should not be closed.");
+        }
 
 
         [TestMethod]

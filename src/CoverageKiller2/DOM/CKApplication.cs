@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using Word = Microsoft.Office.Interop.Word;
 namespace CoverageKiller2.DOM
 {
@@ -17,7 +18,7 @@ namespace CoverageKiller2.DOM
     public partial class CKApplication : IDisposable
     {
         private readonly Word.Application _wordApp;
-        private readonly List<CKDocument> _documents = new List<CKDocument>();
+        private List<CKDocument> _documents = new List<CKDocument>();
         private readonly Dictionary<CKDocument, Word.Document> _comDocs = new Dictionary<CKDocument, Word.Document>();
         private readonly string _PID;
         private bool disposedValue;
@@ -110,13 +111,24 @@ namespace CoverageKiller2.DOM
         {
             if (doc == null || !_documents.Contains(doc))
                 return false;
-
+            if (doc.KeepAlive)
+            {
+                Log.Warning($"Document {doc.FileName} was requested to close, but KeepAlive is true.");
+                return false;
+            }
             try
             {
                 if (force && _comDocs.TryGetValue(doc, out var comDoc))
                 {
                     try
                     {
+                        if (doc.KeepAlive)
+                        {
+                            doc.KeepAlive = false;
+                            Log.Warning($"Document {doc.FileName} was requested to close." +
+                                $" KeepAlive is true, but was overriden by Force-close.");
+                        }
+
                         comDoc.Close(SaveChanges: false);
                     }
                     catch (Exception ex)
@@ -130,8 +142,8 @@ namespace CoverageKiller2.DOM
                 }
 
                 doc.Dispose(); // Calls UntrackDocument internally
-                _documents.Remove(doc);
-                _comDocs.Remove(doc);
+                //_documents.Remove(doc);
+                //_comDocs.Remove(doc);
 
                 Log.Information("Document closed and removed from tracking: {FileName}", doc.FileName);
                 return true;
@@ -174,6 +186,8 @@ namespace CoverageKiller2.DOM
 
                     foreach (var doc in _documents.ToArray())
                     {
+                        if (doc.KeepAlive) continue;
+
                         try { CloseDocument(doc, force: true); }
                         catch (Exception ex)
                         {
@@ -181,12 +195,23 @@ namespace CoverageKiller2.DOM
                         }
                     }
 
-                    _documents.Clear();
-                    _comDocs.Clear();
+                    if (HasKeepOpenDocuments)
+                    {
+                        //_docs and _comdocs probably in good state; Close removes them.
+                    }
+                    else
+                    {
+                        _documents.Clear();
+                        _comDocs.Clear();
+                    }
 
                     if (!IsOwned)
                     {
                         Log.Information("CKApplication({PID}) is not owned; skipping WordApp.Quit().", PID);
+                    }
+                    else if (HasKeepOpenDocuments)
+                    {
+                        Log.Information("CKApplication({PID}) has KeepOpen documents; skipping WordApp.Quit().", PID);
                     }
                     else
                     {
@@ -201,7 +226,7 @@ namespace CoverageKiller2.DOM
                     }
                 }
 
-                disposedValue = true;
+                disposedValue = true; //yes or no for keepOpen?
             }
         }
 
@@ -211,6 +236,7 @@ namespace CoverageKiller2.DOM
             get => _wordApp.Visible;
             set => _wordApp.Visible = value;
         }
+        public bool HasKeepOpenDocuments => _documents.Any(doc => doc.KeepAlive);
     }
 
     public partial class CKApplication
@@ -272,10 +298,10 @@ namespace CoverageKiller2.DOM
         /// Creates a ShadowWorkspace using a hidden, disposable CKDocument.
         /// </summary>
         /// <returns>A new ShadowWorkspace instance.</returns>
-        public ShadowWorkspace GetShadowWorkspace()
+        public ShadowWorkspace GetShadowWorkspace(bool keepOpen = false)
         {
             var doc = GetTempDocument();
-            return new ShadowWorkspace(doc, this, keepOpen: false);
+            return new ShadowWorkspace(doc, this, keepOpen);
         }
     }
 }

@@ -128,7 +128,7 @@ namespace CoverageKiller2.DOM
                 orphanRange.Delete();
 
                 orphanRange.Refresh();
-                Assert.IsTrue(orphanRange.IsOrphan || orphanRange.Text.Length == 0);
+                Assert.IsTrue(orphanRange.IsOrphan);
             }
         }
 

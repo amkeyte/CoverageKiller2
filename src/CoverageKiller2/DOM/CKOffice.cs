@@ -167,11 +167,16 @@ namespace CoverageKiller2.DOM
 
             Log.Information("CKOffice_Word shutting down.");
 
-            bool hasAddIn = AddInApp != null;
+            bool blockShutDown = AddInApp != null || _applications.Any(a => a.HasKeepOpenDocuments);
 
             foreach (var app in _applications.ToList())
             {
-                if (app == AddInApp) continue;
+                if (app == AddInApp || app.HasKeepOpenDocuments)
+                {
+                    Log.Information($"Application {app.PID} bypass shutting down.");
+                    continue;
+                }
+
 
                 try
                 {
@@ -182,20 +187,21 @@ namespace CoverageKiller2.DOM
                     Log.Error("Error shutting down application: {Message}", ex.Message);
                 }
             }
+            if (!blockShutDown)
+            {
+                _applications.RemoveAll(a => a != AddInApp);
 
-            _applications.RemoveAll(a => a != AddInApp);
 
-            try { LoggingLoader.Cleanup(); } catch { }
-            try { LogTailLoader.Cleanup(); } catch { }
+                try { LoggingLoader.Cleanup(); } catch { }
+                try { LogTailLoader.Cleanup(); } catch { }
 
-            if (hasAddIn)
+                _isRunning = false;
+            }
+            else
             {
                 Log.Information("ThisAddIn still running. CKOffice_Word remains available.");
-                LH.Pong(GetType());
-                return 0;
             }
 
-            _isRunning = false;
             LH.Pong(GetType());
             return 0;
         }
