@@ -16,7 +16,8 @@ namespace CoverageKiller2.DOM.Tables
             IDOMObject parent = null)
         {
             var master = service.Grid.GetMasterCells(gridRef).First();
-            return new CKCellRef(master.COMCell, parent ?? service.Table);
+            //return new CKCellRef(master.COMCell, parent ?? service.Table);
+            return new CKCellRef(master.COMCell.RowIndex, master.COMCell.ColumnIndex, master.Snapshot, parent);
         }
 
         public static CKGridCellRef GetGridCellRef(
@@ -41,10 +42,10 @@ namespace CoverageKiller2.DOM.Tables
         {
             if (cellRef == null) throw new ArgumentNullException(nameof(cellRef));
             return new CKGridCellRef(
-                cellRef.WordRow - 1,
-                cellRef.WordCol - 1,
-                cellRef.WordRow - 1,
-                cellRef.WordCol - 1);
+                cellRef.RowIndex - 1,
+                cellRef.ColumnIndex - 1,
+                cellRef.RowIndex - 1,
+                cellRef.ColumnIndex - 1);
         }
 
         public static CKGridCellRef GetGridCellRef(

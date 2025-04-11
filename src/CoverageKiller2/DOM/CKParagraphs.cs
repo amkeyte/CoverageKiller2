@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Serilog;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Word = Microsoft.Office.Interop.Word;
@@ -27,7 +28,9 @@ namespace CoverageKiller2.DOM
         /// <exception cref="ArgumentNullException">Thrown when the parent parameter is null.</exception>
         public CKParagraphs(Word.Paragraphs collection, IDOMObject parent) : base(parent)
         {
-            if (collection.Count > 1000) throw new ArgumentException($"Paragrahs collection is to large({collection.Count}). Find a smaller subset.");
+            Log.Information($"CKParagraps was created with {collection.Count} entries.");
+
+            if (collection.Count > 1000) throw new ArgumentException($"Paragraphs collection is to large({collection.Count}). Find a smaller subset.");
             COMParagraphs = collection;
 
         }

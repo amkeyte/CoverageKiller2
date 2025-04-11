@@ -1,5 +1,6 @@
 ﻿using CoverageKiller2.DOM.Tables;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using Word = Microsoft.Office.Interop.Word;
@@ -53,7 +54,30 @@ namespace CoverageKiller2.DOM
 
         #region Public Properties
 
-        public CKCells Cells => throw new NotImplementedException();
+
+        private CKCells _cells = default;
+        public CKCells Cells
+        {
+            get
+            {
+                if (IsDirty || _cells is null)
+                {
+                    var COMCells = COMRange.Cells;
+                    var cellsRefList = new List<CKCellRef>();
+                    foreach (Word.Cell cell in COMCells)
+                    {
+                        var cellRef = new CKCellRef(cell.RowIndex,
+                            cell.ColumnIndex,
+                            new RangeSnapshot(cell.Range),
+                            this);
+                        cellsRefList.Add(cellRef);
+                    }
+                    var cellsRef = new CellsRef(cellsRefList, this);
+                    _cells = new CKCells(COMCells, cellsRef);
+                }
+                return _cells;
+            }
+        }
 
         /// <summary>
         /// Gets the underlying Word.Range COM object.

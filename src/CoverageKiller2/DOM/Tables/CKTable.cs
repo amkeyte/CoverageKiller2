@@ -48,6 +48,36 @@ namespace CoverageKiller2.DOM.Tables
             COMTable = table ?? throw new ArgumentNullException(nameof(table));
             _converterService = new CKCellRefConverterService(this);
         }
+        /// <summary>
+        /// Determines whether the specified <see cref="Word.Cell"/> exists within this table.
+        /// </summary>
+        /// <param name="cell">The Word cell to check.</param>
+        /// <returns><c>true</c> if the cell is part of this table; otherwise, <c>false</c>.</returns>
+        /// <remarks>
+        /// Version: CK2.00.01.0003
+        /// </remarks>
+        public bool Contains(Word.Cell cell)
+        {
+            if (cell == null) throw new ArgumentNullException(nameof(cell));
+
+            try
+            {
+                var cellRef = new CKCellRef(
+                    cell.RowIndex,
+                    cell.ColumnIndex,
+                    new RangeSnapshot(cell.Range),
+                    this
+                );
+
+                var gridRef = Converters.GetGridCellRef(cellRef);
+
+                return Grid.GetMasterCells(gridRef).Any();
+            }
+            catch
+            {
+                return false;
+            }
+        }
 
         /// <summary>
         /// Remove from external references. Will be hidden.
@@ -75,8 +105,12 @@ namespace CoverageKiller2.DOM.Tables
         public CKCell Cell(CKCellRef cellRef)
         {
             var gridCellRef = Converters.GetGridCellRef(cellRef);
-            var wordCell = COMTable.Cell(cellRef.WordRow, cellRef.WordCol);
-            return new CKCell(this, cellRef.Parent, wordCell, gridCellRef.Y1 + 1, gridCellRef.X1 + 1);
+            //calling to Grid is required because it know if cells have been moved in the table.
+            var gridCell = Grid.GetMasterCells(gridCellRef).FirstOrDefault()
+                ?? throw new ArgumentException($"{nameof(cellRef)} did not fetch a master GridCell");
+
+
+            return new CKCell(gridCell.COMCell, cellRef);
         }
         /// <summary>
         /// Returns one-based indexes of cells in the given Word.Cells collection.
@@ -122,8 +156,13 @@ namespace CoverageKiller2.DOM.Tables
         public CKCell Cell(int index)
         {
             var gridCellRef = Converters.GetGridCellRef(index);
-            var wordCell = COMTable.Range.Cells[index];
-            return new CKCell(this, this, wordCell, gridCellRef.Y1 + 1, gridCellRef.X1 + 1);
+
+            //calling to Grid is required because it know if cells have been moved in the table.
+            var gridCell = Grid.GetMasterCells(gridCellRef).FirstOrDefault()
+                ?? throw new ArgumentException($"{nameof(index)} did not fetch a master GridCell");
+
+            var cellRef = Converters.GetCellRef(gridCellRef);
+            return new CKCell(gridCell.COMCell, cellRef);
         }
 
         /// <summary>
@@ -154,7 +193,7 @@ namespace CoverageKiller2.DOM.Tables
     /// Represents a collection of <see cref="CKTable"/> objects associated with a <see cref="CKRange"/>.
     /// </summary>
     /// <remarks>
-    /// Version: CK2.00.00.0000
+    /// Version: CK2.00.01.0001
     /// </remarks>
     public class CKTables : ACKRangeCollection, IEnumerable<CKTable>
     {
@@ -165,75 +204,84 @@ namespace CoverageKiller2.DOM.Tables
         public CKTables(Word.Tables collection, IDOMObject parent) : base(parent)
         {
             COMTables = collection;
-
         }
 
-        /// <summary>
-        /// Gets the number of tables in the associated range.
-        /// </summary>
-        public override int Count => throw new NotImplementedException();
-
-
-
-        /// <summary>
-        /// Gets the <see cref="CKTable"/> at the specified one-based index.
-        /// </summary>
-        /// <param name="index">The one-based index of the table to retrieve.</param>
-        /// <returns>The <see cref="CKTable"/> at the specified index.</returns>
-        /// <exception cref="ArgumentOutOfRangeException">
-        /// Thrown when the index is less than 1 or greater than the number of tables.
-        /// </exception>
-        public CKTable this[int index]
+        private List<CKTable> TablesList
         {
             get
             {
-                if (index < 1 || index > Count)
+                if (_cachedTables == null || IsDirty)
                 {
-                    throw new ArgumentOutOfRangeException(nameof(index), "Index must be between 1 and the number of tables.");
+                    _cachedTables = new List<CKTable>();
+                    for (int i = 1; i <= COMTables.Count; i++)
+                    {
+                        _cachedTables.Add(new CKTable(COMTables[i], this));
+                    }
+                    IsDirty = false;
                 }
-                return new CKTable(COMTables[index], this);
+                return _cachedTables;
             }
         }
+        private List<CKTable> _cachedTables;
 
-        /// <summary>
-        /// Returns a string that represents the current <see cref="CKTables"/> instance.
-        /// </summary>
-        /// <returns>A string containing the count of tables.</returns>
-        public override string ToString()
-        {
-            return $"CKTables [Count: {Count}]";
-        }
+        /// <inheritdoc/>
+        public override int Count => COMTables.Count;
 
-        /// <summary>
-        /// Gets whether this collection or any contained table is dirty.
-        /// </summary>
+        /// <inheritdoc/>
         public override bool IsDirty { get; protected set; } = false;
+
+        /// <inheritdoc/>
         public override bool IsOrphan => throw new NotImplementedException();
 
         private Word.Tables COMTables { get; }
 
         /// <summary>
-        /// Returns an enumerator that iterates through the <see cref="CKTable"/> objects in the collection.
+        /// Gets the <see cref="CKTable"/> at the specified one-based index.
         /// </summary>
-        /// <returns>An enumerator for the collection of <see cref="CKTable"/> objects.</returns>
-        public IEnumerator<CKTable> GetEnumerator()
+        public CKTable this[int index]
         {
-            for (int i = 1; i <= Count; i++)
+            get
             {
-                yield return this[i];
+                if (index < 1 || index > Count)
+                    throw new ArgumentOutOfRangeException(nameof(index), "Index must be between 1 and the number of tables.");
+                return TablesList[index - 1];
             }
         }
 
-        /// <summary>
-        /// Returns an enumerator that iterates through the collection.
-        /// </summary>
-        /// <returns>An enumerator for the collection.</returns>
-        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
-
+        /// <inheritdoc/>
         public override int IndexOf(object obj)
         {
-            throw new NotImplementedException();
+            if (obj is CKTable table)
+            {
+                return TablesList.IndexOf(table);
+            }
+            return -1;
         }
-    }
 
+        /// <summary>
+        /// Returns the <see cref="CKTable"/> that owns the given <see cref="Word.Cell"/>, if present.
+        /// </summary>
+        /// <param name="cell">A Word cell to search for.</param>
+        /// <returns>The owning <see cref="CKTable"/>.</returns>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown if no owning table is found.</exception>
+        /// <remarks>
+        /// Version: CK2.00.01.0004
+        /// </remarks>
+        internal CKTable ItemOf(Word.Cell cell)
+        {
+            if (cell == null) throw new ArgumentNullException(nameof(cell));
+
+            return TablesList.FirstOrDefault(t => t.Contains(cell))
+                ?? throw new ArgumentOutOfRangeException(nameof(cell), "Cell is not contained in any known table.");
+        }
+
+        /// <inheritdoc/>
+        public override string ToString() => $"CKTables [Count: {Count}]";
+
+        /// <inheritdoc/>
+        public IEnumerator<CKTable> GetEnumerator() => TablesList.GetEnumerator();
+
+        /// <inheritdoc/>
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+    }
 }

@@ -8,9 +8,28 @@ namespace CoverageKiller2.DOM.Tables
 {
     public interface ICellRef<out T> where T : IDOMObject
     {
-        CKTable Table { get; }
-        IEnumerable<int> CellIndexes { get; }
+        //CKTable Table { get; }
+
         IDOMObject Parent { get; }
+    }
+
+    public class CellsRef : ICellRef<CKCells>, IEnumerable<CKCellRef>
+    {
+        public CellsRef(IEnumerable<CKCellRef> cellRefs, IDOMObject parent)
+        {
+            _cellRefs = cellRefs.ToList();
+            Parent = parent;
+
+        }
+        private List<CKCellRef> _cellRefs;
+
+        public IDOMObject Parent { get; }
+
+        public IEnumerator<CKCellRef> GetEnumerator() => _cellRefs.GetEnumerator();
+
+
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+
     }
     /// <summary>
     /// Represents a reference to a cell or group of cells within a Word table.
@@ -21,7 +40,7 @@ namespace CoverageKiller2.DOM.Tables
     public class CKCellRef : ICellRef<CKCell>
     {
         /// <inheritdoc/>
-        public CKTable Table { get; }
+        //public CKTable Table { get; }
 
         /// <inheritdoc/>
         public IEnumerable<int> CellIndexes { get; }
@@ -32,12 +51,12 @@ namespace CoverageKiller2.DOM.Tables
         /// <summary>
         /// Gets the one-based Word row index of the referenced cell.
         /// </summary>
-        public int WordRow { get; }
+        public int RowIndex { get; }
 
         /// <summary>
         /// Gets the one-based Word column index of the referenced cell.
         /// </summary>
-        public int WordCol { get; }
+        public int ColumnIndex { get; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CKCellRef"/> class.
@@ -47,15 +66,15 @@ namespace CoverageKiller2.DOM.Tables
         /// The parent DOM object, typically the owning <see cref="CKTable"/> or <see cref="CKCells"/> collection.
         /// </param>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="wordCell"/> or <paramref name="parent"/> is null.</exception>
-        public CKCellRef(Word.Cell wordCell, IDOMObject parent)
+        //public CKCellRef(Word.Cell wordCell, IDOMObject parent)
+        public CKCellRef(int rowIndex, int colIndex, RangeSnapshot snapshot, IDOMObject parent)
         {
-            if (wordCell == null) throw new ArgumentNullException(nameof(wordCell));
             if (parent == null) throw new ArgumentNullException(nameof(parent));
 
-            Table = CKTable.FromRange(wordCell.Range, parent);
-            CellIndexes = new List<int>() { Table.IndexOf(wordCell) };
-            WordRow = wordCell.Row.Index;
-            WordCol = wordCell.Column.Index;
+            //Table = CKTable.FromRange(wordCell.Range, parent);
+            //CellIndexes = new List<int>() { Table.IndexOf(wordCell) };
+            RowIndex = rowIndex;
+            ColumnIndex = colIndex;
             Parent = parent;
         }
     }
@@ -76,17 +95,17 @@ namespace CoverageKiller2.DOM.Tables
         /// <summary>
         /// Gets the CKTable to which this cell belongs.
         /// </summary>
-        public CKTable Table { get; }
+        //public CKTable Table { get; }
 
         /// <summary>
         /// Gets the one-based row index of the cell in the Word table.
         /// </summary>
-        public int WordRow { get; }
+        public int RowIndex => CellRef.RowIndex;
 
         /// <summary>
         /// Gets the one-based column index of the cell in the Word table.
         /// </summary>
-        public int WordColumn { get; }
+        public int ColumnIndex => CellRef.ColumnIndex;
 
         /// <summary>
         /// Gets the <see cref="CKCellRef"/> that describes this cell.
@@ -102,14 +121,13 @@ namespace CoverageKiller2.DOM.Tables
         /// <param name="wordRow">One-based row index of the cell.</param>
         /// <param name="wordColumn">One-based column index of the cell.</param>
         /// <exception cref="ArgumentNullException">Thrown if any parameter is null.</exception>
-        public CKCell(CKTable table, IDOMObject parent, Word.Cell wdCell, int wordRow, int wordColumn)
-            : base(wdCell?.Range ?? throw new ArgumentNullException(nameof(wdCell)), parent)
+        public CKCell(Word.Cell wdCell, CKCellRef cellRef)
+            : base(wdCell?.Range, cellRef?.Parent)
         {
-            Table = table ?? throw new ArgumentNullException(nameof(table));
+            //Table = new CKTable(wdCell.Tables[1], parent);
+            //Table = table ?? throw new ArgumentNullException(nameof(table));
             COMCell = wdCell;
-            WordRow = wordRow;
-            WordColumn = wordColumn;
-            CellRef = new CKCellRef(COMCell, parent);
+            CellRef = cellRef;
         }
 
         /// <summary>
@@ -136,86 +154,75 @@ namespace CoverageKiller2.DOM.Tables
     /// <remarks>
     /// Version: CK2.00.00.0000
     /// </remarks>
-    public class CKCells : IEnumerable<CKCell>, IDOMObject
+    public class CKCells : ACKRangeCollection, IEnumerable<CKCell>
     {
         /// <summary>
         /// The owning table of the cell collection.
         /// </summary>
-        public CKTable Table { get; protected set; }
+        //public CKTable Table { get; protected set; }
 
         /// <summary>
         /// The original reference used to construct this collection.
         /// </summary>
-        public CKCellRef CellRef { get; protected set; }
+        public CellsRef CellRef { get; protected set; }
 
-        /// <inheritdoc/>
-        public IDOMObject Parent => Table;
 
-        private readonly List<CKCell> _cells = new List<CKCell>();
-
-        /// <summary>
-        /// Protected constructor for subclassing or FromRef instantiation.
-        /// </summary>
-        protected CKCells() { }
-
-        /// <summary>
-        /// Builds the internal list of CKCell objects based on the supplied cell reference.
-        /// </summary>
-        /// <returns>Enumerable list of constructed CKCell objects.</returns>
-        /// <exception cref="InvalidOperationException">Thrown if the CellRef or its index list is null.</exception>
-        protected virtual IEnumerable<CKCell> BuildCells()
+        private List<CKCell> CellsList
         {
-            if (CellRef == null || CellRef.CellIndexes == null)
-                throw new InvalidOperationException("CellRef or CellIndexes is null.");
-
-            foreach (var i in CellRef.CellIndexes)
+            get
             {
-                var gcr = Table.Converters.GetGridCellRef(i);
-                var resolvedRef = Table.Converters.GetCellRef(gcr, CellRef.Parent);
-                _cells.Add(Table.Cell(resolvedRef));
+                if (_cachedCells == null || IsDirty)
+                {
+                    _cachedCells = new List<CKCell>();
+                    for (int i = 1; i <= COMCells.Count; i++)
+                    {
+                        CKTable table = Document.Tables.ItemOf(COMCells[i]);
+
+                        //var table = new CKTable(COMCells[i].Tables[1], Document);
+                        var cellRef = new CKCellRef(
+                            COMCells[i].RowIndex,
+                            COMCells[i].ColumnIndex,
+                            new RangeSnapshot(COMCells[i].Range),
+                            this);
+
+                        _cachedCells.Add(table.Cell(cellRef));
+                    }
+                    IsDirty = false;
+                }
+                return _cachedCells;
             }
-
-            return _cells;
         }
 
-        /// <summary>
-        /// Constructs a new <see cref="CKCells"/> instance from a <see cref="CKTable"/> and a <see cref="CKCellRef"/>.
-        /// </summary>
-        /// <param name="table">The parent table.</param>
-        /// <param name="cellRef">The reference to resolve into cell(s).</param>
-        /// <returns>A new <see cref="CKCells"/> collection.</returns>
-        /// <exception cref="ArgumentNullException">Thrown if either parameter is null.</exception>
-        public static CKCells FromRef(CKTable table, CKCellRef cellRef)
+
+        public CKCells(Word.Cells cells, CellsRef cellRef) : base(cellRef?.Parent)
         {
-            if (table == null) throw new ArgumentNullException(nameof(table));
-            if (cellRef == null) throw new ArgumentNullException(nameof(cellRef));
-
-            var instance = new CKCells
-            {
-                Table = table,
-                CellRef = cellRef
-            };
-
-            instance._cells.AddRange(instance.BuildCells());
-            return instance;
+            COMCells = cells;
+            CellRef = cellRef;
         }
 
-        /// <summary>
-        /// Gets the number of cells in the collection.
-        /// </summary>
-        public int Count => _cells.Count;
+
 
         /// <inheritdoc/>
-        public CKDocument Document => Table.Document;
 
-        /// <inheritdoc/>
-        public CKApplication Application => Parent.Application;
+        public override int Count => COMCells.Count;
+        bool _isDirty = false;
+        public override bool IsDirty
+        {
+            get
+            {
+                if (!_isDirty)
+                {
+                    _isDirty = CellsList.Any(c => c.IsDirty)
+                        || Parent.IsDirty;
+                }
+                return _isDirty;
+            }
+            protected set => _isDirty = value;
+        }
 
-        /// <inheritdoc/>
-        public bool IsDirty => Table.IsDirty || _cells.Any(c => c.IsDirty);
+        public override bool IsOrphan => throw new NotImplementedException();
 
-        /// <inheritdoc/>
-        public bool IsOrphan => Document.IsOrphan;
+        public Word.Cells COMCells { get; private set; }
 
         /// <summary>
         /// Gets the <see cref="CKCell"/> at the specified one-based index.
@@ -229,15 +236,28 @@ namespace CoverageKiller2.DOM.Tables
             {
                 if (index < 1 || index > Count)
                     throw new ArgumentOutOfRangeException(nameof(index));
-                return _cells[index - 1];
+
+                return CellsList[index - 1];
             }
         }
 
+        private List<CKCell> _cachedCells = new List<CKCell>();
+
         /// <inheritdoc/>
-        public IEnumerator<CKCell> GetEnumerator() => _cells.GetEnumerator();
+        public IEnumerator<CKCell> GetEnumerator() => CellsList.GetEnumerator();
 
         /// <inheritdoc/>
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+
+        public override int IndexOf(object obj)
+        {
+            if (obj is CKCell cell)
+            {
+                var index = CellsList.IndexOf(cell);
+                return index < 0 ? index : index + 1;
+            }
+            return -1;//not found
+        }
     }
 
 }

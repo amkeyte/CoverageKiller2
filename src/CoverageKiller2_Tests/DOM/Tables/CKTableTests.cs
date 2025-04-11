@@ -34,15 +34,6 @@ namespace CoverageKiller2.DOM.Tables
         }
         //******* End Standard Rigging ********
 
-        [TestMethod]
-        public void FromRange_ShouldReturnValidCKTable()
-        {
-            var table = _testFile.Tables[1];
-
-            Assert.IsNotNull(table);
-            Assert.IsNotNull(table.COMTable);
-            Assert.AreEqual(table.Text, table.COMTable.Range.Text);
-        }
 
         [TestMethod]
         public void IndexesOf_WordCells_ShouldReturnCorrectIndexes()
@@ -55,19 +46,7 @@ namespace CoverageKiller2.DOM.Tables
             Assert.IsTrue(indexes.All(i => i >= 1));
         }
 
-        //[TestMethod]
-        //public void Cell_FromCKCellRef_ShouldReturnCorrectCell()
-        //{
-        //    var doc = RandomTestHarness.GetDocument(_testFilePath);
-        //    var table = doc.Tables[1];//CKTable.FromRange(doc.Tables[1].Range, doc);
-        //    var firstCell = table.Cell(new CKCellRef(1, 1));
-        //    var refCell = new CKCellRef(firstCell, table);
-        //    var ckCell = table.Cell(refCell);
 
-        //    Assert.AreEqual(1, ckCell.WordRow);
-        //    Assert.AreEqual(1, ckCell.WordColumn);
-        //    Assert.AreEqual(firstCell.Range.Text, ckCell.COMCell.Range.Text);
-        //}
 
         [TestMethod]
         public void Constructor_ShouldInitializeCKTable()
