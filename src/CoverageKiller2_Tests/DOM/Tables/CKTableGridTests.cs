@@ -19,6 +19,7 @@ namespace CoverageKiller2.DOM.Tables
         public TestContext TestContext { get; set; }
         private string _testFilePath;
         private CKDocument _testFile;
+        private const int TestTableNumber = 1;
 
         [TestInitialize]
         public void Setup()
@@ -35,26 +36,12 @@ namespace CoverageKiller2.DOM.Tables
         }
         //******* End Standard Rigging ********
 
-        private CKDocument _doc;
-        private const int TestTableNumber = 1;
 
-        [TestInitialize]
-        public void SetUp()
-        {
-            _doc = RandomTestHarness.GetTempDocumentFrom(RandomTestHarness.TestFile1);
-        }
-
-        [TestCleanup]
-        public void TearDown()
-        {
-            RandomTestHarness.CleanUp(_doc);
-            _doc = null;
-        }
 
         [TestMethod]
         public void CKTableGrid_All_Cells_In_Span_Reference_Same_COMCell()
         {
-            var table = TestHelpers.FindNthMergedTable(_doc, 1);
+            var table = TestHelpers.FindNthMergedTable(_testFile, 1);
             var grid = CKTableGrid.GetInstance(table, table.COMTable);
 
             var master = grid.GetMasterCells().First();
@@ -78,7 +65,7 @@ namespace CoverageKiller2.DOM.Tables
         [TestMethod]
         public void CKTableGrid_MasterCell_Has_Correct_Span()
         {
-            var table = TestHelpers.FindNthMergedTable(_doc, 1);
+            var table = TestHelpers.FindNthMergedTable(_testFile, 1);
             var grid = CKTableGrid.GetInstance(table, table.COMTable);
 
             var master = grid.GetMasterCells().First();
@@ -91,8 +78,8 @@ namespace CoverageKiller2.DOM.Tables
         [TestMethod]
         public void CKTableGrid_GetInstance_ReturnsSameInstanceForSameTableRange()
         {
-            Assert.IsTrue(_doc.Tables.Count >= TestTableNumber);
-            CKTable wordTable = _doc.Tables[TestTableNumber];
+            Assert.IsTrue(_testFile.Tables.Count >= TestTableNumber);
+            CKTable wordTable = _testFile.Tables[TestTableNumber];
 
             CKTableGrid grid1 = CKTableGrid.GetInstance(wordTable, wordTable.COMTable);
             CKTableGrid grid2 = CKTableGrid.GetInstance(wordTable, wordTable.COMTable);
@@ -104,8 +91,8 @@ namespace CoverageKiller2.DOM.Tables
         [TestMethod]
         public void CKTableGrid_GetCellAt_ValidCoordinates_ReturnsGridCell()
         {
-            Assert.IsTrue(_doc.Tables.Count >= TestTableNumber);
-            CKTable wordTable = _doc.Tables[TestTableNumber];
+            Assert.IsTrue(_testFile.Tables.Count >= TestTableNumber);
+            CKTable wordTable = _testFile.Tables[TestTableNumber];
 
             CKTableGrid grid = CKTableGrid.GetInstance(wordTable, wordTable.COMTable);
 
@@ -119,8 +106,8 @@ namespace CoverageKiller2.DOM.Tables
         [TestMethod]
         public void CKTableGrid_GetCellAt_InvalidCoordinates_ReturnsNull()
         {
-            Assert.IsTrue(_doc.Tables.Count >= TestTableNumber);
-            CKTable wordTable = _doc.Tables[TestTableNumber];
+            Assert.IsTrue(_testFile.Tables.Count >= TestTableNumber);
+            CKTable wordTable = _testFile.Tables[TestTableNumber];
 
             CKTableGrid grid = CKTableGrid.GetInstance(wordTable, wordTable.COMTable);
 

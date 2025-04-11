@@ -42,7 +42,7 @@ namespace CoverageKiller2.DOM.Tables
             try
             {
                 shadow.ShowDebuggerWindow();
-                var cloneTable = shadow.CloneRange(sourceTable);
+                var cloneTable = shadow.CloneFrom(sourceTable);
                 var grid = TableGridCrawler3.NormalizeVisualGrid(cloneTable.COMTable);
 
                 Assert.IsNotNull(grid, "Grid was null.");

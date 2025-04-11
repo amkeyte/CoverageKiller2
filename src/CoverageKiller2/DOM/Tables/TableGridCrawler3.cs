@@ -6,8 +6,19 @@ using Word = Microsoft.Office.Interop.Word;
 
 namespace CoverageKiller2.DOM.Tables
 {
+    /// <summary>
+    /// Utility class for visualizing and processing Word table grid layouts using GridCell2 structures.
+    /// </summary>
+    /// <remarks>
+    /// Version: CK2.00.01.0013
+    /// </remarks>
     public static class TableGridCrawler3
     {
+        /// <summary>
+        /// Dumps a string representation of the grid for debugging or visualization.
+        /// </summary>
+        /// <param name="grid">The jagged grid structure of GridCell2 instances.</param>
+        /// <returns>A formatted string showing grid positions and cell types.</returns>
         public static string DumpGrid(Base1JaggedList<GridCell2> grid)
         {
             var sb = new StringBuilder();
@@ -25,6 +36,12 @@ namespace CoverageKiller2.DOM.Tables
             return sb.ToString();
         }
 
+        /// <summary>
+        /// Constructs a normalized grid layout of the Word table using GridCell2 and ZombieCell2 placeholders.
+        /// Pads gaps and analyzes spans due to merged cells.
+        /// </summary>
+        /// <param name="table">The Word table to process.</param>
+        /// <returns>A padded jagged grid representation of the table.</returns>
         public static Base1JaggedList<GridCell2> NormalizeVisualGrid(Word.Table table)
         {
             var raw = table.Range.Cells
@@ -78,12 +95,15 @@ namespace CoverageKiller2.DOM.Tables
                 }
             }
 
-            // 🔍 Analyze merge spans
             AnalyzeSpans(jagged);
-
             return jagged;
         }
 
+        /// <summary>
+        /// Colors all non-master cells based on their master cell's background.
+        /// Used for visual debugging.
+        /// </summary>
+        /// <param name="grid">The grid to process.</param>
         public static void ColorMasterCells(Base1JaggedList<GridCell2> grid)
         {
             foreach (var cell in grid.SelectMany(r => r))
@@ -92,25 +112,27 @@ namespace CoverageKiller2.DOM.Tables
                 {
                     try
                     {
-
                         cell.MasterCell.COMCell.Shading.BackgroundPatternColor = Word.WdColor.wdColorLightBlue;
-
                     }
                     catch
                     {
-                        //throw new Exception("something wrong");
-                        // If COM freaks out, keep going
+                        // Skip safely if COM is unavailable or misbehaving
                     }
                 }
             }
         }
 
+        /// <summary>
+        /// Prepares the table for layout rendering by adjusting width, font, and formatting.
+        /// </summary>
+        /// <param name="grid">The normalized grid.</param>
+        /// <param name="rowHeight">Optional row height in points.</param>
+        /// <param name="colWidth">Optional column width in points.</param>
         public static void PrepareGridForLayout(Base1JaggedList<GridCell2> grid, float rowHeight = 20f, float colWidth = 20f)
         {
             try
             {
                 var table = grid.Get2D(1, 1).COMCell.Range.Tables[1];
-                //table.AllowAutoFit = false;
 
                 table.Range.Font.Name = "Consolas";
                 table.Range.Font.Size = 10;
@@ -122,39 +144,16 @@ namespace CoverageKiller2.DOM.Tables
                     Debug.WriteLine(row[1].COMCell.Width);
                 }
             }
-            //foreach (var row in grid)
-            //{
-            //    foreach (var cell in row)
-            //    {
-            //        if (cell.IsDummy || cell.COMCell == null)
-            //            continue;
-
-            //        try
-            //        {
-            //            var com = cell.COMCell;
-
-            //            com.Row.HeightRule = Word.WdRowHeightRule.wdRowHeightExactly;
-            //            com.Row.Height = rowHeight;
-
-            //            com.PreferredWidthType = Word.WdPreferredWidthType.wdPreferredWidthPoints;
-            //            com.PreferredWidth = colWidth;
-
-            //            com.Range.Font.Name = "Consolas";
-            //            com.Range.Font.Size = 10;
-            //            com.VerticalAlignment = Word.WdCellVerticalAlignment.wdCellAlignVerticalCenter;
-            //        }
             catch
             {
                 if (Debugger.IsAttached) Debugger.Break();
-                // Word will sometimes throw if a merged ghost is touched — skip them safely
             }
         }
 
-
-        //var firstReal = grid.SelectMany(r => r).FirstOrDefault(c => !c.IsDummy && c.COMCell != null);
-        //firstReal?.COMCell?.Range?.ParagraphFormat?.SetSpaceAfter(0);
-
-
+        /// <summary>
+        /// Detects row and column span for each master cell based on attached dummy neighbors.
+        /// </summary>
+        /// <param name="grid">The normalized grid to process.</param>
         private static void AnalyzeSpans(Base1JaggedList<GridCell2> grid)
         {
             int rowCount = grid.Count;
@@ -168,7 +167,6 @@ namespace CoverageKiller2.DOM.Tables
                 int row = cell.GridRow;
                 int col = cell.GridCol;
 
-                // Horizontal span
                 int colSpan = 1;
                 for (int c = col + 1; c <= colCount; c++)
                 {
@@ -179,7 +177,6 @@ namespace CoverageKiller2.DOM.Tables
                         break;
                 }
 
-                // Vertical span
                 int rowSpan = 1;
                 for (int r = row + 1; r <= rowCount; r++)
                 {
@@ -196,19 +193,55 @@ namespace CoverageKiller2.DOM.Tables
         }
     }
 
+    /// <summary>
+    /// Represents a cell in a Word table, as a coordinate-aware grid object.
+    /// Tracks merge structure and provides reference to the COM cell.
+    /// </summary>
+    /// <remarks>
+    /// Version: CK2.00.01.0013
+    /// </remarks>
     public class GridCell2
     {
         private RangeSnapshot snapshot;
 
+        /// <summary>
+        /// The underlying Word.Cell COM object (null if dummy).
+        /// </summary>
         public Word.Cell COMCell { get; protected set; }
+
+        /// <summary>
+        /// One-based grid row coordinate.
+        /// </summary>
         public int GridRow { get; protected set; }
+
+        /// <summary>
+        /// One-based grid column coordinate.
+        /// </summary>
         public int GridCol { get; protected set; }
+
+        /// <summary>
+        /// Indicates if this is the master cell of a merged region.
+        /// </summary>
         public bool IsMasterCell { get; protected set; }
+
+        /// <summary>
+        /// The associated master cell for this position (self if not merged).
+        /// </summary>
         public GridCell2 MasterCell { get; protected set; }
 
+        /// <summary>
+        /// Row span detected by `AnalyzeSpans`.
+        /// </summary>
         public int DetectedRowSpan { get; set; } = 1;
+
+        /// <summary>
+        /// Column span detected by `AnalyzeSpans`.
+        /// </summary>
         public int DetectedColSpan { get; set; } = 1;
 
+        /// <summary>
+        /// Snapshot of the cell’s text range and metadata.
+        /// </summary>
         public RangeSnapshot Snapshot
         {
             get
@@ -219,6 +252,9 @@ namespace CoverageKiller2.DOM.Tables
             protected set => snapshot = value;
         }
 
+        /// <summary>
+        /// Constructs a new grid cell for a real (non-dummy) Word.Cell.
+        /// </summary>
         public GridCell2(Word.Cell cell, int gridRow, int gridCol, bool isMasterCell)
         {
             COMCell = cell;
@@ -228,12 +264,31 @@ namespace CoverageKiller2.DOM.Tables
             MasterCell = this;
         }
 
+        /// <summary>
+        /// Indicates if this cell is part of a merged group.
+        /// </summary>
         public bool IsMerged => MasterCell != this;
+
+        /// <summary>
+        /// Indicates if this cell is a dummy placeholder.
+        /// </summary>
         public virtual bool IsDummy => false;
     }
 
+    /// <summary>
+    /// Represents a dummy cell used to fill gaps in the visual grid due to merged cells or row padding.
+    /// </summary>
+    /// <remarks>
+    /// Version: CK2.00.01.0013
+    /// </remarks>
     public class ZombieCell2 : GridCell2
     {
+        /// <summary>
+        /// Constructs a new dummy grid cell.
+        /// </summary>
+        /// <param name="master">The master cell that owns this dummy cell.</param>
+        /// <param name="gridRow">The grid row index of the dummy.</param>
+        /// <param name="gridCol">The grid column index of the dummy.</param>
         public ZombieCell2(GridCell2 master, int gridRow, int gridCol)
             : base(null, gridRow, gridCol, false)
         {
@@ -241,6 +296,7 @@ namespace CoverageKiller2.DOM.Tables
             MasterCell = master;
         }
 
+        /// <inheritdoc/>
         public override bool IsDummy => true;
     }
 }

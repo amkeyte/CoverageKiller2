@@ -164,15 +164,24 @@ namespace CoverageKiller2._TestOperators
             {
                 Word.Table wordTable = ckTable.COMTable;
 
-                foreach (Word.Cell cell in wordTable.Range.Cells)
+                try
                 {
-                    if (IsMerged(cell))
+                    _ = wordTable.Rows[1].Index;
+                    _ = wordTable.Columns[1].Index;
+                }
+                catch (COMException ex)
+                {
+                    if (ex.HResult == -2146822296 || ex.HResult == -2146822297)
                     {
                         mergedTables.Add(ckTable);
-                        Debug.WriteLine($"Table: {mergedTables.Count} \"{ckTable.Cell(1).Text}\"");
-                        break; // This table has at least one merged cell
+                    }
+                    else
+                    {
+                        throw;
+
                     }
                 }
+
             }
 
             return mergedTables;

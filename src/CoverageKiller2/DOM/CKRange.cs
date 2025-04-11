@@ -336,7 +336,10 @@ namespace CoverageKiller2.DOM
 
         #endregion
 
-
+        public RangeSnapshot GetSnapshot()
+        {
+            return new RangeSnapshot(COMRange);
+        }
 
         public override bool Equals(object obj)
         {
@@ -354,12 +357,7 @@ namespace CoverageKiller2.DOM
             if (other == null)
                 return false;
 
-            int thisStart = IsOrphan ? _cachedStart : COMRange.Start;
-            int thisEnd = IsOrphan ? _cachedEnd : COMRange.End;
-            int otherStart = other.IsOrphan ? other._cachedStart : other.COMRange.Start;
-            int otherEnd = other.IsOrphan ? other._cachedEnd : other.COMRange.End;
-
-            return thisStart == otherStart && thisEnd == otherEnd;
+            return RangeSnapshot.FastMatch(COMRange, other.COMRange);
         }
 
         public override int GetHashCode()

@@ -2,8 +2,6 @@
 using CoverageKiller2.Test;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Serilog;
-using System;
-using System.Runtime.InteropServices;
 
 namespace CoverageKiller2._TestOperators
 {
@@ -29,57 +27,12 @@ namespace CoverageKiller2._TestOperators
             Log.Information($"Completed test => {GetType().Name}::{TestContext.TestName}; status: {TestContext.CurrentTestOutcome}");
         }
         //******* End Standard Rigging ********
-
         [TestMethod]
-        public void CanAccessHwndViaDynamic()
+        public void SeeWhatWordDoes5()
         {
-            var app = _testFile.Application.WordApp;
-
-            try
-            {
-                dynamic dynApp = app;
-                int hwnd = dynApp.Hwnd;
-                Console.WriteLine($"✅ Got HWND: {hwnd}");
-
-                GetWindowThreadProcessId((IntPtr)hwnd, out uint pid);
-                Console.WriteLine($"✅ Got PID from HWND: {pid}");
-            }
-            catch (Exception ex)
-            {
-                Assert.Fail($"❌ Could not get HWND or PID dynamically: {ex.Message}");
-            }
-        }
-
-        [DllImport("user32.dll")]
-        private static extern uint GetWindowThreadProcessId(IntPtr hWnd, out uint lpdwProcessId);
-
-        [TestMethod]
-        public void CanGetHwndAndPidFromVstoApplication()
-        {
-            // This assumes the VSTO add-in is already running and accessible
-            var app = _testFile.Application.WordApp;
-
-            try
-            {
-                dynamic dynApp = app;
-                int hwnd = dynApp.Hwnd;
-
-                Console.WriteLine($"Hwnd: {hwnd}");
-
-                if (hwnd != 0)
-                {
-                    GetWindowThreadProcessId((IntPtr)hwnd, out uint pid);
-                    Console.WriteLine($"Resolved PID: {pid}");
-                }
-                else
-                {
-                    Console.WriteLine("Hwnd was zero — likely headless.");
-                }
-            }
-            catch (Exception ex)
-            {
-                Assert.Fail($"Could not get HWND or PID dynamically: {ex.Message}");
-            }
+            var workspace = _testFile.Application.GetShadowWorkspace(true);
+            workspace.CloneFrom(_testFile.Tables[1]);
+            workspace.ShowDebuggerWindow();
         }
 
 

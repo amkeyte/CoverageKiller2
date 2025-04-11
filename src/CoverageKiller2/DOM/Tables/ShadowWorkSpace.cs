@@ -1,6 +1,6 @@
 ﻿using CoverageKiller2.DOM;
+using Serilog;
 using System;
-using Word = Microsoft.Office.Interop.Word;
 
 /// <summary>
 /// Provides a hidden, disposable workspace for safe content processing using encapsulation.
@@ -32,6 +32,7 @@ public class ShadowWorkspace : IDOMObject, IDisposable
     /// </summary>
     public void ShowDebuggerWindow()
     {
+        Log.Information($"Activating shadow document {_doc.FileName}");
         try
         {
             _app.Visible = true;
@@ -59,43 +60,43 @@ public class ShadowWorkspace : IDOMObject, IDisposable
         }
     }
 
-    /// <summary>
-    /// Clones a table from any Word document into this shadow document.
-    /// </summary>
-    /// <param name="source">The table to clone.</param>
-    /// <returns>The pasted table in this document.</returns>
-    public Word.Table CloneTable(Word.Table source)
-    {
-        if (source == null) throw new ArgumentNullException(nameof(source));
+    ///// <summary>
+    ///// Clones a table from any Word document into this shadow document.
+    ///// </summary>
+    ///// <param name="source">The table to clone.</param>
+    ///// <returns>The pasted table in this document.</returns>
+    //public Word.Table CloneTable(Word.Table source)
+    //{
+    //    if (source == null) throw new ArgumentNullException(nameof(source));
 
-        _app.WithSuppressedAlerts(() =>
-        {
-            _doc.Content.Delete();
-            _doc.Content.COMRange.FormattedText = source.Range.FormattedText;
-        });
+    //    _app.WithSuppressedAlerts(() =>
+    //    {
+    //        _doc.Content.Delete();
+    //        _doc.Content.COMRange.FormattedText = source.Range.FormattedText;
+    //    });
 
-        return _doc.Tables[1].COMTable;
-    }
+    //    return _doc.Tables[1].COMTable;
+    //}
 
-    /// <summary>
-    /// Clones a CKRange-derived object to the end of this document.
-    /// </summary>
-    /// <typeparam name="T">The type of CKRange to return.</typeparam>
-    /// <param name="objToClone">The CKRange object to clone.</param>
-    /// <returns>The cloned CKRange instance in this document.</returns>
-    public T CloneRange<T>(T objToClone) where T : CKRange
-    {
-        if (objToClone == null) throw new ArgumentNullException(nameof(objToClone));
+    ///// <summary>
+    ///// Clones a CKRange-derived object to the end of this document.
+    ///// </summary>
+    ///// <typeparam name="T">The type of CKRange to return.</typeparam>
+    ///// <param name="objToClone">The CKRange object to clone.</param>
+    ///// <returns>The cloned CKRange instance in this document.</returns>
+    //public T CloneRange<T>(T objToClone) where T : CKRange
+    //{
+    //    if (objToClone == null) throw new ArgumentNullException(nameof(objToClone));
 
-        return _app.WithSuppressedAlerts(() =>
-        {
-            var insertAt = _doc.Range().End - 1;
-            var targetRange = _doc.Range(insertAt, insertAt);
-            targetRange.FormattedText = objToClone.FormattedText;
-            var resultRange = _doc.Range(insertAt, insertAt + targetRange.Text.Length);
-            return (T)Activator.CreateInstance(typeof(T), new object[] { resultRange.COMRange, _doc });
-        });
-    }
+    //    return _app.WithSuppressedAlerts(() =>
+    //    {
+    //        var insertAt = _doc.Range().End - 1;
+    //        var targetRange = _doc.Range(insertAt, insertAt);
+    //        targetRange.FormattedText = objToClone.FormattedText;
+    //        var resultRange = _doc.Range(insertAt, insertAt + targetRange.Text.Length);
+    //        return (T)Activator.CreateInstance(typeof(T), new object[] { resultRange.COMRange, _doc });
+    //    });
+    //}
 
     /// <summary>
     /// Clones a CKRange-based object into the specified range of a target document,
@@ -106,7 +107,7 @@ public class ShadowWorkspace : IDOMObject, IDisposable
     /// <param name="cloneToTarget">The destination range in this document.</param>
     /// <returns>A new object of type T wrapping the cloned content.</returns>
     /// <remarks>
-    /// Version: CK2.00.01.0008
+    /// Version: CK2.00.01.0012
     /// </remarks>
     public T CloneFrom<T>(T objToClone, CKRange cloneToTarget) where T : IDOMObject
     {
@@ -118,14 +119,25 @@ public class ShadowWorkspace : IDOMObject, IDisposable
             if (!(objToClone is CKRange sourceRange))
                 throw new NotSupportedException($"CloneFrom<T> only supports CKRange-based objects. Type was {typeof(T).Name}.");
 
-            cloneToTarget.COMRange.FormattedText = sourceRange.FormattedText.COMRange;
+            int insertStart = cloneToTarget.Start;
 
-            var resultRange = _doc.Range(cloneToTarget.Start, cloneToTarget.Start + sourceRange.COMRange.Text.Length);
-            var wrapped = new CKRange(resultRange.COMRange, _doc);
+            // Create an insertion point at the start of the target
+            var insertionPoint = _doc.Range(insertStart, insertStart).COMRange;
 
-            return IDOMCaster.Cast<T>(wrapped);
+            // Perform the paste at the insertion point
+            insertionPoint.FormattedText = sourceRange.FormattedText.COMRange;
+
+            // Determine how much was actually inserted by checking the new end
+            int insertEnd = insertionPoint.End;
+
+            // Wrap the resulting range as a CKRange
+            var resultRange = new CKRange(_doc.Range(insertStart, insertEnd).COMRange, _doc);
+
+            // Return the properly cast result
+            return IDOMCaster.Cast<T>(resultRange);
         });
     }
+
 
     /// <summary>
     /// Clones a CKRange-based object to the end of this document.

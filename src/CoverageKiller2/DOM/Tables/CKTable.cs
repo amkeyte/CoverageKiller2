@@ -15,6 +15,34 @@ namespace CoverageKiller2.DOM.Tables
     /// </remarks>
     public class CKTable : CKRange
     {
+        static CKTable()
+        {
+            IDOMCaster.Register(input =>
+            {
+                CKTable result = default;
+                if (input is CKRange inputRange)
+                {
+                    CKTables tables = default;
+                    if (input.Parent is CKDocument doc)
+                    {
+                        tables = doc.Tables;
+                    }
+                    else if (input.Parent is CKTables ptables)
+                    {
+                        tables = ptables;
+                    }
+                    else if (input.Parent is CKRange rng)
+                    {
+                        tables = rng.Tables;
+                    }
+
+                    // Try to locate by range comparison
+                    result = tables.Where(t => t.Equals(inputRange)).FirstOrDefault();
+                }
+
+                return result ?? throw new InvalidCastException("Could not convert to CKTable.");
+            });
+        }
 
 
         private CKTableGrid Grid => CKTableGrid.GetInstance(this, COMTable);
@@ -237,7 +265,10 @@ namespace CoverageKiller2.DOM.Tables
         {
             if (obj is CKTable table)
             {
-                return TablesList.IndexOf(table);
+                for (int i = 0; i < TablesList.Count; i++)
+                {
+                    if (!TablesList[i].Equals(obj)) return i;
+                }
             }
             return -1;
         }
