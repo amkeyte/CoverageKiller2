@@ -1,5 +1,6 @@
 ﻿using CoverageKiller2.Test;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Serilog;
 using System;
 
 namespace CoverageKiller2.DOM
@@ -13,34 +14,40 @@ namespace CoverageKiller2.DOM
     [TestClass]
     public class CKParagraphTests
     {
-        private CKDocument _doc;
+        //******* Standard Rigging ********
+        public TestContext TestContext { get; set; }
+        private string _testFilePath;
+        private CKDocument _testFile;
 
         [TestInitialize]
-        public void SetUp()
+        public void Setup()
         {
-            _doc = RandomTestHarness.GetTempDocumentFrom(RandomTestHarness.TestFile1);
+            Log.Information($"Running test => {GetType().Name}::{TestContext.TestName}");
+            _testFilePath = RandomTestHarness.TestFile1;
+            _testFile = RandomTestHarness.GetTempDocumentFrom(_testFilePath);
         }
 
         [TestCleanup]
-        public void TearDown()
+        public void Cleanup()
         {
-            RandomTestHarness.CleanUp(_doc);
-            _doc = null;
+            RandomTestHarness.CleanUp(_testFile, force: true);
+            Log.Information($"Completed test => {GetType().Name}::{TestContext.TestName}; status: {TestContext.CurrentTestOutcome}");
         }
+        //******* End Standard Rigging ********
 
         [TestMethod]
         public void CKParagraph_Constructor_ThrowsArgumentNullException()
         {
             Assert.ThrowsException<ArgumentNullException>(() =>
             {
-                var para = new CKParagraph(null);
+                var para = new CKParagraph(null, null);
             });
         }
 
         [TestMethod]
         public void CKParagraph_Constructor_WrapsParagraphSuccessfully()
         {
-            var ckRange = _doc.Range();
+            var ckRange = _testFile.Sections[1];
             var ckParagraphs = ckRange.Paragraphs;
             Assert.IsTrue(ckParagraphs.Count > 0, "Test document should contain at least one paragraph.");
 
@@ -55,7 +62,7 @@ namespace CoverageKiller2.DOM
         [TestMethod]
         public void CKParagraph_ToString_ReturnsValidString()
         {
-            var ckParagraph = _doc.Range().Paragraphs[1];
+            var ckParagraph = _testFile.Sections[1].Paragraphs[1];
             string output = ckParagraph.ToString();
 
             Assert.IsTrue(output.Contains("CKParagraph:"), "ToString() should include 'CKParagraph:'.");

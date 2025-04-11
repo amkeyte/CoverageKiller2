@@ -47,7 +47,7 @@ namespace CoverageKiller2.DOM
         /// <summary>
         /// Probably will get hidden. Avoid use if possible.
         /// </summary>
-        public Word.Sections COMSection => Parent.COMRange.Sections;
+        public Word.Sections COMSection { get; }
 
 
         /// <summary>
@@ -55,8 +55,9 @@ namespace CoverageKiller2.DOM
         /// </summary>
         /// <param name="parent">The parent <see cref="CKRange"/> to associate with this instance.</param>
         /// <exception cref="ArgumentNullException">Thrown when the parent parameter is null.</exception>
-        public CKSections(CKRange parent) : base(parent)
+        public CKSections(Word.Sections collection, IDOMObject parent) : base(parent)
         {
+            COMSection = collection;
         }
 
         /// <summary>
@@ -64,11 +65,12 @@ namespace CoverageKiller2.DOM
         /// </summary>
         public override int Count => COMSection.Count;
 
-        public override bool IsDirty => throw new NotImplementedException();
+        public override bool IsDirty { get; protected set; }
 
         public override bool IsOrphan => throw new NotImplementedException();
 
         /// <summary>
+        /// TODO: cache these
         /// Gets the <see cref="CKSection"/> at the specified one-based index.
         /// </summary>
         /// <param name="index">The one-based index of the section to retrieve.</param>
@@ -82,7 +84,7 @@ namespace CoverageKiller2.DOM
             {
                 if (index < 1 || index > Count)
                     throw new ArgumentOutOfRangeException(nameof(index), "Index must be between 1 and the number of sections.");
-                return new CKSection(COMSection[index]);
+                return new CKSection(COMSection[index], this);
             }
         }
 
@@ -111,6 +113,11 @@ namespace CoverageKiller2.DOM
         public override string ToString()
         {
             return $"CKSections [Count: {Count}]";
+        }
+
+        public override int IndexOf(object obj)
+        {
+            throw new NotImplementedException();
         }
     }
 }

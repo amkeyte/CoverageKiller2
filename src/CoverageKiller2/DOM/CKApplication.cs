@@ -1,10 +1,10 @@
 ﻿using CoverageKiller2.Logging;
-using Microsoft.Office.Interop.Word;
 using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-
+using System.IO;
+using Word = Microsoft.Office.Interop.Word;
 namespace CoverageKiller2.DOM
 {
     /// <summary>
@@ -14,11 +14,11 @@ namespace CoverageKiller2.DOM
     /// <remarks>
     /// Version: CK2.00.00.0009
     /// </remarks>
-    public class CKApplication : IDisposable
+    public partial class CKApplication : IDisposable
     {
-        private readonly Application _wordApp;
+        private readonly Word.Application _wordApp;
         private readonly List<CKDocument> _documents = new List<CKDocument>();
-        private readonly Dictionary<CKDocument, Document> _comDocs = new Dictionary<CKDocument, Document>();
+        private readonly Dictionary<CKDocument, Word.Document> _comDocs = new Dictionary<CKDocument, Word.Document>();
         private readonly string _PID;
         private bool disposedValue;
 
@@ -30,7 +30,7 @@ namespace CoverageKiller2.DOM
         /// <summary>
         /// Gets the raw Word application instance.
         /// </summary>
-        public Application WordApp => _wordApp;
+        public Word.Application WordApp => _wordApp;
 
         /// <summary>
         /// Indicates whether this application is the VSTO ThisAddIn instance.
@@ -48,7 +48,7 @@ namespace CoverageKiller2.DOM
         /// <param name="wordApp">The Word application to wrap.</param>
         /// <param name="pid">The process ID of the Word instance.</param>
         /// <param name="isOwned">Whether CKOffice is responsible for cleanup.</param>
-        public CKApplication(Application wordApp, int pid, bool isOwned = true)
+        public CKApplication(Word.Application wordApp, int pid, bool isOwned = true)
         {
             LH.Ping(GetType());
             _wordApp = wordApp ?? throw new ArgumentNullException(nameof(wordApp));
@@ -64,10 +64,12 @@ namespace CoverageKiller2.DOM
         /// </summary>
         public IReadOnlyList<CKDocument> Documents => _documents.AsReadOnly();
 
+
+
         /// <summary>
         /// Opens a document from disk and wraps it in a CKDocument.
         /// </summary>
-        public CKDocument GetDocument(string fullPath, bool visible = false)
+        public CKDocument GetDocument(string fullPath, bool visible = false, bool createIfNotFound = false)
         {
             LH.Ping(GetType());
             if (string.IsNullOrWhiteSpace(fullPath))
@@ -75,6 +77,10 @@ namespace CoverageKiller2.DOM
 
             try
             {
+                //Word.Document comDoc = default;
+                if (createIfNotFound && !File.Exists(fullPath))
+                    _wordApp.Documents.Add(Visible: visible).SaveAs2(FileName: fullPath);
+
                 Log.Information("Opening document from path: {Path}", fullPath);
                 var comDoc = _wordApp.Documents.Open(
                     FileName: fullPath,
@@ -197,6 +203,79 @@ namespace CoverageKiller2.DOM
 
                 disposedValue = true;
             }
+        }
+
+
+        public bool Visible
+        {
+            get => _wordApp.Visible;
+            set => _wordApp.Visible = value;
+        }
+    }
+
+    public partial class CKApplication
+    {
+        private const string DefaultTemplatePath = "C:\\Users\\akeyte.PCM\\source\\repos\\CoverageKiller2\\src\\CoverageKiller2_Tests\\TestFiles\\_shadowDocumentTemplate_.docx";
+
+        /// <summary>
+        /// Executes the given action with Word alerts and macro security suppressed.
+        /// </summary>
+        /// <param name="action">The action to run with suppressed alerts.</param>
+        public void WithSuppressedAlerts(Action action)
+        {
+            WithSuppressedAlerts<object>(() => { action(); return null; });
+        }
+        /// <summary>
+        /// Executes a function with Word alerts and macro security suppressed, returning a result.
+        /// </summary>
+        /// <typeparam name="T">The return type.</typeparam>
+        /// <param name="func">The function to run with suppressed alerts.</param>
+        /// <returns>The result of the function.</returns>
+        public T WithSuppressedAlerts<T>(Func<T> func)
+        {
+            var originalAlerts = WordApp.DisplayAlerts;
+            var originalSecurity = WordApp.AutomationSecurity;
+
+            try
+            {
+                WordApp.DisplayAlerts = Word.WdAlertLevel.wdAlertsNone;
+                WordApp.AutomationSecurity = Microsoft.Office.Core.MsoAutomationSecurity.msoAutomationSecurityForceDisable;
+
+                return func();
+            }
+            finally
+            {
+                WordApp.DisplayAlerts = originalAlerts;
+                WordApp.AutomationSecurity = originalSecurity;
+            }
+        }
+
+        /// <summary>
+        /// Creates a temporary CKDocument based on the given file path.
+        /// </summary>
+        /// <param name="fromFile">The source file to clone. If empty, uses the default template.</param>
+        /// <returns>A new CKDocument instance opened in this application.</returns>
+        public CKDocument GetTempDocument(string fromFile = "")
+        {
+            fromFile = string.IsNullOrWhiteSpace(fromFile) ? DefaultTemplatePath : fromFile;
+            if (!File.Exists(fromFile)) throw new FileNotFoundException("Template file not found.", fromFile);
+
+            var tempPath = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName() + Path.GetExtension(fromFile));
+            File.Copy(fromFile, tempPath);
+
+            CKDocument doc = null;
+            WithSuppressedAlerts(() => doc = GetDocument(tempPath, visible: false));
+            return doc;
+        }
+
+        /// <summary>
+        /// Creates a ShadowWorkspace using a hidden, disposable CKDocument.
+        /// </summary>
+        /// <returns>A new ShadowWorkspace instance.</returns>
+        public ShadowWorkspace GetShadowWorkspace()
+        {
+            var doc = GetTempDocument();
+            return new ShadowWorkspace(doc, this, keepOpen: false);
         }
     }
 }

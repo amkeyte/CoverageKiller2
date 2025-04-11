@@ -37,10 +37,11 @@ namespace CoverageKiller2.DOM
         /// <param name="range">The Word.Range object to wrap.</param>
         /// <param name="parent">Optional parent DOM object; if not provided, will be looked up via CKDocuments.</param>
         /// <exception cref="ArgumentNullException">Thrown when the <paramref name="range"/> parameter is null.</exception>
-        public CKRange(Word.Range range, IDOMObject parent = null)
+        public CKRange(Word.Range range, IDOMObject parent)
         {
+
             COMRange = range ?? throw new ArgumentNullException(nameof(range));
-            //Parent = parent ?? CKDocuments.GetByCOMDocument(COMRange.Document);
+            Parent = parent ?? throw new ArgumentNullException(nameof(parent));
             _cachedCharCount = COMRange.Characters.Count;
             _cachedText = COMRange.Text;
             // Initialize cached boundary values.
@@ -81,6 +82,8 @@ namespace CoverageKiller2.DOM
                 COMRange.Text = value;
             }
         }
+
+
 
         /// <summary>
         /// Gets a "pretty" version of the range's text.
@@ -185,17 +188,93 @@ namespace CoverageKiller2.DOM
         /// <summary>
         /// Gets the sections contained in the range.
         /// </summary>
-        public CKSections Sections => new CKSections(this);
+        public CKSections Sections => new CKSections(COMRange.Sections, this);
 
         /// <summary>
         /// Gets the paragraphs contained in the range.
         /// </summary>
-        public CKParagraphs Paragraphs => new CKParagraphs(this);
+        public CKParagraphs Paragraphs => new CKParagraphs(COMRange.Paragraphs, this);
 
         /// <summary>
         /// Gets the tables contained in the range.
         /// </summary>
-        public CKTables Tables => new CKTables(this);
+        public CKTables Tables => new CKTables(COMRange.Tables, this);
+        /// <summary>
+        /// Gets or sets the formatted text for this range. Setting this value replaces the contents and formatting of the range.
+        /// </summary>
+        public CKRange FormattedText
+        {
+            get
+            {
+                if (COMRange == null) throw new InvalidOperationException("COMRange is null.");
+                var formatted = COMRange.FormattedText;
+                return new CKRange(formatted, Parent);
+            }
+            set
+            {
+                if (COMRange == null) throw new InvalidOperationException("COMRange is null.");
+                if (value?.COMRange == null) throw new ArgumentNullException(nameof(value));
+                COMRange.FormattedText = value.COMRange;
+            }
+        }
+        /// <summary>
+        /// Returns a new CKRange collapsed to the end of this range.
+        /// </summary>
+        /// <returns>A new CKRange positioned at the end of this range.</returns>
+        /// <remarks>
+        /// Version: CK2.00.01.0015
+        /// </remarks>
+        public CKRange CollapseToEnd()
+        {
+            int end = COMRange.End;
+            var docRange = Document.Range();
+            int max = Math.Max(0, docRange.End - 1);
+
+            // Clamp end to valid range
+            if (end > max) end = max;
+            if (end < 0) end = 0;
+
+            Word.Range collapsed;
+            try
+            {
+                collapsed = Document.Range(end, end).COMRange;
+            }
+            catch
+            {
+                collapsed = docRange.COMRange; // fallback: entire document
+            }
+
+            return new CKRange(collapsed, Document);
+        }
+
+        /// <summary>
+        /// Returns a new CKRange collapsed to the start of this range.
+        /// </summary>
+        /// <returns>A new CKRange positioned at the start of this range.</returns>
+        /// <remarks>
+        /// Version: CK2.00.01.0016
+        /// </remarks>
+        public CKRange CollapseToStart()
+        {
+            int start = COMRange.Start;
+            var docRange = Document.Range();
+            int max = Math.Max(0, docRange.End - 1);
+
+            if (start > max) start = max;
+            if (start < 0) start = 0;
+
+            Word.Range collapsed;
+            try
+            {
+                collapsed = Document.Range(start, start).COMRange;
+            }
+            catch
+            {
+                collapsed = docRange.COMRange; // fallback: entire document
+            }
+
+            return new CKRange(collapsed, Document);
+        }
 
         /// <summary>
         /// Gets the cells contained in the range.
@@ -314,6 +393,11 @@ namespace CoverageKiller2.DOM
             // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
             Dispose(disposing: true);
             GC.SuppressFinalize(this);
+        }
+
+        internal void Delete()
+        {
+            COMRange.Delete();
         }
     }
 

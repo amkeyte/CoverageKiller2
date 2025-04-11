@@ -19,7 +19,7 @@ namespace CoverageKiller2.DOM
         /// </summary>
         /// <param name="section">The Word.Section object to wrap.</param>
         /// <exception cref="ArgumentNullException">Thrown when the section parameter is null.</exception>
-        public CKSection(Word.Section section) : base(section?.Range)
+        public CKSection(Word.Section section, IDOMObject parent) : base(section?.Range, parent)
         {
             COMSection = section ?? throw new ArgumentNullException(nameof(section));
         }
@@ -31,7 +31,7 @@ namespace CoverageKiller2.DOM
         /// <exception cref="ArgumentNullException">Thrown when the value is null.</exception>
         public CKRange HeaderRange
         {
-            get => new CKRange(COMSection.Headers[Word.WdHeaderFooterIndex.wdHeaderFooterPrimary].Range);
+            get => new CKRange(COMSection.Headers[Word.WdHeaderFooterIndex.wdHeaderFooterPrimary].Range, this);
             set
             {
                 if (value == null)
@@ -48,7 +48,7 @@ namespace CoverageKiller2.DOM
         /// <exception cref="ArgumentNullException">Thrown when the value is null.</exception>
         public CKRange FooterRange
         {
-            get => new CKRange(COMSection.Footers[Word.WdHeaderFooterIndex.wdHeaderFooterPrimary].Range);
+            get => new CKRange(COMSection.Footers[Word.WdHeaderFooterIndex.wdHeaderFooterPrimary].Range, this);
             set
             {
                 if (value == null)

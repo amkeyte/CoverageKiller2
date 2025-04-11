@@ -4,10 +4,12 @@ namespace CoverageKiller2.DOM
 {
     public abstract class ACKRangeCollection : IDOMObject
     {
-        protected ACKRangeCollection(CKRange parent)
+        protected ACKRangeCollection(IDOMObject parent)
         {
             Parent = parent ?? throw new ArgumentNullException(nameof(parent));
         }
+
+        public abstract int IndexOf(object obj);
 
 
 
@@ -16,9 +18,9 @@ namespace CoverageKiller2.DOM
         /// </summary>
         public abstract int Count { get; }
         protected bool _isDirty { get; set; }
-        public abstract bool IsDirty { get; }
+        public abstract bool IsDirty { get; protected set; }
 
-        public CKRange Parent { get; }
+        public IDOMObject Parent { get; }
         public CKDocument Document => Parent.Document;
 
         public CKApplication Application => Parent.Application;

@@ -138,7 +138,7 @@ namespace CoverageKiller2.DOM
             try
             {
                 string logFile = LogTailLoader.GetLogFile();
-                LoggingLoader.Configure(logFile, Serilog.Events.LogEventLevel.Information);
+                LoggingLoader.Configure(logFile, Serilog.Events.LogEventLevel.Verbose);
                 Log.Information("******************************************************************** CKOffice_Word started. ******************************************************************");
 
                 _isRunning = true;

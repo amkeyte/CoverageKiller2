@@ -17,9 +17,9 @@ namespace CoverageKiller2.DOM
     /// </remarks>
     public class CKDocument : IDOMObject, IDisposable
     {
-        private readonly string _fullPath;
-        private Word.Document _comDocument;
-
+        protected readonly string _fullPath;
+        protected Word.Document _comDocument;
+        public Word.Document GiveMeCOMDocumentIWillOwnItAndPromiseToCleanUpAfterMyself() => _comDocument;
         /// <summary>
         /// The CKApplication instance that owns and opened this document.
         /// </summary>
@@ -35,12 +35,12 @@ namespace CoverageKiller2.DOM
         /// <summary>
         /// Provides access to the document's tables as a CKTables collection.
         /// </summary>
-        public CKTables Tables => new CKTables(Range());
+        public CKTables Tables => new CKTables(_comDocument.Tables, this);
 
         /// <summary>
         /// Provides access to the document's sections.
         /// </summary>
-        public CKSections Sections => new CKSections(Range());
+        public CKSections Sections => new CKSections(_comDocument.Sections, this);
 
         /// <inheritdoc/>
         public CKDocument Document => this;
@@ -68,6 +68,18 @@ namespace CoverageKiller2.DOM
         /// </summary>
         public string LogId => _logId is null ? GenerateLogId() : _logId;
 
+        public bool Visible
+        {
+            get => _comDocument.Windows[1].Visible;
+            set => _comDocument.Windows[1].Visible = value;
+        }
+        public CKRange Content => new CKRange(_comDocument.Content, this);
+
+        public CKParagraphs Paragraphs => Range().Paragraphs;
+        public void Activate()
+        {
+            _comDocument.Activate();
+        }
         private string GenerateLogId()
         {
             try
@@ -207,7 +219,7 @@ namespace CoverageKiller2.DOM
         /// Wraps an existing Word.Range as a CKRange.
         /// </summary>
         /// <param name="range">The Word.Range to wrap.</param>
-        public CKRange Range(Word.Range range) => new CKRange(range);
+        public CKRange Range(Word.Range range) => new CKRange(range, this);
 
         public void Dispose()
         {

@@ -162,17 +162,18 @@ namespace CoverageKiller2.DOM.Tables
         /// Initializes a new instance of the <see cref="CKTables"/> class from the specified parent range.
         /// </summary>
         /// <param name="parent">The parent <see cref="CKRange"/> object that owns the tables.</param>
-        public CKTables(CKRange parent) : base(parent) { }
+        public CKTables(Word.Tables collection, IDOMObject parent) : base(parent)
+        {
+            COMTables = collection;
+
+        }
 
         /// <summary>
         /// Gets the number of tables in the associated range.
         /// </summary>
-        public override int Count => COMTables.Count;
+        public override int Count => throw new NotImplementedException();
 
-        /// <summary>
-        /// Gets the underlying Word.Tables COM object from the parent range.
-        /// </summary>
-        public Word.Tables COMTables => Parent.COMRange.Tables;
+
 
         /// <summary>
         /// Gets the <see cref="CKTable"/> at the specified one-based index.
@@ -206,9 +207,10 @@ namespace CoverageKiller2.DOM.Tables
         /// <summary>
         /// Gets whether this collection or any contained table is dirty.
         /// </summary>
-        public override bool IsDirty => _isDirty || this.Any(x => x.IsDirty);
-
+        public override bool IsDirty { get; protected set; } = false;
         public override bool IsOrphan => throw new NotImplementedException();
+
+        private Word.Tables COMTables { get; }
 
         /// <summary>
         /// Returns an enumerator that iterates through the <see cref="CKTable"/> objects in the collection.
@@ -227,6 +229,11 @@ namespace CoverageKiller2.DOM.Tables
         /// </summary>
         /// <returns>An enumerator for the collection.</returns>
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+
+        public override int IndexOf(object obj)
+        {
+            throw new NotImplementedException();
+        }
     }
 
 }

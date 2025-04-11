@@ -33,7 +33,7 @@ namespace CoverageKiller2.DOM
         {
             Assert.ThrowsException<ArgumentNullException>(() =>
             {
-                var para = new CKSection(null);
+                var para = new CKSection(null, null);
             });
         }
 

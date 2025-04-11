@@ -86,8 +86,8 @@ namespace CoverageKiller2.DOM
         [TestMethod]
         public void CKRange_TextEquals_IgnoresWhitespaceDifferences()
         {
-            var range = _testFile.Range(20, 100);
-            var ckRange = new CKRange(range.COMRange);
+
+            var ckRange = _testFile.Range(20, 100); ;
             var modified = ckRange.Text + "   \t\n ";
 
             Assert.IsTrue(ckRange.TextEquals(modified), "Whitespace-only differences should be ignored.");

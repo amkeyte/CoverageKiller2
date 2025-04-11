@@ -1,9 +1,7 @@
-﻿using CoverageKiller2.Logging;
-using CoverageKiller2.Test;
+﻿using CoverageKiller2.Test;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Serilog;
 using System;
-using System.IO;
 namespace CoverageKiller2.DOM
 {
     /// <summary>
@@ -15,44 +13,43 @@ namespace CoverageKiller2.DOM
     [TestClass]
     public class CKParagraphsTests
     {
-        private CKDocument _doc;
+        //******* Standard Rigging ********
+        public TestContext TestContext { get; set; }
+        private string _testFilePath;
+        private CKDocument _testFile;
 
         [TestInitialize]
-        public void SetUp()
+        public void Setup()
         {
-            LH.Ping(this.GetType());
-            _doc = RandomTestHarness.GetTempDocumentFrom(RandomTestHarness.TestFile1);
-            LH.Pong(this.GetType());
+            Log.Information($"Running test => {GetType().Name}::{TestContext.TestName}");
+            _testFilePath = RandomTestHarness.TestFile1;
+            _testFile = RandomTestHarness.GetTempDocumentFrom(_testFilePath);
         }
 
         [TestCleanup]
-        public void TearDown()
+        public void Cleanup()
         {
-            LH.Ping(this.GetType());
-            RandomTestHarness.CleanUp(_doc);
-            _doc = null;
-            LH.Pong(this.GetType());
+            RandomTestHarness.CleanUp(_testFile, force: true);
+            Log.Information($"Completed test => {GetType().Name}::{TestContext.TestName}; status: {TestContext.CurrentTestOutcome}");
         }
+        //******* End Standard Rigging ********
 
         [TestMethod]
         public void CKParagraphs_Count_MatchesUnderlyingWordParagraphsCount()
         {
-            LH.Ping($"App Instance {_doc.Application.PID} - Test File {Path.GetFileName(_doc.FullPath)}", null);
-            CKRange range = _doc.Range();
-            CKParagraphs paragraphs = range.Paragraphs;
+            CKRange range = _testFile.Range();
+            CKParagraphs paragraphs = range.Sections[1].Paragraphs;
 
-            int expectedCount = _doc.Range().COMRange.Paragraphs.Count;
+            int expectedCount = _testFile.Range().COMRange.Sections[1].Range.Paragraphs.Count;
             Assert.AreEqual(expectedCount, paragraphs.Count,
                 "CKParagraphs count should match the Word document's Paragraphs count.");
-            LH.Pong();
         }
 
         [TestMethod]
         public void CKParagraphs_Indexer_ReturnsValidCKParagraph_And_ThrowsOnInvalidIndex()
         {
-            LH.Ping($"App Instance {_doc.Application.PID} - Test File {Path.GetFileName(_doc.FullPath)}", null);
 
-            CKRange range = _doc.Sections[1];
+            CKRange range = _testFile.Sections[1];
             CKParagraphs paragraphs = range.Paragraphs;
 
             if (paragraphs.Count > 0)
@@ -70,20 +67,18 @@ namespace CoverageKiller2.DOM
             {
                 var p = paragraphs[paragraphs.Count + 1];
             }, "Accessing an index greater than Count should throw an ArgumentOutOfRangeException.");
-            LH.Pong();
 
         }
 
         [TestMethod]
         public void CKParagraphs_Enumeration_YieldsAllParagraphs()
         {
-            LH.Ping($"App Instance {_doc.Application.PID} - Test File {Path.GetFileName(_doc.FullPath)}", null);
 
             try
             {
 
 
-                CKRange range = _doc.Sections[1];
+                CKRange range = _testFile.Sections[1];
                 CKParagraphs paragraphs = range.Paragraphs;
 
                 int fixedCount = paragraphs.Count;
@@ -106,16 +101,14 @@ namespace CoverageKiller2.DOM
                 }
 
             }
-            LH.Pong("Tests Completed");
 
         }
 
         [TestMethod]
         public void CKParagraphs_ToString_ReturnsValidString()
         {
-            LH.Ping($"App Instance {_doc.Application.PID} - Test File {Path.GetFileName(_doc.FullPath)}", null);
 
-            CKRange range = _doc.Sections[1];
+            CKRange range = _testFile.Sections[1];
             CKParagraphs paragraphs = range.Paragraphs;
             string output = paragraphs.ToString();
 
@@ -123,7 +116,6 @@ namespace CoverageKiller2.DOM
             Assert.IsTrue(output.Contains("Count:"), "ToString() should contain 'Count:'.");
             Assert.IsTrue(output.Contains(paragraphs.Count.ToString()), "ToString() should include the count value.");
 
-            LH.Pong();
         }
     }
 }
