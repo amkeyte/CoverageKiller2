@@ -1,4 +1,5 @@
-﻿using CoverageKiller2.Pipeline.Config;
+﻿using CoverageKiller2.DOM;
+using CoverageKiller2.Pipeline.Config;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -52,7 +53,7 @@ namespace CoverageKiller2.Pipeline
         {
             item.CKDoc = Document;
             item.ProcessorConfig = ProcessorConfig;
-            item.Template = Template;
+            if (item.Template is null) item.Template = Template;
             _items.Add(item);
         }
 

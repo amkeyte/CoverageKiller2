@@ -2,7 +2,7 @@
 
 namespace CoverageKiller2.Logging
 {
-    internal class MemberCallerNameAttribute : Attribute
+    public class MemberCallerNameAttribute : Attribute
     {
     }
 }

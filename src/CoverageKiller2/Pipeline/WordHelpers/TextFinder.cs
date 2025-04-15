@@ -1,4 +1,5 @@
-﻿using CoverageKiller2.Logging;
+﻿using CoverageKiller2.DOM;
+using CoverageKiller2.Logging;
 using System;
 using Word = Microsoft.Office.Interop.Word;
 

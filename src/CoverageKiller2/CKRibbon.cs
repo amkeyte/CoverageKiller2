@@ -59,6 +59,17 @@ namespace CoverageKiller2
                 throw ex;
             }
         }
+        public async void OnDebugLoader(IRibbonControl control)
+        {
+            if (LogTailLoader.LogOpen)
+            {
+                LogTailLoader.StopBareTail();
+            }
+            else
+            {
+                LogTailLoader.StartBareTail(LoggingLoader.LogFile);
+            }
+        }
 
         public async void OnTestProcessor(IRibbonControl control)
         {

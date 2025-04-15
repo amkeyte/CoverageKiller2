@@ -22,12 +22,15 @@ namespace CoverageKiller2
         {
             try
             {
+                ///All this shit can go insie CKOffice.Start
+                ///
 
-                string logFile = LogTailLoader.GetBareTailLog();
+
+                string logFile = LogTailLoader.GetLogFile();
                 LoggingLoader.Configure(logFile, Serilog.Events.LogEventLevel.Debug);
 
                 //debugging the big hangup.
-                LogTailLoader.StartBareTail();
+                //LogTailLoader.StartBareTail(logFile);
 
                 Log.Debug("Logging started: Level {logEventLevel}", LoggingLoader.Level);
                 Log.Information("ThisAddIn started.");
@@ -47,6 +50,9 @@ namespace CoverageKiller2
         /// <param name="e">Event arguments.</param>
         private async void ThisAddIn_Shutdown(object sender, System.EventArgs e)
         {
+            ///All this stuff can go in CKOffice.ShutDown
+
+
             try
             {
                 Log.Information("ThisAddIn shutting down.");

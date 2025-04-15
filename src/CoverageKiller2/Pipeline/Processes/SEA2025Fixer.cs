@@ -1,9 +1,22 @@
-﻿using CoverageKiller2.Logging;
+﻿using CoverageKiller2.DOM;
+using CoverageKiller2.DOM.Tables;
+using CoverageKiller2.Logging;
 using CoverageKiller2.Pipeline.WordHelpers;
 using Serilog;
 using System;
 using System.Linq;
 using Word = Microsoft.Office.Interop.Word;
+
+///**************************
+///
+/// I am supressing this file to perform testing on the DOM.
+/// 
+/// 
+/// 
+/// 
+///**************************
+
+
 
 namespace CoverageKiller2.Pipeline.Processes
 {
@@ -61,24 +74,24 @@ namespace CoverageKiller2.Pipeline.Processes
                 fr1.Delete();
             }
 
-            Log.Information("*** remove section heading table fields");
-            foreach (var table in CKDoc.Tables
-                .Where(t => t.RowMatches(1, "Freq (MHz)\tTech\tBand\tAnt Gain\tCable Loss\tPh.\tType\tMod\tNAC\tArea Points passed (%)\tCritical Points passed (%)")))
-            {
-                FixFloorSectionSectionHeadingTable(table);
-            }
-            Log.Information("*** remove extra critical point fields");
-            foreach (var table in CKDoc.Tables
-                .Where(t => t.RowMatches(1, "Critical Point Report")))
-            {
-                FixFloorSectionCriticalPointReportTable(table);
-            }
-            Log.Information("*** remove Area Report point fields");
-            foreach (var table in CKDoc.Tables
-                .Where(t => t.RowMatches(1, "Area Report")))
-            {
-                FixFloorSectionAreaReportTable(table);
-            }
+            //Log.Information("*** remove section heading table fields");
+            //foreach (var table in CKDoc.Tables
+            //    .Where(t => t.RowMatches(1, "Freq (MHz)\tTech\tBand\tAnt Gain\tCable Loss\tPh.\tType\tMod\tNAC\tArea Points passed (%)\tCritical Points passed (%)")))
+            //{
+            //    FixFloorSectionSectionHeadingTable(table);
+            //}
+            //Log.Information("*** remove extra critical point fields");
+            //foreach (var table in CKDoc.Tables
+            //    .Where(t => t.RowMatches(1, "Critical Point Report")))
+            //{
+            //    FixFloorSectionCriticalPointReportTable(table);
+            //}
+            //Log.Information("*** remove Area Report point fields");
+            //foreach (var table in CKDoc.Tables
+            //    .Where(t => t.RowMatches(1, "Area Report")))
+            //{
+            //    FixFloorSectionAreaReportTable(table);
+            //}
         }
 
         private void FixFloorSectionSectionHeadingTable(CKTable table)
@@ -147,28 +160,41 @@ namespace CoverageKiller2.Pipeline.Processes
         private void RemoveTestResultReferencesPage2()
         {
             Log.Information("Removing Page 2");
-            var tf = new TextFinder(CKDoc, "Threshold Settings");
-            if (tf.TryFind(out Word.Range foundRange))
-            {
-                foundRange.MoveStartUntil(
-                    Word.WdBreakType.wdPageBreak,
-                    Word.WdConstants.wdBackward);
-                foundRange.Start += 2;
 
-                // Find the next section break (instead of using MoveEndUntil)
-                Word.Range sectionBreakRange = foundRange.Document.Range(foundRange.End, foundRange.Document.Content.End);
-                sectionBreakRange.Find.ClearFormatting();
-                sectionBreakRange.Find.Text = "^b"; // Word's special character for section breaks
-                sectionBreakRange.Find.Forward = true; // Search forward
-                sectionBreakRange.Find.Wrap = Word.WdFindWrap.wdFindStop;
+            var x = CKDoc.COMObject.Range().Sections[2].Range;
+            x.Shading.BackgroundPatternColor = Word.WdColor.wdColorBlue;
+            //var y = CKDoc.COMObject.Range().Sections[3].Range;
+            //y.Shading.BackgroundPatternColor = Word.WdColor.wdColorAqua;
+            //var z = CKDoc.COMObject.Range().Sections[4].Range;
+            //z.Shading.BackgroundPatternColor = Word.WdColor.wdColorSeaGreen;
+            x.Text = "";
 
-                if (sectionBreakRange.Find.Execute())
-                {
-                    foundRange.End = sectionBreakRange.End - 1; // Expand the range to the section break
-                }
-                foundRange.Delete();
-                //foundRange.Text = "^b";
-            }
+            //var tf = new TextFinder(CKDoc, "Threshold Settings");
+
+            //if (tf.TryFind(out Word.Range foundRange))
+            //{
+
+
+            //    foundRange.MoveStartUntil(
+            //        Word.WdBreakType.wdPageBreak,
+            //        Word.WdConstants.wdBackward);
+            //    foundRange.Start += 2;
+
+            //    // Find the next section break (instead of using MoveEndUntil)
+            //    Word.Range sectionBreakRange = foundRange.Document.Range(foundRange.End, foundRange.Document.Content.End);
+            //    sectionBreakRange.Find.ClearFormatting();
+            //    sectionBreakRange.Find.Text = "^b"; // Word's special character for section breaks
+            //    sectionBreakRange.Find.Forward = true; // Search forward
+            //    sectionBreakRange.Find.Wrap = Word.WdFindWrap.wdFindStop;
+
+            //    if (sectionBreakRange.Find.Execute())
+            //    {
+            //        foundRange.End = sectionBreakRange.End - 1; // Expand the range to the section break
+            //    }
+            //    //foundRange.Shading.BackgroundPatternColor = Word.WdColor.wdColorBlue;
+            //    //foundRange.Delete();
+            //    //foundRange.Text = "^b";
+            //}
         }
 
         private void FindAndDeleteParagraph(string textToFind)
