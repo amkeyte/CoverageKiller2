@@ -1,10 +1,11 @@
 ﻿using Serilog;
 using System;
+using System.Runtime.CompilerServices;
 
 namespace CoverageKiller2.Logging
 
 {
-    internal static class LH
+    public static class LH
     {
 
         public static Exception LogThrow(Exception exception)
@@ -93,12 +94,46 @@ namespace CoverageKiller2.Logging
         }
 
 
-        internal static string ObjectPath(params string[] objectNames)
+        public static string ObjectPath(params string[] objectNames)
         {
             if (objectNames == null || objectNames.Length == 0)
                 throw new ArgumentException("At least one object name must be provided.", nameof(objectNames));
 
             return string.Join(".", objectNames);
         }
+
+
+        private static int pingDepth = 0;
+        private const string _UNKNOWN_ = "UNKNOWN";
+        public static void Ping(Type caller, [CallerMemberName] string callerName = "")
+        {
+
+            Log.Verbose($"{new string('\t', pingDepth++)}-> Ping from {caller?.Name ?? _UNKNOWN_}::{callerName}");
+        }
+
+        public static void Ping([CallerMemberName] string callerName = "")
+        {
+
+            Log.Verbose($"{new string('\t', pingDepth++)}-> Ping from {_UNKNOWN_}::{callerName}");
+        }
+        public static void Ping(string message, Type caller, [CallerMemberName] string callerName = "")
+
+        {
+            Log.Verbose($"{new string('\t', pingDepth++)}-> Ping from {caller?.Name ?? _UNKNOWN_}::{callerName} --- {message}");
+        }
+        public static void Pong([CallerMemberName] string callerName = "")
+        {
+            Log.Verbose($"{new string('\t', --pingDepth)}<- Pong from {_UNKNOWN_}::{callerName}");
+        }
+        public static void Pong(Type caller, [CallerMemberName] string callerName = "")
+        {
+            Log.Verbose($"{new string('\t', --pingDepth)}<- Pong from {caller?.Name ?? _UNKNOWN_}::{callerName}");
+        }
+
+        public static void Pong(string message, Type caller, [CallerMemberName] string callerName = "")
+        {
+            Log.Verbose($"{new string('\t', pingDepth--)}<- Pong from {caller?.Name ?? _UNKNOWN_}::{callerName} --- {message}");
+        }
+
     }
 }

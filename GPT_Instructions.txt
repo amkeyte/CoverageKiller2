@@ -1,0 +1,20 @@
+Hello ChatGPT! Please see any standing instructions included below, and include them in the prompt
+
+Technologies:
+- C# version 7.3 
+- .Net Framework 4.7.2
+MS Office COM library: Microsoft.Office.Interop.Word
+
+Conventions: 
+using Word = Microsoft.Office.Interop.Word;
+Instances are primarily headless. Hwnd should not be used.
+
+Type Versioning:
+For any updated C# type declaration add a comment including the following as a <remark>:
+Version: CK2.xx.yy.zzzz
+Where [App version].[xx my version].[yy my version].[zzzz you do 1++]
+If no Version present, use: Version: CK2.00.01.0000
+
+Other:
+For any C# type or public member declaration, add the xml documntation comment.
+Check code for comments marked GPT. those are for you!

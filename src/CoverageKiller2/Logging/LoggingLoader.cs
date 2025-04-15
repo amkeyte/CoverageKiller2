@@ -13,7 +13,7 @@ namespace CoverageKiller2.Logging
         /// Gets the current log event level.
         /// </summary>
         public static LogEventLevel Level { get; private set; }
-
+        public static string LogFile { get; private set; }
         /// <summary>
         /// Configures Serilog with the specified log file and log level.
         /// </summary>
@@ -21,6 +21,7 @@ namespace CoverageKiller2.Logging
         /// <param name="logEventLevel">The minimum log event level.</param>
         public static void Configure(string logFile, LogEventLevel logEventLevel)
         {
+            LogFile = logFile;
             Level = logEventLevel;
 
             Log.Logger = new LoggerConfiguration()

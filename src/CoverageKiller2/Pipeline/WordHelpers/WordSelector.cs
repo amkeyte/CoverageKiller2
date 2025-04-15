@@ -1,4 +1,5 @@
-﻿using Word = Microsoft.Office.Interop.Word;
+﻿using CoverageKiller2.DOM;
+using Word = Microsoft.Office.Interop.Word;
 
 namespace CoverageKiller2.Pipeline.WordHelpers
 {

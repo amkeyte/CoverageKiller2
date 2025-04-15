@@ -1,9 +1,22 @@
-﻿using CoverageKiller2.Logging;
+﻿using CoverageKiller2.DOM;
+using CoverageKiller2.DOM.Tables;
+using CoverageKiller2.Logging;
 using CoverageKiller2.Pipeline.WordHelpers;
 using Serilog;
 using System;
 using System.Linq;
 using Word = Microsoft.Office.Interop.Word;
+
+///**************************
+///
+/// I am supressing this file to perform testing on the DOM.
+/// 
+/// 
+/// 
+/// 
+///**************************
+
+
 
 namespace CoverageKiller2.Pipeline.Processes
 {
@@ -61,24 +74,24 @@ namespace CoverageKiller2.Pipeline.Processes
                 fr1.Delete();
             }
 
-            Log.Information("*** remove section heading table fields");
-            foreach (var table in CKDoc.Tables
-                .Where(t => t.RowMatches(1, "Freq (MHz)\tTech\tBand\tAnt Gain\tCable Loss\tPh.\tType\tMod\tNAC\tArea Points passed (%)\tCritical Points passed (%)")))
-            {
-                FixFloorSectionSectionHeadingTable(table);
-            }
-            Log.Information("*** remove extra critical point fields");
-            foreach (var table in CKDoc.Tables
-                .Where(t => t.RowMatches(1, "Critical Point Report")))
-            {
-                FixFloorSectionCriticalPointReportTable(table);
-            }
-            Log.Information("*** remove Area Report point fields");
-            foreach (var table in CKDoc.Tables
-                .Where(t => t.RowMatches(1, "Area Report")))
-            {
-                FixFloorSectionAreaReportTable(table);
-            }
+            //Log.Information("*** remove section heading table fields");
+            //foreach (var table in CKDoc.Tables
+            //    .Where(t => t.RowMatches(1, "Freq (MHz)\tTech\tBand\tAnt Gain\tCable Loss\tPh.\tType\tMod\tNAC\tArea Points passed (%)\tCritical Points passed (%)")))
+            //{
+            //    FixFloorSectionSectionHeadingTable(table);
+            //}
+            //Log.Information("*** remove extra critical point fields");
+            //foreach (var table in CKDoc.Tables
+            //    .Where(t => t.RowMatches(1, "Critical Point Report")))
+            //{
+            //    FixFloorSectionCriticalPointReportTable(table);
+            //}
+            //Log.Information("*** remove Area Report point fields");
+            //foreach (var table in CKDoc.Tables
+            //    .Where(t => t.RowMatches(1, "Area Report")))
+            //{
+            //    FixFloorSectionAreaReportTable(table);
+            //}
         }
 
         private void FixFloorSectionSectionHeadingTable(CKTable table)

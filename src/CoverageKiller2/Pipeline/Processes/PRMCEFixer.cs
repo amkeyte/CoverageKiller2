@@ -1,4 +1,6 @@
-﻿using CoverageKiller2.Logging;
+﻿using CoverageKiller2.DOM;
+using CoverageKiller2.DOM.Tables;
+using CoverageKiller2.Logging;
 using CoverageKiller2.Pipeline.WordHelpers;
 using Serilog;
 using System;
@@ -121,10 +123,10 @@ namespace CoverageKiller2.Pipeline.Processes
             Log.Information("*** remove end Info section");
 
             Tracer.Log("DataPoints", new DataPoints()
-                .Add("CKDoc.COMObject.Sections.Count", CKDoc.COMObject.Sections.Count));
+                .Add("CKDoc.COMObject.Sections.Count", CKDoc.Sections.Count));
 
-            var infoSection = CKDoc.COMObject.Sections.Last; //maybe someday create a CKSection
-            var tf3 = new TextFinder(CKDoc, _ss.SectionAdditionalInfo_F, infoSection.Range);
+            var infoSection = CKDoc.Sections.Last(); //maybe someday create a CKSection
+            var tf3 = new TextFinder(CKDoc, _ss.SectionAdditionalInfo_F, infoSection.COMRange);
 
             // Check if we can find the text in the "Info" section, because it's possibly already removed.
             if (tf3.TryFind(out var foundText))
