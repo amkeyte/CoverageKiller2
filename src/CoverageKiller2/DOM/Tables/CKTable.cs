@@ -126,6 +126,53 @@ namespace CoverageKiller2.DOM.Tables
             return new CKCell(gridCell.COMCell, cellRef);
         }
 
+        public string DebugText
+        {
+            get
+            {
+                return RawText.Replace("\\", "\\\\");
+            }
+        }
+        /// <summary>
+        /// Parses a Word cell-debug dump into rows of strings.
+        /// </summary>
+        /// <param name="debugText">The raw debug dump string.</param>
+        /// <returns>List of rows, each a list of cell texts.</returns>
+        /// <remarks>
+        /// Version: CK2.00.01.0021
+        /// </remarks>
+        public Base1JaggedList<string> ParsedDebugText
+        {
+            get
+            {
+                var rows = new Base1JaggedList<string>();
+                var currentRow = new Base1List<string>();
+
+                // Split by "\r\a"
+                var parts = DebugText.Split(new[] { "\r\a" }, StringSplitOptions.None);
+
+                foreach (var part in parts)
+                {
+                    if (string.IsNullOrWhiteSpace(part))
+                    {
+                        if (currentRow.Count > 0)
+                        {
+                            rows.Add(currentRow);
+                            currentRow = new Base1List<string>();
+                        }
+                    }
+                    else
+                    {
+                        currentRow.Add(part.Trim());
+                    }
+                }
+
+                if (currentRow.Count > 0)
+                    rows.Add(currentRow);
+
+                return rows;
+            }
+        }
 
         /// <summary>
         /// Returns the one-based index of a Word.Cell within the table.
@@ -289,6 +336,7 @@ namespace CoverageKiller2.DOM.Tables
             if (insertAt == null) throw new ArgumentNullException(nameof(insertAt));
             if (numRows < 1) throw new ArgumentOutOfRangeException(nameof(numRows));
             if (numColumns < 1) throw new ArgumentOutOfRangeException(nameof(numColumns));
+            if (insertAt.Start != insertAt.End) throw new ArgumentException($"{nameof(insertAt)} must be collapsed.");
 
             var wordTable = COMTables.Add(insertAt.COMRange, numRows, numColumns);
 

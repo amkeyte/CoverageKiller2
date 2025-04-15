@@ -85,12 +85,12 @@ namespace CoverageKiller2.DOM
         public Word.Range COMRange { get; private set; }
 
         /// <summary>
-        /// Gets the raw text of the range as returned by Word.
+        /// Gets the raw text of the range as returned by Word without caching.
         /// </summary>
         public string RawText => COMRange.Text;
 
         /// <summary>
-        /// Gets the text of the range (raw text).
+        /// Gets the text of the range with caching.
         /// </summary>
         public string Text
         {

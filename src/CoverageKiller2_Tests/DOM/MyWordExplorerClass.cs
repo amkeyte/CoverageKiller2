@@ -108,6 +108,7 @@ namespace CoverageKiller2._TestOperators
 
 //                //table 1 "A\r\aB\r\aC\r\a\r\aD\r\aE\r\aF\r\a\r\aG\r\aH\r\aI\r\a\r\aJ\r\aK\r\aL\r\a\r\a"
 //                //table 2 ABDE\r\n\aC\r\n\a\r\n\a\r\n\aF\r\n\a\r\n\aG\r\n\aH\r\n\aI\r\n\a\r\n\aJ\r\n\aK\r\n\aL\r\n\a\r\n\a"
+//                //table 2 ABDE\r\n\aC\r\n\a\r\n\a\r\n\aF\r\n\a\r\n\aG\r\n\aH\r\n\aI\r\n\a\r\n\aJ\r\n\aK\r\n\aL\r\n\a\r\n\a"
 //                //table 3 A\r\aB\r\aC\r\a\r\aDEF\r\a\r\aG\r\aH\r\aI\r\a\r\a"
 //                //table 4 ADG\r\aB\r\aC\r\a\r\a\r\aE\r\aF\r\a\r\a\r\aH\r\aI\r\a\r\a"
 //                //xx = "ADG\r\a\r\a\r\a\r\a\r\a\r\a\r\a\r\a\r\aH\r\aI\r\a\r\a"

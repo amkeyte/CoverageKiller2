@@ -226,6 +226,7 @@
   <ItemGroup>
     <Compile Include="DOM\CKApplication.cs" />
     <Compile Include="CKTextHelper.cs" />
+    <Compile Include="DOM\Tables\Base1JaggedList.cs" />
     <Compile Include="DOM\Tables\CKCell.cs" />
     <Compile Include="DOM\Tables\CKGridCellRef.cs" />
     <Compile Include="DOM\Tables\CKColumn.cs" />
@@ -246,6 +247,8 @@
     <Compile Include="DOM\Tables\TableGridCrawler.cs" />
     <Compile Include="DOM\Tables\TableGridCrawler2.cs" />
     <Compile Include="DOM\Tables\TableGridCrawler3.cs" />
+    <Compile Include="DOM\Tables\TableGridCrawler4.cs" />
+    <Compile Include="DOM\Tables\TableGridCrawler5.cs" />
     <Compile Include="DOM\WordInteropExtensions.cs" />
     <Compile Include="ExceptionDetail.cs" />
     <Compile Include="Logging\LH.cs" />

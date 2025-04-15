@@ -96,7 +96,7 @@ namespace CoverageKiller2.DOM.Tables
         [TestMethod]
         public void Add_WithRange_ShouldInsertTableAtSpecifiedLocation()
         {
-            var insertRange = _testFile.Range();
+            var insertRange = _testFile.Range().CollapseToEnd();
             var added = _testFile.Tables.Add(insertRange, 2, 2);
 
             Assert.IsNotNull(added);

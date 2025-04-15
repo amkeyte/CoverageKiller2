@@ -63,10 +63,7 @@ namespace CoverageKiller2.DOM.Tables
             var x = CellsList.Where(r => r.Count < maxRowCount);
             //rowsToFix = x.Count();
 
-            foreach (var row in x)
-            {
-                row.PadToCount(maxRowCount);
-            }
+
         }
     }
 }
