@@ -14,7 +14,7 @@ namespace CoverageKiller2.DOM.Tables
     public class GridCrawler5StepTests
     {
         //******* Standard Rigging ********
-        static int _testTableIndex = 2;
+        static int _testTableIndex = 10;
 
         public TestContext TestContext { get; set; }
         private string _testFilePath;

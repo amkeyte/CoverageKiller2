@@ -214,15 +214,9 @@ namespace CoverageKiller2.DOM.Tables
             var textGrid = ParseTableText();
             NormalizeByWidth();
             CrawlVertically(textGrid);
-            CrawlHorizontally();
             EnforceRectangularity();
         }
 
-        internal Base1JaggedList<GridCell5> CrawlHorizontally(Base1JaggedList<GridCell5> grid = null)
-        {
-            grid = grid ?? _grid;
-            throw new NotImplementedException();
-        }
         public static Base1List<string> SplitWordTableTextIntoRows(string rawText)
         {
             var rows = new Base1List<string>();
@@ -514,7 +508,7 @@ namespace CoverageKiller2.DOM.Tables
                             //if mastercell has a col span, insert enough cells to cover the merge rectangle.
                             for (var i = 0; i < up1Cell.ColSpan; i++)
                             {
-                                gridRow.Insert(colIndex, new MergedGridCell5(up1Cell.GridCol, up1Cell.GridRow, up1Cell));
+                                gridRow.Insert(colIndex, new MergedGridCell5(up1Cell.GridRow, up1Cell.GridCol, up1Cell));
                             }
                             //gridCell = null;
                         }
@@ -524,7 +518,7 @@ namespace CoverageKiller2.DOM.Tables
                             for (var i = 0; i < up1Cell.MasterCell.ColSpan; i++)
                             {
                                 gridRow.Insert(colIndex,
-                                new MergedGridCell5(up1Cell.MasterCell.GridCol, up1Cell.MasterCell.GridRow, up1Cell.MasterCell));
+                                new MergedGridCell5(up1Cell.MasterCell.GridRow, up1Cell.MasterCell.GridCol, up1Cell.MasterCell));
                             }
                         }
                         else if (up1Cell.IsGhostCell)
