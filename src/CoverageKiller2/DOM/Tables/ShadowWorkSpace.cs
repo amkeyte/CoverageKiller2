@@ -1,4 +1,5 @@
 ﻿using CoverageKiller2.DOM;
+using CoverageKiller2.Logging;
 using Serilog;
 using System;
 
@@ -32,7 +33,7 @@ public class ShadowWorkspace : IDOMObject, IDisposable
     /// </summary>
     public void ShowDebuggerWindow()
     {
-        Log.Information($"Activating shadow document {_doc.FileName}");
+        Log.Information($" Activating shadow document {_doc.FileName}");
         try
         {
             _app.Visible = true;
@@ -111,6 +112,7 @@ public class ShadowWorkspace : IDOMObject, IDisposable
     /// </remarks>
     public T CloneFrom<T>(T objToClone, CKRange cloneToTarget) where T : IDOMObject
     {
+        LH.Ping(GetType(), new Type[] { typeof(T) });
         if (objToClone == null) throw new ArgumentNullException(nameof(objToClone));
         if (cloneToTarget == null) throw new ArgumentNullException(nameof(cloneToTarget));
 
@@ -133,6 +135,7 @@ public class ShadowWorkspace : IDOMObject, IDisposable
             // Wrap the resulting range as a CKRange
             var resultRange = new CKRange(_doc.Range(insertStart, insertEnd).COMRange, _doc);
 
+            LH.Pong(GetType(), new Type[] { typeof(T) });
             // Return the properly cast result
             return IDOMCaster.Cast<T>(resultRange);
         });
@@ -150,10 +153,13 @@ public class ShadowWorkspace : IDOMObject, IDisposable
     /// </remarks>
     public T CloneFrom<T>(T objToClone) where T : IDOMObject
     {
+        LH.Ping(GetType(), new Type[] { typeof(T) });
         if (objToClone == null) throw new ArgumentNullException(nameof(objToClone));
 
         var insertAt = _doc.Range().End - 1;
         var targetRange = _doc.Range(insertAt, insertAt);
+
+        LH.Pong(GetType(), new Type[] { typeof(T) });
         return CloneFrom(objToClone, new CKRange(targetRange.COMRange, _doc));
     }
 
@@ -170,15 +176,21 @@ public class ShadowWorkspace : IDOMObject, IDisposable
     /// </remarks>
     public T CloneFrom<T>(T objToClone, int start, int end) where T : IDOMObject
     {
+        LH.Ping(GetType(), new Type[] { typeof(T) });
+
         if (objToClone == null) throw new ArgumentNullException(nameof(objToClone));
         if (start < 0 || end < start) throw new ArgumentOutOfRangeException();
 
         var range = _doc.Range(start, end);
+
+        LH.Pong(GetType(), new Type[] { typeof(T) });
+
         return CloneFrom(objToClone, new CKRange(range.COMRange, _doc));
     }
 
     /// <summary>
     /// Disposes and optionally closes the document.
+    /// it never gets called.
     /// </summary>
     public void Dispose()
     {

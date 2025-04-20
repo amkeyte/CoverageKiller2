@@ -18,6 +18,7 @@ namespace CoverageKiller2.DOM
         /// <returns>The cleaned-up text suitable for human comparison.</returns>
         public static string Pretty(string rawText)
         {
+
             if (string.IsNullOrEmpty(rawText))
                 return rawText;
 

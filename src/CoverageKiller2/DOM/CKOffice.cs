@@ -37,6 +37,27 @@ namespace CoverageKiller2.DOM
         private bool _isRunning;
         private bool _disposedValue;
 
+        static CKOffice_Word()
+        {
+            if (Debugger.IsAttached)
+            {
+                AppDomain.CurrentDomain.ProcessExit += (s, e) =>
+                {
+                    Log.Warning("Debugger stopped. Attempting emergency shutdown.");
+                    try { Instance?.ShutDown(); } catch { }
+                };
+
+                AppDomain.CurrentDomain.DomainUnload += (s, e) =>
+                {
+                    Log.Warning("AppDomain unloading. Attempting emergency shutdown.");
+                    try { Instance?.ShutDown(); } catch { }
+                };
+            }
+        }
+
+        // ... existing members
+
+
         private CKOffice_Word() { }
 
         /// <summary>
@@ -156,9 +177,29 @@ namespace CoverageKiller2.DOM
             }
         }
 
+        private bool _crashing = false;
+        public void Crash(Type callerType, [MemberCallerName] string callerMember = null)
+        {
+            Log.Error($"Crashing {nameof(CKOffice_Word)}. Source: {callerType.Name}.{callerMember}");
+            _crashing = true;
+            for (int appIndex = 0; appIndex < Applications.Count(); appIndex++)
+            {
+                var app = Applications.ElementAt(appIndex);
+                app.Crash(callerType, callerMember);
+            }
+            if (AddInApp != null)
+            {
+                AddInApp.Crash(callerType, callerMember);
+                AddInApp.WordApp.Quit();
+                AddInApp.Dispose();
+            }
+
+            ShutDown();
+        }
         public int ShutDown()
         {
             LH.Ping(GetType());
+
             if (!_isRunning)
             {
                 Log.Warning("CKOffice_Word.ShutDown called but instance is not running.");
@@ -167,16 +208,16 @@ namespace CoverageKiller2.DOM
 
             Log.Information("CKOffice_Word shutting down.");
 
-            bool blockShutDown = AddInApp != null || _applications.Any(a => a.HasKeepOpenDocuments);
+            // Evaluate shutdown blocking only if not crashing
+            bool blockShutDown = !_crashing && (AddInApp != null || _applications.Any(a => a.HasKeepOpenDocuments));
 
             foreach (var app in _applications.ToList())
             {
-                if (app == AddInApp || app.HasKeepOpenDocuments)
+                if (!_crashing && (app == AddInApp || app.HasKeepOpenDocuments))
                 {
                     Log.Information($"Application {app.PID} bypass shutting down.");
                     continue;
                 }
-
 
                 try
                 {
@@ -187,10 +228,10 @@ namespace CoverageKiller2.DOM
                     Log.Error("Error shutting down application: {Message}", ex.Message);
                 }
             }
+
             if (!blockShutDown)
             {
                 _applications.RemoveAll(a => a != AddInApp);
-
 
                 try { LoggingLoader.Cleanup(); } catch { }
                 try { LogTailLoader.Cleanup(); } catch { }

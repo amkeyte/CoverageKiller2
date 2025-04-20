@@ -1,4 +1,5 @@
 ﻿// CKTable.Converters.cs
+using CoverageKiller2.Logging;
 using System;
 using System.Linq;
 using Word = Microsoft.Office.Interop.Word;
@@ -16,7 +17,7 @@ namespace CoverageKiller2.DOM.Tables
             IDOMObject parent)
         {
             var master = service.Grid.GetMasterCells(gridRef).First();
-            return new CKCellRef(master.COMCell.RowIndex, master.COMCell.ColumnIndex, master.Snapshot, parent);
+            return new CKCellRef(master.GridRow, master.GridCol, service.Table, parent);
         }
 
         public static CKGridCellRef GetGridCellRef(
@@ -28,10 +29,10 @@ namespace CoverageKiller2.DOM.Tables
 
             var wordCell = service.Table.COMTable.Range.Cells[index];
             return new CKGridCellRef(
-                wordCell.RowIndex - 1,
-                wordCell.ColumnIndex - 1,
-                wordCell.RowIndex - 1,
-                wordCell.ColumnIndex - 1);
+                wordCell.RowIndex,
+                wordCell.ColumnIndex,
+                wordCell.RowIndex,
+                wordCell.ColumnIndex);
         }
 
 
@@ -39,13 +40,27 @@ namespace CoverageKiller2.DOM.Tables
             this CKTable.CKCellRefConverterService service,
             CKCellRef cellRef)
         {
+            LH.Ping(typeof(ConverterServiceExtensions));
             if (cellRef == null) throw new ArgumentNullException(nameof(cellRef));
+
+            LH.Pong(typeof(ConverterServiceExtensions));
             return new CKGridCellRef(
-                cellRef.RowIndex - 1,
-                cellRef.ColumnIndex - 1,
-                cellRef.RowIndex - 1,
-                cellRef.ColumnIndex - 1);
+                cellRef.RowIndex,
+                cellRef.ColumnIndex,
+                cellRef.RowIndex,
+                cellRef.ColumnIndex);
         }
+        public static CKGridCellRef GetGridCellRef(
+            this CKTable.CKCellRefConverterService service,
+            CKRowCellRef rowRef)
+        {
+            LH.Ping(typeof(ConverterServiceExtensions));
+            if (rowRef == null) throw new ArgumentNullException(nameof(rowRef));
+            return new CKGridCellRef(
+                rowRef.Index, 1, rowRef.Index, service.Grid.ColCount);
+
+        }
+
 
         public static CKGridCellRef GetGridCellRef(
             this CKTable.CKCellRefConverterService service,
@@ -54,10 +69,10 @@ namespace CoverageKiller2.DOM.Tables
             if (wordCell == null) throw new ArgumentNullException(nameof(wordCell));
 
             return new CKGridCellRef(
-                wordCell.RowIndex - 1,
-                wordCell.ColumnIndex - 1,
-                wordCell.RowIndex - 1,
-                wordCell.ColumnIndex - 1);
+                wordCell.RowIndex,
+                wordCell.ColumnIndex,
+                wordCell.RowIndex,
+                wordCell.ColumnIndex);
         }
     }
 

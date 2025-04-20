@@ -1,12 +1,15 @@
 ﻿using CoverageKiller2.Logging;
+using Serilog;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using Word = Microsoft.Office.Interop.Word;
 
 namespace CoverageKiller2.DOM.Tables
 {
+
     /// <summary>
     /// Provides methods for manipulating a Word table.
     /// </summary>
@@ -19,28 +22,49 @@ namespace CoverageKiller2.DOM.Tables
         {
             IDOMCaster.Register(input =>
             {
+                LH.Ping(typeof(CKTable), "Registered Caster");
                 CKTable result = default;
                 if (input is CKRange inputRange)
                 {
                     CKTables tables = default;
                     if (input.Parent is CKDocument doc)
                     {
+                        Log.Debug("Parent is CKDocument");
                         tables = doc.Tables;
                     }
                     else if (input.Parent is CKTables ptables)
                     {
+                        Log.Debug("Parent is CKTables");
                         tables = ptables;
                     }
                     else if (input.Parent is CKRange rng)
                     {
+                        Log.Debug("Parent is CKRange");
                         tables = rng.Tables;
                     }
+                    else
+                    {
+                        Log.Warning($"Unrecognized input.Parent type: {input.Parent?.GetType().Name ?? "null"}");
+                    }
+
+
+
+                    var hashes = string.Join("\n", tables
+                            .Select(t => $"{t.Document.Tables.IndexOf(t)}:{t.GetSnapshot().FastHash}"));
+
+                    LH.Checkpoint($"\nProspective Range fast hash: {inputRange.GetSnapshot().FastHash}" +
+                    $"\nTable fast hashes ({tables.Document.Tables.Count}:\n"
+                        + hashes, typeof(CKTable));
 
                     // Try to locate by range comparison
                     result = tables.Where(t => t.Equals(inputRange)).FirstOrDefault();
                 }
 
-                return result ?? throw new InvalidCastException("Could not convert to CKTable.");
+                if (result == null)
+                    throw new InvalidCastException("Could not convert to CKTable.");
+
+                LH.Pong(typeof(CKTable));
+                return result;
             });
         }
 
@@ -79,6 +103,7 @@ namespace CoverageKiller2.DOM.Tables
                     cell.RowIndex,
                     cell.ColumnIndex,
                     new RangeSnapshot(cell.Range),
+                    this,
                     this
                 );
 
@@ -100,32 +125,141 @@ namespace CoverageKiller2.DOM.Tables
         /// <summary>
         /// Gets the rows of the table.
         /// </summary>
-        public CKRows Rows => throw new NotImplementedException();
+        public CKRows Rows
+        {
+            get
+            {
+                LH.Ping(GetType());
+                if (_rows_1 == null)
+                {
 
+                    var rowCount = Grid.RowCount;
+                    var colCount = Grid.ColCount;
+                    LH.Checkpoint($"Grid.RowCount: {Grid.RowCount}; Grid.ColCount: {Grid.ColCount}");
+                    _rows_1 = new CKRows(this);
+
+                    for (var rowIndex = 1; rowIndex <= rowCount; rowIndex++)
+                    {
+                        var row_ref = new CKRowCellRef(rowIndex, this, _rows_1);
+
+                        _rows_1.Add(new CKRow(row_ref, _rows_1));
+                    }
+                    LH.Checkpoint($"_rows_1.Count: {_rows_1.Count}");
+                }
+
+                LH.Pong(GetType());
+                return _rows_1;
+            }
+        }
+
+        //private CKCell GetCellFor(CKRowCellRef row_ref, int columnIndex)
+        //{
+        //    LH.Ping($"Table [{DocumentTableIndex}]", GetType());
+        //    var gridCellRef = Converters.GetGridCellRef(row_ref);
+        //    //calling to Grid is required because it (will) know if cells have been moved in the table.
+        //    var gridCell = Grid.GetMasterCells(gridCellRef).FirstOrDefault();
+        //    if (gridCell == null)
+        //    {
+        //        if (Debugger.IsAttached)
+        //            Debugger.Break();
+        //        else
+        //            throw new ArgumentException($"{nameof(row_ref)}[{columnIndex}] did not fetch a master GridCell");
+
+        //    }
+
+
+        //    var COMCell = COMTable.Cell(gridCell.GridRow, gridCell.GridCol);
+        //    LH.Pong(GetType());
+        //    return new CKCell(COMCell, row_ref);
+        //}
+
+        private CKRows _rows_1;
+        private CKColumns _cols_1;
         /// <summary>
         /// Gets the columns of the table.
         /// </summary>
-        public IEnumerable<CKColumn> Columns => throw new NotImplementedException();
+        public CKColumns Columns
+        {
+            get
+            {
+                this.Ping();
+
+                if (_cols_1 == null)
+                {
+
+                    var rowCount = Grid.RowCount;
+                    var colCount = Grid.ColCount;
+                    LH.Checkpoint($"Grid.RowCount: {Grid.RowCount}; Grid.ColCount: {Grid.ColCount}");
+                    _cols_1 = new CKColumns(this);
+
+                    for (var colIndex = 1; colIndex <= colCount; colIndex++)
+                    {
+                        var colRef = new CKColCellRef(colIndex, this, _cols_1);
+
+                        _cols_1.Add(new CKColumn(colRef, _cols_1));
+                    }
+                    LH.Checkpoint($"_cols_1.Count: {_cols_1.Count}");
+                }
+
+                LH.Pong(GetType());
+                return _cols_1;
+            }
+        }
 
         /// <summary>
         /// Gets the conversion helper service for this table.
         /// </summary>
         public CKCellRefConverterService Converters => _converterService;
 
+        public int DocumentTableIndex => Document.Tables.IndexOf(this);
         /// <summary>
-        /// Retrieves the CKCell at the given reference.
+        /// Retrieves the Word.Cell at the given reference.
         /// </summary>
-        public CKCell Cell(CKCellRef cellRef)
+        public Word.Cell GetCellFor(CKCellRef cellRef)
         {
+            LH.Ping($"Table [{DocumentTableIndex}]", GetType());
             var gridCellRef = Converters.GetGridCellRef(cellRef);
             //calling to Grid is required because it know if cells have been moved in the table.
-            var gridCell = Grid.GetMasterCells(gridCellRef).FirstOrDefault()
-                ?? throw new ArgumentException($"{nameof(cellRef)} did not fetch a master GridCell");
+            var gridCell = Grid.GetMasterCells(gridCellRef).FirstOrDefault();
+            if (gridCell == null)
+            {
+                if (Debugger.IsAttached)
+                    Debugger.Break();
+                else
+                    throw new ArgumentException($"{nameof(cellRef)} did not fetch a master GridCell");
 
+            }
 
-            return new CKCell(gridCell.COMCell, cellRef);
+            //should be the single point of loading the cell from COM for this chain.
+            var COMCell = COMTable.Cell(gridCell.GridRow, gridCell.GridCol);
+            this.Pong();
+            return COMCell;
+
         }
+        public CKCells GetCellsFor(CKCellRef cellRef)
+        {
+            LH.Ping($"Table [{DocumentTableIndex}]", GetType());
 
+            var gridCellRef = Converters.GetGridCellRef(cellRef);
+            var gridCells_0 = Grid.GetMasterCells(gridCellRef);
+
+            if (gridCells_0 == null || !gridCells_0.Any())
+            {
+                if (Debugger.IsAttached)
+                    Debugger.Break();
+                else
+                    throw new ArgumentException($"{nameof(cellRef)} did not fetch a master GridCell");
+            }
+
+            var result_0 = new List<CKCell>();
+            foreach (var gridCell in gridCells_0)
+            {
+                var COMCell = COMTable.Cell(gridCell.GridRow, gridCell.GridCol);
+                result_0.Add(new CKCell(COMCell, cellRef));
+            }
+            return new CKCells(result_0, cellRef.Parent);
+        }
+        [Obsolete]//use CKRange text system
         public string DebugText
         {
             get
@@ -141,6 +275,7 @@ namespace CoverageKiller2.DOM.Tables
         /// <remarks>
         /// Version: CK2.00.01.0021
         /// </remarks>
+        [Obsolete]//fllagged as testing only.
         public Base1JaggedList<string> ParsedDebugText
         {
             get
@@ -174,6 +309,30 @@ namespace CoverageKiller2.DOM.Tables
             }
         }
 
+
+
+        /// <summary>
+        /// Resizes the table to span the full page width by adjusting its preferred width and alignment.
+        /// </summary>
+        /// <remarks>
+        /// Version: CK2.00.01.0035
+        /// </remarks>
+        [Obsolete]//find a better way to do this without polluting the Table class.
+        public void MakeFullPage()
+        {
+            var pageSetup = COMTable.Application.ActiveDocument.PageSetup;
+
+            float pageWidth = pageSetup.PageWidth;
+            float leftMargin = pageSetup.LeftMargin;
+            float rightMargin = pageSetup.RightMargin;
+
+            float usableWidth = pageWidth - leftMargin - rightMargin;
+
+            COMTable.PreferredWidthType = Word.WdPreferredWidthType.wdPreferredWidthPoints;
+            COMTable.PreferredWidth = usableWidth;
+
+            COMTable.Rows.Alignment = Word.WdRowAlignment.wdAlignRowLeft; // Or wdAlignRowCenter if preferred
+        }
         /// <summary>
         /// Returns the one-based index of a Word.Cell within the table.
         /// </summary>
@@ -197,7 +356,9 @@ namespace CoverageKiller2.DOM.Tables
                 ?? throw new ArgumentException($"{nameof(index)} did not fetch a master GridCell");
 
             var cellRef = Converters.GetCellRef(gridCellRef, this);
-            return new CKCell(gridCell.COMCell, cellRef);
+            var COMCell = COMTable.Cell(gridCell.RowSpan, gridCell.ColSpan);
+
+            return new CKCell(COMCell, cellRef);
         }
 
         /// <summary>
@@ -242,53 +403,35 @@ namespace CoverageKiller2.DOM.Tables
             COMTables = collection;
             LH.Pong(GetType());
         }
-
-        private List<CKTable> TablesList
+        private Base1List<CKTable> TablesList_1
         {
             get
             {
-                if (_cachedTables == null || IsDirty)
+                if (_cachedTables_1 == null || IsDirty)
                 {
-                    _cachedTables = new List<CKTable>();
+                    _cachedTables_1 = new Base1List<CKTable>();
                     for (int i = 1; i <= COMTables.Count; i++)
                     {
-                        _cachedTables.Add(new CKTable(COMTables[i], this));
+
+                        _cachedTables_1.Add(new CKTable(COMTables[i], this));
                     }
                     IsDirty = false;
                 }
-                return _cachedTables;
+                return _cachedTables_1;
             }
         }
-        private List<CKTable> _cachedTables;
+        private Base1List<CKTable> _cachedTables_1;
 
         /// <inheritdoc/>
-        public override int Count => COMTables.Count;
+        public override int Count => _cachedTables_1.Count;
 
-        /// <inheritdoc/>
-        private bool _isCheckingDirty = false;
-
-        /// <inheritdoc/>
-        public override bool IsDirty
+        protected override bool CheckDirtyFor()
         {
-            get
-            {
-                if (_isDirty || _isCheckingDirty)
-                    return _isDirty;
-
-                _isCheckingDirty = true;
-                try
-                {
-                    _isDirty = _cachedTables?.Any(t => t.IsDirty) == true || Parent.IsDirty;
-                }
-                finally
-                {
-                    _isCheckingDirty = false;
-                }
-
-                return _isDirty;
-            }
-            protected set => _isDirty = value;
+            this.PingPong();
+            //TODO what goes here?
+            return false;
         }
+
         /// <inheritdoc/>
         public override bool IsOrphan => throw new NotImplementedException();
 
@@ -303,7 +446,7 @@ namespace CoverageKiller2.DOM.Tables
             {
                 if (index < 1 || index > Count)
                     throw new ArgumentOutOfRangeException(nameof(index), "Index must be between 1 and the number of tables.");
-                return TablesList[index - 1];
+                return TablesList_1[index];
             }
         }
 
@@ -312,10 +455,12 @@ namespace CoverageKiller2.DOM.Tables
         {
             if (obj is CKTable table)
             {
-                for (int i = 0; i < TablesList.Count; i++)
-                {
-                    if (!TablesList[i].Equals(obj)) return i;
-                }
+                return (_cachedTables_1.IndexOf(table));
+
+                //for (int tableIndex_1 = 1; tableIndex_1 <= TablesList_1.Count; tableIndex_1++)
+                //{
+                //    if ( TablesList_1[tableIndex_1].Equals(  table)) return tableIndex_1;
+                //}
             }
             return -1;
         }
@@ -357,7 +502,7 @@ namespace CoverageKiller2.DOM.Tables
             LH.Ping(GetType());
             if (cell == null) throw new ArgumentNullException(nameof(cell));
 
-            var ckTable = TablesList.FirstOrDefault(t => t.Contains(cell))
+            var ckTable = TablesList_1.FirstOrDefault(t => t.Contains(cell))
                 ?? throw new ArgumentOutOfRangeException(nameof(cell), "Cell is not contained in any known table.");
             LH.Pong(GetType());
             return ckTable;
@@ -368,7 +513,7 @@ namespace CoverageKiller2.DOM.Tables
         public override string ToString() => $"CKTables [Count: {Count}]";
 
         /// <inheritdoc/>
-        public IEnumerator<CKTable> GetEnumerator() => TablesList.GetEnumerator();
+        public IEnumerator<CKTable> GetEnumerator() => TablesList_1.GetEnumerator();
 
         /// <inheritdoc/>
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();

@@ -9,21 +9,22 @@ namespace CoverageKiller2.DOM.Tables
 {
     public interface ICellRef<out T> where T : IDOMObject
     {
-        //CKTable Table { get; }
+        CKTable Table { get; }
 
         IDOMObject Parent { get; }
     }
 
-    public class CellsRef : ICellRef<CKCells>, IEnumerable<CKCellRef>
+    [Obsolete]
+    public class CellRefs : IEnumerable<CKCellRef>
     {
-        public CellsRef(IEnumerable<CKCellRef> cellRefs, IDOMObject parent)
+        public CellRefs(IEnumerable<CKCellRef> cellRefs, IDOMObject parent)
         {
             _cellRefs = cellRefs.ToList();
             Parent = parent;
 
         }
         private List<CKCellRef> _cellRefs;
-
+        public int Count => _cellRefs.Count;
         public IDOMObject Parent { get; }
 
         public IEnumerator<CKCellRef> GetEnumerator() => _cellRefs.GetEnumerator();
@@ -40,8 +41,6 @@ namespace CoverageKiller2.DOM.Tables
     /// </remarks>
     public class CKCellRef : ICellRef<CKCell>
     {
-        /// <inheritdoc/>
-        public IEnumerable<int> CellIndexes { get; }
 
         /// <inheritdoc/>
         public IDOMObject Parent { get; }
@@ -68,25 +67,28 @@ namespace CoverageKiller2.DOM.Tables
         /// <param name="colIndex">The one-based column index.</param>
         /// <param name="snapshot">The snapshot of the original Word range, or null if not captured.</param>
         /// <param name="parent">The owning DOM object (table or collection).</param>
-        public CKCellRef(int rowIndex, int colIndex, RangeSnapshot snapshot, IDOMObject parent)
+        public CKCellRef(int rowIndex, int colIndex, RangeSnapshot snapshot, CKTable table, IDOMObject parent)
         {
+            this.Ping();
             if (parent == null) throw new ArgumentNullException(nameof(parent));
+            if (table == null) throw new ArgumentNullException(nameof(table));
 
             RowIndex = rowIndex;
             ColumnIndex = colIndex;
             Snapshot = snapshot;
+            Table = table;
             Parent = parent;
+            this.Pong();
         }
+        public CKTable Table { get; }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="CKCellRef"/> class without a snapshot.
-        /// </summary>
-        /// <param name="rowIndex">The one-based row index.</param>
-        /// <param name="colIndex">The one-based column index.</param>
-        /// <param name="parent">The owning DOM object (table or collection).</param>
-        public CKCellRef(int rowIndex, int colIndex, IDOMObject parent)
-            : this(rowIndex, colIndex, null, parent)
+
+
+        public CKCellRef(int rowIndex, int colIndex, CKTable table, IDOMObject parent)
+            : this(rowIndex, colIndex, null, table, parent)
         {
+            this.Ping();
+            this.Pong();
         }
     }
 
@@ -94,15 +96,43 @@ namespace CoverageKiller2.DOM.Tables
     /// Represents a single cell in a Word table, with DOM wrappers and location metadata.
     /// </summary>
     /// <remarks>
-    /// Version: CK2.00.00.0000
+    /// Version: CK2.00.02.0001
     /// </remarks>
     public class CKCell : CKRange
     {
         /// <summary>
-        /// Gets the underlying Word.Cell COM object.
+        /// Gets the underlying Word.Cell COM object, with caching support.
         /// </summary>
-        public Word.Cell COMCell { get; }
+        [Obsolete("Make protected")]
+        public Word.Cell COMCell
+        {
+            get
+            {
+                this.Ping();
+                if (_COMCell == null || IsDirty)
+                {
+                    var table = CellRef.Table;
+                    _COMCell = table.GetCellFor(CellRef);
+                    COMRange = _COMCell.Range;
+                }
+                this.Pong();
+                return _COMCell;
+            }
+        }
+        private Word.Cell _COMCell;
 
+        /// <summary>
+        /// Ensures the underlying Word.Cell object is current.
+        /// </summary>
+        /// <exception cref="CKDebugException"></exception>
+        protected override void DoRefreshThings()
+        {
+            this.Ping();
+            //checked if it's null to force COMCell to update, so that COMRange is valid.
+            if (COMCell == null) throw new CKDebugException("COMCell cannot refresh.");
+            //base.Refresh();
+            this.Pong();
+        }
         /// <summary>
         /// Gets the CKTable to which this cell belongs.
         /// </summary>
@@ -137,8 +167,15 @@ namespace CoverageKiller2.DOM.Tables
         {
             //Table = new CKTable(wdCell.Tables[1], parent);
             //Table = table ?? throw new ArgumentNullException(nameof(table));
-            COMCell = wdCell;
+            _COMCell = wdCell;
             CellRef = cellRef;
+        }
+        public CKCell(CKCellRef cellRef) : base(cellRef?.Parent)
+        {
+            //Table = new CKTable(wdCell.Tables[1], parent);
+            //Table = table ?? throw new ArgumentNullException(nameof(table));
+            CellRef = cellRef;
+            IsDirty = true;
         }
 
         /// <summary>
@@ -167,85 +204,64 @@ namespace CoverageKiller2.DOM.Tables
     /// </remarks>
     public class CKCells : ACKRangeCollection, IEnumerable<CKCell>
     {
-        /// <summary>
-        /// The owning table of the cell collection.
-        /// </summary>
-        //public CKTable Table { get; protected set; }
+
+        public IEnumerable<CKCellRef> CellRefrences { get; protected set; }
 
         /// <summary>
-        /// The original reference used to construct this collection.
+        /// Broken for Rows
         /// </summary>
-        public CellsRef CellRef { get; protected set; }
-
-
-        private List<CKCell> CellsList
+        protected Base1List<CKCell> CellsList_1
         {
             get
             {
                 LH.Ping(GetType());
-                if (_cachedCells.Count == 0 || IsDirty)
+                if (_cachedCells_1.Count == 0 || IsDirty)
                 {
-                    _cachedCells = new List<CKCell>();
-                    for (int i = 1; i <= COMCells.Count; i++)
+                    _cachedCells_1 = new Base1List<CKCell>();
+                    foreach (var cellRef in CellRefrences)
                     {
-                        CKTable table = Document.Tables.ItemOf(COMCells[i]);
-
-                        //var table = new CKTable(COMCells[i].Tables[1], Document);
-                        var cellRef = new CKCellRef(
-                            COMCells[i].RowIndex,
-                            COMCells[i].ColumnIndex,
-                            new RangeSnapshot(COMCells[i].Range),
-                            this);
-
-                        _cachedCells.Add(table.Cell(cellRef));
+                        _cachedCells_1.Add(new CKCell(cellRef));
                     }
                     IsDirty = false;
                 }
                 LH.Pong(GetType());
-                return _cachedCells;
+                return _cachedCells_1;
             }
         }
 
 
-        public CKCells(Word.Cells cells, CellsRef cellRef) : base(cellRef?.Parent)
-        {
-            COMCells = cells;
-            CellRef = cellRef;
-        }
 
+        public CKCells(IEnumerable<CKCell> cells, IDOMObject parent) : base(parent)
+        {
+            _cachedCells_1 = new Base1List<CKCell>(cells);
+            CellRefrences = cells.Select(c => c.CellRef);
+            Parent = parent;
+        }
+        public CKCells(IDOMObject parent) : base(parent)
+        {
+            _cachedCells_1 = new Base1List<CKCell>();
+            CellRefrences = new List<CKCellRef>();
+            Parent = parent;
+        }
 
 
         /// <inheritdoc/>
 
-        public override int Count => COMCells.Count;
+        //public override int Count => COMCells.Count;
         bool _isDirty = false;
         private bool _isCheckingDirty = false;
 
-        public override bool IsDirty
+        protected override bool CheckDirtyFor()
         {
-            get
-            {
-                if (_isDirty || _isCheckingDirty)
-                    return _isDirty;
-
-                _isCheckingDirty = true;
-                try
-                {
-                    _isDirty = _cachedCells.Any(c => c.IsDirty) || Parent.IsDirty;
-                }
-                finally
-                {
-                    _isCheckingDirty = false;
-                }
-
-                return _isDirty;
-            }
-            protected set => _isDirty = value;
+            //TODO: when is Cells dirty? checking each cell is heavy.
+            return false;
         }
 
         public override bool IsOrphan => throw new NotImplementedException();
 
-        public Word.Cells COMCells { get; private set; }
+        public override int Count => _cachedCells_1.Count;
+
+        //public Word.Cells COMCells { get; private set; }
 
         /// <summary>
         /// Gets the <see cref="CKCell"/> at the specified one-based index.
@@ -253,21 +269,20 @@ namespace CoverageKiller2.DOM.Tables
         /// <param name="index">The one-based index (1..Count).</param>
         /// <returns>The corresponding <see cref="CKCell"/> instance.</returns>
         /// <exception cref="ArgumentOutOfRangeException">If index is out of bounds.</exception>
-        public CKCell this[int index]
+        public virtual CKCell this[int index]
         {
             get
             {
                 if (index < 1 || index > Count)
                     throw new ArgumentOutOfRangeException(nameof(index));
-
-                return CellsList[index - 1];
+                return CellsList_1[index];
             }
         }
 
-        private List<CKCell> _cachedCells = new List<CKCell>();
+        private Base1List<CKCell> _cachedCells_1 = new Base1List<CKCell>();
 
         /// <inheritdoc/>
-        public IEnumerator<CKCell> GetEnumerator() => CellsList.GetEnumerator();
+        public IEnumerator<CKCell> GetEnumerator() => CellsList_1.GetEnumerator();
 
         /// <inheritdoc/>
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
@@ -275,7 +290,7 @@ namespace CoverageKiller2.DOM.Tables
         public override int IndexOf(object obj)
         {
             LH.Ping(GetType());
-            int index = -1;
+            int index = -1; //default return not found.
             CKCell foundCell = default;
             if (obj is CKCell ckCell)
             {
@@ -283,14 +298,13 @@ namespace CoverageKiller2.DOM.Tables
             }
             else if (obj is Word.Cell wdCell)
             {
-                var foundCells = CellsList.Where(c => RangeSnapshot.FastMatch(c.COMRange, wdCell.Range));
-                foundCell = foundCells.FirstOrDefault();
-
+                var foundCells_0 = CellsList_1.Where(c => RangeSnapshot.FastMatch(c.COMRange, wdCell.Range));
+                foundCell = foundCells_0.FirstOrDefault();
             }
 
-            index = CellsList.IndexOf(foundCell);
+            index = CellsList_1.IndexOf(foundCell);
             LH.Pong(GetType());
-            return index < 0 ? index : index + 1;
+            return index;
         }
     }
 

@@ -69,43 +69,46 @@ namespace CoverageKiller2.DOM.Tables
         [TestMethod]
         public void Cell_ByRef_ShouldReturnMatchingCKCell()
         {
-            var table = _testFile.Tables[1];
-            var cell = table.COMTable.Cell(1, 1);
+            //var table = _testFile.Tables[1];
+            //var cell = table.COMTable.Cell(1, 1);
 
-            var cellRef = new CKCellRef(
-                rowIndex: cell.RowIndex,
-                colIndex: cell.ColumnIndex,
-                snapshot: new RangeSnapshot(cell.Range),
-                parent: table
-            );
+            //var cellRef = new CKCellRef(
+            //    rowIndex: cell.RowIndex,
+            //    colIndex: cell.ColumnIndex,
+            //    snapshot: new RangeSnapshot(cell.Range),
+            //    parent: table
+            //);
 
-            var ckCell = table.Cell(cellRef);
+            //var ckCell = table.Cell(cellRef);
 
-            Assert.IsNotNull(ckCell);
-            Assert.AreEqual(1, ckCell.RowIndex);
-            Assert.AreEqual(1, ckCell.ColumnIndex);
-            Assert.IsTrue(ckCell.COMCell.Range.COMEquals(cell.Range));
+            //Assert.IsNotNull(ckCell);
+            //Assert.AreEqual(1, ckCell.RowIndex);
+            //Assert.AreEqual(1, ckCell.ColumnIndex);
+            //Assert.IsTrue(ckCell.COMCell.Range.COMEquals(cell.Range));
+            Assert.Fail();
         }
 
         [TestMethod]
         public void IndexOf_Cell_ShouldReturnCorrectLinearIndex()
         {
-            Log.Debug("First Run");
-            var table1 = _testFile.Tables[1];
+            //Log.Debug("First Run");
+            //var table1 = _testFile.Tables[1];
 
-            var cellRef1 = new CKCellRef(1, 1, table1);
-            var first1 = table1.Cell(cellRef1);
-            int index1 = table1.IndexOf(first1.COMCell);
+            //var cellRef1 = new CKCellRef(1, 1, table1);
+            //var first1 = table1.Cell(cellRef1);
+            //int index1 = table1.IndexOf(first1.COMCell);
 
-            Assert.AreEqual(1, index1, "First cell should have a one-based index of 1.");
-            Log.Debug("Second Run");
-            var table2 = _testFile.Tables[1];
+            //Assert.AreEqual(1, index1, "First cell should have a one-based index of 1.");
+            //Log.Debug("Second Run");
+            //var table2 = _testFile.Tables[1];
 
-            var cellRef2 = new CKCellRef(1, 1, table2);
-            var first2 = table2.Cell(cellRef2);
-            int index2 = table2.IndexOf(first2.COMCell);
+            //var cellRef2 = new CKCellRef(1, 1, table2);
+            //var first2 = table2.Cell(cellRef2);
+            //int index2 = table2.IndexOf(first2.COMCell);
 
-            Assert.AreEqual(1, index1, "First cell should have a one-based index of 1.");
+            //Assert.AreEqual(1, index1, "First cell should have a one-based index of 1.");
+            Assert.Fail();
+
         }
     }
 }

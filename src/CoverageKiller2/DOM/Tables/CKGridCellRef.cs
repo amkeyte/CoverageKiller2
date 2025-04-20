@@ -1,49 +1,54 @@
-﻿namespace CoverageKiller2.DOM.Tables
+﻿using CoverageKiller2.Logging;
+
+namespace CoverageKiller2.DOM.Tables
 {
     /// <summary>
     /// Represents a rectangular cell reference within a CKTableGrid.
-    /// Coordinates are zero-based and inclusive.
+    /// Coordinates are 1 based and inclusive.
     /// </summary>
     public readonly struct CKGridCellRef
     {
         /// <summary>
-        /// The starting column (zero-based).
+        /// The starting column 
         /// </summary>
-        public int X1 { get; }
+        public int ColMin { get; }
 
         /// <summary>
-        /// The starting row (zero-based).
+        /// The starting row 
         /// </summary>
-        public int Y1 { get; }
+        public int RowMin { get; }
 
         /// <summary>
-        /// The ending column (zero-based).
+        /// The ending column 
         /// </summary>
-        public int X2 { get; }
+        public int ColMax { get; }
 
         /// <summary>
-        /// The ending row (zero-based).
+        /// The ending row 
         /// </summary>
-        public int Y2 { get; }
+        public int RowMax { get; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CKGridCellRef"/> struct.
         /// </summary>
-        /// <param name="x1">Start column (inclusive, zero-based).</param>
-        /// <param name="y1">Start row (inclusive, zero-based).</param>
-        /// <param name="x2">End column (inclusive, zero-based).</param>
-        /// <param name="y2">End row (inclusive, zero-based).</param>
-        public CKGridCellRef(int x1, int y1, int x2, int y2)
+        /// <param name="cMin">Start column (inclusive, zero-based).</param>
+        /// <param name="rMin">Start row (inclusive, zero-based).</param>
+        /// <param name="cMax">End column (inclusive, zero-based).</param>
+        /// <param name="rMax">End row (inclusive, zero-based).</param>
+        public CKGridCellRef(int rMin, int cMin, int rMax, int cMax)
         {
-            X1 = x1;
-            Y1 = y1;
-            X2 = x2;
-            Y2 = y2;
+            ColMin = cMin;
+            RowMin = rMin;
+            ColMax = cMax;
+            RowMax = rMax;
+            this.PingPong();
+
+
         }
 
         /// <summary>
         /// Returns a string representation of the grid cell reference.
         /// </summary>
-        public override string ToString() => $"GridCellRef [({X1}, {Y1}) - ({X2}, {Y2})]";
+        public override string ToString() => $"GridCellRef [({ColMin}, {RowMin}) - ({ColMax}, {RowMax})]";
     }
 }

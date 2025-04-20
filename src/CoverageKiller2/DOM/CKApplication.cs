@@ -128,7 +128,7 @@ namespace CoverageKiller2.DOM
                             Log.Warning($"Document {doc.FileName} was requested to close." +
                                 $" KeepAlive is true, but was overriden by Force-close.");
                         }
-
+                        comDoc.Saved = true;
                         comDoc.Close(SaveChanges: false);
                     }
                     catch (Exception ex)
@@ -173,31 +173,34 @@ namespace CoverageKiller2.DOM
             GC.SuppressFinalize(this);
         }
 
-        /// <summary>
-        /// Internal dispose logic. Quits Word only if this is an owned instance.
-        /// </summary>
         protected virtual void Dispose(bool disposing)
         {
             if (!disposedValue)
             {
                 if (disposing)
                 {
-                    Log.Information($"Disposing CKApplication({PID}) and closing documents.");
+                    if (_crashing)
+                        Log.Warning($"Disposing CKApplication({PID}) due to crash. Forcing all documents closed.");
+                    else
+                        Log.Information($"Disposing CKApplication({PID}) and closing documents.");
 
                     foreach (var doc in _documents.ToArray())
                     {
-                        if (doc.KeepAlive) continue;
+                        if (!_crashing && doc.KeepAlive) continue;
 
-                        try { CloseDocument(doc, force: true); }
+                        try
+                        {
+                            CloseDocument(doc, force: true);
+                        }
                         catch (Exception ex)
                         {
                             Log.Error("Error disposing document: {Message}", ex.Message);
                         }
                     }
 
-                    if (HasKeepOpenDocuments)
+                    if (!_crashing && HasKeepOpenDocuments)
                     {
-                        //_docs and _comdocs probably in good state; Close removes them.
+                        // Do not clear collections — documents are still in use
                     }
                     else
                     {
@@ -205,16 +208,25 @@ namespace CoverageKiller2.DOM
                         _comDocs.Clear();
                     }
 
-                    if (!IsOwned)
+                    bool blockDispose = !_crashing && (!IsOwned || HasKeepOpenDocuments);
+
+                    if (blockDispose)
                     {
-                        Log.Information("CKApplication({PID}) is not owned; skipping WordApp.Quit().", PID);
-                    }
-                    else if (HasKeepOpenDocuments)
-                    {
-                        Log.Information("CKApplication({PID}) has KeepOpen documents; skipping WordApp.Quit().", PID);
+                        if (!IsOwned)
+                        {
+                            Log.Information("CKApplication({PID}) is not owned; skipping WordApp.Quit().", PID);
+                        }
+                        else if (HasKeepOpenDocuments)
+                        {
+                            Log.Information("CKApplication({PID}) has KeepOpen documents; skipping WordApp.Quit().", PID);
+                        }
                     }
                     else
                     {
+                        Log.Information("CKApplication({PID}) proceeding to quit WordApp. Reason: {Reason}",
+                            PID,
+                            _crashing ? "Crash override" : "Clean shutdown with no KeepAlive documents");
+
                         try
                         {
                             _wordApp.Quit();
@@ -226,10 +238,26 @@ namespace CoverageKiller2.DOM
                     }
                 }
 
-                disposedValue = true; //yes or no for keepOpen?
+                disposedValue = true;
             }
         }
 
+        private bool _crashing = false;
+        internal void Crash(Type callerType, string callerMember)
+        {
+            _crashing = true;
+            IsOwned = true;
+
+            Log.Error($"Crashing {nameof(CKApplication)}. Source: {callerType.Name}.{callerMember}");
+            for (int docIndex = 0; docIndex < _documents.Count; docIndex++)
+            {
+                WithSuppressedAlerts(() =>
+                {
+                    CloseDocument(Documents[docIndex], force: true);
+                });
+
+            }
+        }
 
         public bool Visible
         {
@@ -237,6 +265,8 @@ namespace CoverageKiller2.DOM
             set => _wordApp.Visible = value;
         }
         public bool HasKeepOpenDocuments => _documents.Any(doc => doc.KeepAlive);
+
+        public CKDocument ActiveDocument => GetDocument(_wordApp.ActiveDocument.FullName);
     }
 
     public partial class CKApplication
@@ -283,6 +313,7 @@ namespace CoverageKiller2.DOM
         /// <returns>A new CKDocument instance opened in this application.</returns>
         public CKDocument GetTempDocument(string fromFile = "")
         {
+            this.Ping();
             fromFile = string.IsNullOrWhiteSpace(fromFile) ? DefaultTemplatePath : fromFile;
             if (!File.Exists(fromFile)) throw new FileNotFoundException("Template file not found.", fromFile);
 
@@ -291,6 +322,11 @@ namespace CoverageKiller2.DOM
 
             CKDocument doc = null;
             WithSuppressedAlerts(() => doc = GetDocument(tempPath, visible: false));
+            doc.Saved = true;
+            doc.ReadOnlyRecommended = false;
+            doc.Final = false;
+            doc.RemoveDocumentInformation(Word.WdRemoveDocInfoType.wdRDIDocumentProperties);
+            this.Pong();
             return doc;
         }
 

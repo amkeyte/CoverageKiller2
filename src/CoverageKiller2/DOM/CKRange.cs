@@ -1,7 +1,8 @@
 ﻿using CoverageKiller2.DOM.Tables;
+using CoverageKiller2.Logging;
 using Serilog;
 using System;
-using System.Collections.Generic;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 using Word = Microsoft.Office.Interop.Word;
 
@@ -50,54 +51,129 @@ namespace CoverageKiller2.DOM
             _cachedEnd = COMRange.End;
         }
 
+        [Obsolete]
+        public CKRange(IDOMObject parent)
+        {
+
+            _COMRange = null;
+            Parent = parent ?? throw new ArgumentNullException(nameof(parent));
+            _isDirty = true;
+        }
+
         #endregion
 
         #region Public Properties
 
 
-        private CKCells _cells = default;
+        private CKCells _cells_1 = default;
+
+        /// <summary>
+        /// 1 based list.
+        /// </summary>
         public CKCells Cells
         {
             get
             {
-                if (IsDirty || _cells is null)
+                if (IsDirty || _cells_1 is null)
                 {
-                    var COMCells = COMRange.Cells;
-                    var cellsRefList = new List<CKCellRef>();
-                    foreach (Word.Cell cell in COMCells)
+                    var COMCells_1 = COMRange.Cells;
+                    var ckCells_1 = new Base1List<CKCell>();
+                    foreach (Word.Cell cell in COMCells_1)
                     {
                         var cellRef = new CKCellRef(cell.RowIndex,
                             cell.ColumnIndex,
                             new RangeSnapshot(cell.Range),
+                            Tables.ItemOf(cell),
                             this);
-                        cellsRefList.Add(cellRef);
+                        //each cell calls to it's own table since table is arbitrary.
+                        ckCells_1.Add(new CKCell(cellRef));
                     }
-                    var cellsRef = new CellsRef(cellsRefList, this);
-                    _cells = new CKCells(COMCells, cellsRef);
+
+                    _cells_1 = new CKCells(ckCells_1, this);
                 }
-                return _cells;
+                return _cells_1;
             }
         }
 
         /// <summary>
+        /// Attempts to find the next occurrence of the specified text using Word's Find functionality.
+        /// </summary>
+        /// <param name="text">The text to search for.</param>
+        /// <param name="matchWildcards">Whether to enable wildcard matching.</param>
+        /// <param name="matchCase">Whether to perform a case-sensitive search.</param>
+        /// <param name="matchWholeWord">Whether to match the whole word only.</param>
+        /// <returns>
+        /// A new <see cref="CKRange"/> containing the match if found; otherwise, <c>null</c>.
+        /// </returns>
+        /// <remarks>
+        /// Version: CK2.00.01.0034
+        /// </remarks>
+        public CKRange TryFindNext(string text, bool matchWildcards = false, bool matchCase = false, bool matchWholeWord = false)
+        {
+            if (string.IsNullOrEmpty(text)) return null;
+
+            Word.Find finder = COMRange.Find;
+            finder.ClearFormatting();
+            finder.Text = text;
+            finder.MatchWildcards = matchWildcards;
+            finder.MatchCase = matchCase;
+            finder.MatchWholeWord = matchWholeWord;
+
+            bool found = finder.Execute();
+
+            if (found)
+            {
+                return new CKRange(COMRange.Duplicate, Parent);
+            }
+
+            if (Debugger.IsAttached) Debugger.Break();
+            return null;
+        }
+
+
+        /// <summary>
         /// Gets the underlying Word.Range COM object.
         /// </summary>
-        public Word.Range COMRange { get; private set; }
+        [Obsolete]
 
+        public Word.Range COMRange
+        {
+            get
+            {
+                if (_COMRange == null)//isDirty?
+                {
+
+                    Refresh();
+                    throw new CKDebugException("Range is null");
+                }
+                return _COMRange;
+            }
+            protected set
+            {
+                if (_COMRange != null) throw new CKDebugException("Attempted to assign a populated Range.");
+                _COMRange = value;
+            }
+        }
+
+        private Word.Range _COMRange;
         /// <summary>
         /// Gets the raw text of the range as returned by Word without caching.
         /// </summary>
-        public string RawText => COMRange.Text;
+        public string RawText => _COMRange.Text;
 
         /// <summary>
         /// Gets the text of the range with caching.
         /// </summary>
         public string Text
         {
+
             get
             {
+                this.Ping();
                 if (IsDirty || _cachedText == null)
                     Refresh();
+
+                this.Pong();
                 return _cachedText;
             }
             set
@@ -148,22 +224,57 @@ namespace CoverageKiller2.DOM
         /// </summary>
         public int End => COMRange.End;
 
-        /// <summary>
-        /// Gets a value indicating whether this CKRange is dirty.
-        /// It becomes dirty when the underlying COMRange has changed.
-        /// </summary>
+        private bool _isCheckingDirty = false;
+        private static long _isDirtyCount = 0;
+        /// <inheritdoc/>
         public virtual bool IsDirty
         {
             get
             {
-                _isDirty = _isDirty
-                    || COMRange.Characters.Count != _cachedCharCount
-                    || COMRange.Text != _cachedText;
+                //LH.Ping($"Parent: {Parent.GetType()}", GetType());
+                if (_isDirtyCount++ % 20 == 0) LH.Checkpoint($"CKRange.IsDirty count: {_isDirtyCount}");
+
+                if (_isDirty || _isCheckingDirty)
+                {
+                    //this.Pong();
+                    return _isDirty;
+                }
+
+                _isCheckingDirty = true;
+                try
+                {
+                    _isDirty = _isDirty
+                    || CheckDirtyFor();
+                    //|| COMRange.Characters.Count != _cachedCharCount
+                    //|| COMRange.Text != _cachedText;
+
+                }
+                catch (Exception ex)
+                {
+                    if (Debugger.IsAttached)
+                    {
+                        Debugger.Break();
+                        throw ex;
+                    }
+                }
+                finally
+                {
+
+                    _isCheckingDirty = false;
+                }
+                //this.Pong();
                 return _isDirty;
             }
-            set => _isDirty = value;
+            protected set => _isDirty = value;
         }
 
+        protected virtual bool CheckDirtyFor()
+        {
+            this.PingPong();
+            return false;
+        }
+
+        private bool _checkingDirty = false;
         /// <summary>
         /// Gets a value indicating whether this CKRange is orphaned,
         /// i.e. its underlying COMRange is no longer valid.
@@ -311,15 +422,29 @@ namespace CoverageKiller2.DOM
         /// <summary>
         /// Updates cached text values from the underlying COMRange and resets the dirty flag.
         /// </summary>
+        /// <remarks>overrides should always call base to ensure range cache is refreshed.</remarks>
         public void Refresh()
         {
-            _cachedText = COMRange.Text;
-            _cachedCharCount = COMRange.Characters.Count;
-            _cachedStart = COMRange.Start;
-            _cachedEnd = COMRange.End;
+            if (_isRefreshing) throw new CKDebugException("You are looping on Refresh. Don't do that.");
+            _isRefreshing = true;
+            this.Ping();
+            DoRefreshThings();
+            _cachedText = _COMRange.Text;
+            _cachedCharCount = _COMRange.Characters.Count;
+            _cachedStart = _COMRange.Start;
+            _cachedEnd = _COMRange.End;
             _cachedPrettyText = CKTextHelper.Pretty(_cachedText);
             _cachedScrunchedText = CKTextHelper.Scrunch(_cachedText);
             IsDirty = false;
+            _isRefreshing = false;
+            this.Pong();
+
+        }
+        public bool _isRefreshing = false;
+
+        protected virtual void DoRefreshThings()
+        {
+            this.PingPong();
         }
 
         /// <summary>
@@ -329,7 +454,7 @@ namespace CoverageKiller2.DOM
         /// <returns>True if the scrunched texts are equal; otherwise, false.</returns>
         public bool TextEquals(string other)
         {
-            string myScrunched = CKTextHelper.Scrunch(COMRange.Text);
+            string myScrunched = CKTextHelper.Scrunch(_COMRange.Text);
             string otherScrunched = CKTextHelper.Scrunch(other);
             return string.Equals(myScrunched, otherScrunched, StringComparison.Ordinal);
         }
@@ -338,7 +463,7 @@ namespace CoverageKiller2.DOM
 
         public RangeSnapshot GetSnapshot()
         {
-            return new RangeSnapshot(COMRange);
+            return new RangeSnapshot(_COMRange);
         }
 
         public override bool Equals(object obj)
@@ -357,15 +482,15 @@ namespace CoverageKiller2.DOM
             if (other == null)
                 return false;
 
-            return RangeSnapshot.FastMatch(COMRange, other.COMRange);
+            return RangeSnapshot.FastMatch(_COMRange, other._COMRange);
         }
 
         public override int GetHashCode()
         {
             unchecked
             {
-                int start = IsOrphan ? _cachedStart : COMRange.Start;
-                int end = IsOrphan ? _cachedEnd : COMRange.End;
+                int start = IsOrphan ? _cachedStart : _COMRange.Start;
+                int end = IsOrphan ? _cachedEnd : _COMRange.End;
                 int hash = 17;
                 hash = hash * 23 + start.GetHashCode();
                 hash = hash * 23 + end.GetHashCode();
@@ -418,7 +543,7 @@ namespace CoverageKiller2.DOM
 
         internal void Delete()
         {
-            COMRange.Delete();
+            _COMRange.Delete();
         }
     }
 

@@ -1,6 +1,7 @@
 ﻿using CoverageKiller2.DOM.Tables;
 using CoverageKiller2.Logging;
 using K4os.Hash.xxHash;
+using Microsoft.Office.Interop.Word;
 using System;
 using System.IO;
 using System.Runtime.InteropServices;
@@ -160,6 +161,24 @@ namespace CoverageKiller2.DOM
         }
 
         public bool KeepAlive { get; internal set; }
+        [Obsolete]
+        public Word.Window ActiveWindow => _comDocument.ActiveWindow;
+
+        public bool Saved
+        {
+            get => _comDocument.Saved;
+            set => _comDocument.Saved = value;
+        }
+        public bool ReadOnlyRecommended
+        {
+            get => _comDocument.ReadOnlyRecommended;
+            set => _comDocument.ReadOnlyRecommended = value;
+        }
+        public bool Final
+        {
+            get => _comDocument.Final;
+            set => _comDocument.Final = value;
+        }
 
         public void Activate()
         {
@@ -283,7 +302,7 @@ namespace CoverageKiller2.DOM
             {
                 if (disposing)
                 {
-                    Application?.UntrackDocument(this);
+                    Application?.UntrackDocument(this); //WHY application null bypass?
                 }
                 disposedValue = true;
             }
@@ -314,6 +333,11 @@ namespace CoverageKiller2.DOM
                 Dispose(disposing: true);
                 GC.SuppressFinalize(this);
             }
+        }
+
+        internal void RemoveDocumentInformation(WdRemoveDocInfoType wdRDIDocumentProperties)
+        {
+            _comDocument.RemoveDocumentInformation(wdRDIDocumentProperties);
         }
     }
 }

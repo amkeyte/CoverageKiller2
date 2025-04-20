@@ -1,4 +1,5 @@
-﻿using Serilog;
+﻿using CoverageKiller2.Logging;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -102,8 +103,10 @@ namespace CoverageKiller2.DOM.Tables
         /// <param name="table">The source table to analyze.</param>
         public GridCrawler5(CKTable table)
         {
+            this.Ping();
             _table = table ?? throw new ArgumentNullException(nameof(table));
-            //Analyze(); bypass for build up testing.
+            Analyze();
+            this.Pong();
         }
 
         /// <summary>
@@ -114,12 +117,12 @@ namespace CoverageKiller2.DOM.Tables
         /// <summary>
         /// Gets the number of visual columns in the final layout grid.
         /// </summary>
-        public int ColumnCount => _grid[1].Count;
+        public int ColumnCount => _grid.LargestRowCount;
 
         /// <summary>
         /// Gets the completed visual layout grid.
         /// </summary>
-        public Base1JaggedList<GridCell5> FinalGrid => _grid;
+        public Base1JaggedList<GridCell5> Grid => _grid;
 
         /// <summary>
         /// Returns a labeled text representation of the grid.
@@ -211,14 +214,22 @@ namespace CoverageKiller2.DOM.Tables
 
         private void Analyze()
         {
-            var textGrid = ParseTableText();
-            NormalizeByWidth();
-            CrawlVertically(textGrid);
-            EnforceRectangularity();
+            LH.Ping(GetType());
+
+            LH.Checkpoint($"Cloning table {_table.Document.Tables.IndexOf(_table)} from document {_table.Document.FileName}");
+            var clonedTable = CloneAndPrepareTableLayout();
+            var masterGrid = GetMasterGrid(clonedTable);
+            var textGrid = ParseTableText(clonedTable);
+            var normalGrid = NormalizeByWidth(masterGrid);
+            var horizGrid = CrawlHoriz(textGrid, normalGrid);
+            CrawlVertically(textGrid, normalGrid);
+
+            LH.Pong(GetType());
         }
 
         public static Base1List<string> SplitWordTableTextIntoRows(string rawText)
         {
+
             var rows = new Base1List<string>();
             if (string.IsNullOrEmpty(rawText)) return rows;
 
@@ -254,6 +265,10 @@ namespace CoverageKiller2.DOM.Tables
         /// </remarks>
         internal Base1JaggedList<string> ParseTableText(CKTable table = null)
         {
+            LH.Ping(GetType());
+
+
+
             table = table ?? _table;
             //string rawText = table.Text; // Use the CKTable abstraction
             //var parts = rawText.Split(new[] { "\r\a" }, StringSplitOptions.None).ToList();
@@ -265,7 +280,13 @@ namespace CoverageKiller2.DOM.Tables
             //var currentRow = new Base1List<string>();
 
             var rowTexts = SplitWordTableTextIntoRows(table.RawText);
-            Log.Debug(DumpList(rowTexts, nameof(rowTexts)));
+
+
+
+            Log.Verbose(DumpList(rowTexts,
+                $"Parsed Table[{table.Document.Tables.IndexOf(table)}] Text"));
+
+
             foreach (var row in rowTexts)
             {
                 //var parts = row.Split(new[] { "\r\a" }, StringSplitOptions.None).ToList();
@@ -302,6 +323,9 @@ namespace CoverageKiller2.DOM.Tables
             //    .Reverse().ToList()
             //    .ForEach(r => result.RemoveAt(result.IndexOf(r)));
 
+            LH.Pong(GetType());
+
+            _textGrid = result;
             return result;
         }
 
@@ -317,7 +341,7 @@ namespace CoverageKiller2.DOM.Tables
         public static string DumpList(Base1List<string> textList, string message)
         {
             var sb = new StringBuilder();
-            sb = sb.AppendLine(message + "\n");
+            sb = sb.AppendLine("\n" + message + "\n");
             sb.AppendLine("**********************");
 
             foreach (var row in textList)
@@ -345,6 +369,8 @@ namespace CoverageKiller2.DOM.Tables
         internal Base1JaggedList<GridCell5> NormalizeByWidth(
             Base1JaggedList<Word.Cell> masterGrid = null)
         {
+            LH.Ping(GetType());
+
             var result = new Base1JaggedList<GridCell5>();
             // Step 1: Build master-only grid
             masterGrid = masterGrid ?? GetMasterGrid(_table);
@@ -389,7 +415,11 @@ namespace CoverageKiller2.DOM.Tables
                 newRow.Add(new RowEndGridCell5());
                 newGrid.Add(newRow);
             }
+            Log.Debug(GridCrawler5.DumpGrid(newGrid));
+
             _grid = newGrid;
+            LH.Pong(GetType());
+
             return _grid;
         }
         /// <summary>
@@ -405,10 +435,21 @@ namespace CoverageKiller2.DOM.Tables
             CKTable sourceTable = null,
             ShadowWorkspace workspace = null)
         {
+            LH.Ping(GetType());
+
             sourceTable = sourceTable ?? _table;
             workspace = workspace ?? sourceTable.Application.GetShadowWorkspace();
+
+            //for debugging uncomment.
+            workspace.ShowDebuggerWindow();
+
+            //put original table
+            workspace.CloneFrom(_table);
+            workspace.Document.Content.CollapseToEnd().Text = "\r\r\r";
+            //put the one to format
             var clonedTable = workspace.CloneFrom(sourceTable);
-            var grid = GetMasterGrid(clonedTable);
+            //var grid = GetMasterGrid(clonedTable);
+            //Log.Debug(GridCrawler5.DumpGrid(grid));
 
 
             //normalize the text
@@ -427,6 +468,8 @@ namespace CoverageKiller2.DOM.Tables
                 cell.Range.Text = cellCounter++.ToString();
             }
 
+            LH.Pong(GetType());
+
             return clonedTable;
         }
         /// <summary>
@@ -434,6 +477,8 @@ namespace CoverageKiller2.DOM.Tables
         /// </summary>
         public Base1JaggedList<Word.Cell> GetMasterGrid(CKTable table = null)
         {
+            LH.Ping(GetType());
+
             table = table ?? _table;
 
             var groupedRows = table.COMTable.Range.Cells
@@ -454,6 +499,9 @@ namespace CoverageKiller2.DOM.Tables
                 }
                 result.Add(list);
             }
+            Log.Debug(GridCrawler5.DumpGrid(result));
+
+            LH.Pong(GetType());
 
             return result;
         }
@@ -463,6 +511,8 @@ namespace CoverageKiller2.DOM.Tables
             Base1JaggedList<string> textGrid = null,
             Base1JaggedList<GridCell5> normalizedGrid = null)
         {
+            LH.Ping(GetType());
+
             textGrid = textGrid ?? _textGrid;
             normalizedGrid = normalizedGrid ?? _grid;
 
@@ -540,12 +590,32 @@ namespace CoverageKiller2.DOM.Tables
                     }
                 }
             }
+            _grid = normalizedGrid;
+
+
+
+            Log.Debug(GridCrawler5.DumpGrid(textGrid));
+            Log.Debug(GridCrawler5.DumpGrid(normalizedGrid));
+
+            LH.Pong(GetType());
+
             return normalizedGrid;
         }
         internal Base1JaggedList<GridCell5> CrawlHoriz(
             Base1JaggedList<string> textGrid = null,
             Base1JaggedList<GridCell5> normalizedGrid = null)
         {
+            LH.Ping(GetType());
+
+
+
+            textGrid = textGrid ?? _textGrid;
+            normalizedGrid = normalizedGrid ?? _grid;
+
+            Log.Debug(DumpGrid(textGrid));
+            Log.Debug(DumpGrid(normalizedGrid));
+
+
             var normalizedRowCount = normalizedGrid.LargestRowCount;
 
             for (var rowIndex = 1; rowIndex <= normalizedGrid.Count; rowIndex++)
@@ -614,9 +684,16 @@ namespace CoverageKiller2.DOM.Tables
                 }
 
             }
+            _textGrid = textGrid;
+            _grid = normalizedGrid;
+
+            Log.Debug(GridCrawler5.DumpGrid(textGrid));
+            Log.Debug(GridCrawler5.DumpGrid(normalizedGrid));
+
+            LH.Pong(GetType());
+
             return normalizedGrid;
         }
-        internal void EnforceRectangularity()
-        => throw new NotImplementedException();
+
     }
 }

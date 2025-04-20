@@ -1,7 +1,10 @@
 ﻿using CoverageKiller2.DOM;
+using CoverageKiller2.Logging;
 using CoverageKiller2.Pipeline.Config;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace CoverageKiller2.Pipeline
 {
@@ -40,9 +43,20 @@ namespace CoverageKiller2.Pipeline
 
         public CKWordPipeline(Dictionary<string, object> initVars)
         {
-            Document = (CKDocument)initVars["ckDoc"];
-            Template = (CKDocument)initVars["template"];
-            ProcessorConfig = (ProcessorConfig)initVars["ProcessorConfig"];
+            LH.Ping(GetType());
+            try
+            {
+
+                Document = (CKDocument)initVars["document"];
+                Template = (CKDocument)initVars["template"];
+                ProcessorConfig = (ProcessorConfig)initVars["ProcessorConfig"];
+            }
+            catch (Exception ex)
+            {
+                if (Debugger.IsAttached) Debugger.Break();
+            }
+            LH.Pong(GetType());
+
         }
 
         /// <summary>

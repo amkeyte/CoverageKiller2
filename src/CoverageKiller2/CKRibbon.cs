@@ -1,4 +1,5 @@
-﻿using CoverageKiller2.Logging;
+﻿using CoverageKiller2.DOM;
+using CoverageKiller2.Logging;
 using Microsoft.Office.Core;
 using Serilog;
 using System;
@@ -61,13 +62,13 @@ namespace CoverageKiller2
         }
         public async void OnDebugLoader(IRibbonControl control)
         {
-            if (LogTailLoader.LogOpen)
+            if (LogExpertLoader.LogOpen)
             {
-                LogTailLoader.StopBareTail();
+                LogExpertLoader.StopLogExpert();
             }
             else
             {
-                LogTailLoader.StartBareTail(LoggingLoader.LogFile);
+                LogExpertLoader.StartLogExpert(LoggingLoader.LogFile, true);
             }
         }
 
@@ -76,16 +77,13 @@ namespace CoverageKiller2
             Log.Information("Testing Process Loader");
             try
             {
-                if (Globals.ThisAddIn.Application.Documents.Count > 0)
-                {
-                    Word.Document wDoc = Globals.ThisAddIn.Application.ActiveDocument;
-                    CkDocHelpers.TestProcessor(wDoc);
-                }
-                else
-                {
-                    Log.Information("This was not a PCTELDoc report. Trying again...");
-                    MessageBox.Show("Open a PCTEL Report document.");
-                }
+
+                CKDocument document = CKOffice_Word.Instance.AddInApp.ActiveDocument;
+                CkDocHelpers.TestProcessor(document);
+
+                //Log.Information("This was not a PCTELDoc report. Trying again...");
+                //MessageBox.Show("Open a PCTEL Report document.");
+
                 Log.Information("Process Loader Test Complete");
             }
             catch (Exception ex)
@@ -99,16 +97,22 @@ namespace CoverageKiller2
             Log.Information("Running Process Loader");
             try
             {
-                if (Globals.ThisAddIn.Application.Documents.Count > 0)
-                {
-                    Word.Document wDoc = Globals.ThisAddIn.Application.ActiveDocument;
-                    CkDocHelpers.TestProcessor(wDoc);
-                }
-                else
-                {
-                    Log.Information("This was not a PCTELDoc report. Trying again...");
-                    MessageBox.Show("Open a PCTEL Report document.");
-                }
+                CKDocument document = CKOffice_Word.Instance.AddInApp.ActiveDocument;
+
+
+
+
+
+                //if (Globals.ThisAddIn.Application.Documents.Count > 0)
+                //{
+                //    Word.Document wDoc = Globals.ThisAddIn.Application.ActiveDocument;
+                CkDocHelpers.TestProcessor(document);
+                //}
+                //else
+                //{
+                //    Log.Information("This was not a PCTELDoc report. Trying again...");
+                //    MessageBox.Show("Open a PCTEL Report document.");
+                //}
                 Log.Information("Process Complete");
             }
             catch (Exception ex)

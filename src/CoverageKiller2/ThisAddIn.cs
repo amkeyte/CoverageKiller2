@@ -1,4 +1,5 @@
-﻿using CoverageKiller2.Logging;
+﻿using CoverageKiller2.DOM;
+using CoverageKiller2.Logging;
 using Serilog;
 using System;
 
@@ -24,15 +25,17 @@ namespace CoverageKiller2
             {
                 ///All this shit can go insie CKOffice.Start
                 ///
+                var OfficeWord = CKOffice_Word.Instance;
+                OfficeWord.Start();
+                OfficeWord.TryPutAddin(this);
+                LogExpertLoader.StartLogExpert(LoggingLoader.LogFile, true);
+                //string logFile = LogTailLoader.GetLogFile();
+                //LoggingLoader.Configure(logFile, Serilog.Events.LogEventLevel.Debug);
 
+                ////debugging the big hangup.
+                ////LogTailLoader.StartBareTail(logFile);
 
-                string logFile = LogTailLoader.GetLogFile();
-                LoggingLoader.Configure(logFile, Serilog.Events.LogEventLevel.Debug);
-
-                //debugging the big hangup.
-                //LogTailLoader.StartBareTail(logFile);
-
-                Log.Debug("Logging started: Level {logEventLevel}", LoggingLoader.Level);
+                //Log.Debug("Logging started: Level {logEventLevel}", LoggingLoader.Level);
                 Log.Information("ThisAddIn started.");
             }
             catch (Exception ex)
@@ -51,20 +54,20 @@ namespace CoverageKiller2
         private async void ThisAddIn_Shutdown(object sender, System.EventArgs e)
         {
             ///All this stuff can go in CKOffice.ShutDown
+            CKOffice_Word.Instance.ShutDown();
 
+            //try
+            //{
+            //    Log.Information("ThisAddIn shutting down.");
+            //    LoggingLoader.Cleanup();
+            //    LogTailLoader.Cleanup();
+            //}
+            //catch (Exception ex)
+            //{
 
-            try
-            {
-                Log.Information("ThisAddIn shutting down.");
-                LoggingLoader.Cleanup();
-                LogTailLoader.Cleanup();
-            }
-            catch (Exception ex)
-            {
+            //    throw ex;
 
-                throw ex;
-
-            }
+            //}
         }
 
         /// <summary>

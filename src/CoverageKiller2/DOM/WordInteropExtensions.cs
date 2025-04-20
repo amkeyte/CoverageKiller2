@@ -47,7 +47,7 @@ namespace CoverageKiller2.DOM
             FontSize = range.Font?.Size ?? 0;
             Alignment = range.ParagraphFormat?.Alignment ?? Word.WdParagraphAlignment.wdAlignParagraphLeft;
             object info = range.get_Information(Word.WdInformation.wdActiveEndPageNumber);
-            PageNumber = info is int page ? page : -1;
+            //PageNumber = info is int page ? page : -1;
             TableCount = range.Tables?.Count ?? 0;
             FieldCount = range.Fields?.Count ?? 0;
 
@@ -62,7 +62,7 @@ namespace CoverageKiller2.DOM
 
         private ulong ComputeHash()
         {
-            var data = $"{TextPreview}|{FontName}|{FontSize}|{Alignment}|{PageNumber}|{TableCount}|{FieldCount}";
+            var data = $"{TextPreview}|{FontName}|{FontSize}|{Alignment}|{TableCount}|{FieldCount}";
             var bytes = Encoding.UTF8.GetBytes(data);
             return XXH64.DigestOf(bytes); // 64-bit fast, repeatable hash
         }

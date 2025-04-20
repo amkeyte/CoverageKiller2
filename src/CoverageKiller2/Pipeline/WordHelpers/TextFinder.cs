@@ -11,8 +11,8 @@ namespace CoverageKiller2.Pipeline.WordHelpers
     public class TextFinder
     {
         private readonly CKDocument _ckDoc; // Wrapper for Word.Document
-        private readonly Word.Range _selectedRange = default; // Range to search for text
-        private Word.Range _lastFoundRange = default;
+        private readonly CKRange _selectedRange = default; // Range to search for text
+        private CKRange _lastFoundRange = default;
         private readonly string _searchText; // Text to search for
 
         public string SearchText => Tracer.Trace(_searchText);
@@ -41,7 +41,7 @@ namespace CoverageKiller2.Pipeline.WordHelpers
         /// <param name="ckDoc">The CKDocument object that contains the Word document.</param>
         /// <param name="searchText">The text to search for in the document.</param>
         /// <param name="searchWithinRange">The range to search within. If null, the entire document will be searched.</param>
-        public TextFinder(CKDocument ckDoc, string searchText, Word.Range searchWithinRange)
+        public TextFinder(CKDocument ckDoc, string searchText, CKRange searchWithinRange = null)
         {
             Tracer.Enabled = true;
             if (ckDoc == null) throw new ArgumentNullException(nameof(ckDoc));
@@ -50,7 +50,7 @@ namespace CoverageKiller2.Pipeline.WordHelpers
 
 
             _ckDoc = ckDoc;
-            _selectedRange = searchWithinRange ?? _ckDoc.Content.CKCopy(); // Use the entire document if no range is provided
+            _selectedRange = searchWithinRange ?? _ckDoc.Content; // Use the entire document if no range is provided
             _searchText = searchText;
 
             Tracer.Log("Initialized", new DataPoints()
@@ -65,55 +65,53 @@ namespace CoverageKiller2.Pipeline.WordHelpers
 
         public Tracer Tracer = new Tracer(typeof(TextFinder));
 
-        /// <summary>
-        /// Attempts to find the next occurrence of the search text within the specified range.
-        /// If it's the first call, it searches for the first match.
-        /// </summary>
-        /// <param name="foundRange">Outputs the found range if the text is found; otherwise, null.</param>
-        /// <param name="wrap">Indicates whether to wrap around to the beginning of the range if the end is reached.</param>
-        /// <returns>True if the text is found; otherwise, false.</returns>
-        public bool TryFind(out Word.Range foundRange, bool wrap = false)
-        {
-            Tracer.Log("Finding...", new DataPoints()
-                .Add(nameof(wrap) + "(inop)", wrap)
-                .Add(nameof(SearchText), SearchText)
-                .Add($"{nameof(_selectedRange)}.Start", _selectedRange?.Start)
-                .Add($"{nameof(_selectedRange)}.End", _selectedRange?.End)
-                .Add($"{nameof(_lastFoundRange)}[Is Null]", _lastFoundRange == null));
+        ///// <summary>
+        ///// Attempts to find the next occurrence of the search text within the specified range.
+        ///// If it's the first call, it searches for the first match.
+        ///// </summary>
+        ///// <param name="foundRange">Outputs the found range if the text is found; otherwise, null.</param>
+        ///// <param name="wrap">Indicates whether to wrap around to the beginning of the range if the end is reached.</param>
+        ///// <returns>True if the text is found; otherwise, false.</returns>
+        //public bool TryFind(out Word.Range foundRange, bool wrap = false)
+        //{
+        //    Tracer.Log("Finding...", new DataPoints()
+        //        .Add(nameof(wrap) + "(inop)", wrap)
+        //        .Add(nameof(SearchText), SearchText)
+        //        .Add($"{nameof(_selectedRange)}.Start", _selectedRange?.Start)
+        //        .Add($"{nameof(_selectedRange)}.End", _selectedRange?.End)
+        //        .Add($"{nameof(_lastFoundRange)}[Is Null]", _lastFoundRange == null));
 
 
-            var searchRangeStart = _lastFoundRange is null
-                ? _selectedRange.Start
-                : _lastFoundRange.End + 1; // not safe for end of document.
+        //    var searchRangeStart = _lastFoundRange is null
+        //        ? _selectedRange.Start
+        //        : _lastFoundRange.End + 1; // not safe for end of document.
 
-            var activeSearchRange = _ckDoc.COMObject.Range(searchRangeStart, _selectedRange.End);
+        //    var activeSearchRange = _ckDoc.Range(searchRangeStart, _selectedRange.End);
 
-            _lastFoundRange = null;
+        //    _lastFoundRange = null;
 
-            // Try to find the next occurrence
-            bool found = activeSearchRange.Find.Execute(
-                FindText: SearchText,
-                MatchWildcards: true);
+        //    // Try to find the next occurrence
+        //    var found = activeSearchRange.TryFindNext(SearchText, matchWildcards: true);
 
-            if (found)
-            {
-                _lastFoundRange = activeSearchRange.CKCopy();
-            }
+        //    if (found != null)
+        //    {
+        //        _lastFoundRange = activeSearchRange.CKCopy();
+        //    }
 
-            foundRange = _lastFoundRange is null ? null : _lastFoundRange.CKCopy();
+        //    foundRange = _lastFoundRange is null ? null : _lastFoundRange.CKCopy();
 
-            activeSearchRange = null;
+        //    activeSearchRange = null;
 
-            Tracer.Log($"Text found: {(found ? foundRange.Text : "[NO TEXT FOUND]")}",
-                new DataPoints()
-                .Add($"{nameof(_selectedRange)}.Start", _selectedRange?.Start)
-                .Add($"{nameof(_selectedRange)}.End", _selectedRange?.End)
-                .Add($"{nameof(_lastFoundRange)}.Start", _lastFoundRange?.Start)
-                .Add($"{nameof(_lastFoundRange)}.End", _lastFoundRange?.End)
-            );
+        //    Tracer.Log($"Text found: {(found ? foundRange.Text : "[NO TEXT FOUND]")}",
+        //        new DataPoints()
+        //        .Add($"{nameof(_selectedRange)}.Start", _selectedRange?.Start)
+        //        .Add($"{nameof(_selectedRange)}.End", _selectedRange?.End)
+        //        .Add($"{nameof(_lastFoundRange)}.Start", _lastFoundRange?.Start)
+        //        .Add($"{nameof(_lastFoundRange)}.End", _lastFoundRange?.End)
+        //    );
 
-            return found;
-        }
+        //    return found;
+        //}
 
 
         public void Replace(string replaceText)
@@ -128,7 +126,7 @@ namespace CoverageKiller2.Pipeline.WordHelpers
             {
                 _lastFoundRange.Text = replaceText;
 
-                _lastFoundRange = _ckDoc.COMObject.Range(
+                _lastFoundRange = _ckDoc.Range(
                     _lastFoundRange.Start,
                     _lastFoundRange.Start + replaceText.Length);
             }

@@ -71,8 +71,8 @@ namespace CoverageKiller2.DOM.Tables
         {
             get
             {
-                if (index < 1 || index > Count)
-                    throw new ArgumentOutOfRangeException(nameof(index));
+                if (index < 1) throw new ArgumentException("Index is 1 based.");
+                if (index > Count) throw new ArgumentOutOfRangeException(nameof(index));
                 return _rows[index - 1];
             }
         }
@@ -90,20 +90,20 @@ namespace CoverageKiller2.DOM.Tables
     /// </remarks>
     public class Base1List<T> : IReadOnlyList<T>
     {
-        private readonly List<T> _items = new List<T>();
+        private readonly List<T> _items_0 = new List<T>();
 
         public Base1List() { }
-        public Base1List(IEnumerable<T> items) => _items.AddRange(items ?? Enumerable.Empty<T>());
-        public Base1List(Base1List<T> items) => _items.AddRange(items ?? Enumerable.Empty<T>());
-        public Base1List(IOrderedEnumerable<T> items) => _items.AddRange(items ?? Enumerable.Empty<T>());
+        public Base1List(IEnumerable<T> items) => _items_0.AddRange(items ?? Enumerable.Empty<T>());
+        public Base1List(Base1List<T> items) => _items_0.AddRange(items ?? Enumerable.Empty<T>());
+        public Base1List(IOrderedEnumerable<T> items) => _items_0.AddRange(items ?? Enumerable.Empty<T>());
 
-        public void Add(T item) => _items.Add(item);
+        public void Add(T item) => _items_0.Add(item);
 
         public void Insert(int index, T item)
         {
             if (index < 1 || index > Count + 1)
                 throw new ArgumentOutOfRangeException(nameof(index));
-            _items.Insert(index - 1, item);
+            _items_0.Insert(index - 1, item);
         }
 
         public void Insert(int index, IEnumerable<T> items)
@@ -118,36 +118,36 @@ namespace CoverageKiller2.DOM.Tables
         {
             if (index < 1 || index > Count)
                 throw new ArgumentOutOfRangeException(nameof(index));
-            _items.RemoveAt(index - 1);
+            _items_0.RemoveAt(index - 1);
         }
 
         public int IndexOf(T item)
         {
-            int idx = _items.IndexOf(item);
-            return idx < 0 ? -1 : idx + 1;
+            int idx_0 = _items_0.IndexOf(item);
+            return idx_0 < 0 ? -1 : idx_0 + 1;
         }
 
-        public int Count => _items.Count;
+        public int Count => _items_0.Count;
 
         public T this[int index]
         {
             get
             {
-                if (index < 1 || index > Count)
-                    throw new ArgumentOutOfRangeException(nameof(index));
-                return _items[index - 1];
+                if (index < 1) throw new ArgumentException("Index is 1 based.");
+                if (index > Count) throw new ArgumentOutOfRangeException(nameof(index));
+                return _items_0[index - 1];
             }
         }
 
-        public IEnumerator<T> GetEnumerator() => _items.GetEnumerator();
+        public IEnumerator<T> GetEnumerator() => _items_0.GetEnumerator();
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
-        internal void Clear() => _items.Clear();
+        internal void Clear() => _items_0.Clear();
 
         public void ForEach(Action<T> action)
         {
             if (action == null) throw new ArgumentNullException(nameof(action));
-            foreach (var item in _items)
+            foreach (var item in _items_0)
             {
                 action(item);
             }

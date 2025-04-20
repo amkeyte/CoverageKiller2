@@ -1,6 +1,9 @@
 ﻿
+using CoverageKiller2.Logging;
 using Serilog;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using Word = Microsoft.Office.Interop.Word;
@@ -11,173 +14,88 @@ namespace CoverageKiller2.DOM.Tables
     public class CKTableGrid
     {
         private static Dictionary<CKTable, CKTableGrid> _tableGrids = new Dictionary<CKTable, CKTableGrid>();
-        private CKTable _parent;
-        private Word.Table _table;
-        internal GridCell[,] _grid;
+        private CKTable _ckTable;
+        private Word.Table _comTable;
+        internal Base1JaggedList<GridCell5> _grid;
+        private GridCrawler5 _crawler;
 
         // 🍽 Shared across all internal grid ops
-        internal int RowCount { get; set; }
-        internal int ColCount { get; set; }
+        internal int RowCount => _grid.Count;
+        internal int ColCount => _grid.LargestRowCount - 1;//-1 to account for end of row cell.
 
-        public static CKTableGrid GetInstance(CKTable parent, Word.Table table)
+        public static CKTableGrid GetInstance(CKTable ckTable, Word.Table comTable)
         {
+            int tableNum = ckTable.Document.Tables.IndexOf(ckTable);
+            Log.Debug($"Getting CKTableGrid Instance for table {tableNum}" +
+                $" of {ckTable.Document.Tables.Count} from document '{ckTable.Document.FileName}'");
 
-            Log.Debug($"Getting CKTableGrid Instance for table {parent.Document.Tables.IndexOf(parent)}");
+            if (tableNum == -1 && Debugger.IsAttached) Debugger.Break();
+
             _tableGrids.Keys.Where(r => r.IsOrphan).ToList()
                 .ForEach(r => _tableGrids.Remove(r));
 
-            if (_tableGrids.TryGetValue(parent, out CKTableGrid grid))
+            if (_tableGrids.TryGetValue(ckTable, out CKTableGrid grid))
             {
                 return grid;
             }
 
-            grid = new CKTableGrid(parent, table);
-            _tableGrids.Add(parent, grid);
+            Log.Debug($"Grid Instance not found for table {tableNum}; creating new.");
+            grid = new CKTableGrid(ckTable, comTable);
+            _tableGrids.Add(ckTable, grid);
 
             return grid;
         }
 
-        private CKTableGrid(CKTable parent, Word.Table table)
+        /// <summary>
+        /// Retrieves all master cells from the grid that fall within the rectangular area defined by the grid reference.
+        /// </summary>
+        /// <param name="gridRef">The cell reference bounds (inclusive, 1-based) to search within.</param>
+        /// <returns>An enumerable of <see cref="GridCell5"/> instances that are master cells within the specified bounds.</returns>
+        internal IEnumerable<GridCell5> GetMasterCells(CKGridCellRef gridRef)
         {
-            _parent = parent;
-            _table = table;
-            BuildGrid();
-        }
+            this.Ping();
+            Log.Debug($"MasterCell requested: [{gridRef.RowMin}:{gridRef.ColMin}] to [{gridRef.RowMin}:{gridRef.ColMax}]");
 
-        private void BuildGrid()
-        {
-            // 🧠 We store these once and reuse them — like a healthy trauma response.
-            RowCount = _table.Rows.Count;
-            ColCount = GetMaxColumns(_table);
-            _grid = new GridCell[RowCount, ColCount];
+            var result = new List<GridCell5>();
 
-            // 🧟 Looping all cells like it's a Word zombie apocalypse.
-            foreach (Word.Cell cell in _table.Range.Cells)
+            for (int row = gridRef.RowMin; row <= gridRef.RowMax; row++)
             {
-                int row = cell.RowIndex - 1;
-                int col = cell.ColumnIndex - 1;
+                if (row < 1 || row > _grid.Count) continue;
 
-                if (_grid[row, col] != null)
-                    continue;
-
-                var (rowSpan, colSpan) = GetCellSpan(cell);
-
-                for (int r = 0; r < rowSpan; r++)
+                var currentRow = _grid[row];
+                for (int col = gridRef.ColMin; col <= gridRef.ColMax; col++)
                 {
-                    for (int c = 0; c < colSpan; c++)
-                    {
-                        int targetRow = row + r;
-                        int targetCol = col + c;
+                    if (col < 1 || col > currentRow.Count) continue;
 
-                        if (targetRow < RowCount && targetCol < ColCount)
-                        {
-                            bool isMaster = (r == 0 && c == 0);
-                            _grid[targetRow, targetCol] = new GridCell(cell, targetRow, targetCol, isMaster);
-                        }
+                    var cell = currentRow[col];
+
+                    Log.Verbose($"Inspecting cell at [{row},{col}]: type={cell.GetType().Name}, master={cell.IsMasterCell}");
+                    if (cell.IsMasterCell)
+                    {
+                        result.Add(cell);
                     }
                 }
             }
-        }
 
-        private int GetMaxColumns(Word.Table table)
-        {
-            int maxCol = 0;
-
-            foreach (Word.Cell cell in table.Range.Cells)
+            Log.Debug($"Found {result.Count} master cells.");
+            if (!result.Any())
             {
-                int colIndex = cell.ColumnIndex;
-                if (colIndex > maxCol)
-                    maxCol = colIndex;
+                if (Debugger.IsAttached) Debugger.Break();
+                throw new Exception("No master cells found.");
             }
-
-            return maxCol;
-        }
-        // ☢️ This method now respects sanity caps, avoiding infinite traversal of a Word fever dream.
-        internal (int rowSpan, int colSpan) GetCellSpan(Word.Cell cell)
-        {
-            int startRow = cell.RowIndex;
-            int startCol = cell.ColumnIndex;
-            int rowSpan = 1;
-
-            int colSpan = 1;
-
-            bool IsSameCell(Word.Cell a, Word.Cell b)
-                => a != null && b != null && a.Range.Start == b.Range.Start;
-
-            for (int r = startRow + 1; r <= RowCount; r++)
-            {
-                try
-                {
-                    var testCell = _table.Cell(r, startCol);
-                    if (!IsSameCell(testCell, cell)) break;
-                    rowSpan++;
-                }
-                catch { break; }
-            }
-
-            for (int c = startCol + 1; c <= ColCount; c++)
-            {
-                try
-                {
-                    var testCell = _table.Cell(startRow, c);
-                    if (!IsSameCell(testCell, cell)) break;
-                    colSpan++;
-                }
-                catch { break; }
-            }
-
-            // 🛡 Safety log for suspicious spans
-            if (rowSpan > 50 || colSpan > 50)
-            {
-                System.Diagnostics.Debug.WriteLine($"⚠️ Span {rowSpan}x{colSpan} at cell ({startRow},{startCol}) may be corrupted or unusually large.");
-            }
-
-            return (rowSpan, colSpan);
+            this.Pong();
+            return result;
         }
 
 
-
-        public IEnumerable<GridCell> GetMasterCells()
+        private CKTableGrid(CKTable parent, Word.Table table)
         {
-            return Enumerable.Range(0, _grid.GetLength(0))
-                .SelectMany(row => Enumerable.Range(0, _grid.GetLength(1))
-                    .Select(col => _grid[row, col]))
-                .Where(cell => cell != null && cell.IsMasterCell);
-        }
-
-        public IEnumerable<GridCell> GetMasterCells(CKGridCellRef area)
-        {
-            for (int row = area.Y1; row <= area.Y2; row++)
-            {
-                for (int col = area.X1; col <= area.X2; col++)
-                {
-                    if (row < 0 || row >= RowCount || col < 0 || col >= ColCount)
-                        continue;
-
-                    var cell = _grid[row, col];
-                    if (cell != null && cell.IsMasterCell)
-                        //if null cell (how?) thee could be unexpected behavior
-                        yield return cell;
-                }
-            }
+            this.Ping();
+            _ckTable = parent;
+            _comTable = table;
+            _crawler = new GridCrawler5(parent);
+            _grid = _crawler.Grid;
+            this.Pong();
         }
     }
-
-    //public class GridCell
-    //{
-    //    public Word.Cell COMCell { get; private set; }
-    //    public bool IsMasterCell { get; private set; }
-    //    public int GridRow { get; private set; }
-    //    public int GridCol { get; private set; }
-    //    public RangeSnapshot Snapshot { get; private set; }
-
-    //    public GridCell(Word.Cell cell, int gridRow, int gridCol, bool isMasterCell, RangeSnapshot snapshot)
-    //    {
-    //        COMCell = cell;
-    //        GridRow = gridRow;
-    //        GridCol = gridCol;
-    //        IsMasterCell = isMasterCell;
-    //        Snapshot = snapshot;
-    //    }
-    //}
 }

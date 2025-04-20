@@ -14,7 +14,7 @@ namespace CoverageKiller2.DOM.Tables
     public class GridCrawler5StepTests
     {
         //******* Standard Rigging ********
-        static int _testTableIndex = 16;
+        static int _testTableIndex = 7;
 
         public TestContext TestContext { get; set; }
         private string _testFilePath;
@@ -58,6 +58,16 @@ namespace CoverageKiller2.DOM.Tables
             //Assert.IsTrue(CKTextHelper.ScrunchEquals(wordTable.COMTable.Cell(3, 3).Range.Text, textGrid[3][3]));
         }
 
+        [TestMethod]
+        public void Ctor_Test()
+        {
+            var workspace = _testFile.Application.GetShadowWorkspace();
+            var wordTable = _testFile.Tables[_testTableIndex];
+            workspace.ShowDebuggerWindow();
+
+            var crawler = new GridCrawler5(wordTable);
+            Log.Debug(GridCrawler5.DumpGrid(crawler.Grid));
+        }
         [TestMethod]
         public void NormalizebyWidth_Test()
         {

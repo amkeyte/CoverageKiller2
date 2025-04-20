@@ -2,7 +2,6 @@
 using Serilog;
 using System.IO;
 using System.Reflection;
-using Word = Microsoft.Office.Interop.Word;
 
 namespace CoverageKiller2
 {
@@ -12,7 +11,7 @@ namespace CoverageKiller2
     /// to load the report template from an embedded resource.
     /// </summary>
     [System.Obsolete]
-    public class IndoorReportTemplate : CKDocument
+    public class IndoorReportTemplate
     {
         /// <summary>
         /// The name of the embedded resource containing the PCTEL report template.
@@ -24,7 +23,7 @@ namespace CoverageKiller2
         /// </summary>
         /// <param name="wDoc">The path to the Word document.</param>
         //private IndoorReportTemplate(string wDoc) : base(wDoc) { }
-        private IndoorReportTemplate(Word.Document wDoc) : base(wDoc) { }
+        //private IndoorReportTemplate(Word.Document wDoc) : base(wDoc) { }
 
         /// <summary>
         /// Closes the indoor report template without saving changes.
@@ -43,11 +42,15 @@ namespace CoverageKiller2
         /// <returns>A new instance of <see cref="IndoorReportTemplate"/>.</returns>
         /// 
 
-        public static IndoorReportTemplate OpenResource()
+        public static CKDocument OpenResource(CKApplication app)
         {
             Log.Information("Opening PCTELDoc template resource...");
             string temporaryFileName = LoadResourceAndCreateTempFile();
-            return new IndoorReportTemplate(null);
+            return app.GetTempDocument(temporaryFileName);
+
+
+
+            //return new IndoorReportTemplate(null);
             //return new IndoorReportTemplate(temporaryFileName);
         }
 
