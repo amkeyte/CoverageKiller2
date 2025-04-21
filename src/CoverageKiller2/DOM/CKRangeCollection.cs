@@ -13,7 +13,7 @@ namespace CoverageKiller2.DOM
 
         public abstract int IndexOf(object obj);
 
-
+        public abstract void Clear();
 
         /// <summary>
         /// Gets the number of sections in the range.
@@ -39,7 +39,7 @@ namespace CoverageKiller2.DOM
         {
             get
             {
-                LH.Ping($"Parent: {Parent.GetType()}", GetType());
+                this.Ping($"Parent: {Parent.GetType()}");
 
                 if (_isDirty || _isCheckingDirty)
                 {

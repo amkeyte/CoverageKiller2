@@ -86,8 +86,10 @@ namespace CoverageKiller2.DOM
             if (input == null) throw new ArgumentNullException(nameof(input));
             if (_casters.TryGetValue(typeof(T), out var caster))
             {
+                var result = (T)caster(input);
+
                 LH.Pong(typeof(IDOMCaster), new Type[] { typeof(T) });
-                return (T)caster(input);
+                return result;
             }
 
             throw new InvalidOperationException($"No caster registered for type {typeof(T).Name}.");

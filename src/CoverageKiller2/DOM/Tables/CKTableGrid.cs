@@ -14,10 +14,10 @@ namespace CoverageKiller2.DOM.Tables
     public class CKTableGrid
     {
         private static Dictionary<CKTable, CKTableGrid> _tableGrids = new Dictionary<CKTable, CKTableGrid>();
-        private CKTable _ckTable;
-        private Word.Table _comTable;
+        //private CKTable _ckTable;
+        //private Word.Table _comTable;
         internal Base1JaggedList<GridCell5> _grid;
-        private GridCrawler5 _crawler;
+        internal GridCrawler5 _crawler;
 
         // 🍽 Shared across all internal grid ops
         internal int RowCount => _grid.Count;
@@ -25,11 +25,16 @@ namespace CoverageKiller2.DOM.Tables
 
         public static CKTableGrid GetInstance(CKTable ckTable, Word.Table comTable)
         {
-            int tableNum = ckTable.Document.Tables.IndexOf(ckTable);
-            Log.Debug($"Getting CKTableGrid Instance for table {tableNum}" +
-                $" of {ckTable.Document.Tables.Count} from document '{ckTable.Document.FileName}'");
+            var bypassDebug = true;
+            if (!bypassDebug)
+            {
+                int tableNum = ckTable.Document.Tables.IndexOf(ckTable);
+                Log.Debug($"Getting CKTableGrid Instance for table {tableNum}" +
+                    $" of {ckTable.Document.Tables.Count} from document '{ckTable.Document.FileName}'");
 
-            if (tableNum == -1 && Debugger.IsAttached) Debugger.Break();
+                if (tableNum == -1 && Debugger.IsAttached) Debugger.Break();
+
+            }
 
             _tableGrids.Keys.Where(r => r.IsOrphan).ToList()
                 .ForEach(r => _tableGrids.Remove(r));
@@ -39,8 +44,8 @@ namespace CoverageKiller2.DOM.Tables
                 return grid;
             }
 
-            Log.Debug($"Grid Instance not found for table {tableNum}; creating new.");
-            grid = new CKTableGrid(ckTable, comTable);
+            Log.Debug($"Grid Instance not found for table; creating new.");
+            grid = new CKTableGrid(ckTable);//, comTable);
             _tableGrids.Add(ckTable, grid);
 
             return grid;
@@ -88,14 +93,32 @@ namespace CoverageKiller2.DOM.Tables
         }
 
 
-        private CKTableGrid(CKTable parent, Word.Table table)
+        private CKTableGrid(CKTable parent)//, Word.Table table)
         {
             this.Ping();
-            _ckTable = parent;
-            _comTable = table;
-            _crawler = new GridCrawler5(parent);
+            //_ckTable = parent;
+            //_comTable = table;
+            var clonedTable = CloneToShadow(parent, parent.Application.GetShadowWorkspace());
+            _crawler = new GridCrawler5(clonedTable);
             _grid = _crawler.Grid;
             this.Pong();
+        }
+
+        private Word.Table CloneToShadow(CKTable sourceTable, ShadowWorkspace shadowWorkspace)
+        {
+            //for debugging uncomment.
+            shadowWorkspace.ShowDebuggerWindow();
+
+            //put original table
+            shadowWorkspace.CloneFrom(sourceTable); //make sure we aren't recursing tables here.
+            shadowWorkspace.Document.Content.CollapseToEnd().Text = "\r\r\r";
+            //put the one to format
+            var clonedTable = shadowWorkspace.CloneFrom(sourceTable);
+            //var grid = GetMasterGrid(clonedTable);
+            //Log.Debug(GridCrawler5.DumpGrid(grid));
+
+            //pulling once
+            return clonedTable.COMTable;
         }
     }
 }

@@ -10,13 +10,13 @@ namespace CoverageKiller2.DOM.Tables
         public CKColCellRef(int colIndex, CKTable table, IDOMObject parent) :
             base(table.Rows.Count, colIndex, table, parent)
         {
-            LH.Ping(GetType());
+            this.Ping();
             if (parent == null) throw new ArgumentNullException(nameof(parent));
             if (table == null) throw new ArgumentNullException(nameof(table));
             Index = colIndex;
             Table = table;
             Parent = parent;
-            LH.Pong(GetType());
+            this.Pong();
         }
         /// <inheritdoc/>
         public IDOMObject Parent { get; }
@@ -55,20 +55,20 @@ namespace CoverageKiller2.DOM.Tables
 
         private static IEnumerable<CKCellRef> SplitCellRefs(CKColCellRef colRef, IDOMObject parent)
         {
-            LH.Ping(typeof(CKColumn));
+            LH.Ping<CKColumn>();
             var cellRefs = new List<CKCellRef>();
             for (int row_1 = 1; row_1 <= colRef.RowIndex; row_1++)
             {
                 cellRefs.Add(new CKCellRef(row_1, colRef.ColumnIndex, colRef.Table, parent));
             }
-            LH.Pong(typeof(CKColumn));
+            LH.Pong<CKColumn>();
             return cellRefs;
         }
 
         public void Delete()
         {
-            LH.Ping("Deleting column!!", this.GetType());
-            this.Pong();
+            this.PingPong("Deleting column!! (just kidding)");
+
         }
 
         public CKColCellRef CellRef { get; protected set; }
@@ -88,10 +88,10 @@ namespace CoverageKiller2.DOM.Tables
 
         public CKColumns(IDOMObject parent)
         {
-            LH.Ping(GetType());
+            this.Ping();
             //_rows_1 = rows ?? throw new ArgumentNullException(nameof(rows));
             Parent = parent ?? throw new ArgumentNullException(nameof(parent));
-            LH.Pong(GetType());
+            this.Pong();
         }
         internal void Add(CKColumn column)
         {

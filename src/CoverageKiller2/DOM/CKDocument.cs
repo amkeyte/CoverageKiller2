@@ -1,7 +1,7 @@
 ﻿using CoverageKiller2.DOM.Tables;
 using CoverageKiller2.Logging;
 using K4os.Hash.xxHash;
-using Microsoft.Office.Interop.Word;
+using Serilog;
 using System;
 using System.IO;
 using System.Runtime.InteropServices;
@@ -56,17 +56,8 @@ namespace CoverageKiller2.DOM
         /// Provides access to the document's tables as a CKTables collection.
         /// </summary>
 
-        public CKTables Tables
-        {
-            get
-            {
-                if (_tables == null || _tables.IsDirty)
-                {
-                    _tables = new CKTables(_comDocument.Tables, this);
-                }
-                return _tables;
-            }
-        }
+        public CKTables Tables => this.PingPong(() => Content.Tables, message: "$$$");
+
 
         /// <summary>
         /// Provides access to the document's sections as a <see cref="CKSections"/> collection.
@@ -142,7 +133,7 @@ namespace CoverageKiller2.DOM
             get => _comDocument.Windows[1].Visible;
             set => _comDocument.Windows[1].Visible = value;
         }
-        public CKRange Content => new CKRange(_comDocument.Content, this);
+        public CKRange Content => this.PingPong(() => new CKRange(_comDocument.Content, this));
 
 
         /// <summary>
@@ -174,11 +165,67 @@ namespace CoverageKiller2.DOM
             get => _comDocument.ReadOnlyRecommended;
             set => _comDocument.ReadOnlyRecommended = value;
         }
+        /// <summary>
+        /// Gets or sets whether this document is marked as Final (read-only UI state).
+        /// Only valid when this document is the active document and Word has at least one document open.
+        /// </summary>
+        /// <remarks>
+        /// Version: CK2.00.01.0003
+        /// </remarks>
         public bool Final
         {
-            get => _comDocument.Final;
-            set => _comDocument.Final = value;
+            get
+            {
+                try
+                {
+                    if (_comDocument.Application.Documents.Count == 0)
+                    {
+                        Log.Debug("No documents open. Cannot get Final property.");
+                        return false;
+                    }
+
+                    if (_comDocument.Application.ActiveDocument == _comDocument)
+                    {
+                        return _comDocument.Final;
+                    }
+
+                    Log.Debug("This document is not the active document. Cannot get Final property.");
+                    return false;
+                }
+                catch (COMException ex)
+                {
+                    Log.Warning("Failed to get Final property: {Message}", ex.Message);
+                    return false;
+                }
+            }
+            set
+            {
+                try
+                {
+                    if (_comDocument.Application.Documents.Count == 0)
+                    {
+                        Log.Debug("No documents open. Cannot set Final property.");
+                        return;
+                    }
+#if DEBUG
+                    if (_comDocument.Application.ActiveDocument == _comDocument)
+                    {
+                        _comDocument.Final = value;
+                    }
+#endif
+                    else
+                    {
+                        Log.Debug("This document is not the active document. Cannot set Final property.");
+                    }
+                }
+                catch (COMException ex)
+                {
+                    Log.Warning("Failed to set Final property: {Message}", ex.Message);
+                }
+            }
         }
+
+
 
         public void Activate()
         {
@@ -335,7 +382,7 @@ namespace CoverageKiller2.DOM
             }
         }
 
-        internal void RemoveDocumentInformation(WdRemoveDocInfoType wdRDIDocumentProperties)
+        internal void RemoveDocumentInformation(Word.WdRemoveDocInfoType wdRDIDocumentProperties)
         {
             _comDocument.RemoveDocumentInformation(wdRDIDocumentProperties);
         }

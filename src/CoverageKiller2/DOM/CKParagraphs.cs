@@ -130,5 +130,10 @@ namespace CoverageKiller2.DOM
         {
             return $"CKParagraphs [Count: {Count}]";
         }
+
+        public override void Clear()
+        {
+            _cachedParagraphs.Clear();
+        }
     }
 }

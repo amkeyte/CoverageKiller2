@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CoverageKiller2.Logging;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Word = Microsoft.Office.Interop.Word;
@@ -118,6 +119,11 @@ namespace CoverageKiller2.DOM
         public override int IndexOf(object obj)
         {
             throw new NotImplementedException();
+        }
+
+        public override void Clear()
+        {
+            throw new CKDebugException("Sections doesn't support internal caching.");
         }
     }
 }

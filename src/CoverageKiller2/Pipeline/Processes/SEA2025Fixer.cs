@@ -31,7 +31,7 @@ namespace CoverageKiller2.Pipeline.Processes
         public Tracer Tracer { get; } = new Tracer(typeof(SEA2025Fixer));
         public override void Process()
         {
-            LH.Ping(GetType());
+            this.Ping();
 
             try
             {
@@ -51,13 +51,13 @@ namespace CoverageKiller2.Pipeline.Processes
             {
                 LH.Error(ex, rethrow: true);
             }
-            LH.Pong(GetType());
+            this.Pong();
 
         }
 
         private void RemoveTestResultRefernces()
         {
-            LH.Ping(GetType());
+            this.Ping();
 
             Log.Information("Removing Test Result References");
             //Remove Page 1 result references
@@ -68,19 +68,19 @@ namespace CoverageKiller2.Pipeline.Processes
             RemoveTestResultReferencesFloorSections();
             //Remove the Informaton
             RemoveMoreInfoSection();
-            LH.Pong(GetType());
+            this.Pong();
 
         }
 
         private void RemoveMoreInfoSection()
 
         {
-            LH.Ping(GetType());
+            this.Ping();
 
             var x = CKDoc.Range().TryFindNext("Additional Info");
             x.Sections[1].Delete();
 
-            LH.Pong(GetType());
+            this.Pong();
 
             //var tf = new TextFinder(CKDoc, );
             //if (tf.TryFind(out Word.Range foundRange))
@@ -94,12 +94,12 @@ namespace CoverageKiller2.Pipeline.Processes
         }
         private void RemoveTestResultReferencesFloorSections()
         {
-            LH.Ping(GetType());
+            this.Ping();
 
             Log.Information("Deleting Floor Section pass/fail subtitle.");
             var x = CKDoc.Content.TryFindNext("Result: *", matchWildcards: true);
             x.Paragraphs[1].Delete();
-            LH.Pong(GetType());
+            this.Pong();
 
 
             //var tf1 = new TextFinder(CKDoc, );
@@ -131,7 +131,7 @@ namespace CoverageKiller2.Pipeline.Processes
 
         private void FixFloorSectionSectionHeadingTable(CKTable table)
         {
-            LH.Ping(GetType());
+            this.Ping();
 
             var headersToRemove = "Area Points passed (%)\tCritical Points passed (%)"
                 .Split(new[] { '\t' }, StringSplitOptions.RemoveEmptyEntries)
@@ -145,13 +145,13 @@ namespace CoverageKiller2.Pipeline.Processes
                 .Reverse().ToList().ForEach(col => col.Delete());
 
             table.MakeFullPage();
-            LH.Pong(GetType());
+            this.Pong();
 
         }
 
         private void FixFloorSectionCriticalPointReportTable(CKTable table)
         {
-            LH.Ping(GetType());
+            this.Ping();
 
 
 
@@ -167,12 +167,12 @@ namespace CoverageKiller2.Pipeline.Processes
                 .Reverse().ToList().ForEach(col => col.Delete());
 
             table.MakeFullPage();
-            LH.Pong(GetType());
+            this.Pong();
 
         }
         private void FixFloorSectionAreaReportTable(CKTable table)
         {
-            LH.Ping(GetType());
+            this.Ping();
 
             var headersToRemove = "UL\r\nPower\r\n(dBm)\tUL\r\nS/N\r\n(dB)\tUL\r\nFBER\r\n(%)\tResult\tDL\r\nLoss\r\n(dB)\r\n"
                 .Split(new[] { '\t' }, StringSplitOptions.RemoveEmptyEntries)
@@ -186,13 +186,13 @@ namespace CoverageKiller2.Pipeline.Processes
                 .Reverse().ToList().ForEach(col => col.Delete());
 
             table.MakeFullPage();
-            LH.Pong(GetType());
+            this.Pong();
 
         }
 
         private void RemoveTestResultReferencesPage2()
         {
-            LH.Ping(GetType());
+            this.Ping();
 
             Log.Information("Removing Page 2");
             LH.Checkpoint("Section 2 delete", GetType());
@@ -232,7 +232,7 @@ namespace CoverageKiller2.Pipeline.Processes
             //    //foundRange.Delete();
             //    //foundRange.Text = "^b";
             //}
-            LH.Pong(GetType());
+            this.Pong();
 
         }
 
@@ -252,7 +252,7 @@ namespace CoverageKiller2.Pipeline.Processes
         //}
         private void RemoveTestResultReferencesPage1()
         {
-            LH.Ping(GetType());
+            this.Ping();
             try
             {
 
@@ -319,12 +319,12 @@ namespace CoverageKiller2.Pipeline.Processes
                 //if (Debugger.IsAttached) Debugger.Break();
                 if (_caughtException) CKOffice_Word.Instance.Crash(GetType());
             }
-            LH.Pong(GetType());
+            this.Pong();
 
         }
         private void FixReportDetailTable(CKTable fixer)
         {
-            LH.Ping(GetType());
+            this.Ping();
 
 
             Tracer.Log("Entering", "**", new DataPoints()
@@ -343,7 +343,7 @@ namespace CoverageKiller2.Pipeline.Processes
             {
                 LH.LogThrow(ex);
             }
-            LH.Pong(GetType());
+            this.Pong();
         }
     }
 }

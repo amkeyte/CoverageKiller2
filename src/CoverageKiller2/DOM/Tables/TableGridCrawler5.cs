@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.RegularExpressions;
 using Word = Microsoft.Office.Interop.Word;
@@ -15,7 +16,7 @@ namespace CoverageKiller2.DOM.Tables
     /// suitable for use as a reusable layout template independent of COM references.
     /// </summary>
     /// <remarks>
-    /// Version: CK2.00.01.0033
+    /// THIS CLASS IS NOT TO INCLUDE ANY CK.DOM references. Version: CK2.00.01.0033
     /// </remarks>
     public class GridCell5
     {
@@ -89,24 +90,32 @@ namespace CoverageKiller2.DOM.Tables
     /// Builds a reusable layout grid from a Word table using both visual and textual merge inference.
     /// </summary>
     /// <remarks>
-    /// Version: CK2.00.01.0034
+    /// THIS CLASS IS NOT TO INCLUDE ANY CK.DOM references. Version: CK2.00.01.0034
     /// </remarks>
     public class GridCrawler5
     {
-        private readonly CKTable _table;
+        private readonly Word.Table _COMTable;
         private Base1JaggedList<GridCell5> _grid;
         private Base1JaggedList<GridCell5> _masterCells;
-
+        //private ShadowWorkspace _shadowWorkspace;
+        internal GridCrawler5(Word.Table table)
+        {
+            this.Ping("$$$");
+            _COMTable = table ?? throw new ArgumentNullException(nameof(table));
+            //_shadowWorkspace = workspace ?? throw new ArgumentNullException(nameof(workspace));
+            //Analyze();
+            this.Pong();
+        }
         /// <summary>
         /// Initializes and analyzes the layout grid for the specified table.
         /// </summary>
         /// <param name="table">The source table to analyze.</param>
         public GridCrawler5(CKTable table)
         {
-            this.Ping();
-            _table = table ?? throw new ArgumentNullException(nameof(table));
-            Analyze();
-            this.Pong();
+            throw new CKDebugException();
+            //this.Ping("$$$");
+            //Analyze();
+            //this.Pong();
         }
 
         /// <summary>
@@ -214,17 +223,21 @@ namespace CoverageKiller2.DOM.Tables
 
         private void Analyze()
         {
-            LH.Ping(GetType());
+            this.Ping("$$$");
 
-            LH.Checkpoint($"Cloning table {_table.Document.Tables.IndexOf(_table)} from document {_table.Document.FileName}");
-            var clonedTable = CloneAndPrepareTableLayout();
+            //LH.Checkpoint($"Cloning table {_table.Document.Tables.IndexOf(_table)} from document {_table.Document.FileName}");
+
+            //fast crawl
+
+            //slow crawl
+            var clonedTable = PrepareTable();
             var masterGrid = GetMasterGrid(clonedTable);
             var textGrid = ParseTableText(clonedTable);
             var normalGrid = NormalizeByWidth(masterGrid);
             var horizGrid = CrawlHoriz(textGrid, normalGrid);
-            CrawlVertically(textGrid, normalGrid);
+            var vertGrid = CrawlVertically(0, textGrid, normalGrid);
 
-            LH.Pong(GetType());
+            this.Pong();
         }
 
         public static Base1List<string> SplitWordTableTextIntoRows(string rawText)
@@ -263,28 +276,28 @@ namespace CoverageKiller2.DOM.Tables
         /// <remarks>
         /// Version: CK2.00.01.0037
         /// </remarks>
-        internal Base1JaggedList<string> ParseTableText(CKTable table = null)
+        internal Base1JaggedList<string> ParseTableText(Word.Table COMTable = null)
         {
-            LH.Ping(GetType());
+            this.Ping("$$$");
 
 
 
-            table = table ?? _table;
+            COMTable = COMTable ?? _COMTable;
+            var COMRange = COMTable.Range;
             //string rawText = table.Text; // Use the CKTable abstraction
             //var parts = rawText.Split(new[] { "\r\a" }, StringSplitOptions.None).ToList();
-            var colCount = GetMasterGrid(table).LargestRowCount;
+            var colCount = GetMasterGrid(COMTable).LargestRowCount;
 
 
 
             var result = new Base1JaggedList<string>();
             //var currentRow = new Base1List<string>();
 
-            var rowTexts = SplitWordTableTextIntoRows(table.RawText);
+            var rowTexts = SplitWordTableTextIntoRows(COMRange.Text);
 
 
 
-            Log.Verbose(DumpList(rowTexts,
-                $"Parsed Table[{table.Document.Tables.IndexOf(table)}] Text"));
+            Log.Verbose(DumpList(rowTexts, "\nRow Texts"));
 
 
             foreach (var row in rowTexts)
@@ -323,7 +336,7 @@ namespace CoverageKiller2.DOM.Tables
             //    .Reverse().ToList()
             //    .ForEach(r => result.RemoveAt(result.IndexOf(r)));
 
-            LH.Pong(GetType());
+            this.Pong();
 
             _textGrid = result;
             return result;
@@ -367,13 +380,14 @@ namespace CoverageKiller2.DOM.Tables
         /// Constructs the GridCell layout with dummy cells for visual alignment.
         /// </summary>
         internal Base1JaggedList<GridCell5> NormalizeByWidth(
-            Base1JaggedList<Word.Cell> masterGrid = null)
+            Base1JaggedList<Word.Cell> masterGrid = null,
+            int rowOffset = 0)
         {
-            LH.Ping(GetType());
+            this.Ping("$$$");
 
             var result = new Base1JaggedList<GridCell5>();
             // Step 1: Build master-only grid
-            masterGrid = masterGrid ?? GetMasterGrid(_table);
+            masterGrid = masterGrid ?? GetMasterGrid(_COMTable);
 
             if (masterGrid.Count == 0)
                 throw new InvalidOperationException("Table has no master grid rows.");
@@ -396,14 +410,14 @@ namespace CoverageKiller2.DOM.Tables
                 //insert cells where there are wide spaces
                 foreach (var cell in row)
                 {
-                    var newCell = new GridCell5(cell.RowIndex, cell.ColumnIndex);
+                    var newCell = new GridCell5(cell.RowIndex + rowOffset, cell.ColumnIndex);
                     newRow.Add(newCell);
 
                     int span = Math.Max(1, (int)Math.Round(cell.Width / normalWidth));
 
                     for (int i = 1; i < span; i++)
                     {
-                        newRow.Add(new MergedGridCell5(cell.RowIndex, cell.ColumnIndex + i, newCell));
+                        newRow.Add(new MergedGridCell5(cell.RowIndex + rowOffset, cell.ColumnIndex + i, newCell));
                     }
 
                 }
@@ -415,10 +429,10 @@ namespace CoverageKiller2.DOM.Tables
                 newRow.Add(new RowEndGridCell5());
                 newGrid.Add(newRow);
             }
-            Log.Debug(GridCrawler5.DumpGrid(newGrid));
+            Log.Debug(DumpGrid(newGrid));
 
             _grid = newGrid;
-            LH.Pong(GetType());
+            this.Pong();
 
             return _grid;
         }
@@ -431,57 +445,47 @@ namespace CoverageKiller2.DOM.Tables
         /// <remarks>
         /// Version: CK2.00.01.0015
         /// </remarks>
-        public CKTable CloneAndPrepareTableLayout(
-            CKTable sourceTable = null,
-            ShadowWorkspace workspace = null)
+        public Word.Table PrepareTable(Word.Table COMTable = null)
+
         {
-            LH.Ping(GetType());
+            this.Ping("$$$");
 
-            sourceTable = sourceTable ?? _table;
-            workspace = workspace ?? sourceTable.Application.GetShadowWorkspace();
-
-            //for debugging uncomment.
-            workspace.ShowDebuggerWindow();
-
-            //put original table
-            workspace.CloneFrom(_table);
-            workspace.Document.Content.CollapseToEnd().Text = "\r\r\r";
-            //put the one to format
-            var clonedTable = workspace.CloneFrom(sourceTable);
-            //var grid = GetMasterGrid(clonedTable);
-            //Log.Debug(GridCrawler5.DumpGrid(grid));
-
+            COMTable = COMTable ?? _COMTable;
+            var COMRange = _COMTable.Range;
 
             //normalize the text
-            clonedTable.COMRange.Font.Name = "Consolas";
-            clonedTable.COMRange.Font.Size = 10;
+            COMRange.Font.Name = "Consolas";
+            COMRange.Font.Size = 10;
 
             // Enable auto-fit so columns stretch evenly to fill the table width
-            clonedTable.COMTable.AutoFitBehavior(Word.WdAutoFitBehavior.wdAutoFitContent);
+            COMTable.AutoFitBehavior(Word.WdAutoFitBehavior.wdAutoFitContent);
             // set the table width to make.
-            clonedTable.COMTable.PreferredWidthType = Word.WdPreferredWidthType.wdPreferredWidthPercent;
-            clonedTable.COMTable.PreferredWidth = 100f;
+            COMTable.PreferredWidthType = Word.WdPreferredWidthType.wdPreferredWidthPercent;
+            COMTable.PreferredWidth = 100f;
 
             int cellCounter = 1;
-            foreach (Word.Cell cell in clonedTable.COMRange.Cells)
+            foreach (Word.Cell cell in COMRange.Cells)
             {
+                //TODO very slow
                 cell.Range.Text = cellCounter++.ToString();
             }
 
-            LH.Pong(GetType());
+            this.Pong();
 
-            return clonedTable;
+            return COMTable;
         }
         /// <summary>
         /// Retrieves a grid of master GridCell5s from the CKTable.
         /// </summary>
-        public Base1JaggedList<Word.Cell> GetMasterGrid(CKTable table = null)
+        public Base1JaggedList<Word.Cell> GetMasterGrid(Word.Table COMTable = null)
         {
-            LH.Ping(GetType());
+            this.Ping("$$$");
 
-            table = table ?? _table;
+            COMTable = COMTable ?? _COMTable;
 
-            var groupedRows = table.COMTable.Range.Cells
+            var COMCells = COMTable.Range.Cells;//TODO unsafe
+
+            var groupedRows = COMCells
                 .Cast<Word.Cell>()
                 .GroupBy(c => c.RowIndex)
                 .OrderBy(g => g.Key)
@@ -499,19 +503,20 @@ namespace CoverageKiller2.DOM.Tables
                 }
                 result.Add(list);
             }
-            Log.Debug(GridCrawler5.DumpGrid(result));
+            Log.Debug(DumpGrid(result));
 
-            LH.Pong(GetType());
+            this.Pong();
 
             return result;
         }
 
         Base1JaggedList<string> _textGrid = new Base1JaggedList<string>();
         internal Base1JaggedList<GridCell5> CrawlVertically(
+            int rowOffset = default,
             Base1JaggedList<string> textGrid = null,
             Base1JaggedList<GridCell5> normalizedGrid = null)
         {
-            LH.Ping(GetType());
+            this.Ping("$$$");
 
             textGrid = textGrid ?? _textGrid;
             normalizedGrid = normalizedGrid ?? _grid;
@@ -558,7 +563,7 @@ namespace CoverageKiller2.DOM.Tables
                             //if mastercell has a col span, insert enough cells to cover the merge rectangle.
                             for (var i = 0; i < up1Cell.ColSpan; i++)
                             {
-                                gridRow.Insert(colIndex, new MergedGridCell5(up1Cell.GridRow, up1Cell.GridCol, up1Cell));
+                                gridRow.Insert(colIndex, new MergedGridCell5(up1Cell.GridRow + rowOffset, up1Cell.GridCol, up1Cell));
                             }
                             //gridCell = null;
                         }
@@ -597,15 +602,20 @@ namespace CoverageKiller2.DOM.Tables
             Log.Debug(GridCrawler5.DumpGrid(textGrid));
             Log.Debug(GridCrawler5.DumpGrid(normalizedGrid));
 
-            LH.Pong(GetType());
+            this.Pong();
 
             return normalizedGrid;
         }
+
+
+
+
+
         internal Base1JaggedList<GridCell5> CrawlHoriz(
             Base1JaggedList<string> textGrid = null,
             Base1JaggedList<GridCell5> normalizedGrid = null)
         {
-            LH.Ping(GetType());
+            this.Ping("$$$");
 
 
 
@@ -690,10 +700,136 @@ namespace CoverageKiller2.DOM.Tables
             Log.Debug(GridCrawler5.DumpGrid(textGrid));
             Log.Debug(GridCrawler5.DumpGrid(normalizedGrid));
 
-            LH.Pong(GetType());
+            this.Pong();
 
             return normalizedGrid;
         }
+
+
+        public static (Word.Table first, Word.Table second, int splitRow) SplitTableAtRow(Word.Table original)
+        {
+            if (original == null) throw new ArgumentNullException(nameof(original));
+
+            var doc = original.Range.Document;
+
+            // Middle row cell — safest
+            var midCell = original.Range.Cells[original.Range.Cells.Count / 2];
+            int splitRow = midCell.RowIndex;
+
+            original.Split(splitRow);
+
+            var tables = doc.Tables.Cast<Word.Table>()
+                .OrderBy(t => t.Range.Start)
+                .ToList();
+
+            if (tables.Count < 2)
+                throw new InvalidOperationException("Table split failed.");
+
+            return (tables[0], tables[1], splitRow);
+        }
+
+        private int _analyzeTableRecursivelyDepth = 0;
+        public Base1JaggedList<GridCell5> AnalyzeTableRecursively(Word.Table table, int rowOffset = 0)
+        {
+            if (table == null) throw new ArgumentNullException(nameof(table));
+            Log.Debug($"Analyzing table at position {table.Range.Start}, rowOffset = {rowOffset}");
+
+            bool hasMerges = false;
+            try
+            {
+                _ = table.Rows[1];
+                _ = table.Columns[1];
+            }
+            catch (COMException ex)
+            {
+                Log.Debug("Table access failed due to possible merges: " + ex.Message);
+                hasMerges = true;
+            }
+
+            if (!hasMerges)
+            {
+                Log.Debug("No merges detected. Using fast GridCell5 crawl.");
+                return BuildFastGridFromTable(table, rowOffset);
+            }
+
+            int cellCount = table.Range.Cells.Count;
+
+            if (cellCount > 100 || _analyzeTableRecursivelyDepth++ > 10)
+            {
+                Log.Debug($"Table is large ({cellCount} cells). Splitting and recursing.");
+
+                try
+                {
+                    var (first, second, splitRow) = SplitTableAtRow(table);
+
+                    var firstGrid = AnalyzeTableRecursively(first, rowOffset);
+                    var secondGrid = AnalyzeTableRecursively(second, rowOffset + splitRow - 1);
+
+                    return MergeGrids(firstGrid, secondGrid);
+                }
+                catch (Exception ex)
+                {
+                    Log.Warning("Failed to split table. Falling back to slow crawl. " + ex.Message);
+                    var result = BuildSlowGridFromTable(table, rowOffset);
+                    --_analyzeTableRecursivelyDepth;
+                    return result;
+                }
+            }
+            else
+            {
+                Log.Debug("Table is small. Using slow full crawl.");
+                var result = BuildSlowGridFromTable(table, rowOffset);
+                --_analyzeTableRecursivelyDepth;
+                return result;
+            }
+        }
+
+        public Base1JaggedList<GridCell5> MergeGrids(Base1JaggedList<GridCell5> g1, Base1JaggedList<GridCell5> g2)
+        {
+            var merged = new Base1JaggedList<GridCell5>();
+            foreach (var row in g1) merged.Add(row);
+            foreach (var row in g2) merged.Add(row);
+            return merged;
+        }
+
+        public Base1JaggedList<GridCell5> BuildFastGridFromTable(Word.Table table, int rowOffset = 0)
+        {
+            if (table == null) throw new ArgumentNullException(nameof(table));
+
+            var grid = new Base1JaggedList<GridCell5>();
+
+            for (int rowIdx_1 = 1; rowIdx_1 <= table.Rows.Count; rowIdx_1++)
+            {
+                var row = new Base1List<GridCell5>();
+                int globalRow = rowOffset + rowIdx_1;
+
+                for (int colIdx_1 = 1; colIdx_1 <= table.Columns.Count; colIdx_1++)
+                {
+                    row.Add(new GridCell5(globalRow, colIdx_1));
+                }
+
+                row.Add(new RowEndGridCell5());
+                grid.Add(row);
+            }
+
+            return grid;
+        }
+
+
+        public Base1JaggedList<GridCell5> BuildSlowGridFromTable(Word.Table table, int rowOffset = 0)
+        {
+            if (table == null) throw new ArgumentNullException(nameof(table));
+
+            var clonedTable = PrepareTable();
+            var masterGrid = GetMasterGrid(clonedTable);
+            var textGrid = ParseTableText(clonedTable);
+            var normalGrid = NormalizeByWidth(masterGrid, rowOffset);
+            var horizGrid = CrawlHoriz(textGrid, normalGrid);
+            var vertGrid = CrawlVertically(rowOffset, textGrid, normalGrid);
+
+            return vertGrid;
+        }
+
 
     }
 }

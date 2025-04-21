@@ -172,7 +172,7 @@ namespace CoverageKiller2
                 {
                     Log.Error("Failed to load processor configuration.");
                 }
-                LH.Pong(typeof(CkDocHelpers));
+                LH.Pong<CkDocHelpers>();
             }
             catch (Exception ex)
             {

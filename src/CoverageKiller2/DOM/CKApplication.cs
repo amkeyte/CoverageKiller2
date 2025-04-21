@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using Word = Microsoft.Office.Interop.Word;
 namespace CoverageKiller2.DOM
 {
@@ -51,13 +52,13 @@ namespace CoverageKiller2.DOM
         /// <param name="isOwned">Whether CKOffice is responsible for cleanup.</param>
         public CKApplication(Word.Application wordApp, int pid, bool isOwned = true)
         {
-            LH.Ping(GetType());
+            this.Ping("$$$");
             _wordApp = wordApp ?? throw new ArgumentNullException(nameof(wordApp));
             IsOwned = isOwned;
             _PID = pid.ToString();
 
             Log.Verbose("CKApplication ctor success [{PID}] (Owned={IsOwned})", _PID, IsOwned);
-            LH.Pong(GetType());
+            this.Pong();
         }
 
         /// <summary>
@@ -72,7 +73,7 @@ namespace CoverageKiller2.DOM
         /// </summary>
         public CKDocument GetDocument(string fullPath, bool visible = false, bool createIfNotFound = false)
         {
-            LH.Ping(GetType());
+            this.Ping("$$$");
             if (string.IsNullOrWhiteSpace(fullPath))
                 throw new ArgumentException("Invalid file path.", nameof(fullPath));
 
@@ -94,7 +95,7 @@ namespace CoverageKiller2.DOM
                 _comDocs[ckDoc] = comDoc;
 
                 Log.Information("Document opened and tracked: {fileName}", ckDoc.FileName);
-                LH.Pong(GetType());
+                this.Pong();
                 return ckDoc;
             }
             catch (Exception ex)
@@ -266,7 +267,29 @@ namespace CoverageKiller2.DOM
         }
         public bool HasKeepOpenDocuments => _documents.Any(doc => doc.KeepAlive);
 
-        public CKDocument ActiveDocument => GetDocument(_wordApp.ActiveDocument.FullName);
+        /// <summary>
+        /// Gets the currently active CKDocument in the Word application, if any.
+        /// Returns null if no document is active or the ActiveDocument call fails.
+        /// </summary>
+        /// <remarks>
+        /// Version: CK2.00.01.0001
+        /// </remarks>
+        public CKDocument ActiveDocument
+        {
+            get
+            {
+                try
+                {
+                    var activeComDoc = _wordApp.ActiveDocument;
+                    return GetDocument(activeComDoc.FullName);
+                }
+                catch (COMException)
+                {
+                    Log.Debug("ActiveDocument is unavailable: no document is currently active.");
+                    return null;
+                }
+            }
+        }
     }
 
     public partial class CKApplication
@@ -313,7 +336,7 @@ namespace CoverageKiller2.DOM
         /// <returns>A new CKDocument instance opened in this application.</returns>
         public CKDocument GetTempDocument(string fromFile = "")
         {
-            this.Ping();
+            this.Ping("$$$");
             fromFile = string.IsNullOrWhiteSpace(fromFile) ? DefaultTemplatePath : fromFile;
             if (!File.Exists(fromFile)) throw new FileNotFoundException("Template file not found.", fromFile);
 
@@ -336,8 +359,11 @@ namespace CoverageKiller2.DOM
         /// <returns>A new ShadowWorkspace instance.</returns>
         public ShadowWorkspace GetShadowWorkspace(bool keepOpen = false)
         {
+            this.Ping("$$$");
             var doc = GetTempDocument();
-            return new ShadowWorkspace(doc, this, keepOpen);
+            var workspace = new ShadowWorkspace(doc, this, keepOpen);
+            this.Pong();
+            return workspace;
         }
     }
 }

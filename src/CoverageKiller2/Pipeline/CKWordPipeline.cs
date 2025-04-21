@@ -43,7 +43,7 @@ namespace CoverageKiller2.Pipeline
 
         public CKWordPipeline(Dictionary<string, object> initVars)
         {
-            LH.Ping(GetType());
+            this.Ping();
             try
             {
 
@@ -55,7 +55,7 @@ namespace CoverageKiller2.Pipeline
             {
                 if (Debugger.IsAttached) Debugger.Break();
             }
-            LH.Pong(GetType());
+            this.Pong();
 
         }
 

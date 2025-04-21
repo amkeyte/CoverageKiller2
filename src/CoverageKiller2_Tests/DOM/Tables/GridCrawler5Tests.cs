@@ -14,7 +14,7 @@ namespace CoverageKiller2.DOM.Tables
     public class GridCrawler5StepTests
     {
         //******* Standard Rigging ********
-        static int _testTableIndex = 7;
+        static int _testTableIndex = 16;
 
         public TestContext TestContext { get; set; }
         private string _testFilePath;
@@ -40,12 +40,13 @@ namespace CoverageKiller2.DOM.Tables
         public void ParseTableText_Test()
         {
             var workSpace = _testFile.Application.GetShadowWorkspace();
-            var wordTable = _testFile.Tables[_testTableIndex];
             workSpace.ShowDebuggerWindow();
+            var ckTable = workSpace.CloneFrom(_testFile.Tables[_testTableIndex]);
+            var COMTable = ckTable.COMTable;
+            var crawler = new GridCrawler5(COMTable);
 
-            var crawler = new GridCrawler5(wordTable);
-            var clonedTable = crawler.CloneAndPrepareTableLayout(wordTable, workSpace);
-            Log.Debug($"\n\nTable {_testTableIndex}: {GridCrawler5.FlattenTableText(clonedTable.RawText)}");
+            var clonedTable = crawler.PrepareTable(COMTable);
+            Log.Debug($"\n\nTable {_testTableIndex}: {GridCrawler5.FlattenTableText(COMTable.Range.Text)}");
 
             var textGrid = crawler.ParseTableText(clonedTable);
             Log.Debug(GridCrawler5.DumpGrid(textGrid, nameof(GridCrawler5.ParseTableText)));
@@ -61,22 +62,24 @@ namespace CoverageKiller2.DOM.Tables
         [TestMethod]
         public void Ctor_Test()
         {
-            var workspace = _testFile.Application.GetShadowWorkspace();
-            var wordTable = _testFile.Tables[_testTableIndex];
-            workspace.ShowDebuggerWindow();
+            var workSpace = _testFile.Application.GetShadowWorkspace();
+            workSpace.ShowDebuggerWindow();
+            var ckTable = workSpace.CloneFrom(_testFile.Tables[_testTableIndex]);
+            var COMTable = ckTable.COMTable;
+            var crawler = new GridCrawler5(COMTable);
 
-            var crawler = new GridCrawler5(wordTable);
             Log.Debug(GridCrawler5.DumpGrid(crawler.Grid));
         }
         [TestMethod]
         public void NormalizebyWidth_Test()
         {
-            var workspace = _testFile.Application.GetShadowWorkspace();
-            var wordTable = _testFile.Tables[_testTableIndex];
-            workspace.ShowDebuggerWindow();
+            var workSpace = _testFile.Application.GetShadowWorkspace();
+            workSpace.ShowDebuggerWindow();
+            var ckTable = workSpace.CloneFrom(_testFile.Tables[_testTableIndex]);
+            var COMTable = ckTable.COMTable;
 
-            var crawler = new GridCrawler5(wordTable);
-            var clonedTable = crawler.CloneAndPrepareTableLayout(wordTable, workspace);
+            var crawler = new GridCrawler5(COMTable);
+            var clonedTable = crawler.PrepareTable(COMTable);
 
             var textGrid = crawler.ParseTableText(clonedTable);
             Log.Debug(GridCrawler5.DumpGrid(textGrid, nameof(GridCrawler5.ParseTableText)));
@@ -95,12 +98,13 @@ namespace CoverageKiller2.DOM.Tables
         [TestMethod]
         public void CrawlVertically_Test()
         {
-            var workspace = _testFile.Application.GetShadowWorkspace();
-            workspace.ShowDebuggerWindow();
-            var wordTable = _testFile.Tables[_testTableIndex];
+            var workSpace = _testFile.Application.GetShadowWorkspace();
+            workSpace.ShowDebuggerWindow();
+            var ckTable = workSpace.CloneFrom(_testFile.Tables[_testTableIndex]);
+            var COMTable = ckTable.COMTable;
+            var crawler = new GridCrawler5(COMTable);
 
-            var crawler = new GridCrawler5(wordTable);
-            var clonedTable = crawler.CloneAndPrepareTableLayout(wordTable, workspace);
+            var clonedTable = crawler.PrepareTable(COMTable);
 
             var textGrid = crawler.ParseTableText(clonedTable);
             Log.Debug(GridCrawler5.DumpGrid(textGrid, nameof(GridCrawler5.ParseTableText)));
@@ -114,7 +118,7 @@ namespace CoverageKiller2.DOM.Tables
             var horizontalGrid = crawler.CrawlHoriz(textGrid, normalizedGrid);
             Log.Debug(GridCrawler5.DumpGrid(horizontalGrid, nameof(GridCrawler5.CrawlHoriz)));
 
-            var verticalGrid = crawler.CrawlVertically(textGrid, normalizedGrid);
+            var verticalGrid = crawler.CrawlVertically(0, textGrid, normalizedGrid);
             Log.Debug(GridCrawler5.DumpGrid(normalizedGrid, nameof(GridCrawler5.CrawlVertically)));
 
             //Assert.Fail();
@@ -122,11 +126,13 @@ namespace CoverageKiller2.DOM.Tables
         [TestMethod]
         public void CrawlHoriz_Test()
         {
-            var workspace = _testFile.Application.GetShadowWorkspace();
-            var wordTable = _testFile.Tables[_testTableIndex];
+            var workSpace = _testFile.Application.GetShadowWorkspace();
+            workSpace.ShowDebuggerWindow();
+            var ckTable = workSpace.CloneFrom(_testFile.Tables[_testTableIndex]);
+            var COMTable = ckTable.COMTable;
+            var crawler = new GridCrawler5(COMTable);
 
-            var crawler = new GridCrawler5(wordTable);
-            var clonedTable = crawler.CloneAndPrepareTableLayout(wordTable, workspace);
+            var clonedTable = crawler.PrepareTable(COMTable);
 
             var textGrid = crawler.ParseTableText(clonedTable);
             Log.Debug(GridCrawler5.DumpGrid(textGrid, nameof(GridCrawler5.ParseTableText)));
@@ -142,8 +148,24 @@ namespace CoverageKiller2.DOM.Tables
             Log.Debug(GridCrawler5.DumpGrid(textGrid, nameof(GridCrawler5.ParseTableText)));
             Log.Debug(GridCrawler5.DumpGrid(normalizedGrid, nameof(GridCrawler5.CrawlHoriz)));
 
-            workspace.ShowDebuggerWindow();
+
             //Assert.Fail();
+        }
+
+        [TestMethod]
+        public void AnalyzeTableRecursively_Test()
+        {
+            var workSpace = _testFile.Application.GetShadowWorkspace();
+            workSpace.ShowDebuggerWindow();
+
+            var ckTable = workSpace.CloneFrom(_testFile.Tables[_testTableIndex]);
+            var COMTable = ckTable.COMTable;
+            var crawler = new GridCrawler5(COMTable);
+
+            Log.Debug($"\n\nAnalyzing Table {_testTableIndex} recursively.");
+            var mergedGrid = crawler.AnalyzeTableRecursively(COMTable);
+
+            Log.Debug(GridCrawler5.DumpGrid(mergedGrid, "Merged Crawl Result"));
         }
     }
 }

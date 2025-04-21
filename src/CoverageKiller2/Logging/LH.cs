@@ -29,7 +29,9 @@ namespace CoverageKiller2.Logging
 
         /// <inheritdoc/>
         protected CKDebugException(SerializationInfo info, StreamingContext context)
-            : base(info, context) { }
+                : base(info, context)
+        {
+        }
     }
     public static class LH
     {
@@ -146,84 +148,126 @@ namespace CoverageKiller2.Logging
             Log.Verbose($"{caller?.Name ?? _UNKNOWN_}::{callerName} --- {message}");
         }
 
-        private static int pingDepth = 0;
-        private const string _UNKNOWN_ = "UNKNOWN";
 
 
+        private static int _pingDepth = 0;
+        private const string _UNKNOWN_ = "???";
 
+        private static string IndentBar() => string.Concat(Enumerable.Repeat("│  ", _pingDepth++));
 
+        private static string IndentBarDecremented()
+        {
+            if (_pingDepth > 0) _pingDepth--;
+            return string.Concat(Enumerable.Repeat("│  ", _pingDepth));
+        }
 
-        public static void Ping(Type caller, Type[] genericParams, [CallerMemberName] string callerMemberName = "")
+        //public static void Ping(Type caller, [CallerMemberName] string callerMemberName = "")
+        //{
+        //    Log.Verbose($"{IndentBar()}-> Ping from {caller?.Name ?? _UNKNOWN_}::{callerMemberName}");
+        //}
+        // --- Ping Methods ---
+
+        public static void Ping<T>([CallerMemberName] string callerName = "")
+        {
+            Log.Verbose($"{IndentBar()}-> Ping from {typeof(T).Name}::{callerName}");
+        }
+
+        public static void Ping<T>(string message, [CallerMemberName] string callerName = "")
+        {
+            Log.Verbose($"{IndentBar()}-> Ping from {typeof(T).Name}::{callerName} --- {message}");
+        }
+
+        public static void Ping<T>(this T caller, [CallerMemberName] string callerName = "")
+        {
+            Log.Verbose($"{IndentBar()}-> Ping from {typeof(T).Name}::{callerName}");
+        }
+
+        public static void Ping<T>(this T caller, string message, [CallerMemberName] string callerName = "")
+        {
+            Log.Verbose($"{IndentBar()}-> Ping from {typeof(T).Name}::{callerName} --- {message}");
+        }
+
+        public static void Ping<T>(this T caller, Type[] genericParams, [CallerMemberName] string callerName = "")
         {
             string genericParamsString = $"<{string.Join(",", genericParams.Select(p => p.Name))}>";
-
-            Log.Verbose($"{new string('\t', pingDepth++)}-> Ping from {caller?.Name ?? _UNKNOWN_}::" +
-                $"{callerMemberName + genericParamsString}");
+            Log.Verbose($"{IndentBar()}-> Ping from {typeof(T).Name}::{callerName}{genericParamsString}");
         }
 
-        public static void Ping(Type caller, [CallerMemberName] string callerMemberName = "")
+        // --- Pong Methods ---
+
+        public static void Pong<T>([CallerMemberName] string callerName = "")
         {
-
-            Log.Verbose($"{new string('\t', pingDepth++)}-> Ping from {caller?.Name ?? _UNKNOWN_}::{callerMemberName}");
+            Log.Verbose($"{IndentBarDecremented()}<- Pong from {typeof(T).Name}::{callerName}");
         }
 
-        public static void Ping([CallerMemberName] string callerName = "")
+        public static void Pong<T>(string message, [CallerMemberName] string callerName = "")
         {
-
-            Log.Verbose($"{new string('\t', pingDepth++)}-> Ping from {_UNKNOWN_}::{callerName}");
-        }
-        public static void Ping(string message, Type caller, [CallerMemberName] string callerName = "")
-
-        {
-            Log.Verbose($"{new string('\t', pingDepth++)}-> Ping from {caller?.Name ?? _UNKNOWN_}::{callerName} --- {message}");
-        }
-        public static void Pong([CallerMemberName] string callerName = "")
-        {
-            Log.Verbose($"{new string('\t', --pingDepth)}<- Pong from {_UNKNOWN_}::{callerName}");
-        }
-        public static void Pong(Type caller, [CallerMemberName] string callerName = "")
-        {
-            Log.Verbose($"{new string('\t', --pingDepth)}<- Pong from {caller?.Name ?? _UNKNOWN_}::{callerName}");
+            Log.Verbose($"{IndentBarDecremented()}<- Pong from {typeof(T).Name}::{callerName} --- {message}");
         }
 
-        public static void Pong(string message, Type caller, [CallerMemberName] string callerName = "")
+        public static void Pong<T>(this T caller, [CallerMemberName] string callerName = "")
         {
-            Log.Verbose($"{new string('\t', --pingDepth)}<- Pong from {caller?.Name ?? _UNKNOWN_}::{callerName} --- {message}");
+            Log.Verbose($"{IndentBarDecremented()}<- Pong from {typeof(T).Name}::{callerName}");
         }
 
-        public static void Pong(Type caller, Type[] genericParams, [CallerMemberName] string callerMemberName = "")
+        public static void Pong<T>(this T caller, string message, [CallerMemberName] string callerName = "")
+        {
+            Log.Verbose($"{IndentBarDecremented()}<- Pong from {typeof(T).Name}::{callerName} --- {message}");
+        }
+
+        public static void Pong<T>(this T caller, Type[] genericParams, [CallerMemberName] string callerName = "")
         {
             string genericParamsString = $"<{string.Join(",", genericParams.Select(p => p.Name))}>";
-
-            Log.Verbose($"{new string('\t', --pingDepth)}-> Pong from {caller?.Name ?? _UNKNOWN_}::" +
-                $"{callerMemberName + genericParamsString}");
+            Log.Verbose($"{IndentBarDecremented()}<- Pong from {typeof(T).Name}::{callerName}{genericParamsString}");
         }
 
-
-
-        /// <summary>
-        /// Logs a ping using the type of the caller.
-        /// </summary>
-        /// <typeparam name="T">The type of the calling object.</typeparam>
-        /// <param name="pingObj">The object to ping from.</param>
-        public static void Ping<T>(this T pingObj, [CallerMemberName] string callerName = "")
+        public static void Pong<T>(this T caller, Type genericParam, [CallerMemberName] string callerName = "")
         {
-            Ping(typeof(T), callerName);
+            caller.Pong(new[] { genericParam }, callerName);
         }
 
-        /// <summary>
-        /// Logs a pong using the type of the caller.
-        /// </summary>
-        /// <typeparam name="T">The type of the calling object.</typeparam>
-        /// <param name="pingObj">The object to pong from.</param>
-        public static void Pong<T>(this T pingObj, [CallerMemberName] string callerName = "")
+        // --- PingPong Helpers ---
+
+        public static void PingPong<T>(this T caller, [CallerMemberName] string callerName = "")
         {
-            Pong(typeof(T), callerName);
+            caller.Ping(callerName);
+            caller.Pong(callerName);
         }
-        public static void PingPong<T>(this T pingObj, [CallerMemberName] string callerName = "")
+
+        public static void PingPong<T>(this T caller, string message, [CallerMemberName] string callerName = "")
         {
-            Ping(typeof(T), callerName);
-            Pong(typeof(T), callerName);
+            caller.Ping(message, callerName);
+            caller.Pong(message, callerName);
         }
+
+        public static TResult PingPong<T, TResult>(this T caller, Func<TResult> action, string message = null, [CallerMemberName] string callerName = "")
+        {
+            if (message == null)
+                caller.Ping(callerName);
+            else
+                caller.Ping(message, callerName);
+
+            var result = action();
+
+            if (message == null)
+                caller.Pong(callerName);
+            else
+                caller.Pong(message, callerName);
+
+            return result;
+        }
+
+        public static TResult Pong<T, TResult>(this T caller, Func<TResult> action, string message = null, [CallerMemberName] string callerName = "")
+        {
+            var result = action();
+
+            if (message == null)
+                caller.Pong(callerName);
+            else
+                caller.Pong(message, callerName);
+
+            return result;
+        }
+
     }
 }

@@ -37,6 +37,11 @@ namespace CoverageKiller2.DOM
         private bool _isRunning;
         private bool _disposedValue;
 
+        public static bool IsTest => AppDomain.CurrentDomain.GetAssemblies()
+                .Any(a => a.FullName.StartsWith("Microsoft.VisualStudio.TestPlatform")
+                       || a.FullName.StartsWith("xunit")
+                       || a.FullName.StartsWith("nunit"));
+
         static CKOffice_Word()
         {
             if (Debugger.IsAttached)
@@ -84,8 +89,9 @@ namespace CoverageKiller2.DOM
         /// <returns>0 if registered successfully.</returns>
         public int TryPutAddin(ThisAddIn addin)
         {
+            this.Ping();
             var wordApp = Globals.ThisAddIn.Application;
-            LH.Ping(GetType());
+            if (_isTesting) return 0;
             _addinInstance = addin ?? throw new ArgumentNullException(nameof(addin));
             var addInApp = new CKApplication(addin.Application, default, isOwned: false);
             _applications.Add(addInApp);
@@ -104,7 +110,7 @@ namespace CoverageKiller2.DOM
         /// </remarks>
         public int TryGetNewApp(out CKApplication app, bool visible = false)
         {
-            LH.Ping($"Found {_applications.Count} open CKApplication instances.", GetType());
+            this.Ping($"Found {_applications.Count} open CKApplication instances.");
             int pid = -1;
 
             try
@@ -130,14 +136,14 @@ namespace CoverageKiller2.DOM
                 AppRecordManager.Save();
 
                 Log.Information("New CKApplication({PID}) created and registered.", app.PID);
-                LH.Pong(GetType());
+                this.Pong();
                 return _applications.Count;
             }
             catch (Exception ex)
             {
                 Log.Error("Failed to create CKApplication:{PID} {Message}", pid, ex.Message);
                 app = null;
-                LH.Pong(GetType());
+                this.Pong();
                 return -1;
             }
         }
@@ -149,7 +155,8 @@ namespace CoverageKiller2.DOM
         /// <returns>0 if started; 1 if already running; -1 if error occurred.</returns>
         public int Start()
         {
-            LH.Ping("Start()", GetType());
+
+
             if (_isRunning)
             {
                 Log.Information("CKOffice_Word.Start called while already running. No action taken.");
@@ -178,6 +185,8 @@ namespace CoverageKiller2.DOM
         }
 
         private bool _crashing = false;
+        private bool _isTesting;
+
         public void Crash(Type callerType, [MemberCallerName] string callerMember = null)
         {
             Log.Error($"Crashing {nameof(CKOffice_Word)}. Source: {callerType.Name}.{callerMember}");
@@ -198,7 +207,7 @@ namespace CoverageKiller2.DOM
         }
         public int ShutDown()
         {
-            LH.Ping(GetType());
+            this.Ping();
 
             if (!_isRunning)
             {
@@ -243,13 +252,13 @@ namespace CoverageKiller2.DOM
                 Log.Information("ThisAddIn still running. CKOffice_Word remains available.");
             }
 
-            LH.Pong(GetType());
+            this.Pong();
             return 0;
         }
 
         protected virtual void Dispose(bool disposing)
         {
-            LH.Ping(GetType());
+            this.Ping();
             if (!_disposedValue)
             {
                 if (disposing)
@@ -262,7 +271,7 @@ namespace CoverageKiller2.DOM
 
         public void Dispose()
         {
-            LH.Ping(GetType());
+            this.Ping();
             Dispose(disposing: true);
             GC.SuppressFinalize(this);
         }

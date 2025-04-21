@@ -21,7 +21,7 @@ namespace CoverageKiller2.Test
         static RandomTestHarness()
         {
             CKOffice_Word.Instance.Start();
-            LogExpertLoader.StartLogExpert(LoggingLoader.LogFile, true);
+            LogExpertLoader.StartLogExpert(LoggingLoader.LogFile, restartIfOpen: true);
 
             if (CKOffice_Word.Instance.TryGetNewApp(out var app, visible: true) < 0)
                 throw new Exception("Failed to acquire shared test CKApplication");

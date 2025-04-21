@@ -1,6 +1,4 @@
 ﻿using CoverageKiller2.DOM;
-using CoverageKiller2.Logging;
-using Serilog;
 using System;
 
 namespace CoverageKiller2
@@ -23,20 +21,24 @@ namespace CoverageKiller2
         {
             try
             {
-                ///All this shit can go insie CKOffice.Start
-                ///
-                var OfficeWord = CKOffice_Word.Instance;
-                OfficeWord.Start();
-                OfficeWord.TryPutAddin(this);
-                LogExpertLoader.StartLogExpert(LoggingLoader.LogFile, true);
-                //string logFile = LogTailLoader.GetLogFile();
-                //LoggingLoader.Configure(logFile, Serilog.Events.LogEventLevel.Debug);
+                //ThisAddin is hijacking CKOffice in a new process it seems. remove comment to return
 
-                ////debugging the big hangup.
-                ////LogTailLoader.StartBareTail(logFile);
+                //if (!CKOffice_Word.IsTest) //kinda hacky. ThisAddin is hijacking CKOffice in a new process it seems.
+                //{
 
-                //Log.Debug("Logging started: Level {logEventLevel}", LoggingLoader.Level);
-                Log.Information("ThisAddIn started.");
+                //    var OfficeWord = CKOffice_Word.Instance;
+                //    OfficeWord.Start();
+                //    OfficeWord.TryPutAddin(this);
+                //    LogExpertLoader.StartLogExpert(LoggingLoader.LogFile, true);
+                //    //string logFile = LogTailLoader.GetLogFile();
+                //    //LoggingLoader.Configure(logFile, Serilog.Events.LogEventLevel.Debug);
+
+                //    ////debugging the big hangup.
+                //    ////LogTailLoader.StartBareTail(logFile);
+
+                //    //Log.Debug("Logging started: Level {logEventLevel}", LoggingLoader.Level);
+                //    Log.Information("ThisAddIn started.");
+                //}
             }
             catch (Exception ex)
             {

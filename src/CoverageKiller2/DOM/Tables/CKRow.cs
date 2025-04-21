@@ -11,13 +11,13 @@ namespace CoverageKiller2.DOM.Tables
         public CKRowCellRef(int rowIndex, CKTable table, IDOMObject parent) :
             base(rowIndex, table.Columns.Count(), table, parent)
         {
-            LH.Ping(GetType());
+            this.Ping();
             if (parent == null) throw new ArgumentNullException(nameof(parent));
             if (table == null) throw new ArgumentNullException(nameof(table));
             Index = rowIndex;
             Table = table;
             Parent = parent;
-            LH.Pong(GetType());
+            this.Pong();
         }
         /// <inheritdoc/>
         public IDOMObject Parent { get; }
@@ -56,13 +56,13 @@ namespace CoverageKiller2.DOM.Tables
 
         private static IEnumerable<CKCellRef> SplitCellRefs(CKRowCellRef rowRef, IDOMObject parent)
         {
-            LH.Ping(typeof(CKRow));
+            LH.Ping<CKRow>();
             var cellRefs = new List<CKCellRef>();
             for (int col_1 = 1; col_1 <= rowRef.ColumnIndex; col_1++)
             {
                 cellRefs.Add(new CKCellRef(rowRef.RowIndex, col_1, rowRef.Table, parent));
             }
-            LH.Pong(typeof(CKRow));
+            LH.Pong<CKRow>();
             return cellRefs;
         }
 
@@ -88,10 +88,10 @@ namespace CoverageKiller2.DOM.Tables
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="rows"/> or <paramref name="parent"/> is null.</exception>
         public CKRows(IDOMObject parent)
         {
-            LH.Ping(GetType());
+            this.Ping();
             //_rows_1 = rows ?? throw new ArgumentNullException(nameof(rows));
             Parent = parent ?? throw new ArgumentNullException(nameof(parent));
-            LH.Pong(GetType());
+            this.Pong();
         }
         internal void Add(CKRow row)
         {

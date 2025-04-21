@@ -214,7 +214,7 @@ namespace CoverageKiller2.DOM.Tables
         {
             get
             {
-                LH.Ping(GetType());
+                this.Ping();
                 if (_cachedCells_1.Count == 0 || IsDirty)
                 {
                     _cachedCells_1 = new Base1List<CKCell>();
@@ -224,12 +224,15 @@ namespace CoverageKiller2.DOM.Tables
                     }
                     IsDirty = false;
                 }
-                LH.Pong(GetType());
+                this.Pong();
                 return _cachedCells_1;
             }
         }
 
-
+        public override void Clear()
+        {
+            _cachedCells_1?.Clear();
+        }
 
         public CKCells(IEnumerable<CKCell> cells, IDOMObject parent) : base(parent)
         {
@@ -259,7 +262,7 @@ namespace CoverageKiller2.DOM.Tables
 
         public override bool IsOrphan => throw new NotImplementedException();
 
-        public override int Count => _cachedCells_1.Count;
+        public override int Count => CellsList_1.Count;
 
         //public Word.Cells COMCells { get; private set; }
 
@@ -289,7 +292,7 @@ namespace CoverageKiller2.DOM.Tables
 
         public override int IndexOf(object obj)
         {
-            LH.Ping(GetType());
+            this.Ping();
             int index = -1; //default return not found.
             CKCell foundCell = default;
             if (obj is CKCell ckCell)
@@ -303,7 +306,7 @@ namespace CoverageKiller2.DOM.Tables
             }
 
             index = CellsList_1.IndexOf(foundCell);
-            LH.Pong(GetType());
+            this.Pong();
             return index;
         }
     }

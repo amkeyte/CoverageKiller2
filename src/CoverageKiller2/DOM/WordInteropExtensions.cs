@@ -1,4 +1,5 @@
-﻿using K4os.Hash.xxHash;
+﻿using CoverageKiller2.Logging;
+using K4os.Hash.xxHash;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -42,6 +43,7 @@ namespace CoverageKiller2.DOM
 
         public RangeSnapshot(Word.Range range)
         {
+            this.Ping();
             TextPreview = CKTextHelper.Scrunch(range.Text);
             FontName = range.Font?.Name;
             FontSize = range.Font?.Size ?? 0;
@@ -52,6 +54,7 @@ namespace CoverageKiller2.DOM
             FieldCount = range.Fields?.Count ?? 0;
 
             FastHash = ComputeHash();
+            this.Pong();
         }
 
         private string TrimText(string text)
