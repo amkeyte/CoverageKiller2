@@ -97,7 +97,7 @@ namespace CoverageKiller2
 
         public static void TestProcessor(CKDocument document)
         {
-            LH.Ping(typeof(CkDocHelpers));
+            LH.Ping<CkDocHelpers>();
             try
             {
                 string configPath = SelectConfigFile();
@@ -164,9 +164,7 @@ namespace CoverageKiller2
 
                     document.Application.CloseDocument(template);
 
-                    Log.Information("Cleaning up.");
-                    document.Activate();
-                    document.ActiveWindow.ActivePane.View.SeekView = Word.WdSeekView.wdSeekMainDocument;
+
                 }
                 else
                 {

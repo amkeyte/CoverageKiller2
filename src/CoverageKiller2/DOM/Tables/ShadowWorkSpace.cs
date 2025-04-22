@@ -18,7 +18,7 @@ public class ShadowWorkspace : IDOMObject, IDisposable
 
     internal ShadowWorkspace(CKDocument doc, CKApplication app, bool keepOpen)
     {
-        this.Ping("$$$");
+        this.Ping(msg: "$$$");
         _doc = doc ?? throw new ArgumentNullException(nameof(doc));
         _app = app ?? throw new ArgumentNullException(nameof(app));
         _keepOpen = keepOpen;
@@ -99,7 +99,7 @@ public class ShadowWorkspace : IDOMObject, IDisposable
 
             var result = IDOMCaster.Cast<T>(_doc.Range(insertStart, insertEnd));
 
-            LH.Pong(GetType(), new Type[] { typeof(T) });
+            this.Pong(new[] { typeof(T) });
             return result;
         });
     }
@@ -115,7 +115,7 @@ public class ShadowWorkspace : IDOMObject, IDisposable
     /// </remarks>
     public T CloneFrom<T>(T objToClone) where T : IDOMObject
     {
-        LH.Ping(GetType(), new Type[] { typeof(T) });
+        this.Pong(new[] { typeof(T) });
 
         if (objToClone == null) throw new ArgumentNullException(nameof(objToClone));
 
@@ -138,7 +138,7 @@ public class ShadowWorkspace : IDOMObject, IDisposable
     /// </remarks>
     public T CloneFrom<T>(T objToClone, int start, int end) where T : IDOMObject
     {
-        LH.Ping(GetType(), new Type[] { typeof(T) });
+        this.Ping(new[] { typeof(T) });
 
         if (objToClone == null) throw new ArgumentNullException(nameof(objToClone));
         if (start < 0 || end < start) throw new ArgumentOutOfRangeException();
@@ -146,7 +146,7 @@ public class ShadowWorkspace : IDOMObject, IDisposable
         var range = _doc.Range(start, end);
         var result = CloneFrom(objToClone, range);
 
-        LH.Pong(GetType(), new Type[] { typeof(T) });
+        this.Pong(new[] { typeof(T) });
         return result;
     }
 

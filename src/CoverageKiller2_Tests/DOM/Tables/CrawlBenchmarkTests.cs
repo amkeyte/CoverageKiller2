@@ -39,7 +39,7 @@ namespace CoverageKiller2.Tests.Benchmarking
         [TestMethod]
         public void Benchmark_CrawlVertically()
         {
-            this.Ping("$$$");
+            this.Ping(msg: "$$$");
             var benchmarkSw = Stopwatch.StartNew();
 
             var workspace = _testFile.Application.GetShadowWorkspace();
@@ -116,7 +116,7 @@ namespace CoverageKiller2.Tests.Benchmarking
         [TestMethod]
         public void Benchmark_AnalyzeTableRecursively()
         {
-            this.Ping("$$$");
+            this.Ping(msg: "$$$");
             var benchmarkSw = Stopwatch.StartNew();
 
             var workspace = _testFile.Application.GetShadowWorkspace();

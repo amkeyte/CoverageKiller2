@@ -52,7 +52,7 @@ namespace CoverageKiller2.DOM
         /// <param name="isOwned">Whether CKOffice is responsible for cleanup.</param>
         public CKApplication(Word.Application wordApp, int pid, bool isOwned = true)
         {
-            this.Ping("$$$");
+            this.Ping(msg: "$$$");
             _wordApp = wordApp ?? throw new ArgumentNullException(nameof(wordApp));
             IsOwned = isOwned;
             _PID = pid.ToString();
@@ -73,7 +73,7 @@ namespace CoverageKiller2.DOM
         /// </summary>
         public CKDocument GetDocument(string fullPath, bool visible = false, bool createIfNotFound = false)
         {
-            this.Ping("$$$");
+            this.Ping(msg: "$$$");
             if (string.IsNullOrWhiteSpace(fullPath))
                 throw new ArgumentException("Invalid file path.", nameof(fullPath));
 
@@ -312,6 +312,7 @@ namespace CoverageKiller2.DOM
         /// <returns>The result of the function.</returns>
         public T WithSuppressedAlerts<T>(Func<T> func)
         {
+            this.Ping();
             var originalAlerts = WordApp.DisplayAlerts;
             var originalSecurity = WordApp.AutomationSecurity;
 
@@ -327,6 +328,7 @@ namespace CoverageKiller2.DOM
                 WordApp.DisplayAlerts = originalAlerts;
                 WordApp.AutomationSecurity = originalSecurity;
             }
+            this.Pong();
         }
 
         /// <summary>
@@ -336,7 +338,7 @@ namespace CoverageKiller2.DOM
         /// <returns>A new CKDocument instance opened in this application.</returns>
         public CKDocument GetTempDocument(string fromFile = "")
         {
-            this.Ping("$$$");
+            this.Ping(msg: "$$$");
             fromFile = string.IsNullOrWhiteSpace(fromFile) ? DefaultTemplatePath : fromFile;
             if (!File.Exists(fromFile)) throw new FileNotFoundException("Template file not found.", fromFile);
 
@@ -359,7 +361,7 @@ namespace CoverageKiller2.DOM
         /// <returns>A new ShadowWorkspace instance.</returns>
         public ShadowWorkspace GetShadowWorkspace(bool keepOpen = false)
         {
-            this.Ping("$$$");
+            this.Ping(msg: "$$$");
             var doc = GetTempDocument();
             var workspace = new ShadowWorkspace(doc, this, keepOpen);
             this.Pong();

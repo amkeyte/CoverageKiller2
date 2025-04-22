@@ -41,7 +41,7 @@ namespace CoverageKiller2.DOM
         /// <exception cref="ArgumentNullException">Thrown when the <paramref name="range"/> parameter is null.</exception>
         public CKRange(Word.Range range, IDOMObject parent)
         {
-            this.Ping("$$$");
+            this.Ping(msg: "$$$");
             COMRange = range ?? throw new ArgumentNullException(nameof(range));
             Parent = parent ?? throw new ArgumentNullException(nameof(parent));
 
@@ -51,7 +51,7 @@ namespace CoverageKiller2.DOM
             //// Initialize cached boundary values.
             //_cachedStart = COMRange.Start;
             //_cachedEnd = COMRange.End;
-            this.Pong();
+            this.Pong(msg: $"{nameof(Snapshot.FastHash)} = {Snapshot.FastHash}");
         }
 
         [Obsolete]
@@ -259,7 +259,7 @@ namespace CoverageKiller2.DOM
         {
             get
             {
-                this.Ping("");
+                this.Ping();
                 if (_isDirtyCount++ % 20 == 0) LH.Checkpoint($"CKRange.IsDirty count: {_isDirtyCount}");
 
                 //the dirty state is declared clean by calling code. This can be used
@@ -288,7 +288,7 @@ namespace CoverageKiller2.DOM
                     _isCheckingDirty = false;
                 }
 
-                return this.Pong(() => _isDirty, message: _isDirty.ToString());
+                return this.Pong(() => _isDirty, msg: _isDirty.ToString());
             }
             protected set => _isDirty = value;
         }
@@ -368,14 +368,20 @@ namespace CoverageKiller2.DOM
                 this.Ping();
                 if (COMRange == null) throw new InvalidOperationException("COMRange is null.");
                 var formatted = _COMRange.FormattedText;
-                return new CKRange(formatted, Parent);
+                var result = new CKRange(formatted, Parent);
+                this.Pong();
+                return result;
+
             }
             set
             {
+                this.Ping();
                 if (COMRange == null) throw new InvalidOperationException("COMRange is null.");
-                if (value?.COMRange == null) throw new ArgumentNullException(nameof(value));
+                if (value?._COMRange == null) throw new ArgumentNullException(nameof(value));
                 _COMRange.FormattedText = value._COMRange;
                 IsDirty = true;
+                this.Pong();
+
             }
         }
         /// <summary>

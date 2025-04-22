@@ -21,11 +21,11 @@ namespace CoverageKiller2.Logging
         public CKDebugException() { }
 
         /// <inheritdoc/>
-        public CKDebugException(string message) : base(message) { }
+        public CKDebugException(string msg) : base(msg) { }
 
         /// <inheritdoc/>
-        public CKDebugException(string message, Exception innerException)
-            : base(message, innerException) { }
+        public CKDebugException(string msg, Exception innerException)
+            : base(msg, innerException) { }
 
         /// <inheritdoc/>
         protected CKDebugException(SerializationInfo info, StreamingContext context)
@@ -46,7 +46,7 @@ namespace CoverageKiller2.Logging
         /// Logs an exception using Serilog and optionally rethrows it.
         /// </summary>
         /// <param name="ex">The exception to log.</param>
-        /// <param name="context">Optional context message to include with the log.</param>
+        /// <param name="context">Optional context msg to include with the log.</param>
         /// <param name="rethrow">If true, rethrows the exception after logging.</param>
         public static void Error(Exception ex, string context = "", bool rethrow = true)
         {
@@ -74,7 +74,7 @@ namespace CoverageKiller2.Logging
             // Validate the length of pairs (must be even)
             if (paramPairs.Length < 4 || paramPairs.Length % 2 != 0)
             {
-                throw new ArgumentException("The number of parameters must be even and at least 4 (traceType, message, className, methodName).");
+                throw new ArgumentException("The number of parameters must be even and at least 4 (traceType, msg, className, methodName).");
             }
 
             // Validate traceType
@@ -84,39 +84,39 @@ namespace CoverageKiller2.Logging
             }
 
             PP traceType = (PP)paramPairs[0];
-            string message = paramPairs[1] as string ?? string.Empty;
+            string msg = paramPairs[1] as string ?? string.Empty;
 
-            // Shared logic to format trace message
-            return FormatTraceMessage(traceType, message, paramPairs);
+            // Shared logic to format trace msg
+            return FormatTracemsg(traceType, msg, paramPairs);
         }
 
-        private static string FormatTraceMessage(PP traceType, string message, object[] paramPairs)
+        private static string FormatTracemsg(PP traceType, string msg, object[] paramPairs)
         {
-            string defaultMessage;
+            string defaultmsg;
 
             // Standard switch statement instead of switch expression
             switch (traceType)
             {
                 case PP.Enter:
-                    defaultMessage = "Entering member:";
+                    defaultmsg = "Entering member:";
                     break;
                 case PP.Result:
-                    defaultMessage = "Member returned:";
+                    defaultmsg = "Member returned:";
                     break;
                 case PP.TestPoint:
-                    defaultMessage = "Test point:";
+                    defaultmsg = "Test point:";
                     break;
                 case PP.PropertyGet:
-                    defaultMessage = "Property returned:";
+                    defaultmsg = "Property returned:";
                     break;
                 case PP.PropertySet:
-                    defaultMessage = "Property set to:";
+                    defaultmsg = "Property set to:";
                     break;
                 default:
                     throw new ArgumentException("Invalid trace type.");
             }
 
-            message = string.IsNullOrEmpty(message) ? defaultMessage : message;
+            msg = string.IsNullOrEmpty(msg) ? defaultmsg : msg;
 
             string className = paramPairs[2].ToString();
             string methodName = paramPairs[3].ToString();
@@ -131,7 +131,7 @@ namespace CoverageKiller2.Logging
             }
             formattedPairs = string.IsNullOrEmpty(formattedPairs) ? "" : "\n" + formattedPairs;
 
-            return $"TRACE => {className}.{methodName} :: {message}{formattedPairs}";
+            return $"TRACE => {className}.{methodName} :: {msg}{formattedPairs}";
         }
 
 
@@ -142,10 +142,10 @@ namespace CoverageKiller2.Logging
 
             return string.Join(".", objectNames);
         }
-        public static void Checkpoint(string message, Type caller = null, [CallerMemberName] string callerName = "")
+        public static void Checkpoint(string msg, Type caller = null, [CallerMemberName] string callerName = "")
         {
 
-            Log.Verbose($"{caller?.Name ?? _UNKNOWN_}::{callerName} --- {message}");
+            Log.Verbose($"{caller?.Name ?? _UNKNOWN_}::{callerName} --- {msg}");
         }
 
 
@@ -172,9 +172,9 @@ namespace CoverageKiller2.Logging
             Log.Verbose($"{IndentBar()}-> Ping from {typeof(T).Name}::{callerName}");
         }
 
-        public static void Ping<T>(string message, [CallerMemberName] string callerName = "")
+        public static void Ping<T>(string msg, [CallerMemberName] string callerName = "")
         {
-            Log.Verbose($"{IndentBar()}-> Ping from {typeof(T).Name}::{callerName} --- {message}");
+            Log.Verbose($"{IndentBar()}-> Ping from {typeof(T).Name}::{callerName} --- {msg}");
         }
 
         public static void Ping<T>(this T caller, [CallerMemberName] string callerName = "")
@@ -182,9 +182,9 @@ namespace CoverageKiller2.Logging
             Log.Verbose($"{IndentBar()}-> Ping from {typeof(T).Name}::{callerName}");
         }
 
-        public static void Ping<T>(this T caller, string message, [CallerMemberName] string callerName = "")
+        public static void Ping<T>(this T caller, string msg, [CallerMemberName] string callerName = "")
         {
-            Log.Verbose($"{IndentBar()}-> Ping from {typeof(T).Name}::{callerName} --- {message}");
+            Log.Verbose($"{IndentBar()}-> Ping from {typeof(T).Name}::{callerName} --- {msg}");
         }
 
         public static void Ping<T>(this T caller, Type[] genericParams, [CallerMemberName] string callerName = "")
@@ -200,9 +200,9 @@ namespace CoverageKiller2.Logging
             Log.Verbose($"{IndentBarDecremented()}<- Pong from {typeof(T).Name}::{callerName}");
         }
 
-        public static void Pong<T>(string message, [CallerMemberName] string callerName = "")
+        public static void Pong<T>(string msg, [CallerMemberName] string callerName = "")
         {
-            Log.Verbose($"{IndentBarDecremented()}<- Pong from {typeof(T).Name}::{callerName} --- {message}");
+            Log.Verbose($"{IndentBarDecremented()}<- Pong from {typeof(T).Name}::{callerName} --- {msg}");
         }
 
         public static void Pong<T>(this T caller, [CallerMemberName] string callerName = "")
@@ -210,9 +210,9 @@ namespace CoverageKiller2.Logging
             Log.Verbose($"{IndentBarDecremented()}<- Pong from {typeof(T).Name}::{callerName}");
         }
 
-        public static void Pong<T>(this T caller, string message, [CallerMemberName] string callerName = "")
+        public static void Pong<T>(this T caller, string msg, [CallerMemberName] string callerName = "")
         {
-            Log.Verbose($"{IndentBarDecremented()}<- Pong from {typeof(T).Name}::{callerName} --- {message}");
+            Log.Verbose($"{IndentBarDecremented()}<- Pong from {typeof(T).Name}::{callerName} --- {msg}");
         }
 
         public static void Pong<T>(this T caller, Type[] genericParams, [CallerMemberName] string callerName = "")
@@ -234,37 +234,40 @@ namespace CoverageKiller2.Logging
             caller.Pong(callerName);
         }
 
-        public static void PingPong<T>(this T caller, string message, [CallerMemberName] string callerName = "")
+        public static void PingPong<T>(this T caller, string msg, [CallerMemberName] string callerName = "")
         {
-            caller.Ping(message, callerName);
-            caller.Pong(message, callerName);
+            caller.Ping(msg, callerName);
+            caller.Pong(msg, callerName);
         }
-
-        public static TResult PingPong<T, TResult>(this T caller, Func<TResult> action, string message = null, [CallerMemberName] string callerName = "")
+        public static TResult PingPong<T, TResult>(Func<TResult> action, string msg = null, [CallerMemberName] string callerName = "")
         {
-            if (message == null)
+            return PingPong(typeof(T), action, msg, callerName);
+        }
+        public static TResult PingPong<T, TResult>(this T caller, Func<TResult> action, string msg = null, [CallerMemberName] string callerName = "")
+        {
+            if (msg == null)
                 caller.Ping(callerName);
             else
-                caller.Ping(message, callerName);
+                caller.Ping(msg, callerName);
 
             var result = action();
 
-            if (message == null)
+            if (msg == null)
                 caller.Pong(callerName);
             else
-                caller.Pong(message, callerName);
+                caller.Pong(msg, callerName);
 
             return result;
         }
 
-        public static TResult Pong<T, TResult>(this T caller, Func<TResult> action, string message = null, [CallerMemberName] string callerName = "")
+        public static TResult Pong<T, TResult>(this T caller, Func<TResult> action, string msg = null, [CallerMemberName] string callerName = "")
         {
             var result = action();
 
-            if (message == null)
+            if (msg == null)
                 caller.Pong(callerName);
             else
-                caller.Pong(message, callerName);
+                caller.Pong(msg, callerName);
 
             return result;
         }

@@ -226,6 +226,7 @@
   <ItemGroup>
     <Compile Include="DOM\CKApplication.cs" />
     <Compile Include="CKTextHelper.cs" />
+    <Compile Include="DOM\RangeSnapshot.cs" />
     <Compile Include="DOM\Tables\Base1JaggedList.cs" />
     <Compile Include="DOM\Tables\CKCell.cs" />
     <Compile Include="DOM\Tables\CKGridCellRef.cs" />

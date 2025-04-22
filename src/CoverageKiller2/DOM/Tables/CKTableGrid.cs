@@ -95,7 +95,7 @@ namespace CoverageKiller2.DOM.Tables
 
         private CKTableGrid(CKTable parent)//, Word.Table table)
         {
-            this.Ping();
+            this.Ping(msg: parent.Snapshot.FastHash.ToString());
             //_ckTable = parent;
             //_comTable = table;
             var clonedTable = CloneToShadow(parent, parent.Application.GetShadowWorkspace());
@@ -106,19 +106,23 @@ namespace CoverageKiller2.DOM.Tables
 
         private Word.Table CloneToShadow(CKTable sourceTable, ShadowWorkspace shadowWorkspace)
         {
+            this.Ping();
             //for debugging uncomment.
             shadowWorkspace.ShowDebuggerWindow();
 
             //put original table
             shadowWorkspace.CloneFrom(sourceTable); //make sure we aren't recursing tables here.
-            shadowWorkspace.Document.Content.CollapseToEnd().Text = "\r\r\r";
+
+            var x = shadowWorkspace.Document.Content.CollapseToEnd();
+            x.COMRange.InsertAfter("\r\r\r");
             //put the one to format
             var clonedTable = shadowWorkspace.CloneFrom(sourceTable);
             //var grid = GetMasterGrid(clonedTable);
             //Log.Debug(GridCrawler5.DumpGrid(grid));
 
             //pulling once
-            return clonedTable.COMTable;
+
+            return this.Pong(() => clonedTable.COMTable);
         }
     }
 }

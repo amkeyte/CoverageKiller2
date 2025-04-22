@@ -100,23 +100,23 @@ namespace CoverageKiller2.DOM.Tables
         //private ShadowWorkspace _shadowWorkspace;
         internal GridCrawler5(Word.Table table)
         {
-            this.Ping("$$$");
+            this.Ping(msg: "$$$");
             _COMTable = table ?? throw new ArgumentNullException(nameof(table));
             //_shadowWorkspace = workspace ?? throw new ArgumentNullException(nameof(workspace));
-            //Analyze();
+            _grid = AnalyzeTableRecursively(table);
             this.Pong();
         }
         /// <summary>
         /// Initializes and analyzes the layout grid for the specified table.
         /// </summary>
         /// <param name="table">The source table to analyze.</param>
-        public GridCrawler5(CKTable table)
-        {
-            throw new CKDebugException();
-            //this.Ping("$$$");
-            //Analyze();
-            //this.Pong();
-        }
+        //public GridCrawler5(CKTable table)
+        //{
+        //    throw new CKDebugException();
+        //    //this.Ping(msg:"$$$");
+        //    //Analyze();
+        //    //this.Pong();
+        //}
 
         /// <summary>
         /// Gets the number of visual rows in the final layout grid.
@@ -221,24 +221,24 @@ namespace CoverageKiller2.DOM.Tables
         }
         // ========== Internal Analysis Flow ==========
 
-        private void Analyze()
-        {
-            this.Ping("$$$");
+        //private void Analyze()
+        //{
+        //    this.Ping(msg: "$$$");
 
-            //LH.Checkpoint($"Cloning table {_table.Document.Tables.IndexOf(_table)} from document {_table.Document.FileName}");
+        //    //LH.Checkpoint($"Cloning table {_table.Document.Tables.IndexOf(_table)} from document {_table.Document.FileName}");
 
-            //fast crawl
+        //    //fast crawl
 
-            //slow crawl
-            var clonedTable = PrepareTable();
-            var masterGrid = GetMasterGrid(clonedTable);
-            var textGrid = ParseTableText(clonedTable);
-            var normalGrid = NormalizeByWidth(masterGrid);
-            var horizGrid = CrawlHoriz(textGrid, normalGrid);
-            var vertGrid = CrawlVertically(0, textGrid, normalGrid);
+        //    //slow crawl
+        //    var clonedTable = PrepareTable();
+        //    var masterGrid = GetMasterGrid(clonedTable);
+        //    var textGrid = ParseTableText(clonedTable);
+        //    var normalGrid = NormalizeByWidth(masterGrid);
+        //    var horizGrid = CrawlHoriz(textGrid, normalGrid);
+        //    var vertGrid = CrawlVertically(0, textGrid, normalGrid);
 
-            this.Pong();
-        }
+        //    this.Pong();
+        //}
 
         public static Base1List<string> SplitWordTableTextIntoRows(string rawText)
         {
@@ -278,7 +278,7 @@ namespace CoverageKiller2.DOM.Tables
         /// </remarks>
         internal Base1JaggedList<string> ParseTableText(Word.Table COMTable = null)
         {
-            this.Ping("$$$");
+            this.Ping(msg: "$$$");
 
 
 
@@ -383,7 +383,7 @@ namespace CoverageKiller2.DOM.Tables
             Base1JaggedList<Word.Cell> masterGrid = null,
             int rowOffset = 0)
         {
-            this.Ping("$$$");
+            this.Ping(msg: "$$$");
 
             var result = new Base1JaggedList<GridCell5>();
             // Step 1: Build master-only grid
@@ -448,7 +448,7 @@ namespace CoverageKiller2.DOM.Tables
         public Word.Table PrepareTable(Word.Table COMTable = null)
 
         {
-            this.Ping("$$$");
+            this.Ping(msg: "$$$");
 
             COMTable = COMTable ?? _COMTable;
             var COMRange = _COMTable.Range;
@@ -479,7 +479,7 @@ namespace CoverageKiller2.DOM.Tables
         /// </summary>
         public Base1JaggedList<Word.Cell> GetMasterGrid(Word.Table COMTable = null)
         {
-            this.Ping("$$$");
+            this.Ping(msg: "$$$");
 
             COMTable = COMTable ?? _COMTable;
 
@@ -516,7 +516,7 @@ namespace CoverageKiller2.DOM.Tables
             Base1JaggedList<string> textGrid = null,
             Base1JaggedList<GridCell5> normalizedGrid = null)
         {
-            this.Ping("$$$");
+            this.Ping(msg: "$$$");
 
             textGrid = textGrid ?? _textGrid;
             normalizedGrid = normalizedGrid ?? _grid;
@@ -615,7 +615,7 @@ namespace CoverageKiller2.DOM.Tables
             Base1JaggedList<string> textGrid = null,
             Base1JaggedList<GridCell5> normalizedGrid = null)
         {
-            this.Ping("$$$");
+            this.Ping(msg: "$$$");
 
 
 
@@ -729,8 +729,9 @@ namespace CoverageKiller2.DOM.Tables
         }
 
         private int _analyzeTableRecursivelyDepth = 0;
-        public Base1JaggedList<GridCell5> AnalyzeTableRecursively(Word.Table table, int rowOffset = 0)
+        public Base1JaggedList<GridCell5> AnalyzeTableRecursively(Word.Table table = null, int rowOffset = 0)
         {
+            table = table ?? _COMTable;
             if (table == null) throw new ArgumentNullException(nameof(table));
             Log.Debug($"Analyzing table at position {table.Range.Start}, rowOffset = {rowOffset}");
 

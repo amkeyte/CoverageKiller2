@@ -1,5 +1,4 @@
 ﻿using CoverageKiller2.Logging;
-using Microsoft.Office.Interop.Word;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -20,16 +19,23 @@ namespace CoverageKiller2.DOM.Tables
     {
         static CKTable()
         {
+            LH.Ping<CKTable>(msg: $"Registering Caster for {nameof(CKTable)}");
             IDOMCaster.Register(input =>
             {
-                LH.Ping<CKTable>($"Registering Caster for {nameof(CKTable)}");
+
+                LH.Ping<CKTable>(msg: $"Casting CKRange");
+
                 CKTable result = default;
 
                 CKRange inputRange = input as CKRange ??
                     throw new CKDebugException("input was not a range.");
 
                 var doc = inputRange.Document;
-                var table = doc.Tables.Where(t => t == inputRange).FirstOrDefault() ??
+                var tables = doc.Tables;
+                var table = LH.PingPong<CKTable, CKTable>(() =>
+                    tables.FirstOrDefault(t => t.Equals(inputRange)),
+                    msg: "::FirstOrDefault");
+                if (table == null)
                     throw new CKDebugException($"A table was not matched in the document list for {doc.FileName} .");
 
                 //TODO need a COM safe way to produce a new table(range?) object with a different Parent
@@ -223,7 +229,7 @@ namespace CoverageKiller2.DOM.Tables
         /// </summary>
         public Word.Cell GetCellFor(CKCellRef cellRef)
         {
-            this.Ping($"Table [{DocumentTableIndex}]");
+            this.Ping(msg: $"Table [{DocumentTableIndex}]");
             var gridCellRef = Converters.GetGridCellRef(cellRef);
             //calling to Grid is required because it know if cells have been moved in the table.
             var gridCell = Grid.GetMasterCells(gridCellRef).FirstOrDefault();
@@ -244,7 +250,7 @@ namespace CoverageKiller2.DOM.Tables
         }
         public CKCells GetCellsFor(CKCellRef cellRef)
         {
-            this.Ping($"Table [{DocumentTableIndex}]");
+            this.Ping(msg: $"Table [{DocumentTableIndex}]");
 
             var gridCellRef = Converters.GetGridCellRef(cellRef);
             var gridCells_0 = Grid.GetMasterCells(gridCellRef);
@@ -315,7 +321,7 @@ namespace CoverageKiller2.DOM.Tables
             }
         }
 
-        public WdPreferredWidthType PreferredWidthType { get; internal set; }
+        public Word.WdPreferredWidthType PreferredWidthType { get; internal set; }
         public float PreferredWidth { get; internal set; }
 
 
@@ -347,7 +353,7 @@ namespace CoverageKiller2.DOM.Tables
         /// </summary>
         public int IndexOf(Word.Cell wordCell)
         {
-            this.Ping("$$$");
+            this.Ping(msg: "$$$");
             var index = Cells.IndexOf(wordCell);
             this.Pong();
             return index;
@@ -370,7 +376,7 @@ namespace CoverageKiller2.DOM.Tables
             return new CKCell(COMCell, cellRef);
         }
 
-        internal void AutoFitBehavior(WdAutoFitBehavior wdAutoFitContent)
+        internal void AutoFitBehavior(Word.WdAutoFitBehavior wdAutoFitContent)
         {
             throw new NotImplementedException();
         }
@@ -397,6 +403,10 @@ namespace CoverageKiller2.DOM.Tables
             /// The associated CKTableGrid for the table.
             /// </summary>
             public CKTableGrid Grid => Table.Grid;
+
+
+
+
         }
     }
     /// <summary>
@@ -413,7 +423,7 @@ namespace CoverageKiller2.DOM.Tables
         /// <param name="parent">The parent <see cref="CKRange"/> object that owns the tables.</param>
         public CKTables(Word.Tables collection, IDOMObject parent) : base(parent)
         {
-            this.Ping();
+            this.Ping(msg: parent.Document.FileName);
             _comTables = collection;
             this.Pong();
         }
@@ -421,7 +431,7 @@ namespace CoverageKiller2.DOM.Tables
         {
             get
             {
-                this.Ping();
+                this.Ping(msg: Document.FileName);
                 if (!_cachedTables_1.Any() || IsDirty)
                 {
                     _cachedTables_1.Clear();
@@ -442,7 +452,7 @@ namespace CoverageKiller2.DOM.Tables
             _cachedTables_1.Clear();
         }
         /// <inheritdoc/>
-        public override int Count => TablesList_1.Count;
+        public override int Count => this.PingPong(() => TablesList_1.Count);
 
         protected override bool CheckDirtyFor()
         {
@@ -465,7 +475,7 @@ namespace CoverageKiller2.DOM.Tables
         {
             get
             {
-                this.Ping("$$$");
+                this.Ping(Document.FileName);
                 if (index < 1 || index > Count)
                     throw new ArgumentOutOfRangeException(nameof(index), "Index must be between 1 and the number of tables.");
                 var result = TablesList_1[index];
@@ -477,8 +487,10 @@ namespace CoverageKiller2.DOM.Tables
         /// <inheritdoc/>
         public override int IndexOf(object obj)
         {
+            this.Ping(Document.FileName);
             if (obj is CKTable table)
             {
+                this.Pong();
                 return (TablesList_1.IndexOf(table));
 
                 //for (int tableIndex_1 = 1; tableIndex_1 <= TablesList_1.Count; tableIndex_1++)
@@ -486,6 +498,7 @@ namespace CoverageKiller2.DOM.Tables
                 //    if ( TablesList_1[tableIndex_1].Equals(  table)) return tableIndex_1;
                 //}
             }
+            this.Pong();
             return -1;
         }
         /// <summary>
@@ -502,6 +515,7 @@ namespace CoverageKiller2.DOM.Tables
         /// </remarks>
         public CKTable Add(CKRange insertAt, int numRows, int numColumns)
         {
+            this.Ping(Document.FileName);
             if (insertAt == null) throw new ArgumentNullException(nameof(insertAt));
             if (numRows < 1) throw new ArgumentOutOfRangeException(nameof(numRows));
             if (numColumns < 1) throw new ArgumentOutOfRangeException(nameof(numColumns));
@@ -510,7 +524,7 @@ namespace CoverageKiller2.DOM.Tables
             var wordTable = COMTables.Add(insertAt.COMRange, numRows, numColumns);
 
             IsDirty = true;
-            return new CKTable(wordTable, this);
+            return this.Pong(() => new CKTable(wordTable, this));
         }
         /// <summary>
         /// Returns the <see cref="CKTable"/> that owns the given <see cref="Word.Cell"/>, if present.
@@ -523,7 +537,7 @@ namespace CoverageKiller2.DOM.Tables
         /// </remarks>
         internal CKTable ItemOf(Word.Cell cell)
         {
-            this.Ping();
+            this.Ping(Document.FileName);
             if (cell == null) throw new ArgumentNullException(nameof(cell));
 
             var ckTable = TablesList_1.FirstOrDefault(t => t.Contains(cell))

@@ -110,7 +110,7 @@ namespace CoverageKiller2.DOM
         /// </remarks>
         public int TryGetNewApp(out CKApplication app, bool visible = false)
         {
-            this.Ping($"Found {_applications.Count} open CKApplication instances.");
+            this.Ping(msg: $"Found {_applications.Count} open CKApplication instances.");
             int pid = -1;
 
             try

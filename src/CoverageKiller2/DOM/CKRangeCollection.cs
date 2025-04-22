@@ -39,7 +39,7 @@ namespace CoverageKiller2.DOM
         {
             get
             {
-                this.Ping($"Parent: {Parent.GetType()}");
+                this.Ping(msg: $"Parent: {Parent.GetType()}");
 
                 if (_isDirty || _isCheckingDirty)
                 {
@@ -69,7 +69,7 @@ namespace CoverageKiller2.DOM
                     _isCheckingDirty = false;
                 }
 
-                this.Pong();
+                this.Pong(msg: _isDirty.ToString());
                 return _isDirty;
             }
             protected set => _isDirty = value;
@@ -77,7 +77,7 @@ namespace CoverageKiller2.DOM
 
         protected virtual bool CheckDirtyFor()
         {
-            return false;
+            return this.PingPong(() => false, msg: false.ToString());
         }
     }
 }

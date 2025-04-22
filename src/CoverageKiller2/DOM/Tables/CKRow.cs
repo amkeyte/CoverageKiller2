@@ -129,7 +129,7 @@ namespace CoverageKiller2.DOM.Tables
         {
             get
             {
-                this.Ping($"Calling down to {typeof(Base1List<int>).Name}");
+                this.Ping(msg: $"Calling down to {typeof(Base1List<int>).Name}");
 
                 var row = _rows_1[index];
                 this.Pong();
