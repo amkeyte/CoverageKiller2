@@ -95,30 +95,16 @@ namespace CoverageKiller2
         public async void OnRunProcessor(IRibbonControl control)
         {
             Log.Information("Running Process Loader");
-            try
-            {
-                CKDocument document = CKOffice_Word.Instance.AddInApp.ActiveDocument;
-
-
-
-
-
-                //if (Globals.ThisAddIn.Application.Documents.Count > 0)
-                //{
-                //    Word.Document wDoc = Globals.ThisAddIn.Application.ActiveDocument;
-                CkDocHelpers.TestProcessor(document);
-                //}
-                //else
-                //{
-                //    Log.Information("This was not a PCTELDoc report. Trying again...");
-                //    MessageBox.Show("Open a PCTEL Report document.");
-                //}
-                Log.Information("Process Complete");
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            //try
+            //{
+            CKDocument document = CKOffice_Word.Instance.AddInApp.ActiveDocument;
+            CkDocHelpers.TestProcessor(document);
+            Log.Information("Process Complete");
+            //}
+            //catch (Exception ex)
+            //{
+            //    throw ex;
+            //}
         }
 
         /// <summary>

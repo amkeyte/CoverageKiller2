@@ -91,7 +91,18 @@ namespace CoverageKiller2.DOM.Tables
             this.Pong();
             return result;
         }
+        public bool HasMerge
+        {
+            get
+            {
+                var result = _grid
+                    .Where(row => row != null)
+                    .SelectMany(row => row.Where(cell => cell != null))
+                    .Any(cell => cell.IsMergedCell);
 
+                return result;
+            }
+        }
 
         private CKTableGrid(CKTable parent)//, Word.Table table)
         {

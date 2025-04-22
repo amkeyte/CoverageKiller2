@@ -381,6 +381,8 @@ namespace CoverageKiller2.DOM.Tables
             throw new NotImplementedException();
         }
 
+        internal bool HasMerge => Grid.HasMerge;
+
         /// <summary>
         /// Provides conversion services for cell reference and grid mapping.
         /// </summary>

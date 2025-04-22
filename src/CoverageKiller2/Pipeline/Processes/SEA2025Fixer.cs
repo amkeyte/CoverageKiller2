@@ -3,17 +3,7 @@ using CoverageKiller2.DOM.Tables;
 using CoverageKiller2.Logging;
 using Serilog;
 using System;
-using System.Diagnostics;
 using System.Linq;
-
-///**************************
-///
-/// I am supressing this file to perform testing on the DOM.
-/// 
-/// 
-/// 
-/// 
-///**************************
 
 
 
@@ -276,13 +266,19 @@ namespace CoverageKiller2.Pipeline.Processes
                 LH.Checkpoint(TRSTable_ss, GetType());
 
                 var TRSTable = CKDoc.Tables
-                    .First(t =>
+                    .FirstOrDefault(t =>
                     CKTextHelper.ScrunchEquals(
-                        string.Join(string.Empty, t.Rows[2].Select(c => c.Text)),
-                        TRSTable_ss)); //throw if null ok
+                        string.Join(string.Empty, t.Rows[1].Select(c => c.Text)),
+                        TRSTable_ss));
 
-                if (Debugger.IsAttached) Debugger.Break();
+                if (TRSTable is null)
+                {
+                    Log.Debug(CKDoc.Tables
+                        .Select(t => t.ScrunchedText)
+                        .DumpString());
 
+                    throw new NullReferenceException("Table not found.");
+                }
                 TRSTable.Columns[7].Delete();
                 TRSTable.Columns[6].Delete();
                 TRSTable.Columns[5].Delete();

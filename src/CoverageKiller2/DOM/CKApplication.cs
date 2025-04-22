@@ -320,6 +320,7 @@ namespace CoverageKiller2.DOM
             {
                 WordApp.DisplayAlerts = Word.WdAlertLevel.wdAlertsNone;
                 WordApp.AutomationSecurity = Microsoft.Office.Core.MsoAutomationSecurity.msoAutomationSecurityForceDisable;
+                this.Pong(msg: "try");
 
                 return func();
             }
@@ -327,8 +328,8 @@ namespace CoverageKiller2.DOM
             {
                 WordApp.DisplayAlerts = originalAlerts;
                 WordApp.AutomationSecurity = originalSecurity;
+                this.Pong("finally");
             }
-            this.Pong();
         }
 
         /// <summary>

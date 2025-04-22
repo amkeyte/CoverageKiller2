@@ -239,12 +239,14 @@ namespace CoverageKiller2.DOM.Tables
             _cachedCells_1 = new Base1List<CKCell>(cells);
             CellRefrences = cells.Select(c => c.CellRef);
             Parent = parent;
+            IsDirty = false; //the cells were just dmped in!
         }
         public CKCells(IDOMObject parent) : base(parent)
         {
             _cachedCells_1 = new Base1List<CKCell>();
             CellRefrences = new List<CKCellRef>();
             Parent = parent;
+            IsDirty = true;
         }
 
 

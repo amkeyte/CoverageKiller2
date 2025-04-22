@@ -67,10 +67,68 @@ namespace CoverageKiller2.DOM.Tables
 
         public void Delete()
         {
-            this.PingPong("Deleting column!! (just kidding)");
-
+            var topCell = CellsList_1[1];
+            var table = topCell.Tables[1];
+            if (!table.HasMerge)
+            {
+                table.Columns[Index].Delete();
+            }
+            {
+                SlowDelete();
+            }
         }
 
+        /// <summary>
+        /// Deletes all non-merged cells in this column using the CKTable grid layout.
+        /// This is a fallback method when Word's native column deletion fails due to merged cells.
+        /// </summary>
+        /// <remarks>
+        /// Version: CK2.00.03.0001
+        /// </remarks>
+        public void SlowDelete()
+        {
+            this.Ping();
+
+            var table = CellRef.Table;
+            var grid = table.Grid;
+            var colIndex = CellRef.ColumnIndex;
+
+            //remove in reverse order
+            for (var i_1 = CellsList_1.Count; i_1 >= 1; i_1--)
+            {
+                var cell = CellsList_1[i_1];
+
+                if (cell.ColumnIndex == colIndex)
+                    cell.COMCell.Delete();
+            }
+            //TODO do something about the dirty grid.
+
+
+            //for (int rowIndex = 1; rowIndex <= grid.RowCount; rowIndex++)
+            //{
+            //    var gridCell = grid[rowIndex, colIndex];
+            //    if (gridCell == null) continue;
+
+            //    // Only delete master cells to avoid removing shared merged cells multiple times
+            //    if (gridCell.IsMasterCell && !gridCell.IsMerged)
+            //    {
+            //        try
+            //        {
+            //            var cellRef = new CKCellRef(rowIndex, colIndex, table, this);
+            //            var cell = table.GetCellFor(cellRef);
+            //            cell.Delete(); // Use the COM delete directly
+            //        }
+            //        catch (Exception ex)
+            //        {
+            //            Log.Warning($"Failed to delete cell at ({rowIndex},{colIndex}): {ex.Message}", ex);
+            //        }
+            //    }
+            //}
+
+            this.Pong();
+        }
+
+        public int Index => CellRef.Index;//keep an eye on this for concurrency
         public CKColCellRef CellRef { get; protected set; }
     }
 

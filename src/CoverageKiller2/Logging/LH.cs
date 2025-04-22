@@ -1,8 +1,10 @@
 ﻿using Serilog;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
+using System.Text;
 
 namespace CoverageKiller2.Logging
 
@@ -271,6 +273,27 @@ namespace CoverageKiller2.Logging
 
             return result;
         }
+        /// <summary>
+        /// Formats a sequence of strings into a multiline string with optional line numbering and prefix.
+        /// </summary>
+        /// <param name="lines">The sequence of strings to format.</param>
+        /// <param name="prefix">Optional prefix to apply to each line.</param>
+        /// <param name="includeIndex">If true, include line numbers starting at 1.</param>
+        /// <returns>A single formatted string.</returns>
+        public static string DumpString(this IEnumerable<string> lines, string prefix = "", bool includeIndex = false)
+        {
+            if (lines == null) return string.Empty;
 
+            var sb = new StringBuilder();
+            int i = 1;
+            foreach (var line in lines)
+            {
+                if (includeIndex)
+                    sb.AppendLine($"{prefix}{i++:D2}: {line}");
+                else
+                    sb.AppendLine($"{prefix}{line}");
+            }
+            return sb.ToString();
+        }
     }
 }
