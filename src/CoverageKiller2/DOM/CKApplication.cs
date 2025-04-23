@@ -108,33 +108,32 @@ namespace CoverageKiller2.DOM
         /// <summary>
         /// Closes and removes the specified document.
         /// </summary>
+        /// <param name="doc">The document to close.</param>
+        /// <param name="force">If true, attempts a force-close. Ignored if KeepAlive is true.</param>
+        /// <returns>True if the document was closed and removed; otherwise, false.</returns>
         public bool CloseDocument(CKDocument doc, bool force = false)
         {
             if (doc == null || !_documents.Contains(doc))
                 return false;
+
             if (doc.KeepAlive)
             {
-                Log.Warning($"Document {doc.FileName} was requested to close, but KeepAlive is true.");
+                Log.Warning($"Document {doc.FileName} was requested to close (force={force}), but KeepAlive is true. Aborting close.");
                 return false;
             }
+
             try
             {
-                if (force && _comDocs.TryGetValue(doc, out var comDoc))
+                if (_comDocs.TryGetValue(doc, out var comDoc))
                 {
                     try
                     {
-                        if (doc.KeepAlive)
-                        {
-                            doc.KeepAlive = false;
-                            Log.Warning($"Document {doc.FileName} was requested to close." +
-                                $" KeepAlive is true, but was overriden by Force-close.");
-                        }
                         comDoc.Saved = true;
                         comDoc.Close(SaveChanges: false);
                     }
                     catch (Exception ex)
                     {
-                        Log.Warning("Force-close failed on COM document: {Message}", ex.Message);
+                        Log.Warning("Close failed on COM document: {Message}", ex.Message);
                     }
                 }
                 else
@@ -143,8 +142,6 @@ namespace CoverageKiller2.DOM
                 }
 
                 doc.Dispose(); // Calls UntrackDocument internally
-                //_documents.Remove(doc);
-                //_comDocs.Remove(doc);
 
                 Log.Information("Document closed and removed from tracking: {FileName}", doc.FileName);
                 return true;

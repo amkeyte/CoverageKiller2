@@ -163,7 +163,7 @@ namespace CoverageKiller2.DOM.Tables
                     }
                     else if (cell.IsGhostCell)
                     {
-                        line = $"[???]";
+                        line = $"G[???]";
                     }
                     else
                     {
@@ -297,7 +297,7 @@ namespace CoverageKiller2.DOM.Tables
 
 
 
-            Log.Verbose(DumpList(rowTexts, "\nRow Texts"));
+            Log.Debug(DumpList(rowTexts, $"{nameof(ParseTableText)}\nRow Texts"));
 
 
             foreach (var row in rowTexts)
@@ -331,10 +331,7 @@ namespace CoverageKiller2.DOM.Tables
                 }
 
             }
-
-            //result.Where(r => !r.Any())
-            //    .Reverse().ToList()
-            //    .ForEach(r => result.RemoveAt(result.IndexOf(r)));
+            Log.Debug(DumpGrid(result, $"\n{nameof(ParseTableText)}-result"));
 
             this.Pong();
 
@@ -415,10 +412,11 @@ namespace CoverageKiller2.DOM.Tables
 
                     int span = Math.Max(1, (int)Math.Round(cell.Width / normalWidth));
 
-                    for (int i = 1; i < span; i++)
+                    for (int i = 1; i < span; i++)//for one cell, span is 1. 
                     {
                         newRow.Add(new MergedGridCell5(cell.RowIndex + rowOffset, cell.ColumnIndex + i, newCell));
                     }
+                    span = 0;
 
                 }
                 //insert cells to fill out row
@@ -429,7 +427,7 @@ namespace CoverageKiller2.DOM.Tables
                 newRow.Add(new RowEndGridCell5());
                 newGrid.Add(newRow);
             }
-            Log.Debug(DumpGrid(newGrid));
+            Log.Debug(DumpGrid(newGrid, $"\n{nameof(NormalizeByWidth)}-{nameof(newGrid)}"));
 
             _grid = newGrid;
             this.Pong();
@@ -462,12 +460,19 @@ namespace CoverageKiller2.DOM.Tables
             // set the table width to make.
             COMTable.PreferredWidthType = Word.WdPreferredWidthType.wdPreferredWidthPercent;
             COMTable.PreferredWidth = 100f;
-
-            int cellCounter = 1;
-            foreach (Word.Cell cell in COMRange.Cells)
+            //get the longest row (assuming to have all the columns)
+            var longestRow = GetMasterGrid(COMTable)
+                .OrderByDescending(r => r.Count)
+                .FirstOrDefault();
+            //~78 X's will fit across the page. by cleaning out all content, then stuffing each cell full 
+            //to word wrap, it should autosize each column an equal width.
+            //this will help avoid a trap where autosze can be inconsistent causing phantom hits
+            // on the width/span algorythm.
+            string cellStretcher = new string('X', 100 / longestRow.Count);
+            COMRange.Text = string.Empty;
+            foreach (Word.Cell cell in longestRow)
             {
-                //TODO very slow
-                cell.Range.Text = cellCounter++.ToString();
+                cell.Range.Text = cellStretcher;
             }
 
             this.Pong();
@@ -503,7 +508,7 @@ namespace CoverageKiller2.DOM.Tables
                 }
                 result.Add(list);
             }
-            Log.Debug(DumpGrid(result));
+            Log.Debug(DumpGrid(result, $"\n{nameof(GetMasterGrid)}-result"));
 
             this.Pong();
 
@@ -599,8 +604,8 @@ namespace CoverageKiller2.DOM.Tables
 
 
 
-            Log.Debug(GridCrawler5.DumpGrid(textGrid));
-            Log.Debug(GridCrawler5.DumpGrid(normalizedGrid));
+            Log.Debug(GridCrawler5.DumpGrid(textGrid, $"{nameof(CrawlVertically)}-{nameof(textGrid)}"));
+            Log.Debug(GridCrawler5.DumpGrid(normalizedGrid, $"{nameof(CrawlVertically)}-{nameof(normalizedGrid)}"));
 
             this.Pong();
 
@@ -622,8 +627,7 @@ namespace CoverageKiller2.DOM.Tables
             textGrid = textGrid ?? _textGrid;
             normalizedGrid = normalizedGrid ?? _grid;
 
-            Log.Debug(DumpGrid(textGrid));
-            Log.Debug(DumpGrid(normalizedGrid));
+
 
 
             var normalizedRowCount = normalizedGrid.LargestRowCount;
@@ -697,8 +701,9 @@ namespace CoverageKiller2.DOM.Tables
             _textGrid = textGrid;
             _grid = normalizedGrid;
 
-            Log.Debug(GridCrawler5.DumpGrid(textGrid));
-            Log.Debug(GridCrawler5.DumpGrid(normalizedGrid));
+
+            Log.Debug(GridCrawler5.DumpGrid(textGrid, $"{nameof(CrawlHoriz)}-{nameof(textGrid)}"));
+            Log.Debug(GridCrawler5.DumpGrid(normalizedGrid, $"{nameof(CrawlHoriz)}-{nameof(normalizedGrid)}"));
 
             this.Pong();
 
@@ -731,6 +736,7 @@ namespace CoverageKiller2.DOM.Tables
         private int _analyzeTableRecursivelyDepth = 0;
         public Base1JaggedList<GridCell5> AnalyzeTableRecursively(Word.Table table = null, int rowOffset = 0)
         {
+            this.Ping();
             table = table ?? _COMTable;
             if (table == null) throw new ArgumentNullException(nameof(table));
             Log.Debug($"Analyzing table at position {table.Range.Start}, rowOffset = {rowOffset}");
@@ -750,7 +756,7 @@ namespace CoverageKiller2.DOM.Tables
             if (!hasMerges)
             {
                 Log.Debug("No merges detected. Using fast GridCell5 crawl.");
-                return BuildFastGridFromTable(table, rowOffset);
+                return this.Pong(() => BuildFastGridFromTable(table, rowOffset));
             }
 
             int cellCount = table.Range.Cells.Count;
@@ -766,14 +772,14 @@ namespace CoverageKiller2.DOM.Tables
                     var firstGrid = AnalyzeTableRecursively(first, rowOffset);
                     var secondGrid = AnalyzeTableRecursively(second, rowOffset + splitRow - 1);
 
-                    return MergeGrids(firstGrid, secondGrid);
+                    return this.Pong(() => MergeGrids(firstGrid, secondGrid));
                 }
                 catch (Exception ex)
                 {
                     Log.Warning("Failed to split table. Falling back to slow crawl. " + ex.Message);
                     var result = BuildSlowGridFromTable(table, rowOffset);
                     --_analyzeTableRecursivelyDepth;
-                    return result;
+                    return this.Pong(() => result);
                 }
             }
             else
@@ -781,7 +787,7 @@ namespace CoverageKiller2.DOM.Tables
                 Log.Debug("Table is small. Using slow full crawl.");
                 var result = BuildSlowGridFromTable(table, rowOffset);
                 --_analyzeTableRecursivelyDepth;
-                return result;
+                return this.Pong(() => result);
             }
         }
 
@@ -790,6 +796,7 @@ namespace CoverageKiller2.DOM.Tables
             var merged = new Base1JaggedList<GridCell5>();
             foreach (var row in g1) merged.Add(row);
             foreach (var row in g2) merged.Add(row);
+
             return merged;
         }
 
@@ -813,12 +820,16 @@ namespace CoverageKiller2.DOM.Tables
                 grid.Add(row);
             }
 
+            //debug tagging
+            table.Range.Cells[1].Range.Text = "FGC";
+
             return grid;
         }
 
 
         public Base1JaggedList<GridCell5> BuildSlowGridFromTable(Word.Table table, int rowOffset = 0)
         {
+            this.Ping();
             if (table == null) throw new ArgumentNullException(nameof(table));
 
             var clonedTable = PrepareTable();
@@ -828,7 +839,7 @@ namespace CoverageKiller2.DOM.Tables
             var horizGrid = CrawlHoriz(textGrid, normalGrid);
             var vertGrid = CrawlVertically(rowOffset, textGrid, normalGrid);
 
-            return vertGrid;
+            return this.Pong(() => vertGrid);
         }
 
 

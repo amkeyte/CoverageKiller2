@@ -244,11 +244,8 @@
     <Compile Include="DOM\Tables\CKTableGrid.cs" />
     <Compile Include="DOM\CKParagraphs.cs" />
     <Compile Include="DOM\CKRange.cs" />
+    <Compile Include="DOM\Tables\CKTables.cs" />
     <Compile Include="DOM\Tables\ShadowWorkSpace.cs" />
-    <Compile Include="DOM\Tables\TableGridCrawler.cs" />
-    <Compile Include="DOM\Tables\TableGridCrawler2.cs" />
-    <Compile Include="DOM\Tables\TableGridCrawler3.cs" />
-    <Compile Include="DOM\Tables\TableGridCrawler4.cs" />
     <Compile Include="DOM\Tables\TableGridCrawler5.cs" />
     <Compile Include="DOM\WordInteropExtensions.cs" />
     <Compile Include="ExceptionDetail.cs" />

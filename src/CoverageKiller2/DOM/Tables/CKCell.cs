@@ -14,25 +14,25 @@ namespace CoverageKiller2.DOM.Tables
         IDOMObject Parent { get; }
     }
 
-    [Obsolete]
-    public class CellRefs : IEnumerable<CKCellRef>
-    {
-        public CellRefs(IEnumerable<CKCellRef> cellRefs, IDOMObject parent)
-        {
-            _cellRefs = cellRefs.ToList();
-            Parent = parent;
+    //[Obsolete]
+    //public class CellRefs : IEnumerable<CKCellRef>
+    //{
+    //    public CellRefs(IEnumerable<CKCellRef> cellRefs, IDOMObject parent)
+    //    {
+    //        _cellRefs_0 = cellRefs.ToList();
+    //        Parent = parent;
 
-        }
-        private List<CKCellRef> _cellRefs;
-        public int Count => _cellRefs.Count;
-        public IDOMObject Parent { get; }
+    //    }
+    //    private List<CKCellRef> _cellRefs_0;
+    //    public int Count => _cellRefs_0.Count;
+    //    public IDOMObject Parent { get; }
 
-        public IEnumerator<CKCellRef> GetEnumerator() => _cellRefs.GetEnumerator();
+    //    public IEnumerator<CKCellRef> GetEnumerator() => _cellRefs_0.GetEnumerator();
 
 
-        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+    //    IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
-    }
+    //}
     /// <summary>
     /// Represents a reference to a cell or group of cells within a Word table.
     /// </summary>
@@ -205,7 +205,7 @@ namespace CoverageKiller2.DOM.Tables
     public class CKCells : ACKRangeCollection, IEnumerable<CKCell>
     {
 
-        public IEnumerable<CKCellRef> CellRefrences { get; protected set; }
+        public IEnumerable<CKCellRef> CellRefrences_1 { get; protected set; }
 
         /// <summary>
         /// Broken for Rows
@@ -218,7 +218,7 @@ namespace CoverageKiller2.DOM.Tables
                 if (_cachedCells_1.Count == 0 || IsDirty)
                 {
                     _cachedCells_1 = new Base1List<CKCell>();
-                    foreach (var cellRef in CellRefrences)
+                    foreach (var cellRef in CellRefrences_1)
                     {
                         _cachedCells_1.Add(new CKCell(cellRef));
                     }
@@ -237,14 +237,14 @@ namespace CoverageKiller2.DOM.Tables
         public CKCells(IEnumerable<CKCell> cells, IDOMObject parent) : base(parent)
         {
             _cachedCells_1 = new Base1List<CKCell>(cells);
-            CellRefrences = cells.Select(c => c.CellRef);
+            CellRefrences_1 = new Base1List<CKCellRef>(cells.Select(c => c.CellRef));
             Parent = parent;
             IsDirty = false; //the cells were just dmped in!
         }
         public CKCells(IDOMObject parent) : base(parent)
         {
             _cachedCells_1 = new Base1List<CKCell>();
-            CellRefrences = new List<CKCellRef>();
+            CellRefrences_1 = new Base1List<CKCellRef>();
             Parent = parent;
             IsDirty = true;
         }

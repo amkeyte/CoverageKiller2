@@ -1,4 +1,5 @@
-﻿using CoverageKiller2.DOM;
+﻿
+using CoverageKiller2.DOM;
 using CoverageKiller2.Logging;
 using System;
 using System.IO;
@@ -17,6 +18,7 @@ namespace CoverageKiller2.Test
     {
         private static CKApplication _sharedApp;
         public static string TestFile1 = "C:\\Users\\akeyte.PCM\\source\\repos\\CoverageKiller2\\src\\CoverageKiller2_Tests\\TestFiles\\SEA Garage (Noise Floor)_Test3.docx";
+        public static string TestFile2 = "C:\\Users\\akeyte.PCM\\source\\repos\\CoverageKiller2\\src\\CoverageKiller2_Tests\\TestFiles\\SEA Garage (CC) Short.docx";
 
         static RandomTestHarness()
         {

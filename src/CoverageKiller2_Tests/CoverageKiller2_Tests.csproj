@@ -94,6 +94,8 @@
     <Compile Include="DOM\CKRangeTests.cs" />
     <Compile Include="DOM\CKSectionsTests.cs" />
     <Compile Include="DOM\CKSectionTests.cs" />
+    <Compile Include="DOM\Tables\CKColumnTests.cs" />
+    <Compile Include="DOM\Tables\CKRowTests.cs" />
     <Compile Include="DOM\Tables\CKTableGridTests.cs" />
     <Compile Include="DOM\Tables\CKTablesTests.cs" />
     <Compile Include="DOM\Tables\CKTableTests.cs" />
@@ -101,12 +103,10 @@
     <Compile Include="DOM\RangeSnapshotTests.cs" />
     <Compile Include="DOM\Tables\CrawlBenchmarkTests.cs" />
     <Compile Include="DOM\Tables\GridCrawler5Tests.cs" />
-    <Compile Include="DOM\Tables\TableGridCrawler4Tests.cs" />
-    <Compile Include="DOM\Tables\TableGridCrawlerTests.cs" />
     <Compile Include="DOM\Tables\ShadowWorkspaceTests.cs" />
-    <Compile Include="DOM\Tables\TableGridCrawler3Tests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RandomTestHarness.cs" />
+    <Compile Include="Scenarios\DebugScenariosTests.cs" />
     <Compile Include="TestHelpers.cs" />
     <Compile Include="TestSetup.cs" />
   </ItemGroup>

@@ -1,9 +1,7 @@
 ﻿
 using CoverageKiller2.Logging;
 using Serilog;
-using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using Word = Microsoft.Office.Interop.Word;
@@ -13,7 +11,7 @@ namespace CoverageKiller2.DOM.Tables
 {
     public class CKTableGrid
     {
-        private static Dictionary<CKTable, CKTableGrid> _tableGrids = new Dictionary<CKTable, CKTableGrid>();
+        private static Dictionary<string, CKTableGrid> _tableGrids = new Dictionary<string, CKTableGrid>();
         //private CKTable _ckTable;
         //private Word.Table _comTable;
         internal Base1JaggedList<GridCell5> _grid;
@@ -25,30 +23,54 @@ namespace CoverageKiller2.DOM.Tables
 
         public static CKTableGrid GetInstance(CKTable ckTable, Word.Table comTable)
         {
-            var bypassDebug = true;
-            if (!bypassDebug)
+            LH.Ping<CKTableGrid>();
+            var tableId = $"{ckTable.Document.FileName}::{ckTable.Snapshot.FastHash}";
+            Log.Debug($"Getting CKTableGrid Instance for table {tableId}");
+
+            //_tableGrids.Keys.Where(r => r.IsOrphan).ToList()
+            //    .ForEach(r => _tableGrids.Remove(r));
+
+            if (_tableGrids.TryGetValue(tableId, out CKTableGrid grid))
             {
-                int tableNum = ckTable.Document.Tables.IndexOf(ckTable);
-                Log.Debug($"Getting CKTableGrid Instance for table {tableNum}" +
-                    $" of {ckTable.Document.Tables.Count} from document '{ckTable.Document.FileName}'");
+                LH.Pong<CKTableGrid>();
 
-                if (tableNum == -1 && Debugger.IsAttached) Debugger.Break();
-
-            }
-
-            _tableGrids.Keys.Where(r => r.IsOrphan).ToList()
-                .ForEach(r => _tableGrids.Remove(r));
-
-            if (_tableGrids.TryGetValue(ckTable, out CKTableGrid grid))
-            {
                 return grid;
             }
 
             Log.Debug($"Grid Instance not found for table; creating new.");
             grid = new CKTableGrid(ckTable);//, comTable);
-            _tableGrids.Add(ckTable, grid);
+            _tableGrids.Add(tableId, grid);
+            LH.Ping<CKTableGrid>();
 
             return grid;
+        }
+        internal IEnumerable<GridCell5> GetMergedCells(CKGridCellRef gridRef)
+        {
+            Log.Debug($"MergedCells requested for: [{gridRef.RowMin}:{gridRef.ColMin}] to [{gridRef.RowMax}:{gridRef.ColMax}]");
+
+            var result = new List<GridCell5>();
+
+            for (int row_1 = gridRef.RowMin; row_1 <= gridRef.RowMax; row_1++)
+            {
+                if (row_1 < 1 || row_1 > RowCount) continue;
+
+                var currentRow = _grid[row_1];
+                for (int col = gridRef.ColMin; col <= gridRef.ColMax; col++)
+                {
+                    if (col < 1 || col > currentRow.Count) continue;
+
+                    var cell = currentRow[col];
+
+                    Log.Verbose($"Inspecting cell at [{row_1},{col}]: type={cell.GetType().Name}");
+
+                    if (cell.IsMergedCell)
+                    {
+                        result.Add(cell);
+                    }
+                }
+            }
+
+            return result;
         }
 
         /// <summary>
@@ -58,26 +80,29 @@ namespace CoverageKiller2.DOM.Tables
         /// <returns>An enumerable of <see cref="GridCell5"/> instances that are master cells within the specified bounds.</returns>
         internal IEnumerable<GridCell5> GetMasterCells(CKGridCellRef gridRef)
         {
-            this.Ping();
-            Log.Debug($"MasterCell requested: [{gridRef.RowMin}:{gridRef.ColMin}] to [{gridRef.RowMin}:{gridRef.ColMax}]");
+            Log.Debug($"MasterCells requested for: [{gridRef.RowMin}:{gridRef.ColMin}] to [{gridRef.RowMin}:{gridRef.ColMax}]");
 
             var result = new List<GridCell5>();
 
-            for (int row = gridRef.RowMin; row <= gridRef.RowMax; row++)
+            for (int row_1 = gridRef.RowMin; row_1 <= gridRef.RowMax; row_1++)
             {
-                if (row < 1 || row > _grid.Count) continue;
+                if (row_1 < 1 || row_1 > RowCount) continue;
 
-                var currentRow = _grid[row];
+                var currentRow = _grid[row_1];
                 for (int col = gridRef.ColMin; col <= gridRef.ColMax; col++)
                 {
                     if (col < 1 || col > currentRow.Count) continue;
 
                     var cell = currentRow[col];
 
-                    Log.Verbose($"Inspecting cell at [{row},{col}]: type={cell.GetType().Name}, master={cell.IsMasterCell}");
+                    Log.Verbose($"Inspecting cell at [{row_1},{col}]: type={cell.GetType().Name}");
                     if (cell.IsMasterCell)
                     {
                         result.Add(cell);
+                    }
+                    else if (cell.IsMergedCell)
+                    {
+                        result.Add(cell.MasterCell);
                     }
                 }
             }
@@ -85,13 +110,12 @@ namespace CoverageKiller2.DOM.Tables
             Log.Debug($"Found {result.Count} master cells.");
             if (!result.Any())
             {
-                if (Debugger.IsAttached) Debugger.Break();
-                throw new Exception("No master cells found.");
+                throw new CKDebugException("No master cells found.");
             }
             this.Pong();
             return result;
         }
-        public bool HasMerge
+        public bool HasMerge//TODO cache this someday
         {
             get
             {
@@ -127,7 +151,7 @@ namespace CoverageKiller2.DOM.Tables
             var x = shadowWorkspace.Document.Content.CollapseToEnd();
             x.COMRange.InsertAfter("\r\r\r");
             //put the one to format
-            var clonedTable = shadowWorkspace.CloneFrom(sourceTable);
+            var clonedTable = shadowWorkspace.CloneFrom(sourceTable, x.CollapseToEnd());
             //var grid = GetMasterGrid(clonedTable);
             //Log.Debug(GridCrawler5.DumpGrid(grid));
 

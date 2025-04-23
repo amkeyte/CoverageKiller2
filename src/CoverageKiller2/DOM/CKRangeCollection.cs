@@ -4,12 +4,15 @@ using System.Diagnostics;
 
 namespace CoverageKiller2.DOM
 {
+
     public abstract class ACKRangeCollection : IDOMObject
     {
         protected ACKRangeCollection(IDOMObject parent)
         {
             Parent = parent ?? throw new ArgumentNullException(nameof(parent));
         }
+
+
 
         public abstract int IndexOf(object obj);
 

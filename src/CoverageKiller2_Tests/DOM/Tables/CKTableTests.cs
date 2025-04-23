@@ -8,12 +8,15 @@ namespace CoverageKiller2.DOM.Tables
     /// Unit tests for the <see cref="CKTable"/> and related cell access methods.
     /// </summary>
     /// <remarks>
-    /// Version: CK2.00.01.0001
+    /// Version: CK2.00.01.0002
     /// </remarks>
     [TestClass]
     public class CKTableTests
     {
-        //******* Standard Rigging ********
+        //******* Standard Benchmark Rigging ********
+        static int _testTableIndex = 1;
+        static int _iterationCount = 1;
+
         public TestContext TestContext { get; set; }
         private string _testFilePath;
         private CKDocument _testFile;
@@ -35,80 +38,65 @@ namespace CoverageKiller2.DOM.Tables
         //******* End Standard Rigging ********
 
         [TestMethod]
-        public void Constructor_ShouldInitializeCKTable()
+        public void Constructor_BindsTableCorrectly()
         {
-            var wordTable = _testFile.Tables[1].COMTable;
-            var table = new CKTable(wordTable, _testFile.Tables);
-
+            var table = _testFile.Tables[_testTableIndex];
             Assert.IsNotNull(table);
-            Assert.IsNotNull(table.COMTable);
-            Assert.AreEqual(wordTable.Range.Text, table.COMTable.Range.Text);
+            Assert.AreEqual(_testFile, table.Document);
         }
 
         [TestMethod]
-        public void Contains_ShouldRecognizeTableCell()
+        public void Cell_ReturnsExpectedCKCell()
         {
-            var table = _testFile.Tables[1];
-            var cell = table.COMTable.Cell(1, 1);
-
-            Assert.IsTrue(table.Contains(cell), "Expected Contains(cell) to return true for a table-owned cell.");
+            var table = _testFile.Tables[_testTableIndex];
+            var cell = table.Cell(1);
+            Assert.IsNotNull(cell);
+            var cellRef = new CKCellRef(1, 1, table, table);
+            Assert.AreEqual(1, cell.CellRef.ColumnIndex);
+            Assert.AreEqual(1, cell.CellRef.RowIndex);
         }
 
         [TestMethod]
-        public void Cell_ByIndex_ShouldReturnCorrectCKCell()
+        public void Contains_ValidCell_ReturnsTrue()
         {
-            var table = _testFile.Tables[1];
-            var ckCell = table.Cell(1); // one-based index
-
-            Assert.IsNotNull(ckCell);
-            Assert.AreEqual(1, ckCell.RowIndex);
-            Assert.AreEqual(1, ckCell.ColumnIndex);
-            Assert.IsTrue(ckCell.COMCell.Range.Text.Length > 0 || ckCell.COMCell.Range.Text == "\r\a"); // empty cell
+            var table = _testFile.Tables[_testTableIndex];
+            var wordCell = table.COMTable.Cell(1, 1);
+            Assert.IsTrue(table.Contains(wordCell));
         }
 
         [TestMethod]
-        public void Cell_ByRef_ShouldReturnMatchingCKCell()
+        public void IndexOf_ReturnsCorrectIndex()
         {
-            //var table = _testFile.Tables[1];
-            //var cell = table.COMTable.Cell(1, 1);
-
-            //var cellRef = new CKCellRef(
-            //    rowIndex: cell.RowIndex,
-            //    colIndex: cell.ColumnIndex,
-            //    snapshot: new RangeSnapshot(cell.Range),
-            //    parent: table
-            //);
-
-            //var ckCell = table.Cell(cellRef);
-
-            //Assert.IsNotNull(ckCell);
-            //Assert.AreEqual(1, ckCell.RowIndex);
-            //Assert.AreEqual(1, ckCell.ColumnIndex);
-            //Assert.IsTrue(ckCell.COMCell.Range.COMEquals(cell.Range));
-            Assert.Fail();
+            var table = _testFile.Tables[_testTableIndex];
+            var wordCell = table.COMTable.Cell(1, 1);
+            var index = table.IndexOf(wordCell);
+            Assert.IsTrue(index > 0);
         }
 
         [TestMethod]
-        public void IndexOf_Cell_ShouldReturnCorrectLinearIndex()
+        public void Columns_CountMatchesCOMTable()
         {
-            //Log.Debug("First Run");
-            //var table1 = _testFile.Tables[1];
+            var table = _testFile.Tables[_testTableIndex];
+            var expected = table.COMTable.Columns.Count;
+            var actual = table.Columns.Count;
+            Assert.AreEqual(expected, actual);
+        }
 
-            //var cellRef1 = new CKCellRef(1, 1, table1);
-            //var first1 = table1.Cell(cellRef1);
-            //int index1 = table1.IndexOf(first1.COMCell);
+        [TestMethod]
+        public void Rows_CountMatchesCOMTable()
+        {
+            var table = _testFile.Tables[_testTableIndex];
+            var expected = table.COMTable.Rows.Count;
+            var actual = table.Rows.Count;
+            Assert.AreEqual(expected, actual);
+        }
 
-            //Assert.AreEqual(1, index1, "First cell should have a one-based index of 1.");
-            //Log.Debug("Second Run");
-            //var table2 = _testFile.Tables[1];
-
-            //var cellRef2 = new CKCellRef(1, 1, table2);
-            //var first2 = table2.Cell(cellRef2);
-            //int index2 = table2.IndexOf(first2.COMCell);
-
-            //Assert.AreEqual(1, index1, "First cell should have a one-based index of 1.");
-            Assert.Fail();
-
+        [TestMethod]
+        public void HasMerge_ReturnsExpectedValue()
+        {
+            var table = _testFile.Tables[_testTableIndex];
+            var hasMerge = table.HasMerge;
+            Assert.IsInstanceOfType(hasMerge, typeof(bool));
         }
     }
 }

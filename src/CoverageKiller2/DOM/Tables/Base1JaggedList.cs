@@ -133,9 +133,12 @@ namespace CoverageKiller2.DOM.Tables
         {
             get
             {
+
                 if (index < 1) throw new ArgumentException("Index is 1 based.");
                 if (index > Count) throw new ArgumentOutOfRangeException(nameof(index));
+                //Log.Debug($" Base1List has item count: {_items_0.Count}; trying to pull index {index} #########################################");
                 return _items_0[index - 1];
+
             }
         }
 

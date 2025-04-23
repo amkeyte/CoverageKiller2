@@ -1,10 +1,40 @@
 ﻿using CoverageKiller2.DOM;
-using CoverageKiller2.Logging;
-using Serilog;
-using System;
-
 namespace CoverageKiller2
 {
+
+    //    stupid addin won't activate now
+
+    //options -> addins -> manage com -> checkmark won't stay checked.
+
+
+    //ChatGPT said:
+    //That's a classic and frustrating VSTO issue — let’s walk through what usually causes that "checkmark won’t stay checked" behavior, and how to fix it.
+
+    //🔧 Step-by-Step Fix Checklist
+    //✅ 1. Check for Startup Errors
+    //Word disables add-ins that throw during Startup.
+
+    //Even logging failures, async code, or file locks can trigger this.
+
+    //🛠️ Fix:
+
+    //Open Windows Registry Editor (regedit)
+
+    //Go to:
+
+    //php-template
+    //Copy
+    //Edit
+    //HKEY_CURRENT_USER\Software\Microsoft\Office\<version>\Word\Resiliency\DisabledItems
+    //Delete the binary value related to your add-in (or all if you're not sure)
+
+    //Then try re-checking the box in Word → COM Add-ins.
+
+
+
+
+
+
     /// <summary>
     /// The main class for the VSTO add-in. Handles initialization, shutdown,
     /// and custom ribbon functionality for the Word add-in.
@@ -21,33 +51,15 @@ namespace CoverageKiller2
         /// <param name="e">Event arguments.</param>
         private async void ThisAddIn_Startup(object sender, System.EventArgs e)
         {
-            try
-            {
-                //ThisAddin is hijacking CKOffice in a new process it seems. remove comment to return
 
-                if (!CKOffice_Word.IsTest) //kinda hacky. ThisAddin is hijacking CKOffice in a new process it seems.
-                {
 
-                    var OfficeWord = CKOffice_Word.Instance;
-                    OfficeWord.Start();
-                    OfficeWord.TryPutAddin(this);
-                    LogExpertLoader.StartLogExpert(LoggingLoader.LogFile, true);
-                    //string logFile = LogTailLoader.GetLogFile();
-                    //LoggingLoader.Configure(logFile, Serilog.Events.LogEventLevel.Debug);
+            //var OfficeWord = CKOffice_Word.Instance;
+            //OfficeWord.Start();
+            //OfficeWord.TryPutAddin(this);
+            //LogExpertLoader.StartLogExpert(LoggingLoader.LogFile, true);
 
-                    ////debugging the big hangup.
-                    ////LogTailLoader.StartBareTail(logFile);
+            //Log.Information("ThisAddIn started.");
 
-                    //Log.Debug("Logging started: Level {logEventLevel}", LoggingLoader.Level);
-                    Log.Information("ThisAddIn started.");
-                }
-            }
-            catch (Exception ex)
-            {
-
-                throw ex;
-
-            }
         }
 
         /// <summary>
@@ -90,6 +102,7 @@ namespace CoverageKiller2
         /// </summary>
         private void InternalStartup()
         {
+
             this.Startup += new System.EventHandler(ThisAddIn_Startup);
             this.Shutdown += new System.EventHandler(ThisAddIn_Shutdown);
         }

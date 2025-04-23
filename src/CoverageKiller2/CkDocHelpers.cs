@@ -98,87 +98,81 @@ namespace CoverageKiller2
         public static void TestProcessor(CKDocument document)
         {
             LH.Ping<CkDocHelpers>();
-            try
+
+            string configPath = SelectConfigFile();
+            if (string.IsNullOrEmpty(configPath))
             {
-                string configPath = SelectConfigFile();
-                if (string.IsNullOrEmpty(configPath))
+                Log.Warning("No file selected. Aborting.");
+                return;
+            }
+            var _loader = new ProcessorConfigLoader();
+            bool success = _loader.LoadConfig(configPath);
+
+            if (success)
+            {
+                Log.Information($"Processor Name: {_loader.ProcessorConfig.Name}");
+                Log.Information($"Description: {_loader.ProcessorConfig.Description}");
+                Log.Information($"Source Template: {_loader.ProcessorConfig.SourceTemplate}");
+
+                foreach (var step in _loader.ProcessorConfig.Pipeline.Steps.StepList)
                 {
-                    Log.Warning("No file selected. Aborting.");
-                    return;
+                    Log.Information($"Step: {step.Name}");
                 }
-                var _loader = new ProcessorConfigLoader();
-                bool success = _loader.LoadConfig(configPath);
 
-                if (success)
-                {
-                    Log.Information($"Processor Name: {_loader.ProcessorConfig.Name}");
-                    Log.Information($"Description: {_loader.ProcessorConfig.Description}");
-                    Log.Information($"Source Template: {_loader.ProcessorConfig.SourceTemplate}");
-
-                    foreach (var step in _loader.ProcessorConfig.Pipeline.Steps.StepList)
-                    {
-                        Log.Information($"Step: {step.Name}");
-                    }
-
-                    //var ckDoc = new CKDocument(document);
-                    var template = IndoorReportTemplate.OpenResource(document.Application);
-                    Dictionary<string, object> initVars = new Dictionary<string, object>
+                //var ckDoc = new CKDocument(document);
+                var template = IndoorReportTemplate.OpenResource(document.Application);
+                Dictionary<string, object> initVars = new Dictionary<string, object>
                     {
                         { nameof(document), document },
                         { nameof(template), template },
                         { nameof(_loader.ProcessorConfig), _loader.ProcessorConfig }
                     };
 
-                    var pipeline = new CKWordPipeline(initVars);
-                    foreach (var x in _loader.ProcessorConfig.Pipeline.Steps.StepList)
-                    {
-                        Log.Debug("var x in _loader...");
-                        // Get the step class type dynamically using reflection
-                        Type stepType = Type.GetType($"{x.Namespace}.{x.Name}");
-
-                        if (stepType == null)
-                        {
-                            Log.Error($"Step type '{x.Name}' not found.");
-                            continue;
-                        }
-
-                        try
-                        {
-                            Log.Debug("trying...");
-                            // Assuming the constructor takes an instance of IndoorReportTemplate
-                            CKWordPipelineProcess instance =
-                                (CKWordPipelineProcess)Activator.CreateInstance(stepType);
-                            pipeline.Add(instance);
-                            Log.Information($"Successfully created instance of {x.Name}");
-                        }
-                        catch (Exception ex)
-                        {
-                            Log.Error($"Error creating instance of {x.Name}: {ex.Message}");
-
-
-                            if (Debugger.IsAttached) Debugger.Break();
-                        }
-                    }
-                    pipeline.Run();
-                    Log.Information("Pipeline completed.");
-
-                    document.Application.CloseDocument(template);
-
-
-                }
-                else
+                var pipeline = new CKWordPipeline(initVars);
+                foreach (var x in _loader.ProcessorConfig.Pipeline.Steps.StepList)
                 {
-                    Log.Error("Failed to load processor configuration.");
+                    Log.Debug("var x in _loader...");
+                    // Get the step class type dynamically using reflection
+                    Type stepType = Type.GetType($"{x.Namespace}.{x.Name}");
+
+                    if (stepType == null)
+                    {
+                        Log.Error($"Step type '{x.Name}' not found.");
+                        continue;
+                    }
+
+                    try
+                    {
+                        Log.Debug("trying...");
+                        // Assuming the constructor takes an instance of IndoorReportTemplate
+                        CKWordPipelineProcess instance =
+                            (CKWordPipelineProcess)Activator.CreateInstance(stepType);
+                        pipeline.Add(instance);
+                        Log.Information($"Successfully created instance of {x.Name}");
+                    }
+                    catch (Exception ex)
+                    {
+                        Log.Error($"Error creating instance of {x.Name}: {ex.Message}");
+
+
+                        if (Debugger.IsAttached) Debugger.Break();
+                    }
                 }
-                LH.Pong<CkDocHelpers>();
+                pipeline.Run();
+                Log.Information("Pipeline completed.");
+
+                document.Application.CloseDocument(template);
+
+
             }
-            catch (Exception ex)
+            else
             {
-                Log.Error($"Exception during processor run: {ex.Message}");
-                if (Debugger.IsAttached) Debugger.Break();
-                throw ex;
+                Log.Error("Failed to load processor configuration.");
             }
+            LH.Pong<CkDocHelpers>();
         }
+
+
         private static string SelectConfigFile()
         {
             string lastFolder = Properties.Settings.Default.LastUsedFolder;

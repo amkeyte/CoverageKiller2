@@ -98,6 +98,7 @@ namespace CoverageKiller2
             //try
             //{
             CKDocument document = CKOffice_Word.Instance.AddInApp.ActiveDocument;
+            document.KeepAlive = true;
             CkDocHelpers.TestProcessor(document);
             Log.Information("Process Complete");
             //}
@@ -144,6 +145,7 @@ namespace CoverageKiller2
         /// <param name="control">The Ribbon control that triggered the callback.</param>
         public async void OnFix_PRMCE_PCTELDoc800Button(Office.IRibbonControl control)
         {
+            System.Windows.Forms.MessageBox.Show("Button triggered");
             Log.Information("Fixing PRMCE 800 PCTEL Document");
             try
             {

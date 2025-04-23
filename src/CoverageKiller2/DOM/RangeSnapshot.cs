@@ -14,7 +14,7 @@ namespace CoverageKiller2.DOM
         public int PageNumber { get; }
         public int TableCount { get; }
         public int FieldCount { get; }
-        public ulong FastHash { get; }
+        public string FastHash { get; }
 
         public RangeSnapshot(Word.Range range)
         {
@@ -28,7 +28,9 @@ namespace CoverageKiller2.DOM
             TableCount = range.Tables?.Count ?? 0;
             FieldCount = range.Fields?.Count ?? 0;
 
-            FastHash = ComputeHash();
+            var hash = ComputeHash().ToString();
+            FastHash = hash.ToString().Substring(hash.Length - 6);
+
             this.Pong(msg: $"{nameof(FastHash)} = {FastHash}");
         }
 

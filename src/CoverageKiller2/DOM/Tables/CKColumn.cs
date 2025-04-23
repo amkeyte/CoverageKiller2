@@ -1,14 +1,23 @@
 ﻿using CoverageKiller2.Logging;
+using Serilog;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace CoverageKiller2.DOM.Tables
 {
+
+
+    /// <summary>
+    /// Represents a one-based cell reference to a specific column in a Word table.
+    /// </summary>
     public class CKColCellRef : CKCellRef, ICellRef<CKColumn>
     {
-        public CKColCellRef(int colIndex, CKTable table, IDOMObject parent) :
-            base(table.Rows.Count, colIndex, table, parent)
+        //remember here that the underlying 
+        public CKColCellRef(int colIndex, CKTable table, IDOMObject parent,
+            TableAccessMode accessMode = TableAccessMode.IncludeAllCells)
+            : base(-1, colIndex, table, parent)//see what -1 breaks here for row, but it probably isn't used.
         {
             this.Ping();
             if (parent == null) throw new ArgumentNullException(nameof(parent));
@@ -16,66 +25,80 @@ namespace CoverageKiller2.DOM.Tables
             Index = colIndex;
             Table = table;
             Parent = parent;
+            AccessMode = accessMode;
             this.Pong();
         }
-        /// <inheritdoc/>
-        public IDOMObject Parent { get; }
-        ///<summary>
-        /// Gets the one-based Word row index of the referenced cell.
-        /// </summary>
+
         public int Index { get; }
         public CKTable Table { get; }
+        public IDOMObject Parent { get; }
+        public TableAccessMode AccessMode { get; }
     }
 
+    /// <summary>
+    /// Represents a column in a Word table.
+    /// </summary>
     public class CKColumn : CKCells
     {
+        public CKColumn(CKColCellRef colRef, IDOMObject parent)
+            : base(parent)
+        {
+            this.Ping();
+            CellRef = colRef;
+            CellRefrences_1 = SplitCellRefs(colRef, this);
+            this.Pong();
+        }
+
         public override CKCell this[int index]
         {
             get
             {
                 if (index < 1 || index > Count)
                     throw new ArgumentOutOfRangeException(nameof(index));
-
-                return CellsList_1[index - 1];
+                return CellsList_1[index];
             }
         }
-        public CKColumn(Base1List<CKCell> cells_1, CKColCellRef cellRef, IDOMObject parent) : base(cells_1, cellRef.Parent)
-        {
-            Parent = parent;
-            CellRef = cellRef;
-        }
-        public CKColumn(CKColCellRef colRef, IDOMObject parent) :
-            base(parent)
+
+        public CKColCellRef CellRef { get; protected set; }
+        public int Index => CellRef.Index;
+
+        private IEnumerable<CKCellRef> SplitCellRefs(CKColCellRef colRef, IDOMObject parent)
         {
             this.Ping();
-            CellRef = colRef;
-            CellRefrences = SplitCellRefs(colRef, this);
-            this.Pong();
-        }
+            //split out the ColRef into its individual cells.
+            var cellRefs_1 = new Base1List<CKCellRef>();
+            var rowCount = colRef.Table.GridRowCount;
 
-        private static IEnumerable<CKCellRef> SplitCellRefs(CKColCellRef colRef, IDOMObject parent)
-        {
-            LH.Ping<CKColumn>();
-            var cellRefs = new List<CKCellRef>();
-            for (int row_1 = 1; row_1 <= colRef.RowIndex; row_1++)
+            for (int row_1 = 1; row_1 <= rowCount; row_1++)
             {
-                cellRefs.Add(new CKCellRef(row_1, colRef.ColumnIndex, colRef.Table, parent));
+                cellRefs_1.Add(new CKCellRef(row_1, colRef.ColumnIndex, colRef.Table, parent));
             }
-            LH.Pong<CKColumn>();
-            return cellRefs;
-        }
 
+            //filter for merged based on AccessMode.
+            var result = cellRefs_1.Where(cr => cr.Table.FitsAccessMode(cr));
+            IsDirty = true;
+
+            return this.Pong(() => result, msg: result.ToString());
+        }
+        /// <summary>
+        /// Deletes the column if no merged cells exist, or falls back to SlowDelete.
+        /// </summary>
         public void Delete()
         {
             var topCell = CellsList_1[1];
             var table = topCell.Tables[1];
+
             if (!table.HasMerge)
             {
-                table.Columns[Index].Delete();
+                table.COMTable.Columns[Index].Delete();
             }
+            else
             {
                 SlowDelete();
             }
+
+            IsDirty = true;
+            Log.Debug("Deleted column Index");
         }
 
         /// <summary>
@@ -90,51 +113,22 @@ namespace CoverageKiller2.DOM.Tables
             this.Ping();
 
             var table = CellRef.Table;
-            var grid = table.Grid;
             var colIndex = CellRef.ColumnIndex;
 
-            //remove in reverse order
             for (var i_1 = CellsList_1.Count; i_1 >= 1; i_1--)
             {
                 var cell = CellsList_1[i_1];
-
                 if (cell.ColumnIndex == colIndex)
                     cell.COMCell.Delete();
             }
-            //TODO do something about the dirty grid.
-
-
-            //for (int rowIndex = 1; rowIndex <= grid.RowCount; rowIndex++)
-            //{
-            //    var gridCell = grid[rowIndex, colIndex];
-            //    if (gridCell == null) continue;
-
-            //    // Only delete master cells to avoid removing shared merged cells multiple times
-            //    if (gridCell.IsMasterCell && !gridCell.IsMerged)
-            //    {
-            //        try
-            //        {
-            //            var cellRef = new CKCellRef(rowIndex, colIndex, table, this);
-            //            var cell = table.GetCellFor(cellRef);
-            //            cell.Delete(); // Use the COM delete directly
-            //        }
-            //        catch (Exception ex)
-            //        {
-            //            Log.Warning($"Failed to delete cell at ({rowIndex},{colIndex}): {ex.Message}", ex);
-            //        }
-            //    }
-            //}
 
             this.Pong();
         }
-
-        public int Index => CellRef.Index;//keep an eye on this for concurrency
-        public CKColCellRef CellRef { get; protected set; }
     }
+
 
     /// <summary>
     /// Represents a collection of <see cref="CKColumn"/> objects in a Word table.
-    /// This collection is part of the DOM hierarchy and implements <see cref="IDOMObject"/>.
     /// </summary>
     /// <remarks>
     /// Version: CK2.00.02.0003
@@ -142,15 +136,16 @@ namespace CoverageKiller2.DOM.Tables
     public class CKColumns : CKDOMObject, IEnumerable<CKColumn>
     {
         private readonly Base1List<CKColumn> _columns_1 = new Base1List<CKColumn>();
-
+        private bool _isDirty = false;
+        private bool _isOrphan = false;
 
         public CKColumns(IDOMObject parent)
         {
             this.Ping();
-            //_rows_1 = rows ?? throw new ArgumentNullException(nameof(rows));
             Parent = parent ?? throw new ArgumentNullException(nameof(parent));
             this.Pong();
         }
+
         internal void Add(CKColumn column)
         {
             this.Ping();
@@ -158,55 +153,54 @@ namespace CoverageKiller2.DOM.Tables
             this.Pong();
         }
 
-        /// <inheritdoc/>
         public override IDOMObject Parent { get; protected set; }
 
-        /// <inheritdoc/>
         public override bool IsDirty
         {
-            get => throw new NotImplementedException();//_isDirty || _rows_1.Any(r => r.IsDirty) || Parent.IsDirty;
+            get => throw new NotImplementedException();
             protected set => _isDirty = value;
         }
-        bool _isDirty = false;
-        /// <inheritdoc/>
+
         public override bool IsOrphan
         {
-            get => throw new NotImplementedException();// _isOrphan || _rows_1.All(r => r.IsOrphan);
+            get => throw new NotImplementedException();
             protected set => _isOrphan = value;
-
         }
-        bool _isOrphan = false;
 
-        /// <summary>
-        /// Gets the <see cref="CKColumn"/> at the specified one-based index.
-        /// </summary>
-        /// <param name="index">The one-based row index.</param>
-        /// <returns>The row at the specified index.</returns>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown if the index is invalid.</exception>
         public CKColumn this[int index]
         {
             get
             {
                 this.Ping(msg: $"Calling down to {typeof(Base1List<int>).Name}");
-
                 var row = _columns_1[index];
                 this.Pong();
                 return row;
             }
         }
 
-        /// <inheritdoc/>
-        public IEnumerator<CKColumn> GetEnumerator() => _columns_1.GetEnumerator();
-
-        /// <inheritdoc/>
-        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
-
-        /// <summary>
-        /// Gets the number of rows in the collection.
-        /// </summary>
         public int Count => _columns_1.Count;
 
-        /// <inheritdoc/>
+        public IEnumerator<CKColumn> GetEnumerator() => _columns_1.GetEnumerator();
+
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+
         public override string ToString() => $"CKColumns [Count: {Count}]";
+
+        /// <summary>
+        /// Deletes all columns matching the given predicate.
+        /// </summary>
+        /// <param name="predicate">A function that evaluates each column.</param>
+        /// <returns>The list of columns that were deleted.</returns>
+        public void Delete(Func<CKColumn, bool> predicate)
+        {
+            this.Ping();
+
+            this.Where(predicate)
+               .Reverse().ToList()
+               .ForEach(col => col.Delete());
+
+            IsDirty = true;
+            this.Pong();
+        }
     }
 }

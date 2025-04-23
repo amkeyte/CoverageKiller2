@@ -166,7 +166,9 @@ namespace CoverageKiller2.DOM
             try
             {
                 string logFile = LogTailLoader.GetLogFile();
-                LoggingLoader.Configure(logFile, Serilog.Events.LogEventLevel.Verbose);
+
+                LoggingLoader.Configure(logFile, Serilog.Events.LogEventLevel.Debug);
+
                 Log.Information("******************************************************************** CKOffice_Word started. ******************************************************************");
 
                 _isRunning = true;
@@ -243,6 +245,7 @@ namespace CoverageKiller2.DOM
                 _applications.RemoveAll(a => a != AddInApp);
 
                 try { LoggingLoader.Cleanup(); } catch { }
+
                 try { LogTailLoader.Cleanup(); } catch { }
 
                 _isRunning = false;

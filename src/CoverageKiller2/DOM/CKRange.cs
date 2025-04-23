@@ -3,6 +3,7 @@ using CoverageKiller2.Logging;
 using Serilog;
 using System;
 using System.Diagnostics;
+using System.IO;
 using System.Runtime.InteropServices;
 using Word = Microsoft.Office.Interop.Word;
 
@@ -51,16 +52,20 @@ namespace CoverageKiller2.DOM
             //// Initialize cached boundary values.
             //_cachedStart = COMRange.Start;
             //_cachedEnd = COMRange.End;
-            this.Pong(msg: $"{nameof(Snapshot.FastHash)} = {Snapshot.FastHash}");
+            var msg = $"_COMRange:[{Path.GetFileName(_COMRange.Document.FullName)}::{new RangeSnapshot(_COMRange).FastHash}]" +
+                $"CKRamge:[{Document.FileName}::{Snapshot.FastHash}";
+
+            this.Pong(msg: msg);
         }
 
         [Obsolete]
         public CKRange(IDOMObject parent)
         {
-
+            this.Ping(msg: "$$$");
             _COMRange = null;
             Parent = parent ?? throw new ArgumentNullException(nameof(parent));
             _isDirty = true;
+            this.Pong(msg: $"{Document.FileName}::[COMRANGE NOT ASSIGNED]");
         }
 
         #endregion
@@ -149,8 +154,6 @@ namespace CoverageKiller2.DOM
             {
                 return new CKRange(COMRange.Duplicate, Parent);
             }
-
-            if (Debugger.IsAttached) Debugger.Break();
             return null;
         }
 

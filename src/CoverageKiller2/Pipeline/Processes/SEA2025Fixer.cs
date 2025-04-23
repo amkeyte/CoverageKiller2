@@ -23,25 +23,12 @@ namespace CoverageKiller2.Pipeline.Processes
         {
             this.Ping();
 
-            try
-            {
 
-                Log.Information("**** Fixing for SEA2025");
+            Log.Information("**** Fixing for SEA2025");
 
-                //remove test result references
-                RemoveTestResultRefernces();
-                //Add test radio information
-
-            }
-            catch (CKDebugException ex)
-            {
-                LH.Error(ex, rethrow: false);
-            }
-            catch (Exception ex)
-            {
-                LH.Error(ex, rethrow: true);
-            }
-            this.Pong();
+            //remove test result references
+            RemoveTestResultRefernces();
+            //Add test radio information
 
         }
 
@@ -50,12 +37,11 @@ namespace CoverageKiller2.Pipeline.Processes
             this.Ping();
 
             Log.Information("Removing Test Result References");
-            //Remove Page 1 result references
-            RemoveTestResultReferencesPage1();
-            //Remove Page 2
-            RemoveTestResultReferencesPage2();
+            //Fix section 1
+            FixSection1();
+
             //Remove Floor Section result references
-            RemoveTestResultReferencesFloorSections();
+            FixFloorSections();
             //Remove the Informaton
             RemoveMoreInfoSection();
             this.Pong();
@@ -67,279 +53,168 @@ namespace CoverageKiller2.Pipeline.Processes
         {
             this.Ping();
 
-            var x = CKDoc.Range().TryFindNext("Additional Info");
-            x.Sections[1].Delete();
+            var additionalInfoSection = CKDoc.Range().TryFindNext("Additional Info");
+            additionalInfoSection.Sections[1].Delete();
 
             this.Pong();
-
-            //var tf = new TextFinder(CKDoc, );
-            //if (tf.TryFind(out Word.Range foundRange))
-            //{
-            //    foundRange = FixerHelpers.FindSectionBreak(foundRange, false);
-            //    foundRange.End = foundRange.Document.Content.End;
-            //    foundRange.HighlightColorIndex = Word.WdColorIndex.wdBlue;
-            //    foundRange.Delete();
-
-            //}
         }
-        private void RemoveTestResultReferencesFloorSections()
+        private void FixFloorSections()
         {
             this.Ping();
 
-            Log.Information("Deleting Floor Section pass/fail subtitle.");
-            var x = CKDoc.Content.TryFindNext("Result: *", matchWildcards: true);
-            x.Paragraphs[1].Delete();
-            this.Pong();
-
-
-            //var tf1 = new TextFinder(CKDoc, );
-            //while (tf1.TryFind(out var fr1, true))
-            //{
-            //    fr1.Expand(Word.WdUnits.wdParagraph);
-            //    fr1.Delete();
-            //}
-
-            //Log.Information("*** remove section heading table fields");
-            //foreach (var table in CKDoc.Tables
-            //    .Where(t => t.RowMatches(1, "Freq (MHz)\tTech\tBand\tAnt Gain\tCable Loss\tPh.\tType\tMod\tNAC\tArea Points passed (%)\tCritical Points passed (%)")))
-            //{
-            //    FixFloorSectionSectionHeadingTable(table);
-            //}
-            //Log.Information("*** remove extra critical point fields");
-            //foreach (var table in CKDoc.Tables
-            //    .Where(t => t.RowMatches(1, "Critical Point Report")))
-            //{
-            //    FixFloorSectionCriticalPointReportTable(table);
-            //}
-            //Log.Information("*** remove Area Report point fields");
-            //foreach (var table in CKDoc.Tables
-            //    .Where(t => t.RowMatches(1, "Area Report")))
-            //{
-            //    FixFloorSectionAreaReportTable(table);
-            //}
-        }
-
-        private void FixFloorSectionSectionHeadingTable(CKTable table)
-        {
-            this.Ping();
-
-            var headersToRemove = "Area Points passed (%)\tCritical Points passed (%)"
-                .Split(new[] { '\t' }, StringSplitOptions.RemoveEmptyEntries)
-                .Select(s => FixerHelpers.NormalizeMatchString(s))
-                .Reverse()
-                .ToList();
-
-            table.Columns
-                .Where(col => headersToRemove
-                    .Contains(FixerHelpers.NormalizeMatchString(col[1].Text)))
-                .Reverse().ToList().ForEach(col => col.Delete());
-
-            table.MakeFullPage();
-            this.Pong();
-
-        }
-
-        private void FixFloorSectionCriticalPointReportTable(CKTable table)
-        {
-            this.Ping();
-
-
-
-            var headersToRemove = "UL\r\nPower\r\n(dBm)\tUL\r\nS/N\r\n(dB)\tUL\r\nFBER\r\n(%)\tResult\tDL\r\nLoss\r\n(dB)\r\n"
-                .Split(new[] { '\t' }, StringSplitOptions.RemoveEmptyEntries)
-                .Select(s => FixerHelpers.NormalizeMatchString(s))
-                .Reverse()
-                .ToList();
-
-            table.Columns
-                .Where(col => headersToRemove
-                    .Contains(FixerHelpers.NormalizeMatchString(col[1].Text)))
-                .Reverse().ToList().ForEach(col => col.Delete());
-
-            table.MakeFullPage();
-            this.Pong();
-
-        }
-        private void FixFloorSectionAreaReportTable(CKTable table)
-        {
-            this.Ping();
-
-            var headersToRemove = "UL\r\nPower\r\n(dBm)\tUL\r\nS/N\r\n(dB)\tUL\r\nFBER\r\n(%)\tResult\tDL\r\nLoss\r\n(dB)\r\n"
-                .Split(new[] { '\t' }, StringSplitOptions.RemoveEmptyEntries)
-                .Select(s => FixerHelpers.NormalizeMatchString(s))
-                .Reverse()
-                .ToList();
-
-            table.Columns
-                .Where(col => headersToRemove
-                    .Contains(FixerHelpers.NormalizeMatchString(col[1].Text)))
-                .Reverse().ToList().ForEach(col => col.Delete());
-
-            table.MakeFullPage();
-            this.Pong();
-
-        }
-
-        private void RemoveTestResultReferencesPage2()
-        {
-            this.Ping();
-
-            Log.Information("Removing Page 2");
-            LH.Checkpoint("Section 2 delete", GetType());
-
-            //var x = 
-            CKDoc.Sections[2].Delete();
-            //x.Shading.BackgroundPatternColor = Word.WdColor.wdColorBlue;
-            //var y = CKDoc.COMObject.Range().Sections[3].Range;
-            //y.Shading.BackgroundPatternColor = Word.WdColor.wdColorAqua;
-            //var z = CKDoc.COMObject.Range().Sections[4].Range;
-            //z.Shading.BackgroundPatternColor = Word.WdColor.wdColorSeaGreen;
-            //x.Text = "";
-
-            //var tf = new TextFinder(CKDoc, "Threshold Settings");
-
-            //if (tf.TryFind(out Word.Range foundRange))
-            //{
-
-
-            //    foundRange.MoveStartUntil(
-            //        Word.WdBreakType.wdPageBreak,
-            //        Word.WdConstants.wdBackward);
-            //    foundRange.Start += 2;
-
-            //    // Find the next section break (instead of using MoveEndUntil)
-            //    Word.Range sectionBreakRange = foundRange.Document.Range(foundRange.End, foundRange.Document.Content.End);
-            //    sectionBreakRange.Find.ClearFormatting();
-            //    sectionBreakRange.Find.Text = "^b"; // Word's special character for section breaks
-            //    sectionBreakRange.Find.Forward = true; // Search forward
-            //    sectionBreakRange.Find.Wrap = Word.WdFindWrap.wdFindStop;
-
-            //    if (sectionBreakRange.Find.Execute())
-            //    {
-            //        foundRange.End = sectionBreakRange.End - 1; // Expand the range to the section break
-            //    }
-            //    //foundRange.Shading.BackgroundPatternColor = Word.WdColor.wdColorBlue;
-            //    //foundRange.Delete();
-            //    //foundRange.Text = "^b";
-            //}
-            this.Pong();
-
-        }
-
-        //private void FindAndDeleteParagraph(string textToFind)
-        //{
-
-
-
-        //    var tf = new TextFinder(CKDoc, textToFind);
-        //    if (tf.TryFind(out Word.Range fr))
-        //    {
-        //        fr.Expand(Word.WdUnits.wdParagraph);
-        //        //fr.End = fr.End + 1; // get the paragraph character
-        //        //fr.HighlightColorIndex = Word.WdColorIndex.wdBlue;
-        //        fr.Delete();
-        //    }
-        //}
-        private void RemoveTestResultReferencesPage1()
-        {
-            this.Ping();
-            try
+            foreach (var section in CKDoc.Sections.Reverse())
             {
+                Log.Information("Deleting Floor Section pass/fail subtitle.");
+                var floorSectionHeadingResult = section.TryFindNext("Result: *", matchWildcards: true);
+                floorSectionHeadingResult?.Paragraphs[1]?.Delete();
 
-                Log.Information("...Page 1");
+                Log.Information("*** remove section heading table fields");
+                string searchText = "Freq (MHz)\tTech\tBand\tAnt Gain\tCable Loss\tPh.\tType\tMod\tNAC\tArea Points passed (%)\tCritical Points passed (%)";
+                var floorSectionHeadingTable = FindTableByRowText(section.Tables, searchText);
 
-                LH.Checkpoint("(Adjacent Area Rule)", GetType());
-
-                var x = CKDoc.Content.TryFindNext("(Adjacent Area Rule)")
-                    ?? CKDoc.Sections[1].TryFindNext("Result: Passed");
-
-                x.Paragraphs[1].Delete();
-
-
-                //FindAndDeleteParagraph("(Adjacent Area Rule)");
-
-                //  TestReportSummary columns Result:AreaPointsPassed:CriticalPointsPassed
-                //FindAndDeleteParagraph("Test Report Summary");
-
-                string TRSTable_ss = "Channel/ Ch Group\tFreq (MHz)\tTechnology\tBand\tResult\tArea Points\r\npassed (%)\tCritical Points passed (%)\r\n";
-
-                LH.Checkpoint(TRSTable_ss, GetType());
-
-                var TRSTable = CKDoc.Tables
-                    .FirstOrDefault(t =>
-                    CKTextHelper.ScrunchEquals(
-                        string.Join(string.Empty, t.Rows[1].Select(c => c.Text)),
-                        TRSTable_ss));
-
-                if (TRSTable is null)
+                if (floorSectionHeadingTable != null)
                 {
-                    Log.Debug(CKDoc.Tables
-                        .Select(t => t.ScrunchedText)
-                        .DumpString());
+                    var headersToRemove = "Ant Gain\tCable Loss\tPh.\tType\tMod\tNAC"
+                        .Split(new[] { '\t' }, StringSplitOptions.RemoveEmptyEntries)
+                        .Select(s => s.Scrunch());
 
-                    throw new NullReferenceException("Table not found.");
+                    floorSectionHeadingTable.Columns
+                        .Delete(col => headersToRemove.Contains(col[1].Text.Scrunch()));
+
+
+                    floorSectionHeadingTable.MakeFullPage();
                 }
-                TRSTable.Columns[7].Delete();
-                TRSTable.Columns[6].Delete();
-                TRSTable.Columns[5].Delete();
-                TRSTable.MakeFullPage();
 
 
-                //  TestDetails Cols ResultCalculation:ByAreaPerFloor
-                string TDTable_ss = "Test Details";
-                //var TDTable = CKDoc.Tables
-                //    .First(t => t.RowMatches(1, TDTable_ss));
+                Log.Information("*** remove extra critical point fields");
+                searchText = "Critical Point Report";
+                var floorSectionCriticalPointsTable = FindTableByRowText(section.Tables,
+                    searchText,
+                    accessMode: TableAccessMode.ExcludeAllMergedCells);//avoid the header cell
 
-                LH.Checkpoint(TDTable_ss, GetType());
+                if (floorSectionHeadingTable != null)
+                {
+                    var headersToRemove = "UL\r\nPower\r\n(dBm)\tUL\r\nS/N\r\n(dB)\tUL\r\nFBER\r\n(%)\tResult\tDL\r\nLoss\r\n(dB)\r\n"
+                        .Split(new[] { '\t' }, StringSplitOptions.RemoveEmptyEntries)
+                        .Select(s => s.Scrunch());
 
-                var TDTable = CKDoc.Tables
-                    .First(t =>
-                    CKTextHelper.ScrunchEquals(
-                        string.Join(string.Empty, t.Rows[2].Select(c => c.Text)),
-                        TDTable_ss)); //throw if null ok
+                    floorSectionCriticalPointsTable.Columns
+                        .Delete(col => headersToRemove.Contains(col[2].Text.Scrunch()));
 
+                    floorSectionCriticalPointsTable.MakeFullPage();
+                }
 
+                Log.Information("*** remove extra area point fields");
 
-                FixReportDetailTable(TDTable);
-                //TDTable.Columns[4].Delete();
-                //TDTable.Columns[3].Delete();
-                //TDTable.MakeFullPage();
+                searchText = "Area Report";
+                var floorSectionAreaReportTable = FindTableByRowText(section.Tables,
+                    searchText,
+                    accessMode: TableAccessMode.ExcludeAllMergedCells);//avoid the header cell
+                if (floorSectionAreaReportTable != null)
+                {
+
+                    var headersToRemove = "UL\r\nPower\r\n(dBm)\tUL\r\nS/N\r\n(dB)\tUL\r\nFBER\r\n(%)\tResult\tDL\r\nLoss\r\n(dB)\r\n"
+                        .Split(new[] { '\t' }, StringSplitOptions.RemoveEmptyEntries)
+                        .Select(s => s.Scrunch());
+
+                    floorSectionAreaReportTable.Columns
+                        .Delete(col => headersToRemove.Contains(col[2].Text.Scrunch()));
+
+                    floorSectionAreaReportTable.MakeFullPage();
+                }
+
             }
-            catch (Exception ex)
-            {
-                _caughtException = true;
-                LH.Error(ex);
-            }
-            finally
-            {
-                //if (Debugger.IsAttached) Debugger.Break();
-                if (_caughtException) CKOffice_Word.Instance.Crash(GetType());
-            }
-            this.Pong();
+
+
+
+
+
+
+
 
         }
-        private void FixReportDetailTable(CKTable fixer)
+
+
+
+
+
+
+
+
+        private void FixSection1()
         {
             this.Ping();
 
+            var section = CKDoc.Sections[1];
 
-            Tracer.Log("Entering", "**", new DataPoints()
-                .Add($"{nameof(fixer)}.Index", CKDoc.Tables.IndexOf(fixer)));
+            Log.Information("...Section 1");
 
-            try
+            Log.Information("*** remove Pass/Fail title");
+            var pass_failPara = section.TryFindNext("(Adjacent Area Rule)")
+                ?? CKDoc.Sections[1].TryFindNext("Result: Passed");
+
+            pass_failPara.Paragraphs[1].Delete();
+
+            Log.Information("*** fix Test Report Summary");
+            string searchText = "Channel/ Ch Group\tFreq (MHz)\tTechnology\tBand\tResult\tArea Points\r\npassed (%)\tCritical Points passed (%)\r\n";
+            var TRSTable = FindTableByRowText(section.Tables, searchText);
+
+            if (TRSTable != null)
             {
-                Tracer.Log("Deleting columns 3 and 4");
+                var headersToRemove = "Result\tArea Points\r\npassed (%)\tCritical Points passed (%)\r\n"
+                    .Split(new[] { '\t' }, StringSplitOptions.RemoveEmptyEntries)
+                    .Select(s => s.Scrunch());
 
-                fixer.Columns[4].Delete();
-                fixer.Columns[3].Delete();
+                TRSTable.Columns
+                    .Delete(col => headersToRemove.Contains(col[1].Text.Scrunch()));
 
-                fixer.MakeFullPage();
+                TRSTable.MakeFullPage();
             }
-            catch (Exception ex)
-            {
-                LH.LogThrow(ex);
-            }
+
+            Log.Information("*** remove Test Details");
+
+            searchText = "Test Details";
+            var testDetailTable = FindTableByRowText(section.Tables, searchText);
+            testDetailTable?.Delete();
+
+
+            Log.Information("*** TODO add Equipment Config data");
+
+
+            Log.Information("*** remove 'page 2'");
+            var thresholdSettingsPara = section
+                .TryFindNext("Threshold Settings")
+                .Paragraphs[1];
+
+            var page2Range = CKDoc.Range(thresholdSettingsPara.Start, section.End - 1);
+            page2Range.Delete();
+
             this.Pong();
         }
+
+
+        internal static CKTable FindTableByRowText(
+            CKTables tables,
+            string searchText,
+            int rowIndex = 1,
+            TableAccessMode accessMode = TableAccessMode.IncludeOnlyAnchorCells)
+        {
+            CKTable result = default;
+            LH.Ping<SEA2025Fixer>();
+            foreach (var table in tables)
+            {
+                table.AccessMode = accessMode;
+                var rowText = string.Join(string.Empty, table.Rows[rowIndex].Select(c => c.Text));
+                if (rowText.ScrunchContains(searchText))
+                {
+                    result = table;
+                    break;
+                }
+            }
+
+            LH.Pong<SEA2025Fixer>();
+            return result;
+        }
+
     }
 }

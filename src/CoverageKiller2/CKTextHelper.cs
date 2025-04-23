@@ -45,7 +45,8 @@ namespace CoverageKiller2.DOM
             return pretty.TrimEnd('\r', '\n');
         }
 
-        public static string Scrunch(string text)
+
+        public static string Scrunch(this string text)
         {
             if (string.IsNullOrEmpty(text))
                 return text;
@@ -57,9 +58,13 @@ namespace CoverageKiller2.DOM
             return Regex.Replace(text, @"\s+", string.Empty);
         }
 
-        public static bool ScrunchEquals(string text1, string text2)
+        public static bool ScrunchEquals(this string text1, string text2)
         {
-            return Scrunch(text1).Equals(Scrunch(text2), System.StringComparison.Ordinal);
+            return text1.Scrunch().Equals(text2.Scrunch(), System.StringComparison.Ordinal);
+        }
+        public static bool ScrunchContains(this string text1, string text2)
+        {
+            return text1.Scrunch().Contains(text2.Scrunch());
         }
     }
 }
