@@ -1,5 +1,6 @@
 ﻿using CoverageKiller2.DOM;
 using CoverageKiller2.Logging;
+using Serilog;
 using System;
 
 /// <summary>
@@ -34,17 +35,17 @@ public class ShadowWorkspace : IDOMObject, IDisposable
     /// </summary>
     public void ShowDebuggerWindow()
     {
-        //Log.Information($" Activating shadow document {_doc.FileName}");
-        //try
-        //{
-        //    _app.Visible = true;
-        //    _doc.Visible = true;
-        //    _doc.Activate();
-        //}
-        //catch
-        //{
-        //    throw new InvalidOperationException("Could not show shadow document.");
-        //}
+        Log.Information($" Activating shadow document {_doc.FileName}");
+        try
+        {
+            _app.Visible = true;
+            _doc.Visible = true;
+            _doc.Activate();
+        }
+        catch
+        {
+            throw new InvalidOperationException("Could not show shadow document.");
+        }
     }
 
     /// <summary>

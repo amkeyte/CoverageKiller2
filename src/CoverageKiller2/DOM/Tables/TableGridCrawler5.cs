@@ -1,7 +1,6 @@
 ﻿using CoverageKiller2.Logging;
 using Serilog;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -269,9 +268,10 @@ namespace CoverageKiller2.DOM.Tables
 
 
         /// <summary>
-        /// Parses the table's raw emitted text into a jagged list of cell strings.
-        /// Accounts for Word's \r\a patterns and merged cell behavior.
+        /// Parses the table's raw emitted text into a jagged list of cell strings,
+        /// accounting for Word’s \r\a patterns and logical row structure.
         /// </summary>
+        /// <param name="COMTable">Optional override of the source table. Defaults to internal _COMTable.</param>
         /// <returns>A jagged list of strings representing logical cell values.</returns>
         /// <remarks>
         /// Version: CK2.00.01.0037
@@ -280,62 +280,49 @@ namespace CoverageKiller2.DOM.Tables
         {
             this.Ping(msg: "$$$");
 
-
-
+            // Use default if not provided
             COMTable = COMTable ?? _COMTable;
             var COMRange = COMTable.Range;
-            //string rawText = table.Text; // Use the CKTable abstraction
-            //var parts = rawText.Split(new[] { "\r\a" }, StringSplitOptions.None).ToList();
+
+            // Determine visual width to normalize grid width later
             var colCount = GetMasterGrid(COMTable).LargestRowCount;
 
-
+            // Split the raw table text by Word's row delimiters (\r\a\r\a)
+            var rawText = COMRange.Text;
+            var rowTexts = SplitWordTableTextIntoRows(rawText);
+            Log.Verbose(DumpList(rowTexts, "Row Texts"));
 
             var result = new Base1JaggedList<string>();
-            //var currentRow = new Base1List<string>();
 
-            var rowTexts = SplitWordTableTextIntoRows(COMRange.Text);
-
-
-
-            Log.Debug(DumpList(rowTexts, $"{nameof(ParseTableText)}\nRow Texts"));
-
-
+            // Each row is further split into cell text chunks using \r\a
             foreach (var row in rowTexts)
             {
-                //var parts = row.Split(new[] { "\r\a" }, StringSplitOptions.None).ToList();
                 var matches = Regex.Matches(row, @"(.*?\r\a)")
-                 .Cast<Match>()
-                 .Select(m => m.Value)
-                 .ToList();
+                                   .Cast<Match>()
+                                   .Select(m => FlattenTableText(m.Value))
+                                   .ToList();
 
-                var parts = new List<string>();
-                foreach (var part in matches)
-                {
-                    parts.Add(FlattenTableText(part));
-                }
-
-                //parts.RemoveAt(parts.Count - 1); //remove last because the double tap makes it add an "extra"
-                result.Add(new Base1List<string>(parts));
+                result.Add(new Base1List<string>(matches));
             }
+
+            // Normalize column widths by forward-shuffling from below rows
             for (int i = 1; i < result.Count; i++)
             {
-                //shuffle the nulls forward in the list
-
                 var row = result[i];
                 var nextRowIndex = i + 1;
+
                 while (row.Count < colCount + 1 && result.Count >= nextRowIndex)
                 {
                     row.Add(result[nextRowIndex][1]);
                     result[nextRowIndex].RemoveAt(1);
-                    if (result[nextRowIndex].Count == 0) result.RemoveAt(nextRowIndex);//maybe not save while in row iteration.
+                    if (result[nextRowIndex].Count == 0)
+                        result.RemoveAt(nextRowIndex);
                 }
-
             }
-            Log.Debug(DumpGrid(result, $"\n{nameof(ParseTableText)}-result"));
-
-            this.Pong();
 
             _textGrid = result;
+            this.Pong();
+
             return result;
         }
 
@@ -469,7 +456,13 @@ namespace CoverageKiller2.DOM.Tables
             //this will help avoid a trap where autosze can be inconsistent causing phantom hits
             // on the width/span algorythm.
             string cellStretcher = new string('X', 100 / longestRow.Count);
-            COMRange.Text = string.Empty;
+            COMTable.Range.Text = string.Empty;
+
+            foreach (Word.Cell cell in COMRange.Cells)
+            {
+                cell.Range.Text = string.Empty;
+            }
+
             foreach (Word.Cell cell in longestRow)
             {
                 cell.Range.Text = cellStretcher;
@@ -514,10 +507,19 @@ namespace CoverageKiller2.DOM.Tables
 
             return result;
         }
-
-        Base1JaggedList<string> _textGrid = new Base1JaggedList<string>();
+        /// <summary>
+        /// Infers vertical cell merging by analyzing vertical alignment between the normalized grid and text grid.
+        /// Updates the layout grid in-place to reflect vertical merges (row spans).
+        /// </summary>
+        /// <param name="rowOffset">Starting row offset in global coordinates.</param>
+        /// <param name="textGrid">Text representation of cells, defaults to _textGrid if null.</param>
+        /// <param name="normalizedGrid">Normalized visual grid from CrawlHoriz, defaults to _grid if null.</param>
+        /// <returns>The vertically merged visual grid.</returns>
+        /// <remarks>
+        /// Version: CK2.00.01.0039
+        /// </remarks>
         internal Base1JaggedList<GridCell5> CrawlVertically(
-            int rowOffset = default,
+            int rowOffset = 0,
             Base1JaggedList<string> textGrid = null,
             Base1JaggedList<GridCell5> normalizedGrid = null)
         {
@@ -527,12 +529,10 @@ namespace CoverageKiller2.DOM.Tables
             normalizedGrid = normalizedGrid ?? _grid;
 
             int rowCount = normalizedGrid.Count;
-
             int colCount = normalizedGrid[1].Count;
 
             for (int colIndex = 1; colIndex <= colCount; colIndex++)
             {
-
                 for (int rowIndex = 1; rowIndex <= rowCount; rowIndex++)
                 {
                     var gridRow = normalizedGrid[rowIndex];
@@ -541,167 +541,171 @@ namespace CoverageKiller2.DOM.Tables
 
                     if (gridCell.IsMasterCell)
                     {
+                        // If cell is visually empty but not marked merged, something went wrong
                         if (textCell != "/r/a") continue;
                         if (Debugger.IsAttached) Debugger.Break();
                     }
                     else if (gridCell.IsMergedCell)
                     {
+                        // Confirm text grid alignment
                         if (textCell == "/r/a") continue;
                         if (Debugger.IsAttached) Debugger.Break();
                     }
                     else if (gridCell.IsGhostCell)
                     {
-                        if (textCell != "/r/a")
-                        {
-                            throw new Exception("Shouldn't get here.");
-                        }
+                        // This cell visually aligns with above master; replace with merged cell(s)
+                        if (textCell != "/r/a") throw new Exception("Ghost cell expected to be empty");
 
-                        int up1Index = rowIndex - 1;
-                        if (up1Index < 1) throw new Exception("can't go up");
+                        var up1Index = rowIndex - 1;
+                        if (up1Index < 1) throw new Exception("Cannot resolve ghost cell at top row");
 
                         var up1Row = normalizedGrid[up1Index];
                         var up1Cell = up1Row[colIndex];
 
+                        // Replace ghost cell with merged cell block
+                        gridRow.RemoveAt(colIndex);
+
                         if (up1Cell.IsMasterCell)
                         {
-                            gridRow.RemoveAt(colIndex);
-                            //if mastercell has a col span, insert enough cells to cover the merge rectangle.
-                            for (var i = 0; i < up1Cell.ColSpan; i++)
+                            for (int i = 0; i < up1Cell.ColSpan; i++)
                             {
-                                gridRow.Insert(colIndex, new MergedGridCell5(up1Cell.GridRow + rowOffset, up1Cell.GridCol, up1Cell));
+                                gridRow.Insert(colIndex, new MergedGridCell5(
+                                    up1Cell.GridRow + rowOffset,
+                                    up1Cell.GridCol,
+                                    up1Cell));
                             }
-                            //gridCell = null;
                         }
                         else if (up1Cell.IsMergedCell)
                         {
-                            gridRow.RemoveAt(colIndex);
-                            for (var i = 0; i < up1Cell.MasterCell.ColSpan; i++)
+                            for (int i = 0; i < up1Cell.MasterCell.ColSpan; i++)
                             {
                                 gridRow.Insert(colIndex,
-                                new MergedGridCell5(up1Cell.MasterCell.GridRow, up1Cell.MasterCell.GridCol, up1Cell.MasterCell));
+                                    new MergedGridCell5(
+                                        up1Cell.MasterCell.GridRow,
+                                        up1Cell.MasterCell.GridCol,
+                                        up1Cell.MasterCell));
                             }
                         }
-                        else if (up1Cell.IsGhostCell)
+                        else
                         {
-                            throw new Exception("Shouldn't get here.");
+                            throw new Exception("Unexpected upstream cell type above ghost");
                         }
-                        else if (up1Cell.IsRowEndMarker)
-                        {
-                            //this was crap that got pushed over during a rectangular merge
-                            gridRow.RemoveAt(colIndex);
-
-                            //throw new Exception("Shouldn't get here either.");
-                        }
-
                     }
                     else if (gridCell.IsRowEndMarker)
                     {
+                        // End marker; just continue
                         continue;
                     }
                 }
             }
+
             _grid = normalizedGrid;
 
-
-
-            Log.Debug(GridCrawler5.DumpGrid(textGrid, $"{nameof(CrawlVertically)}-{nameof(textGrid)}"));
-            Log.Debug(GridCrawler5.DumpGrid(normalizedGrid, $"{nameof(CrawlVertically)}-{nameof(normalizedGrid)}"));
+            Log.Debug(DumpGrid(textGrid, $"{nameof(CrawlVertically)}-{nameof(textGrid)}"));
+            Log.Debug(DumpGrid(normalizedGrid, $"{nameof(CrawlVertically)}-{nameof(normalizedGrid)}"));
 
             this.Pong();
-
             return normalizedGrid;
         }
 
-
-
-
-
+        private Base1JaggedList<string> _textGrid;
         internal Base1JaggedList<GridCell5> CrawlHoriz(
             Base1JaggedList<string> textGrid = null,
             Base1JaggedList<GridCell5> normalizedGrid = null)
         {
             this.Ping(msg: "$$$");
 
-
-
+            // Use previously cached grids if not supplied
             textGrid = textGrid ?? _textGrid;
             normalizedGrid = normalizedGrid ?? _grid;
 
-
-
-
+            // Determine the widest row to iterate columns safely
             var normalizedRowCount = normalizedGrid.LargestRowCount;
 
+            // Loop through each row
             for (var rowIndex = 1; rowIndex <= normalizedGrid.Count; rowIndex++)
             {
-                var gridRow = normalizedGrid[rowIndex];
-                var textRow = textGrid[rowIndex]; //figure out what to do if no next text row
+                var gridRow = normalizedGrid[rowIndex];   // visual grid row of GridCell5
+                var textRow = textGrid[rowIndex];         // raw text values for same row
 
+                // Loop across the widest row column count
                 for (var cellIndex = 1; cellIndex <= normalizedRowCount; cellIndex++)
                 {
-                    var gridCell = gridRow[cellIndex];
-                    var textCell = textRow[cellIndex];
+                    var gridCell = gridRow[cellIndex];    // GridCell5 at this row,col
+                    var textCell = textRow[cellIndex];    // Corresponding text from ParseTableText()
 
+                    // If it's a master cell and the text shows a merged marker (/r/a)
                     if (gridCell.IsMasterCell)
                     {
-                        if (cellIndex >= normalizedRowCount) throw new Exception(" master nope");
+                        if (cellIndex >= normalizedRowCount)
+                            throw new Exception(" master nope");
 
-                        if (textCell != "/r/a") continue; //maybe compare actuaal text values?
-                                                          //the text grid is correct.
+                        // If the text value isn't a merge indicator, skip
+                        if (textCell != "/r/a") continue;
+
+                        // Otherwise, insert a ghost cell to realign the layout grid
                         gridRow.Insert(cellIndex, new GhostGridCell5());
-
-
                     }
+
+                    // If it's a merged cell, we expect a "/r/a" in the text
                     else if (gridCell.IsMergedCell)
                     {
-                        if (cellIndex >= normalizedRowCount) throw new Exception(" merged nope");
+                        if (cellIndex >= normalizedRowCount)
+                            throw new Exception(" merged nope");
 
+                        // If the merge marker is already there, no fix needed
                         if (textCell == "/r/a") continue;
 
+                        // Otherwise, insert the merge marker into the text row
                         textRow.Insert(cellIndex, "/r/a");
                     }
+
+                    // Handle row end markers (used to force row alignment)
                     else if (gridCell.IsRowEndMarker)
                     {
-
+                        // If the text doesn't end with "/r/a", patch it in
                         if (textCell != "/r/a") textRow.Insert(cellIndex, "/r/a");
 
+                        // Now push all cells past the row end to the next row
                         for (var i = textRow.Count; i > cellIndex; i--)
                         {
-                            //count from the back of the row and push them forward.
-                            //add new row if needed
+                            // Add new row if it doesn't exist yet
+                            if (rowIndex + 1 > textGrid.Count)
+                                textGrid.Add(new Base1List<string>());
 
-                            if (rowIndex + 1 > textGrid.Count) textGrid.Add(new Base1List<string>());
-                            //insert the last cell from this row into the next one
+                            // Move last cell in this row to the front of the next row
                             textGrid[rowIndex + 1].Insert(1, textRow.Last());
-                            //take the last cell off of this row
+
+                            // Remove the moved cell from current row
                             textRow.RemoveAt(textRow.Count);
                         }
                     }
+
+                    // Ghost cells are placeholders introduced earlier
                     else if (gridCell.IsGhostCell)
                     {
-                        //cell is a shoved over from an erlier push
+                        // If it's beyond the expected width, drop it and rewind index
                         if (cellIndex >= normalizedRowCount)
                         {
-                            //remove it and check it again
                             gridRow.RemoveAt(cellIndex);
                             cellIndex--;
                             continue;
                         }
-                        //ghost cell is ok.
+
+                        // If the text aligns, ghost is valid
                         if (textCell == "/r/a") continue;
 
-                        //musmatch, match text to ghost cell.
+                        // Otherwise, align text row by inserting the ghost cell marker
                         textRow.Insert(cellIndex, "/r/a");
-
-
                     }
                 }
-
             }
+
+            // Save mutated structures back into local cache
             _textGrid = textGrid;
             _grid = normalizedGrid;
 
-
+            // Output final structures for debugging
             Log.Debug(GridCrawler5.DumpGrid(textGrid, $"{nameof(CrawlHoriz)}-{nameof(textGrid)}"));
             Log.Debug(GridCrawler5.DumpGrid(normalizedGrid, $"{nameof(CrawlHoriz)}-{nameof(normalizedGrid)}"));
 
@@ -709,7 +713,6 @@ namespace CoverageKiller2.DOM.Tables
 
             return normalizedGrid;
         }
-
 
         public static (Word.Table first, Word.Table second, int splitRow) SplitTableAtRow(Word.Table original)
         {
