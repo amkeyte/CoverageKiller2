@@ -24,10 +24,10 @@ namespace CoverageKiller2.DOM.Tables
         public static CKTableGrid GetInstance(CKTable ckTable, Word.Table comTable, [MemberCallerName] string callerName = null)
         {
             LH.Ping<CKTableGrid>();
-            var tableId = $"{ckTable.Document.FileName}[{LH.GetTableTitle(ckTable, "***Table")}][{ckTable.Snapshot.FastHash}]";
-            Log.Debug($"Getting CKTableGrid Instance for {tableId};" +
-                $"\n\t\t\t\t" +
-                $"Requested by{ckTable.Parent.GetType()}::{ckTable.GetType()}::{callerName}.");
+            var tableId = $"{ckTable.Document.FileName}[{ckTable.Snapshot.FastHash}]";
+            //Log.Debug($"Getting CKTableGrid Instance for [{LH.GetTableTitle(ckTable, "***Table")}] {tableId} :: " +
+            //    $"\n\t\t\t\t" +
+            //    $"Requested by{ckTable.Parent.GetType()}::{ckTable.GetType()}::{callerName}.");
 
             if (_tableGrids.TryGetValue(tableId, out CKTableGrid grid))
             {
@@ -36,12 +36,11 @@ namespace CoverageKiller2.DOM.Tables
                 return grid;
             }
 
-            Log.Debug($"Grid Instance not found for table; creating new.");
+            //Log.Debug($"Grid Instance not found for table; creating new.");
             grid = new CKTableGrid(ckTable);//, comTable);
             _tableGrids.Add(tableId, grid);
 
-
-            Log.Debug(new Base1List<string>(_tableGrids.Keys.ToList()).Dump("Available instances:"));
+            //Log.Debug(new Base1List<string>(_tableGrids.Keys.ToList()).Dump("Available instances:"));
             LH.Pong<CKTableGrid>();
 
             return grid;

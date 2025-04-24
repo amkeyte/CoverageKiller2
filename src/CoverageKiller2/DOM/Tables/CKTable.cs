@@ -1,5 +1,4 @@
 ﻿using CoverageKiller2.Logging;
-using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -142,10 +141,10 @@ namespace CoverageKiller2.DOM.Tables
             if (gridCell.GridRow > COMTable.Rows.Count || gridCell.GridCol > COMTable.Columns.Count)
                 throw new CKDebugException($"COM cell [{gridCell.GridRow},{gridCell.GridCol}] is outside table bounds [{COMTable.Rows.Count},{COMTable.Columns.Count}].");
 
-            Log.Debug($"Requesting COMTable[{LH.GetTableTitle(this, "***Table")}][{Snapshot.FastHash}].Cell({gridCell.GridRow}, {gridCell.GridCol})");
+            //Log.Debug($"Requesting COMTable[{LH.GetTableTitle(this, "***Table")}][{Snapshot.FastHash}].Cell({gridCell.GridRow}, {gridCell.GridCol})");
             var COMCell = COMTable.Cell(gridCell.GridRow, gridCell.GridCol);
-            Log.Debug($"Requesting COMTable cell returned cell[{gridCell.GridRow},{gridCell.GridCol})" +
-                $" returned cell text '{COMCell.Range.Text.Scrunch()}");
+            //Log.Debug($"Requesting COMTable cell returned cell[{gridCell.GridRow},{gridCell.GridCol})" +
+            //    $" returned cell text '{COMCell.Range.Text.Scrunch()}");
             this.Pong();
             return COMCell;
         }
