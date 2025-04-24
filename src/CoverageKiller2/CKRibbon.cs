@@ -98,9 +98,10 @@ namespace CoverageKiller2
             //try
             //{
             CKDocument document = CKOffice_Word.Instance.AddInApp.ActiveDocument;
-            document.KeepAlive = true;
+            //document.KeepAlive = true;
             CkDocHelpers.TestProcessor(document);
             Log.Information("Process Complete");
+            //}
             //}
             //catch (Exception ex)
             //{

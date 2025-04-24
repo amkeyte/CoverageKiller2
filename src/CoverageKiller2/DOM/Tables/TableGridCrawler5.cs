@@ -103,7 +103,12 @@ namespace CoverageKiller2.DOM.Tables
             _COMTable = table ?? throw new ArgumentNullException(nameof(table));
             //_shadowWorkspace = workspace ?? throw new ArgumentNullException(nameof(workspace));
             _grid = AnalyzeTableRecursively(table);
+
             Log.Debug(DumpGrid(_grid, $"\n\n***  Final table for Table: [{new RangeSnapshot(table.Range).FastHash}]***"));
+
+            if (_grid.SelectMany(r => r).Any(c => c.IsGhostCell)) throw new CKDebugException("Crawl failed Ghost cells not resolved.");
+
+
             this.Pong();
         }
         /// <summary>
@@ -558,7 +563,11 @@ namespace CoverageKiller2.DOM.Tables
                         if (textCell != "/r/a") throw new Exception("Ghost cell expected to be empty");
 
                         var up1Index = rowIndex - 1;
-                        if (up1Index < 1) throw new Exception("Cannot resolve ghost cell at top row");
+                        if (up1Index < 1)
+                        {
+                            Log.Warning("Ghost cell at top row cannot be resolved — skipping.");
+                            continue;
+                        }
 
                         var up1Row = normalizedGrid[up1Index];
                         var up1Cell = up1Row[colIndex];

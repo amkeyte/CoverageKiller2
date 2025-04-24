@@ -1,5 +1,20 @@
 ﻿<Project ToolsVersion="17.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  
+ <!--
+ replace if VS deletes it.
+ 
+ <PropertyGroup>
+  <StartAction>Program</StartAction>
+  <StartProgram>C:\Program Files\Microsoft Office\root\Office16\WINWORD.EXE</StartProgram>
+</PropertyGroup> 
+-->
+<PropertyGroup>
+  <StartAction>Program</StartAction>
+  <StartProgram>C:\Program Files\Microsoft Office\root\Office16\WINWORD.EXE</StartProgram>
+</PropertyGroup> 
+  
+  
   <!--
     This section defines project-level properties.
 
@@ -17,6 +32,8 @@
       In C#, this specifies the namespace given to new files. In VB, all objects are
       wrapped in this namespace at runtime.
   -->
+
+
   <PropertyGroup>
     <ProjectTypeGuids>{BAA0C2D2-18E2-41B9-852F-F413020CAA33};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>

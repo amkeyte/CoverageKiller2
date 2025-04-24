@@ -44,7 +44,13 @@ namespace CoverageKiller2.Logging
             if (table == null || string.IsNullOrWhiteSpace(markerText)) return null;
 
             var doc = table.Document;
-            var paraList = table.Sections[1].Paragraphs;
+            //juts try to grab the few paragraphs right before the table. title tag should be there.
+            var searchRangeStart = Math.Max(1, table.Start - 100);
+            var paraList = table.Document.Range(searchRangeStart, table.Start).Paragraphs;
+
+
+
+
             int start = table.COMRange.Start;
 
             string scrunchedTarget = CKTextHelper.Scrunch(markerText);
