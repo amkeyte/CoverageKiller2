@@ -142,7 +142,7 @@ namespace CoverageKiller2.DOM.Tables
             if (gridCell.GridRow > COMTable.Rows.Count || gridCell.GridCol > COMTable.Columns.Count)
                 throw new CKDebugException($"COM cell [{gridCell.GridRow},{gridCell.GridCol}] is outside table bounds [{COMTable.Rows.Count},{COMTable.Columns.Count}].");
 
-            Log.Debug($"Requesting COMTable[{Snapshot.FastHash}].Cell({gridCell.GridRow}, {gridCell.GridCol})");
+            Log.Debug($"Requesting COMTable[{LH.GetTableTitle(this, "***Table")}][{Snapshot.FastHash}].Cell({gridCell.GridRow}, {gridCell.GridCol})");
             var COMCell = COMTable.Cell(gridCell.GridRow, gridCell.GridCol);
             this.Pong();
             return COMCell;

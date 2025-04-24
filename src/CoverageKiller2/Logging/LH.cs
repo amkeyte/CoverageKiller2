@@ -1,4 +1,6 @@
-﻿using Serilog;
+﻿using CoverageKiller2.DOM;
+using CoverageKiller2.DOM.Tables;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,7 +39,33 @@ namespace CoverageKiller2.Logging
     }
     public static class LH
     {
+        public static string GetTableTitle(CKTable table, string markerText)
+        {
+            if (table == null || string.IsNullOrWhiteSpace(markerText)) return null;
 
+            var doc = table.Document;
+            var paraList = table.Sections[1].Paragraphs;
+            int start = table.COMRange.Start;
+
+            string scrunchedTarget = CKTextHelper.Scrunch(markerText);
+
+            for (int i = paraList.Count; i >= 1; i--)
+            {
+                var para = paraList[i];
+                if (para.End >= start) continue; // skip paras after or inside the table
+
+                string paraText = para.Text?.Trim();
+                if (string.IsNullOrWhiteSpace(paraText)) continue;
+
+                string scrunched = CKTextHelper.Scrunch(paraText);
+                if (scrunched.Contains(scrunchedTarget))
+                {
+                    return paraText;
+                }
+            }
+
+            return null;
+        }
         public static Exception LogThrow(Exception exception = null, [CallerMemberName] string callerName = "")
         {
             Log.Error(exception, exception.Message);

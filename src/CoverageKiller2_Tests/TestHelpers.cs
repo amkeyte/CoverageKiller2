@@ -1,6 +1,4 @@
-﻿using CoverageKiller2.DOM;
-using CoverageKiller2.DOM.Tables;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 
 namespace CoverageKiller2._TestOperators
 
@@ -74,33 +72,7 @@ public static class TestHelpers
     /// <remarks>
     /// Version: CK2.00.02.0001
     /// </remarks>
-    public static string GetTableTitle(CKTable table, string markerText)
-    {
-        if (table == null || string.IsNullOrWhiteSpace(markerText)) return null;
 
-        var doc = table.Document;
-        var paraList = table.Sections[1].Paragraphs;
-        int start = table.COMRange.Start;
-
-        string scrunchedTarget = CKTextHelper.Scrunch(markerText);
-
-        for (int i = paraList.Count; i >= 1; i--)
-        {
-            var para = paraList[i];
-            if (para.End >= start) continue; // skip paras after or inside the table
-
-            string paraText = para.Text?.Trim();
-            if (string.IsNullOrWhiteSpace(paraText)) continue;
-
-            string scrunched = CKTextHelper.Scrunch(paraText);
-            if (scrunched.Contains(scrunchedTarget))
-            {
-                return paraText;
-            }
-        }
-
-        return null;
-    }
 
 
 }
