@@ -94,6 +94,7 @@
     <Compile Include="DOM\CKRangeTests.cs" />
     <Compile Include="DOM\CKSectionsTests.cs" />
     <Compile Include="DOM\CKSectionTests.cs" />
+    <Compile Include="DOM\Tables\CKCellTests.cs" />
     <Compile Include="DOM\Tables\CKColumnTests.cs" />
     <Compile Include="DOM\Tables\CKRowTests.cs" />
     <Compile Include="DOM\Tables\CKTableGridTests.cs" />

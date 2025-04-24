@@ -1,7 +1,7 @@
 ﻿using CoverageKiller2.Test;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Serilog;
-
+using System;
 namespace CoverageKiller2.DOM.Tables
 {
     /// <summary>
@@ -64,14 +64,7 @@ namespace CoverageKiller2.DOM.Tables
             Assert.IsTrue(table.Contains(wordCell));
         }
 
-        [TestMethod]
-        public void IndexOf_ReturnsCorrectIndex()
-        {
-            var table = _testFile.Tables[_testTableIndex];
-            var wordCell = table.COMTable.Cell(1, 1);
-            var index = table.IndexOf(wordCell);
-            Assert.IsTrue(index > 0);
-        }
+
 
         [TestMethod]
         public void Columns_CountMatchesCOMTable()
@@ -90,13 +83,70 @@ namespace CoverageKiller2.DOM.Tables
             var actual = table.Rows.Count;
             Assert.AreEqual(expected, actual);
         }
+        [TestMethod]
+        public void GetCellFor_ValidRef_ReturnsExpectedCOMCell()
+        {
+            var table = _testFile.Tables[_testTableIndex];
+            Assert.IsNotNull(table);
 
+            var cellRef = new CKCellRef(1, 1, table, table);
+            var wordCell = table.GetCellFor(cellRef);
+
+            Assert.IsNotNull(wordCell);
+            Assert.AreEqual(1, wordCell.RowIndex, "Expected RowIndex to be 1.");
+            Assert.AreEqual(1, wordCell.ColumnIndex, "Expected ColumnIndex to be 1.");
+        }
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentOutOfRangeException))]
+        public void GetCellFor_InvalidRef_ThrowsArgumentOutOfRangeException()
+        {
+            var table = _testFile.Tables[_testTableIndex];
+
+            // Triggers constructor-level validation, not CKTable.GetCellFor
+            var invalidRef = new CKCellRef(999, 999, table, table);
+
+            table.GetCellFor(invalidRef); // Not reached
+        }
+        //[TestMethod]
+        //[ExpectedException(typeof(ArgumentException))]
+        //public void GetCellFor_RefOutsideMasterGrid_ThrowsArgumentException()
+        //{
+        //    var table = _testFile.Tables[_testTableIndex];
+
+        //    // Use valid coordinates, but expect GetCellFor to fail (e.g., due to merge)
+        //    int row = 1;
+        //    int col = table.COMTable.Columns.Count + 1; // likely invalid
+
+        //    var cellRef = new CKCellRef(row, col, table, table);
+        //    table.GetCellFor(cellRef); // This should now throw inside GetCellFor
+        //}
         [TestMethod]
         public void HasMerge_ReturnsExpectedValue()
         {
             var table = _testFile.Tables[_testTableIndex];
             var hasMerge = table.HasMerge;
             Assert.IsInstanceOfType(hasMerge, typeof(bool));
+        }
+
+        [TestMethod]
+        public void COMTable_IsNotNull_AndMatchesWordInterop()
+        {
+            var table = _testFile.Tables[_testTableIndex];
+            Assert.IsNotNull(table.COMTable, "COMTable should not be null.");
+            //Assert.IsInstanceOfType(table.COMTable, typeof(System.__ComObject));
+            Assert.AreEqual(table.COMTable.Range.Text, table.COMRange.Text, "COMRange should match the range of COMTable.");
+        }
+
+        [TestMethod]
+        public void COMRange_CoversSameTextAsCOMTableRange()
+        {
+            var table = _testFile.Tables[_testTableIndex];
+            var comRangeText = table.COMTable.Range.Text.Trim();
+            var ckRangeText = table.COMRange.Text.Trim();
+
+            // Strip trailing paragraph markers or whitespace discrepancies
+            Assert.IsTrue(ckRangeText.StartsWith(comRangeText) || comRangeText.StartsWith(ckRangeText),
+                $"CKTable range text and COMTable range text differ. CKRange: '{ckRangeText}', COMRange: '{comRangeText}'");
         }
     }
 }

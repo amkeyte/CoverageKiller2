@@ -9,10 +9,10 @@ namespace CoverageKiller2.DOM.Tables
 
     public enum TableAccessMode
     {
-        Default,              // Uses merged cells as-is (current behavior)
-        IncludeAllCells,      // Includes only master cells (ignores merged duplicates)
-        IncludeOnlyAnchorCells,     // Filters out any merged content
-        ExcludeAllMergedCells
+        //Default,              
+        IncludeAllCells,     // Uses merged cells as-is (current behavior)
+        IncludeOnlyAnchorCells, // Includes only master cells (ignores merged duplicates)
+        ExcludeAllMergedCells// Filters out any merged content
     }
 
     /// <summary>
@@ -33,7 +33,7 @@ namespace CoverageKiller2.DOM.Tables
                 IsDirty = true;
             }
         }
-        public TableAccessMode _cachedAccessMode = TableAccessMode.Default;
+        public TableAccessMode _cachedAccessMode = TableAccessMode.IncludeAllCells;
         static CKTable()
         {
             LH.Ping<CKTable>(msg: $"Registering Caster for {nameof(CKTable)}");
@@ -103,11 +103,16 @@ namespace CoverageKiller2.DOM.Tables
 
         private readonly CKCellRefConverterService _converterService;
 
+        /// <summary>
+        /// Possibly slow
+        /// </summary>
+        /// <param name="cell"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentNullException"></exception>
         public bool Contains(Word.Cell cell)
         {
             if (cell == null) throw new ArgumentNullException(nameof(cell));
-            if (!RangeSnapshot.FastMatch(COMRange, cell.Range.Tables[1].Range)) return false;
-
+            if (!this.Snapshot.SlowMatch(cell.Range.Tables[1].Range)) return true;
             try
             {
                 var cellRef = new CKCellRef(cell.RowIndex, cell.ColumnIndex, new RangeSnapshot(cell.Range), this, this);
@@ -127,10 +132,17 @@ namespace CoverageKiller2.DOM.Tables
             var gridCell = Grid.GetMasterCells(gridCellRef).FirstOrDefault()
                 ?? throw new ArgumentException($"{nameof(cellRef)} did not fetch a master GridCell");
 
-            var COMCell = COMTable.Cell(gridCell.GridRow, gridCell.GridCol);
+            int row = gridCell.GridRow;
+            int col = gridCell.GridCol;
+
+            if (row > COMTable.Rows.Count || col > COMTable.Columns.Count)
+                throw new ArgumentOutOfRangeException($"Cell ({row}, {col}) does not exist in COM table [Rows: {COMTable.Rows.Count}, Cols: {COMTable.Columns.Count}].");
+
+            var COMCell = COMTable.Cell(row, col);
             this.Pong();
             return COMCell;
         }
+
 
         public CKCells GetCellsFor(CKCellRef cellRef)
         {
@@ -199,13 +211,7 @@ namespace CoverageKiller2.DOM.Tables
             COMTable.Rows.Alignment = Word.WdRowAlignment.wdAlignRowLeft;
         }
 
-        public int IndexOf(Word.Cell wordCell)
-        {
-            this.Ping(msg: "$$$");
-            var index = Cells.IndexOf(wordCell);
-            this.Pong();
-            return index;
-        }
+
 
         public CKCell Cell(int index)
         {
@@ -214,7 +220,7 @@ namespace CoverageKiller2.DOM.Tables
                 ?? throw new ArgumentException($"{nameof(index)} did not fetch a master GridCell");
 
             var cellRef = Converters.GetCellRef(gridCellRef, this);
-            var COMCell = COMTable.Cell(gridCell.RowSpan, gridCell.ColSpan);
+            var COMCell = COMTable.Cell(gridCell.GridRow, gridCell.GridCol);
             return new CKCell(COMCell, cellRef);
         }
 

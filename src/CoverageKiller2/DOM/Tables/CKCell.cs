@@ -88,6 +88,15 @@ namespace CoverageKiller2.DOM.Tables
             : this(rowIndex, colIndex, null, table, parent)
         {
             this.Ping();
+
+
+            if (rowIndex < 1 || rowIndex > table.GridRowCount) throw new ArgumentOutOfRangeException(nameof(rowIndex));
+            if (colIndex < 1 || colIndex > table.GridColCount) throw new ArgumentOutOfRangeException(nameof(colIndex));
+
+
+            if (parent == null) throw new ArgumentNullException(nameof(parent));
+            if (table == null) throw new ArgumentNullException(nameof(table));
+            if (!table.Document.Matches(table.Document)) throw new ArgumentException("table and parent must share a document.");
             this.Pong();
         }
     }
@@ -113,7 +122,8 @@ namespace CoverageKiller2.DOM.Tables
                 {
                     var table = CellRef.Table;
                     _COMCell = table.GetCellFor(CellRef);
-                    COMRange = _COMCell.Range;
+                    if (COMRange is null) COMRange = _COMCell.Range;
+                    //COMRange = _COMCell.Range;
                 }
                 this.Pong();
                 return _COMCell;
@@ -196,6 +206,7 @@ namespace CoverageKiller2.DOM.Tables
             set => COMCell.Shading.ForegroundPatternColor = value;
         }
     }
+
     /// <summary>
     /// Represents a collection of <see cref="CKCell"/> instances derived from a <see cref="CKCellRef"/>.
     /// </summary>
@@ -238,14 +249,16 @@ namespace CoverageKiller2.DOM.Tables
         {
             _cachedCells_1 = new Base1List<CKCell>(cells);
             CellRefrences_1 = new Base1List<CKCellRef>(cells.Select(c => c.CellRef));
-            Parent = parent;
+            if (cells.Any(c => !Document.Matches(parent.Document)))
+                throw new ArgumentException("cells and parent must have matching documents.");
+
             IsDirty = false; //the cells were just dmped in!
         }
         public CKCells(IDOMObject parent) : base(parent)
         {
-            _cachedCells_1 = new Base1List<CKCell>();
             CellRefrences_1 = new Base1List<CKCellRef>();
-            Parent = parent;
+            _cachedCells_1 = new Base1List<CKCell>();
+
             IsDirty = true;
         }
 
@@ -253,7 +266,6 @@ namespace CoverageKiller2.DOM.Tables
         /// <inheritdoc/>
 
         //public override int Count => COMCells.Count;
-        bool _isDirty = false;
         private bool _isCheckingDirty = false;
 
         protected override bool CheckDirtyFor()
@@ -303,7 +315,7 @@ namespace CoverageKiller2.DOM.Tables
             }
             else if (obj is Word.Cell wdCell)
             {
-                var foundCells_0 = CellsList_1.Where(c => RangeSnapshot.FastMatch(c.COMRange, wdCell.Range));
+                var foundCells_0 = CellsList_1.Where(c => c.Snapshot.SlowMatch(wdCell.Range));
                 foundCell = foundCells_0.FirstOrDefault();
             }
 

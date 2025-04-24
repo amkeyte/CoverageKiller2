@@ -24,7 +24,7 @@ namespace CoverageKiller2.Pipeline.Processes
             this.Ping();
 
 
-            Log.Information("**** Fixing for SEA2025");
+            Log.Information($"**** Fixing for SEA2025 {CKDoc.FileName}");
 
             //remove test result references
             RemoveTestResultRefernces();
@@ -60,11 +60,11 @@ namespace CoverageKiller2.Pipeline.Processes
         }
         private void FixFloorSections()
         {
-            this.Ping();
+            this.Ping(msg: CKDoc.FileName);
 
             foreach (var section in CKDoc.Sections.Reverse())
             {
-                Log.Information("Deleting Floor Section pass/fail subtitle.");
+                Log.Information($"Deleting Floor Section pass/fail subtitle.{CKDoc.FileName}");
                 var floorSectionHeadingResult = section.TryFindNext("Result: *", matchWildcards: true);
                 floorSectionHeadingResult?.Paragraphs[1]?.Delete();
 
@@ -92,7 +92,7 @@ namespace CoverageKiller2.Pipeline.Processes
                     searchText,
                     accessMode: TableAccessMode.ExcludeAllMergedCells);//avoid the header cell
 
-                if (floorSectionHeadingTable != null)
+                if (floorSectionCriticalPointsTable != null)
                 {
                     var headersToRemove = "UL\r\nPower\r\n(dBm)\tUL\r\nS/N\r\n(dB)\tUL\r\nFBER\r\n(%)\tResult\tDL\r\nLoss\r\n(dB)\r\n"
                         .Split(new[] { '\t' }, StringSplitOptions.RemoveEmptyEntries)
@@ -143,24 +143,34 @@ namespace CoverageKiller2.Pipeline.Processes
 
         private void FixSection1()
         {
-            this.Ping();
+            this.Ping(msg: CKDoc.FileName);
 
             var section = CKDoc.Sections[1];
-
-            Log.Information("...Section 1");
+            CKDoc.Activate();
+            Log.Information($"...Section 1{CKDoc.FileName})");
 
             Log.Information("*** remove Pass/Fail title");
             var pass_failPara = section.TryFindNext("(Adjacent Area Rule)")
                 ?? CKDoc.Sections[1].TryFindNext("Result: Passed");
 
+            if (pass_failPara?.Paragraphs.Count >= 1)
+                pass_failPara.Paragraphs[1].Delete();
+            else
+                Log.Warning("Pass/Fail paragraph not found.");
+
             pass_failPara.Paragraphs[1].Delete();
 
+
+
+
+            CKDoc.Activate();
             Log.Information("*** fix Test Report Summary");
             string searchText = "Channel/ Ch Group\tFreq (MHz)\tTechnology\tBand\tResult\tArea Points\r\npassed (%)\tCritical Points passed (%)\r\n";
             var TRSTable = FindTableByRowText(section.Tables, searchText);
 
             if (TRSTable != null)
             {
+                Log.Debug(TRSTable.Rows.DumpList, "TRSTable Rows");
                 var headersToRemove = "Result\tArea Points\r\npassed (%)\tCritical Points passed (%)\r\n"
                     .Split(new[] { '\t' }, StringSplitOptions.RemoveEmptyEntries)
                     .Select(s => s.Scrunch());
@@ -170,7 +180,11 @@ namespace CoverageKiller2.Pipeline.Processes
 
                 TRSTable.MakeFullPage();
             }
-
+            else
+            {
+                Log.Warning("The requested table was not found.");
+            }
+            CKDoc.Activate();
             Log.Information("*** remove Test Details");
 
             searchText = "Test Details";
@@ -180,7 +194,7 @@ namespace CoverageKiller2.Pipeline.Processes
 
             Log.Information("*** TODO add Equipment Config data");
 
-
+            CKDoc.Activate();
             Log.Information("*** remove 'page 2'");
             var thresholdSettingsPara = section
                 .TryFindNext("Threshold Settings")

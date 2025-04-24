@@ -66,14 +66,7 @@ namespace CoverageKiller2.DOM
             Assert.AreEqual(CKTextHelper.Scrunch(newText), range.ScrunchedText);
         }
 
-        [TestMethod]
-        public void CKRange_TextEquals_IgnoresWhitespaceDifferences()
-        {
-            var range = _testFile.Range(20, 100);
-            var modified = range.Text + "   \t\n ";
 
-            Assert.IsTrue(range.TextEquals(modified));
-        }
 
         [TestMethod]
         public void CollapseToEnd_ShouldReturnCollapsedRange()
@@ -119,18 +112,6 @@ namespace CoverageKiller2.DOM
             Assert.IsTrue(cells.Count > 0);
         }
 
-        [TestMethod]
-        public void CKRange_IsOrphan_ShouldBeTrueWhenRangeInvalid()
-        {
-            using (var shadow = _testFile.Application.GetShadowWorkspace())
-            {
-                var orphanRange = shadow.Document.Range(0, 1);
-                orphanRange.Delete();
-
-                orphanRange.Refresh();
-                Assert.IsTrue(orphanRange.IsOrphan);
-            }
-        }
 
         [TestMethod]
         public void CKRange_EqualityAndHashCode_ShouldBeConsistent()

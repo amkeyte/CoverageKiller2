@@ -33,13 +33,15 @@ namespace CoverageKiller2.DOM.Tables
 
         private void RunOnEachTestTable(Action<CKTable, TableAccessMode> test)
         {
+            var startTestNum = 1;
+            var stopTestNum = 1;
             var stopwatch = new Stopwatch();
             stopwatch.Start();
             int runCount = 0;
 
             foreach (var mode in new[] { TableAccessMode.IncludeAllCells, TableAccessMode.IncludeOnlyAnchorCells })
             {
-                for (int i = 1; i <= Math.Min(5, _testFile.Tables.Count); i++)
+                for (int i = startTestNum; i <= Math.Min(stopTestNum, _testFile.Tables.Count); i++)
                 {
                     runCount++;
                     var table = _testFile.Tables[i];
@@ -62,7 +64,7 @@ namespace CoverageKiller2.DOM.Tables
                     }
 
                     var avg = stopwatch.Elapsed.TotalMilliseconds / runCount;
-                    var estRemaining = (2 * Math.Min(5, _testFile.Tables.Count) - runCount) * avg;
+                    var estRemaining = (2 * Math.Min(stopTestNum, stopTestNum - startTestNum - runCount) * avg);
                     Log.Information($"[ESTIMATE] Average: {avg:F1} ms/test — Estimated time remaining: {estRemaining:F1} ms");
                 }
             }

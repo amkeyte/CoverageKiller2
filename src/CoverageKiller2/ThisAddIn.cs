@@ -1,6 +1,4 @@
 ﻿using CoverageKiller2.DOM;
-using CoverageKiller2.Logging;
-using Serilog;
 namespace CoverageKiller2
 {
 
@@ -55,12 +53,12 @@ namespace CoverageKiller2
         {
 
 
-            var OfficeWord = CKOffice_Word.Instance;
-            OfficeWord.Start();
-            OfficeWord.TryPutAddin(this);
-            LogExpertLoader.StartLogExpert(LoggingLoader.LogFile, true);
+            //var OfficeWord = CKOffice_Word.Instance;
+            //OfficeWord.Start();
+            //OfficeWord.TryPutAddin(this);
+            //LogExpertLoader.StartLogExpert(LoggingLoader.LogFile, true);
 
-            Log.Information("ThisAddIn started.");
+            //Log.Information("ThisAddIn started.");
 
         }
 

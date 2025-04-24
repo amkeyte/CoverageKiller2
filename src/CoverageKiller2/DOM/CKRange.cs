@@ -1,10 +1,7 @@
 ﻿using CoverageKiller2.DOM.Tables;
 using CoverageKiller2.Logging;
-using Serilog;
 using System;
-using System.Diagnostics;
 using System.IO;
-using System.Runtime.InteropServices;
 using Word = Microsoft.Office.Interop.Word;
 
 namespace CoverageKiller2.DOM
@@ -23,12 +20,11 @@ namespace CoverageKiller2.DOM
         private string _cachedText;
         private string _cachedPrettyText;
         private string _cachedScrunchedText;
-        private int _cachedCharCount;
         private int _cachedStart;
         private int _cachedEnd;
         private bool _isDirty = false;
         private bool _isOrphan = false;
-        private bool disposedValue;
+        private bool _disposedValue;
 
         #endregion
 
@@ -38,20 +34,14 @@ namespace CoverageKiller2.DOM
         /// Initializes a new instance of the <see cref="CKRange"/> class.
         /// </summary>
         /// <param name="range">The Word.Range object to wrap.</param>
-        /// <param name="parent">Optional parent DOM object; if not provided, will be looked up via CKDocuments.</param>
+        /// <param name="parent">Parent DOM object; if not provided, will be looked up via CKDocuments.</param>
         /// <exception cref="ArgumentNullException">Thrown when the <paramref name="range"/> parameter is null.</exception>
         public CKRange(Word.Range range, IDOMObject parent)
         {
             this.Ping(msg: "$$$");
-            COMRange = range ?? throw new ArgumentNullException(nameof(range));
             Parent = parent ?? throw new ArgumentNullException(nameof(parent));
+            COMRange = range ?? throw new ArgumentNullException(nameof(range)); //document match done in here
 
-            //Calling to COMRange early causes IsDirty every time it's created.
-            //_cachedCharCount = COMRange.Characters.Count;
-            //_cachedText = COMRange.Text;
-            //// Initialize cached boundary values.
-            //_cachedStart = COMRange.Start;
-            //_cachedEnd = COMRange.End;
             var msg = $"_COMRange:[{Path.GetFileName(_COMRange.Document.FullName)}::{new RangeSnapshot(_COMRange).FastHash}]" +
                 $"CKRamge:[{Document.FileName}::{Snapshot.FastHash}";
 
@@ -62,8 +52,8 @@ namespace CoverageKiller2.DOM
         public CKRange(IDOMObject parent)
         {
             this.Ping(msg: "$$$");
-            _COMRange = null;
             Parent = parent ?? throw new ArgumentNullException(nameof(parent));
+            _COMRange = null;
             _isDirty = true;
             this.Pong(msg: $"{Document.FileName}::[COMRANGE NOT ASSIGNED]");
         }
@@ -181,6 +171,8 @@ namespace CoverageKiller2.DOM
             {
                 this.Ping();
                 if (_COMRange != null) throw new CKDebugException("Attempted to assign a populated Range.");
+                if (value is null) throw new ArgumentNullException("value");
+                if (!Document.Matches(value)) throw new ArgumentException("value must share document refernce with host.");
                 IsDirty = true;
                 _COMRange = value;
                 this.Pong();
@@ -202,7 +194,7 @@ namespace CoverageKiller2.DOM
         {
 
             get => Cache(ref _cachedText);
-            set => SetCache(ref _cachedText, value);
+            set => SetCache(ref _cachedText, value, v => _COMRange.Text = v);
         }
         /// <summary>
         /// unsage.
@@ -231,8 +223,9 @@ namespace CoverageKiller2.DOM
 
             return cachedField;
         }
-        protected void SetCache<T>(ref T field, T value)
+        protected void SetCache<T>(ref T field, T value, Action<T> comSetter)
         {
+            comSetter?.Invoke(value);
             field = value;
             IsDirty = true;
         }
@@ -265,32 +258,14 @@ namespace CoverageKiller2.DOM
                 this.Ping();
                 if (_isDirtyCount++ % 20 == 0) LH.Checkpoint($"CKRange.IsDirty count: {_isDirtyCount}");
 
-                //the dirty state is declared clean by calling code. This can be used
-                //to call on the COMObject without causing un-needed dirty checks.
-                if (_isDeclaredNotDirty) return this.Pong(() => _isDirty);
-
                 if (_isCheckingDirty) return this.Pong(() => _isDirty);
                 _isCheckingDirty = true;
 
 
-                try
-                {
-                    _isDirty = _isDirty
-                    || CheckDirtyFor();
-                }
-                catch (Exception ex)
-                {
-                    if (Debugger.IsAttached)
-                    {
-                        Debugger.Break();
-                        throw ex;
-                    }
-                }
-                finally
-                {
-                    _isCheckingDirty = false;
-                }
+                _isDirty = _isDirty || CheckDirtyFor();
 
+
+                _isCheckingDirty = false;
                 return this.Pong(() => _isDirty, msg: _isDirty.ToString());
             }
             protected set => _isDirty = value;
@@ -311,24 +286,7 @@ namespace CoverageKiller2.DOM
         {
             get
             {
-                if (_isOrphan)
-                    return true;
-                try
-                {
-                    // Access a property to check if the COM object is valid.
-                    _ = COMRange.Text;
-                    _isOrphan = false;
-                }
-                catch (COMException ex)
-                {
-                    Log.Error("Attempt to access orphan range failed.", ex);
-                    _isOrphan = true;
-                }
-                catch (Exception)
-                {
-                    _isOrphan = true;
-                }
-                return _isOrphan;
+                return false;
             }
         }
 
@@ -360,7 +318,7 @@ namespace CoverageKiller2.DOM
         /// <summary>
         /// Gets the tables contained in the range.
         /// </summary>
-        public CKTables Tables => new CKTables(COMRange.Tables, this);
+        public CKTables Tables => new CKTables(COMRange.Tables, Document);
         /// <summary>
         /// Gets or sets the formatted text for this range. Setting this value replaces the contents and formatting of the range.
         /// </summary>
@@ -462,7 +420,7 @@ namespace CoverageKiller2.DOM
         public void Refresh()
         {
             this.Ping();
-            if (_isRefreshing) throw new CKDebugException("You are looping on Refresh. Don't do that.");
+            if (_isRefreshing) return;
             _isRefreshing = true;
 
             DoRefreshThings(); //sometimes COMRange could be assigned here.
@@ -470,7 +428,6 @@ namespace CoverageKiller2.DOM
             if (_COMRange is null) throw new CKDebugException($"{nameof(_COMRange)} cannot be null.");
 
             _cachedText = _COMRange.Text;
-            _cachedCharCount = _COMRange.Characters.Count;
             _cachedStart = _COMRange.Start;
             _cachedEnd = _COMRange.End;
             _cachedPrettyText = CKTextHelper.Pretty(_cachedText);
@@ -488,24 +445,10 @@ namespace CoverageKiller2.DOM
             this.PingPong();
         }
 
-        /// <summary>
-        /// Compares the text of this CKRange with the given string after scrunching (removing all whitespace).
-        /// </summary>
-        /// <param name="other">The string to compare.</param>
-        /// <returns>True if the scrunched texts are equal; otherwise, false.</returns>
-        public bool TextEquals(string other)
-        {
-            string myScrunched = CKTextHelper.Scrunch(_COMRange.Text);
-            string otherScrunched = CKTextHelper.Scrunch(other);
-            return string.Equals(myScrunched, otherScrunched, StringComparison.Ordinal);
-        }
 
         #endregion
 
         private RangeSnapshot _snapshot = default;
-
-        //bypass dirty checks when the state of the range is known to be clean and stable.
-        private bool _isDeclaredNotDirty;
 
         public RangeSnapshot Snapshot
         {
@@ -520,43 +463,37 @@ namespace CoverageKiller2.DOM
                 return _snapshot;
             }
         }
-        [Obsolete("Needed?")]
-        protected void ResetSnapshot() => _snapshot = null;
-
-
-
 
         public override bool Equals(object obj)
         {
-            if (ReferenceEquals(this, obj))
-                return true;
-            if (obj == null || !(obj is CKRange))
-                return false;
-            return Equals((CKRange)obj);
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj == null || !(obj is CKRange other)) return false;
+            return Equals(other);
         }
 
         public bool Equals(CKRange other)
         {
-            if (ReferenceEquals(this, other))
-                return true;
-            if (other == null)
-                return false;
+            if (ReferenceEquals(this, other)) return true;
+            if (other == null) return false;
 
-            return RangeSnapshot.FastMatch(_COMRange, other._COMRange);
+            // Use snapshot if available on both sides
+            if (_snapshot != null && other._snapshot != null)
+                return _snapshot.FastMatch(other._snapshot);
+
+            // Fallback to slow COM-based snapshot comparison
+            return Snapshot.SlowMatch(other._COMRange);
         }
 
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int start = IsOrphan ? _cachedStart : _COMRange.Start;
-                int end = IsOrphan ? _cachedEnd : _COMRange.End;
-                int hash = 17;
-                hash = hash * 23 + start.GetHashCode();
-                hash = hash * 23 + end.GetHashCode();
-                return hash;
-            }
+            // Prefer hash from snapshot if available
+            if (_snapshot != null && !string.IsNullOrEmpty(_snapshot.FastHash))
+                return _snapshot.FastHash.GetHashCode();
+
+            // Fallback: use the COM object identity
+            return Snapshot.FastHash.GetHashCode();
         }
+
 
         public static bool operator ==(CKRange left, CKRange right)
         {
@@ -574,7 +511,7 @@ namespace CoverageKiller2.DOM
 
         protected virtual void Dispose(bool disposing)
         {
-            if (!disposedValue)
+            if (!_disposedValue)
             {
                 if (disposing)
                 {
@@ -583,7 +520,7 @@ namespace CoverageKiller2.DOM
 
                 // TODO: free unmanaged resources (unmanaged objects) and override finalizer
                 // TODO: set large fields to null
-                disposedValue = true;
+                _disposedValue = true;
             }
         }
 

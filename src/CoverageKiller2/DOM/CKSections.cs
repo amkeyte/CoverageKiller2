@@ -58,6 +58,10 @@ namespace CoverageKiller2.DOM
         /// <exception cref="ArgumentNullException">Thrown when the parent parameter is null.</exception>
         public CKSections(Word.Sections collection, IDOMObject parent) : base(parent)
         {
+            if (collection is null) throw new ArgumentNullException(nameof(collection));
+            if (parent is null) throw new ArgumentNullException(nameof(parent));//remive
+            if (!parent.Document.Matches(collection.Parent)) throw new ArgumentException("collection and parent must have matching documents.");
+
             COMSection = collection;
         }
 

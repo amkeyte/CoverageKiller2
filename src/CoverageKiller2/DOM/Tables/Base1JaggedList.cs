@@ -15,7 +15,7 @@ namespace CoverageKiller2.DOM.Tables
     /// </remarks>
     public class Base1JaggedList<T> : IReadOnlyList<Base1List<T>>
     {
-        private readonly List<Base1List<T>> _rows = new List<Base1List<T>>();
+        private readonly List<Base1List<T>> _rows_0 = new List<Base1List<T>>();
 
         public Base1JaggedList() { }
 
@@ -25,21 +25,22 @@ namespace CoverageKiller2.DOM.Tables
             foreach (var row in list)
             {
                 if (row == null) throw new ArgumentException("Row list cannot contain null elements.", nameof(list));
-                _rows.Add(new Base1List<T>(row));
+                _rows_0.Add(new Base1List<T>(row));
             }
         }
+
 
         /// <summary>
         /// Returns the largest column count across all rows.
         /// </summary>
-        public int LargestRowCount => _rows.Count == 0
+        public int LargestRowCount => _rows_0.Count == 0
             ? 0
-            : _rows.Max(r => r?.Count ?? 0);
+            : _rows_0.Max(r => r?.Count ?? 0);
 
         public void Add(Base1List<T> row)
         {
             if (row == null) throw new ArgumentNullException(nameof(row));
-            _rows.Add(row);
+            _rows_0.Add(row);
         }
 
         public void Insert(int index, Base1List<T> row)
@@ -47,25 +48,90 @@ namespace CoverageKiller2.DOM.Tables
             if (index < 1 || index > Count + 1)
                 throw new ArgumentOutOfRangeException(nameof(index));
             if (row == null) throw new ArgumentNullException(nameof(row));
-            _rows.Insert(index - 1, row);
+            _rows_0.Insert(index - 1, row);
         }
 
-        public T Get2D(int row, int col) => this[row][col];
+        /// <summary>
+        /// Dumps the contents of a Base1JaggedList&lt;T&gt;, projecting each cell through a delegate.
+        /// </summary>
+        /// <typeparam name="T">The type of each cell in the jagged list.</typeparam>
+        /// <param name="projector">A projection function to convert each cell to a string.</param>
+        /// <param name="message">Optional label for the dump output.</param>
+        /// <returns>A formatted string of the dumped grid.</returns>
+        public string DumpGrid(Func<T, string> projector, string message = null)
+        {
+            var sb = new StringBuilder();
+            sb.AppendLine($"\n{message ?? "Grid Dump"}\n");
+            sb.AppendLine("**********************");
+
+            foreach (var row in _rows_0)
+            {
+                var line = row.Select(item => projector(item) ?? "[NULL]");
+                sb.AppendLine(string.Join(" | ", line));
+            }
+
+            sb.AppendLine("**********************");
+            return sb.ToString();
+        }
+
+        ///// <summary>
+        ///// Dumps the contents of a Base1JaggedList&lt;T&gt; as a tree structure using a projection.
+        ///// </summary>
+        ///// <typeparam name="T">Type of the list item.</typeparam>
+        ///// <param name="projector">A projection function that converts each element into a string.</param>
+        ///// <param name="label">Optional label to prefix the tree.</param>
+        ///// <returns>A multi-line string representing the tree structure of the grid.</returns>
+        //public string DumpTree(Func<T, string> projector, string message = null)
+        //{
+        //    var sb = new StringBuilder();
+        //    sb.AppendLine($"\n\n{message ?? "Tree Dump"}");
+        //    sb.AppendLine("**********************");
+
+        //    foreach (var row in _rows_0)
+        //    {
+        //        var line = row.Select(item => projector(item) ?? "[NULL]");
+
+
+        //        var value = projector(row[colIndex]) ?? "[NULL]";
+        //        sb.AppendLine($"│   ├─ Col {colIndex}: {value}");
+        //    }
+
+
+        //    return sb.ToString();
+
+
+        //    //for (int rowIndex = 1; rowIndex <= _rows_0.Count; rowIndex++)
+        //    //{
+
+
+
+
+        //    //var row = _rows_0[rowIndex];
+        //    //sb.AppendLine($"├─ Row {rowIndex}");
+
+        //    //for (int colIndex = 1; colIndex <= row.Count; colIndex++)
+        //    //{
+        //    //    var value = projector(row[colIndex]) ?? "[NULL]";
+        //    //    sb.AppendLine($"│   ├─ Col {colIndex}: {value}");
+        //    //}
+
+        //}
+
 
         public void RemoveAt(int index)
         {
             if (index < 1 || index > Count)
                 throw new ArgumentOutOfRangeException(nameof(index));
-            _rows.RemoveAt(index - 1);
+            _rows_0.RemoveAt(index - 1);
         }
 
         public int IndexOf(Base1List<T> row)
         {
-            var idx = _rows.IndexOf(row);
+            var idx = _rows_0.IndexOf(row);
             return idx < 0 ? -1 : idx + 1;
         }
 
-        public int Count => _rows.Count;
+        public int Count => _rows_0.Count;
 
         public Base1List<T> this[int index]
         {
@@ -73,11 +139,11 @@ namespace CoverageKiller2.DOM.Tables
             {
                 if (index < 1) throw new ArgumentException("Index is 1 based.");
                 if (index > Count) throw new ArgumentOutOfRangeException(nameof(index));
-                return _rows[index - 1];
+                return _rows_0[index - 1];
             }
         }
 
-        public IEnumerator<Base1List<T>> GetEnumerator() => _rows.GetEnumerator();
+        public IEnumerator<Base1List<T>> GetEnumerator() => _rows_0.GetEnumerator();
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
     }
 
@@ -141,7 +207,55 @@ namespace CoverageKiller2.DOM.Tables
 
             }
         }
+        /// <summary>
+        /// Dumps the contents of the Base1List, each entry as-is, separated by newlines.
+        /// </summary>
+        /// <param name="message">Optional message to prepend.</param>
+        /// <returns>The formatted dump string.</returns>
+        /// <remarks>Version: CK2.00.01.0038</remarks>
+        public string Dump(string message = null)
+        {
+            var sb = new StringBuilder();
+            if (!string.IsNullOrEmpty(message))
+                sb.AppendLine($"\n{message}\n");
 
+            sb.AppendLine("**********************");
+
+            foreach (var item in this)
+            {
+                string output = item?.ToString() ?? "[NULL]";
+                sb.AppendLine(output);
+            }
+
+            sb.AppendLine("**********************");
+            return sb.ToString();
+        }
+        /// <summary>
+        /// Dumps the contents of the Base1List using a projection delegate, each entry on a new line.
+        /// </summary>
+        /// <param name="projector">Delegate that extracts a string from each item.</param>
+        /// <param name="message">Optional message to prepend.</param>
+        /// <returns>The formatted dump string.</returns>
+        /// <remarks>Version: CK2.00.01.0039</remarks>
+        public string Dump(Func<T, string> projector, string message = null)
+        {
+            if (projector == null) throw new ArgumentNullException(nameof(projector));
+
+            var sb = new StringBuilder();
+            if (!string.IsNullOrEmpty(message))
+                sb.AppendLine($"\n{message}\n");
+
+            sb.AppendLine("**********************");
+
+            foreach (var item in this)
+            {
+                string output = projector(item) ?? "[NULL]";
+                sb.AppendLine(output);
+            }
+
+            sb.AppendLine("**********************");
+            return sb.ToString();
+        }
         public IEnumerator<T> GetEnumerator() => _items_0.GetEnumerator();
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 

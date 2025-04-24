@@ -1,6 +1,7 @@
 ﻿using CoverageKiller2.Test;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Serilog;
+using System.Linq;
 
 namespace CoverageKiller2.DOM
 {
@@ -93,5 +94,23 @@ namespace CoverageKiller2.DOM
                 Assert.IsTrue(para.ScrunchedText == clone.ScrunchedText, "Cloned text did not match.");
             }
         }
+        [TestMethod]
+        public void ShadowWorkspace_Disposal_CleansUpDocument()
+        {
+            var app = _testFile.Application;
+            CKDocument shadowDoc;
+            string docLogId;
+
+            using (var shadow = app.GetShadowWorkspace())
+            {
+                shadowDoc = shadow.Document;
+                docLogId = shadowDoc.LogId;
+                Assert.IsTrue(app.Documents.Contains(shadowDoc), "Shadow document should be tracked before disposal.");
+            }
+
+            // After disposal, document should no longer be present in the app.
+            Assert.IsFalse(app.Documents.Any(d => d.LogId == docLogId), "Shadow document should be removed after disposal.");
+        }
+
     }
 }

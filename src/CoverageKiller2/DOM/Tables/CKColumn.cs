@@ -3,6 +3,7 @@ using Serilog;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 
 namespace CoverageKiller2.DOM.Tables
@@ -17,11 +18,12 @@ namespace CoverageKiller2.DOM.Tables
         //remember here that the underlying 
         public CKColCellRef(int colIndex, CKTable table, IDOMObject parent,
             TableAccessMode accessMode = TableAccessMode.IncludeAllCells)
-            : base(-1, colIndex, table, parent)//see what -1 breaks here for row, but it probably isn't used.
+            : base(1, colIndex, table, parent)//first cell as filler.
         {
             this.Ping();
             if (parent == null) throw new ArgumentNullException(nameof(parent));
             if (table == null) throw new ArgumentNullException(nameof(table));
+            if (!table.Document.Equals(parent.Document)) throw new ArgumentException("table and parent must have the same document.");
             Index = colIndex;
             Table = table;
             Parent = parent;
@@ -44,6 +46,7 @@ namespace CoverageKiller2.DOM.Tables
             : base(parent)
         {
             this.Ping();
+
             CellRef = colRef;
             CellRefrences_1 = SplitCellRefs(colRef, this);
             this.Pong();
@@ -85,11 +88,25 @@ namespace CoverageKiller2.DOM.Tables
         /// </summary>
         public void Delete()
         {
+
+
+
             var topCell = CellsList_1[1];
             var table = topCell.Tables[1];
 
+            Log.Debug($"Deleting column Index: {Index}");
+            Log.Debug($"\tCollumn Document: {Document.FileName}::{Document.Content.Snapshot.FastHash}");
+            Log.Debug($"\ttopCell Document: {topCell.Document.FileName}::{topCell.Document.Content.Snapshot.FastHash}");
+            var comTblDoc = table.COMTable.Range.Document;
+            Log.Debug($"\tCOMtable Document: {Path.GetFileName(comTblDoc.FullName)}::{new RangeSnapshot(comTblDoc.Content).FastHash}");
+            var comRngDoc = table.COMRange.Document;
+            Log.Debug($"\tCOMtable Document: {Path.GetFileName(comRngDoc.FullName)}::{new RangeSnapshot(comRngDoc.Content).FastHash}");
+
+
+
             if (!table.HasMerge)
             {
+
                 table.COMTable.Columns[Index].Delete();
             }
             else
@@ -98,7 +115,7 @@ namespace CoverageKiller2.DOM.Tables
             }
 
             IsDirty = true;
-            Log.Debug("Deleted column Index");
+            Log.Debug($"Deleted column: Index{Index}");
         }
 
         /// <summary>
@@ -194,10 +211,13 @@ namespace CoverageKiller2.DOM.Tables
         public void Delete(Func<CKColumn, bool> predicate)
         {
             this.Ping();
+            Log.Debug($"Deleting columns {Document.FileName}::{Document.Content.Snapshot.FastHash}::Before Count:{Count}");
 
             this.Where(predicate)
-               .Reverse().ToList()
-               .ForEach(col => col.Delete());
+           .Reverse().ToList()
+           .ForEach(col => col.Delete());
+
+            Log.Debug($"Deleting columns {Document.FileName}::{Document.Content.Snapshot.FastHash}::After Count:{Count}");
 
             IsDirty = true;
             this.Pong();

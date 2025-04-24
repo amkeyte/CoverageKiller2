@@ -10,6 +10,7 @@ namespace CoverageKiller2.DOM
         protected ACKRangeCollection(IDOMObject parent)
         {
             Parent = parent ?? throw new ArgumentNullException(nameof(parent));
+
         }
 
 

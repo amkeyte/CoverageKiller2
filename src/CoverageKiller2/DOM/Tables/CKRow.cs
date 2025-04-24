@@ -18,8 +18,8 @@ namespace CoverageKiller2.DOM.Tables
             : base(rowIndex, table.GridColCount, table, parent)
         {
             this.Ping();
-            if (parent == null) throw new ArgumentNullException(nameof(parent));
-            if (table == null) throw new ArgumentNullException(nameof(table));
+
+
             Index = rowIndex;
             Table = table;
             Parent = parent;
@@ -38,12 +38,12 @@ namespace CoverageKiller2.DOM.Tables
     /// </summary>
     public class CKRow : CKCells
     {
-        public CKRow(Base1List<CKCell> cells_1, CKRowCellRef cellRef, IDOMObject parent)
-            : base(cells_1, cellRef.Parent)
-        {
-            Parent = parent;
-            RowRef = cellRef;
-        }
+        //public CKRow(Base1List<CKCell> cells_1, CKRowCellRef cellRef, IDOMObject parent)
+        //    : base(cells_1, cellRef.Parent)
+        //{
+        //    Parent = parent;
+        //    RowRef = cellRef;
+        //}
 
         public CKRow(CKRowCellRef rowRef, IDOMObject parent)
             : base(parent)
@@ -144,7 +144,7 @@ namespace CoverageKiller2.DOM.Tables
         private readonly Base1List<CKRow> _rows_1 = new Base1List<CKRow>();
         private bool _isDirty = false;
         private bool _isOrphan = false;
-
+        internal string DumpList => _rows_1.Dump();
         public CKRows(IDOMObject parent)
         {
             this.Ping();

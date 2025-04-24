@@ -386,5 +386,79 @@ namespace CoverageKiller2.DOM
         {
             _comDocument.RemoveDocumentInformation(wdRDIDocumentProperties);
         }
+
+        /// <summary>
+        /// Check if object has a refernce to the same Word.Document.
+        /// </summary>
+        /// <param name="other"></param>
+        /// <returns></returns>
+        public bool Matches(object other)
+        {
+            if (_comDocument == null || other == null) return false;
+
+            if (ReferenceEquals(this, other)) return true;
+            if (Matches(other as Word.Document)) return true;
+            if (other is Word.Range wdRange && Matches(wdRange.Document)) return true;
+            if (other is IDOMObject iDom && Equals(iDom.Document)) return true;
+
+            //TODO other matches?
+            return false;
+        }
+        public bool Matches(Word.Document other)
+        {
+            if (ReferenceEquals(_comDocument, other)) return true;
+
+            try
+            {
+                var thisRange = _comDocument?.Content;
+                var otherRange = other?.Content;
+
+                if (thisRange == null || otherRange == null) return false;
+
+                return RangeSnapshot.SlowMatch(thisRange, otherRange);
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(this, obj)) return true;
+            if (!(obj is CKDocument other)) return false;
+
+            try
+            {
+                var thisRange = _comDocument?.Content;
+                var otherRange = other._comDocument?.Content;
+
+                if (thisRange == null || otherRange == null) return false;
+
+                return RangeSnapshot.SlowMatch(thisRange, otherRange);
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public override int GetHashCode()
+        {
+            try
+            {
+                var range = _comDocument?.Content;
+                if (range == null) return 0;
+
+                var hash = 23 + _comDocument.GetHashCode();
+                return hash;
+            }
+            catch
+            {
+                return 0;
+            }
+        }
+
+
+
     }
 }

@@ -21,14 +21,13 @@ namespace CoverageKiller2.DOM.Tables
         internal int RowCount => _grid.Count;
         internal int ColCount => _grid.LargestRowCount - 1;//-1 to account for end of row cell.
 
-        public static CKTableGrid GetInstance(CKTable ckTable, Word.Table comTable)
+        public static CKTableGrid GetInstance(CKTable ckTable, Word.Table comTable, [MemberCallerName] string callerName = null)
         {
             LH.Ping<CKTableGrid>();
-            var tableId = $"{ckTable.Document.FileName}::{ckTable.Snapshot.FastHash}";
-            Log.Debug($"Getting CKTableGrid Instance for table {tableId}");
-
-            //_tableGrids.Keys.Where(r => r.IsOrphan).ToList()
-            //    .ForEach(r => _tableGrids.Remove(r));
+            var tableId = $"{ckTable.Document.FileName}";
+            Log.Debug($"Getting CKTableGrid Instance for {tableId};" +
+                $"\n\t\t\t\t" +
+                $"Requested by{ckTable.Parent.GetType()}::{ckTable.GetType()}::{callerName}.");
 
             if (_tableGrids.TryGetValue(tableId, out CKTableGrid grid))
             {
@@ -40,7 +39,10 @@ namespace CoverageKiller2.DOM.Tables
             Log.Debug($"Grid Instance not found for table; creating new.");
             grid = new CKTableGrid(ckTable);//, comTable);
             _tableGrids.Add(tableId, grid);
-            LH.Ping<CKTableGrid>();
+
+
+            Log.Debug(new Base1List<string>(_tableGrids.Keys.ToList()).Dump(), "Available instances:");
+            LH.Pong<CKTableGrid>();
 
             return grid;
         }
@@ -143,7 +145,7 @@ namespace CoverageKiller2.DOM.Tables
         {
             this.Ping();
             //for debugging uncomment.
-            shadowWorkspace.ShowDebuggerWindow();
+            //shadowWorkspace.ShowDebuggerWindow();
 
             //put original table
             shadowWorkspace.CloneFrom(sourceTable); //make sure we aren't recursing tables here.

@@ -460,7 +460,7 @@ namespace CoverageKiller2.DOM.Tables
 
             foreach (Word.Cell cell in COMRange.Cells)
             {
-                cell.Range.Text = string.Empty;
+                cell.Range.Text = "X";
             }
 
             foreach (Word.Cell cell in longestRow)
@@ -637,9 +637,6 @@ namespace CoverageKiller2.DOM.Tables
                     // If it's a master cell and the text shows a merged marker (/r/a)
                     if (gridCell.IsMasterCell)
                     {
-                        if (cellIndex >= normalizedRowCount)
-                            throw new Exception(" master nope");
-
                         // If the text value isn't a merge indicator, skip
                         if (textCell != "/r/a") continue;
 
@@ -650,9 +647,6 @@ namespace CoverageKiller2.DOM.Tables
                     // If it's a merged cell, we expect a "/r/a" in the text
                     else if (gridCell.IsMergedCell)
                     {
-                        if (cellIndex >= normalizedRowCount)
-                            throw new Exception(" merged nope");
-
                         // If the merge marker is already there, no fix needed
                         if (textCell == "/r/a") continue;
 
