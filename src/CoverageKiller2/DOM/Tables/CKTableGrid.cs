@@ -24,7 +24,7 @@ namespace CoverageKiller2.DOM.Tables
         public static CKTableGrid GetInstance(CKTable ckTable, Word.Table comTable, [MemberCallerName] string callerName = null)
         {
             LH.Ping<CKTableGrid>();
-            var tableId = $"{ckTable.Document.FileName}";
+            var tableId = $"{ckTable.Document.FileName}::{LH.GetTableTitle(ckTable, "***Table")}";
             Log.Debug($"Getting CKTableGrid Instance for {tableId};" +
                 $"\n\t\t\t\t" +
                 $"Requested by{ckTable.Parent.GetType()}::{ckTable.GetType()}::{callerName}.");
