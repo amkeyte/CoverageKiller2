@@ -1,4 +1,5 @@
 ﻿using CoverageKiller2.Logging;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -138,7 +139,11 @@ namespace CoverageKiller2.DOM.Tables
             if (row > COMTable.Rows.Count || col > COMTable.Columns.Count)
                 throw new ArgumentOutOfRangeException($"Cell ({row}, {col}) does not exist in COM table [Rows: {COMTable.Rows.Count}, Cols: {COMTable.Columns.Count}].");
 
-            var COMCell = COMTable.Cell(row, col);
+            if (gridCell.GridRow > COMTable.Rows.Count || gridCell.GridCol > COMTable.Columns.Count)
+                throw new CKDebugException($"COM cell [{gridCell.GridRow},{gridCell.GridCol}] is outside table bounds [{COMTable.Rows.Count},{COMTable.Columns.Count}].");
+
+            Log.Debug($"Requesting COMTable[{Snapshot.FastHash}].Cell({gridCell.GridRow}, {gridCell.GridCol})");
+            var COMCell = COMTable.Cell(gridCell.GridRow, gridCell.GridCol);
             this.Pong();
             return COMCell;
         }
