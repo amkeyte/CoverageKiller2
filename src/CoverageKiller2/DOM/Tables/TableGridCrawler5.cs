@@ -415,7 +415,7 @@ namespace CoverageKiller2.DOM.Tables
                 newRow.Add(new RowEndGridCell5());
                 newGrid.Add(newRow);
             }
-            Log.Debug(DumpGrid(newGrid, $"\n{nameof(NormalizeByWidth)}-{nameof(newGrid)}"));
+            Log.Verbose(DumpGrid(newGrid, $"\n{nameof(NormalizeByWidth)}-{nameof(newGrid)}"));
 
             _grid = newGrid;
             this.Pong();
@@ -502,7 +502,7 @@ namespace CoverageKiller2.DOM.Tables
                 }
                 result.Add(list);
             }
-            Log.Debug(DumpGrid(result, $"\n{nameof(GetMasterGrid)}-result"));
+            Log.Verbose(DumpGrid(result, $"\n{nameof(GetMasterGrid)}-result"));
 
             this.Pong();
 
@@ -602,8 +602,8 @@ namespace CoverageKiller2.DOM.Tables
 
             _grid = normalizedGrid;
 
-            Log.Debug(DumpGrid(textGrid, $"{nameof(CrawlVertically)}-{nameof(textGrid)}"));
-            Log.Debug(DumpGrid(normalizedGrid, $"{nameof(CrawlVertically)}-{nameof(normalizedGrid)}"));
+            Log.Verbose(DumpGrid(textGrid, $"{nameof(CrawlVertically)}-{nameof(textGrid)}"));
+            Log.Verbose(DumpGrid(normalizedGrid, $"{nameof(CrawlVertically)}-{nameof(normalizedGrid)}"));
 
             this.Pong();
             return normalizedGrid;
@@ -701,8 +701,8 @@ namespace CoverageKiller2.DOM.Tables
             _grid = normalizedGrid;
 
             // Output final structures for debugging
-            Log.Debug(GridCrawler5.DumpGrid(textGrid, $"{nameof(CrawlHoriz)}-{nameof(textGrid)}"));
-            Log.Debug(GridCrawler5.DumpGrid(normalizedGrid, $"{nameof(CrawlHoriz)}-{nameof(normalizedGrid)}"));
+            Log.Verbose(GridCrawler5.DumpGrid(textGrid, $"{nameof(CrawlHoriz)}-{nameof(textGrid)}"));
+            Log.Verbose(GridCrawler5.DumpGrid(normalizedGrid, $"{nameof(CrawlHoriz)}-{nameof(normalizedGrid)}"));
 
             this.Pong();
 
