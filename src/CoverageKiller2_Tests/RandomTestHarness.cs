@@ -7,6 +7,9 @@ using Word = Microsoft.Office.Interop.Word;
 
 namespace CoverageKiller2.Test
 {
+
+
+
     /// <summary>
     /// Centralized test harness for initializing CKOffice_Word and managing test documents.
     /// </summary>
@@ -15,6 +18,19 @@ namespace CoverageKiller2.Test
     /// </remarks>
     public static class RandomTestHarness
     {
+        static RandomTestHarness()
+        {
+            // This will run once, automatically, when any static method or property is accessed
+            InitializeOnceAtStartup();
+        }
+
+        private static void InitializeOnceAtStartup()
+        {
+            CKOffice_Word.Instance.Start();
+            LogExpertLoader.StartLogExpert(LoggingLoader.LogFile, true);
+
+        }
+
         private static CKApplication _sharedApp;
         public static string TestFile1 = "C:\\Users\\akeyte.PCM\\source\\repos\\CoverageKiller2\\src\\CoverageKiller2_Tests\\TestFiles\\SEA Garage (Noise Floor)_Test3.docx";
         public static string TestFile2 = "C:\\Users\\akeyte.PCM\\source\\repos\\CoverageKiller2\\src\\CoverageKiller2_Tests\\TestFiles\\SEA Garage (CC) Short.docx";

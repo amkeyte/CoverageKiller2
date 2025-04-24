@@ -66,7 +66,7 @@ namespace CoverageKiller2.Tests.Scenarios
             foreach (var table in CKDoc.Tables)
             {
                 table.AccessMode = TableAccessMode.IncludeOnlyAnchorCells;
-                var row = table.Rows[1];
+                var row = table.Rows[1]; //fail is here
 
                 var cellTexts = row.Select(c => c.Text).ToList(); // list of text from each cell
                 var joinedText = string.Join(string.Empty, cellTexts);
@@ -131,6 +131,42 @@ namespace CoverageKiller2.Tests.Scenarios
                 Marshal.ReleaseComObject(comDoc);
             }
         }
+        [TestMethod]
+        public void CanFindTestDetailsTable_ByScrunchedRow1_C()
+        {
+            var CKDoc = _testFile;
+            CKDoc.KeepAlive = true;
+            string TDTable_ss = "Test Details";
+            string scrunchedTarget = CKTextHelper.Scrunch(TDTable_ss);
 
+            foreach (var table in CKDoc.Tables)
+            {
+                table.AccessMode = TableAccessMode.IncludeOnlyAnchorCells;
+
+                if (table.Rows.Count < 1)
+                {
+                    TestContext.WriteLine($"Table {table.DocumentTableIndex}: has no rows.");
+                    continue;
+                }
+
+                var row = table.Rows[1];
+
+                var cellTexts = row.Select(c => c.Text).ToList(); // list of text from each cell
+                var joinedText = string.Join(string.Empty, cellTexts);
+                Log.Debug($"Table Text returned {joinedText}");
+                var scrunchedRowText = CKTextHelper.Scrunch(joinedText);
+
+                TestContext.WriteLine($"Table {table.DocumentTableIndex}: Row 1 scrunched text = '{scrunchedRowText}'");
+
+                if (scrunchedRowText == scrunchedTarget)
+                {
+                    TestContext.WriteLine("Match found.");
+                    Assert.IsTrue(true);
+                    return;
+                }
+            }
+
+            Assert.Fail("No matching table found with scrunched row 1 text.");
+        }
     }
 }

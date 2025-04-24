@@ -103,6 +103,7 @@ namespace CoverageKiller2.DOM.Tables
             _COMTable = table ?? throw new ArgumentNullException(nameof(table));
             //_shadowWorkspace = workspace ?? throw new ArgumentNullException(nameof(workspace));
             _grid = AnalyzeTableRecursively(table);
+            Log.Debug(DumpGrid(_grid, $"\n\n***  Final table for table {new RangeSnapshot(table.Range).FastHash} ***"));
             this.Pong();
         }
         /// <summary>
