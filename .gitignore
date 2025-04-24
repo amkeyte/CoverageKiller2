@@ -10,6 +10,12 @@
 *.userosscache
 *.sln.docstates
 
+#Test files ignored while debugging.
+# Ignore test source files
+**/*Tests.cs
+
+
+
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 
