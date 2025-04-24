@@ -144,6 +144,8 @@ namespace CoverageKiller2.DOM.Tables
 
             Log.Debug($"Requesting COMTable[{LH.GetTableTitle(this, "***Table")}][{Snapshot.FastHash}].Cell({gridCell.GridRow}, {gridCell.GridCol})");
             var COMCell = COMTable.Cell(gridCell.GridRow, gridCell.GridCol);
+            Log.Debug($"Requesting COMTable cell returned cell[{gridCell.GridRow},{gridCell.GridCol})" +
+                $" returned cell text '{COMCell.Range.Text.Scrunch()}");
             this.Pong();
             return COMCell;
         }
