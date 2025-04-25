@@ -10,80 +10,6 @@ using Word = Microsoft.Office.Interop.Word;
 
 namespace CoverageKiller2.DOM.Tables
 {
-    /// <summary>
-    /// Represents a visual layout cell with merge span metadata,
-    /// suitable for use as a reusable layout template independent of COM references.
-    /// </summary>
-    /// <remarks>
-    /// THIS CLASS IS NOT TO INCLUDE ANY CK.DOM references. Version: CK2.00.01.0033
-    /// </remarks>
-    public class GridCell5
-    {
-        public int GridRow { get; }
-        public int GridCol { get; }
-        public virtual bool IsRowEndMarker { get; } = false;
-        public virtual bool IsMasterCell { get; } = false;
-        public virtual GridCell5 MasterCell { get; }
-        public virtual bool IsGhostCell { get; } = false;
-        public virtual bool IsMergedCell { get; } = false;
-
-        public int ColSpan { get; private set; } = 1;
-        public int RowSpan { get; private set; } = 1;
-
-        public GridCell5(int row, int col, GridCell5 masterCell = null)
-        {
-            GridRow = row;
-            GridCol = col;
-            MasterCell = masterCell ?? this;
-            IsMasterCell = true;
-        }
-
-        internal void AddMerge(MergedGridCell5 mergedGridCell5)
-        {
-            //if a merged cell is tied to this one that is further than the current span, give it the new span.
-            //add plus 1, because span is inclusive.
-            ColSpan = Math.Max(ColSpan, (mergedGridCell5.GridCol - GridCol) + 1);
-            RowSpan = Math.Max(RowSpan, (mergedGridCell5.GridRow - GridRow) + 1);
-        }
-    }
-    /// <summary>
-    /// Ghost cell points to itself but is not a master. used to take place
-    /// of undiscovered grid placements.
-    /// </summary>
-    public class GhostGridCell5 : GridCell5
-    {
-        public override bool IsMasterCell => false;
-        public override bool IsGhostCell => true;
-        public override GridCell5 MasterCell => null;
-        public GhostGridCell5()
-            : base(-1, -1, null)
-        {
-        }
-
-    }
-    public class RowEndGridCell5 : GridCell5
-    {
-        public override bool IsMasterCell => false;
-        public override GridCell5 MasterCell => null;
-        public override bool IsRowEndMarker => true;
-        public RowEndGridCell5()
-            : base(-999, -1, null)
-        {
-
-        }
-    }
-    public class MergedGridCell5 : GridCell5
-    {
-        public override bool IsMasterCell => false;
-        public override bool IsMergedCell => true;
-
-        public MergedGridCell5(int row, int col, GridCell5 masterCell)
-            : base(row, col, masterCell)
-        {
-            masterCell.AddMerge(this);
-        }
-    }
-
 
     /// <summary>
     /// Builds a reusable layout grid from a Word table using both visual and textual merge inference.
@@ -104,7 +30,8 @@ namespace CoverageKiller2.DOM.Tables
             //_shadowWorkspace = workspace ?? throw new ArgumentNullException(nameof(workspace));
             _grid = AnalyzeTableRecursively(table);
 
-            Log.Debug(DumpGrid(_grid, $"\n\n***  Final table for Table: [{new RangeSnapshot(table.Range).FastHash}]***"));
+            Log.Debug(DumpGrid(_grid, $"\n\n***  Final table for Table:" +
+                $"[{LH.GetTableTitle(_COMTable, "***Table")}] [{new RangeSnapshot(table.Range).FastHash}]***"));
 
             if (_grid.SelectMany(r => r).Any(c => c.IsGhostCell)) throw new CKDebugException("Crawl failed Ghost cells not resolved.");
 
@@ -851,4 +778,80 @@ namespace CoverageKiller2.DOM.Tables
 
 
     }
+
+    /// <summary>
+    /// Represents a visual layout cell with merge span metadata,
+    /// suitable for use as a reusable layout template independent of COM references.
+    /// </summary>
+    /// <remarks>
+    /// THIS CLASS IS NOT TO INCLUDE ANY CK.DOM references. Version: CK2.00.01.0033
+    /// </remarks>
+    public class GridCell5
+    {
+        public int GridRow { get; }
+        public int GridCol { get; }
+        public virtual bool IsRowEndMarker { get; } = false;
+        public virtual bool IsMasterCell { get; } = false;
+        public virtual GridCell5 MasterCell { get; }
+        public virtual bool IsGhostCell { get; } = false;
+        public virtual bool IsMergedCell { get; } = false;
+
+        public int ColSpan { get; private set; } = 1;
+        public int RowSpan { get; private set; } = 1;
+
+        public GridCell5(int row, int col, GridCell5 masterCell = null)
+        {
+            GridRow = row;
+            GridCol = col;
+            MasterCell = masterCell ?? this;
+            IsMasterCell = true;
+        }
+
+        internal void AddMerge(MergedGridCell5 mergedGridCell5)
+        {
+            //if a merged cell is tied to this one that is further than the current span, give it the new span.
+            //add plus 1, because span is inclusive.
+            ColSpan = Math.Max(ColSpan, (mergedGridCell5.GridCol - GridCol) + 1);
+            RowSpan = Math.Max(RowSpan, (mergedGridCell5.GridRow - GridRow) + 1);
+        }
+    }
+    /// <summary>
+    /// Ghost cell points to itself but is not a master. used to take place
+    /// of undiscovered grid placements.
+    /// </summary>
+    public class GhostGridCell5 : GridCell5
+    {
+        public override bool IsMasterCell => false;
+        public override bool IsGhostCell => true;
+        public override GridCell5 MasterCell => null;
+        public GhostGridCell5()
+            : base(-1, -1, null)
+        {
+        }
+
+    }
+    public class RowEndGridCell5 : GridCell5
+    {
+        public override bool IsMasterCell => false;
+        public override GridCell5 MasterCell => null;
+        public override bool IsRowEndMarker => true;
+        public RowEndGridCell5()
+            : base(-999, -1, null)
+        {
+
+        }
+    }
+    public class MergedGridCell5 : GridCell5
+    {
+        public override bool IsMasterCell => false;
+        public override bool IsMergedCell => true;
+
+        public MergedGridCell5(int row, int col, GridCell5 masterCell)
+            : base(row, col, masterCell)
+        {
+            masterCell.AddMerge(this);
+        }
+    }
+
+
 }

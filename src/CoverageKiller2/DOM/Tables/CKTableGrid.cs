@@ -25,9 +25,9 @@ namespace CoverageKiller2.DOM.Tables
         {
             LH.Ping<CKTableGrid>();
             var tableId = $"{ckTable.Document.FileName}[{ckTable.Snapshot.FastHash}]";
-            //Log.Debug($"Getting CKTableGrid Instance for [{LH.GetTableTitle(ckTable, "***Table")}] {tableId} :: " +
-            //    $"\n\t\t\t\t" +
-            //    $"Requested by{ckTable.Parent.GetType()}::{ckTable.GetType()}::{callerName}.");
+            Log.Debug($"Getting CKTableGrid Instance for [{LH.GetTableTitle(ckTable, "***Table")}] {tableId} :: " +
+                $"\n\t\t\t\t" +
+                $"Requested by{ckTable.Parent.GetType()}::{ckTable.GetType()}::{callerName}.");
 
             if (_tableGrids.TryGetValue(tableId, out CKTableGrid grid))
             {

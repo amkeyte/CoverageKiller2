@@ -7,10 +7,16 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 using System.Text;
+using Word = Microsoft.Office.Interop.Word;
 
 namespace CoverageKiller2.Logging
 
 {
+
+
+
+
+
     /// <summary>
     /// Represents an internal debug exception that signals an unexpected state or logic error
     /// within the CoverageKiller DOM system.
@@ -72,6 +78,46 @@ namespace CoverageKiller2.Logging
 
             return null;
         }
+
+        /// <summary>
+        /// Attempts to find a paragraph immediately preceding the given table
+        /// that contains a marker text, used as a title.
+        /// </summary>
+        /// <param name="table">The Word table to check.</param>
+        /// <param name="markerText">The marker text to search for (scrunched).</param>
+        /// <returns>The matching paragraph text, or null if not found.</returns>
+        public static string GetTableTitle(Word.Table table, string markerText)
+        {
+            if (table == null || string.IsNullOrWhiteSpace(markerText)) return null;
+
+            Word.Document doc = table.Range.Document;
+            int start = table.Range.Start;
+            int searchStart = Math.Max(1, start - 100);
+
+            Word.Range range = doc.Range(searchStart, start);
+            Word.Paragraphs paraList = range.Paragraphs;
+
+            string scrunchedTarget = CKTextHelper.Scrunch(markerText);
+
+            for (int i = paraList.Count; i >= 1; i--)
+            {
+                Word.Paragraph para = paraList[i];
+                if (para.Range.End >= start) continue;
+
+                string paraText = para.Range.Text?.Trim();
+                if (string.IsNullOrWhiteSpace(paraText)) continue;
+
+                string scrunched = CKTextHelper.Scrunch(paraText);
+                if (scrunched.Contains(scrunchedTarget))
+                {
+                    return paraText;
+                }
+            }
+
+            return null;
+        }
+
+
         public static Exception LogThrow(Exception exception = null, [CallerMemberName] string callerName = "")
         {
             Log.Error(exception, exception.Message);
