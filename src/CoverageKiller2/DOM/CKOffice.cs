@@ -159,8 +159,8 @@ namespace CoverageKiller2.DOM
 
             if (_isRunning)
             {
-                Log.Information("CKOffice_Word.Start called while already running. No action taken.");
-                return 1;
+                Log.Warning("CKOffice_Word.Start called while already running. Start Refused.");
+                return int.MinValue;
             }
 
             try

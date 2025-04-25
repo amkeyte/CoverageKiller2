@@ -1,6 +1,8 @@
 ﻿using CoverageKiller2.DOM;
 using CoverageKiller2.Logging;
 using Serilog;
+using System;
+using System.Linq;
 namespace CoverageKiller2
 {
 
@@ -50,7 +52,15 @@ namespace CoverageKiller2
     public partial class ThisAddIn
     {
 
-
+        private bool IsRunningUnderTest()
+        {
+            return AppDomain.CurrentDomain.GetAssemblies()
+                .Any(a =>
+                    a.FullName.StartsWith("Microsoft.VisualStudio.TestPlatform", StringComparison.OrdinalIgnoreCase) ||
+                    a.FullName.IndexOf("testhost", StringComparison.OrdinalIgnoreCase) >= 0 ||
+                    a.FullName.IndexOf("Microsoft.VisualStudio.QualityTools", StringComparison.OrdinalIgnoreCase) >= 0
+                );
+        }
 
         /// <summary>
         /// Initializes logging and BareTail when the add-in starts.
@@ -59,14 +69,26 @@ namespace CoverageKiller2
         /// <param name="e">Event arguments.</param>
         private async void ThisAddIn_Startup(object sender, System.EventArgs e)
         {
-
+            //skip out if tests are running.
+            if (IsRunningUnderTest())
+            {
+                Log.Information("Skipping add-in startup because test environment is detected.");
+                return;
+            }
 
             var OfficeWord = CKOffice_Word.Instance;
-            OfficeWord.Start();
-            OfficeWord.TryPutAddin(this);
-            LogExpertLoader.StartLogExpert(LoggingLoader.LogFile, true);
+            if (OfficeWord.Start() != int.MinValue)
+            {
 
-            Log.Information("ThisAddIn started.");
+                OfficeWord.TryPutAddin(this);
+                LogExpertLoader.StartLogExpert(LoggingLoader.LogFile, true);
+                Log.Information("ThisAddIn started.");
+            }
+            else
+            {
+                Log.Warning("ThisAddin was refused control of CKOffice_Word");
+            }
+
 
         }
 

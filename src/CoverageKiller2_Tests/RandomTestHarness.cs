@@ -13,11 +13,12 @@ namespace CoverageKiller2.Test
     /// <summary>
     /// Centralized test harness for initializing CKOffice_Word and managing test documents.
     /// </summary>
-    /// <remarks>
+    /// <remarks> 
     /// Version: CK2.00.00.0000
     /// </remarks>
     public static class RandomTestHarness
     {
+        public static bool RandomTestHarnessIsRunning { get; private set; } = false;
         static RandomTestHarness()
         {
             // This will run once, automatically, when any static method or property is accessed
@@ -26,9 +27,9 @@ namespace CoverageKiller2.Test
 
         private static void InitializeOnceAtStartup()
         {
+            RandomTestHarnessIsRunning = true;
             CKOffice_Word.Instance.Start();
             LogExpertLoader.StartLogExpert(LoggingLoader.LogFile, true);
-
         }
 
         private static CKApplication _sharedApp;
@@ -85,6 +86,8 @@ namespace CoverageKiller2.Test
         {
             LogExpertLoader.Cleanup();
             CKOffice_Word.Instance.ShutDown();
+            RandomTestHarnessIsRunning = false;
+
         }
 
         /// <summary>
