@@ -559,97 +559,109 @@ namespace CoverageKiller2.DOM.Tables
         {
             this.Ping(msg: "$$$");
 
-            // Use previously cached grids if not supplied
-            textGrid = textGrid ?? _textGrid;
-            normalizedGrid = normalizedGrid ?? _grid;
-
-            // Determine the widest row to iterate columns safely
-            var normalizedRowCount = normalizedGrid.LargestRowCount;
-
-            // Loop through each row
-            for (var rowIndex = 1; rowIndex <= normalizedGrid.Count; rowIndex++)
+            try
             {
-                var gridRow = normalizedGrid[rowIndex];   // visual grid row of GridCell5
-                var textRow = textGrid[rowIndex];         // raw text values for same row
 
-                // Loop across the widest row column count
-                for (var cellIndex = 1; cellIndex <= normalizedRowCount; cellIndex++)
+
+                // Use previously cached grids if not supplied
+                textGrid = textGrid ?? _textGrid;
+                normalizedGrid = normalizedGrid ?? _grid;
+
+                // Determine the widest row to iterate columns safely
+                var normalizedRowCount = normalizedGrid.LargestRowCount;
+
+                // Loop through each row
+                for (var rowIndex = 1; rowIndex <= normalizedGrid.Count; rowIndex++)
                 {
-                    var gridCell = gridRow[cellIndex];    // GridCell5 at this row,col
-                    var textCell = textRow[cellIndex];    // Corresponding text from ParseTableText()
+                    var gridRow = normalizedGrid[rowIndex];   // visual grid row of GridCell5
+                    var textRow = textGrid[rowIndex];         // raw text values for same row
 
-                    // If it's a master cell and the text shows a merged marker (/r/a)
-                    if (gridCell.IsMasterCell)
+                    // Loop across the widest row column count
+                    for (var cellIndex = 1; cellIndex <= normalizedRowCount; cellIndex++)
                     {
-                        // If the text value isn't a merge indicator, skip
-                        if (textCell != "/r/a") continue;
+                        var gridCell = gridRow[cellIndex];    // GridCell5 at this row,col
+                        var textCell = textRow[cellIndex];    // Corresponding text from ParseTableText()
 
-                        // Otherwise, insert a ghost cell to realign the layout grid
-                        gridRow.Insert(cellIndex, new GhostGridCell5());
-                    }
-
-                    // If it's a merged cell, we expect a "/r/a" in the text
-                    else if (gridCell.IsMergedCell)
-                    {
-                        // If the merge marker is already there, no fix needed
-                        if (textCell == "/r/a") continue;
-
-                        // Otherwise, insert the merge marker into the text row
-                        textRow.Insert(cellIndex, "/r/a");
-                    }
-
-                    // Handle row end markers (used to force row alignment)
-                    else if (gridCell.IsRowEndMarker)
-                    {
-                        // If the text doesn't end with "/r/a", patch it in
-                        if (textCell != "/r/a") textRow.Insert(cellIndex, "/r/a");
-
-                        // Now push all cells past the row end to the next row
-                        for (var i = textRow.Count; i > cellIndex; i--)
+                        // If it's a master cell and the text shows a merged marker (/r/a)
+                        if (gridCell.IsMasterCell)
                         {
-                            // Add new row if it doesn't exist yet
-                            if (rowIndex + 1 > textGrid.Count)
-                                textGrid.Add(new Base1List<string>());
+                            // If the text value isn't a merge indicator, skip
+                            if (textCell != "/r/a") continue;
 
-                            // Move last cell in this row to the front of the next row
-                            textGrid[rowIndex + 1].Insert(1, textRow.Last());
-
-                            // Remove the moved cell from current row
-                            textRow.RemoveAt(textRow.Count);
-                        }
-                    }
-
-                    // Ghost cells are placeholders introduced earlier
-                    else if (gridCell.IsGhostCell)
-                    {
-                        // If it's beyond the expected width, drop it and rewind index
-                        if (cellIndex >= normalizedRowCount)
-                        {
-                            gridRow.RemoveAt(cellIndex);
-                            cellIndex--;
-                            continue;
+                            // Otherwise, insert a ghost cell to realign the layout grid
+                            gridRow.Insert(cellIndex, new GhostGridCell5());
                         }
 
-                        // If the text aligns, ghost is valid
-                        if (textCell == "/r/a") continue;
+                        // If it's a merged cell, we expect a "/r/a" in the text
+                        else if (gridCell.IsMergedCell)
+                        {
+                            // If the merge marker is already there, no fix needed
+                            if (textCell == "/r/a") continue;
 
-                        // Otherwise, align text row by inserting the ghost cell marker
-                        textRow.Insert(cellIndex, "/r/a");
+                            // Otherwise, insert the merge marker into the text row
+                            textRow.Insert(cellIndex, "/r/a");
+                        }
+
+                        // Handle row end markers (used to force row alignment)
+                        else if (gridCell.IsRowEndMarker)
+                        {
+                            // If the text doesn't end with "/r/a", patch it in
+                            if (textCell != "/r/a") textRow.Insert(cellIndex, "/r/a");
+
+                            // Now push all cells past the row end to the next row
+                            for (var i = textRow.Count; i > cellIndex; i--)
+                            {
+                                // Add new row if it doesn't exist yet
+                                if (rowIndex + 1 > textGrid.Count)
+                                    textGrid.Add(new Base1List<string>());
+
+                                // Move last cell in this row to the front of the next row
+                                textGrid[rowIndex + 1].Insert(1, textRow.Last());
+
+                                // Remove the moved cell from current row
+                                textRow.RemoveAt(textRow.Count);
+                            }
+                        }
+
+                        // Ghost cells are placeholders introduced earlier
+                        else if (gridCell.IsGhostCell)
+                        {
+                            // If it's beyond the expected width, drop it and rewind index
+                            if (cellIndex >= normalizedRowCount)
+                            {
+                                gridRow.RemoveAt(cellIndex);
+                                cellIndex--;
+                                continue;
+                            }
+
+                            // If the text aligns, ghost is valid
+                            if (textCell == "/r/a") continue;
+
+                            // Otherwise, align text row by inserting the ghost cell marker
+                            textRow.Insert(cellIndex, "/r/a");
+                        }
                     }
                 }
+
+                // Save mutated structures back into local cache
+                _textGrid = textGrid;
+                _grid = normalizedGrid;
+
+                // Output final structures for debugging
+                Log.Verbose(GridCrawler5.DumpGrid(textGrid, $"{nameof(CrawlHoriz)}-{nameof(textGrid)}"));
+                Log.Verbose(GridCrawler5.DumpGrid(normalizedGrid, $"{nameof(CrawlHoriz)}-{nameof(normalizedGrid)}"));
+
+                this.Pong();
+
+                return normalizedGrid;
             }
-
-            // Save mutated structures back into local cache
-            _textGrid = textGrid;
-            _grid = normalizedGrid;
-
-            // Output final structures for debugging
-            Log.Verbose(GridCrawler5.DumpGrid(textGrid, $"{nameof(CrawlHoriz)}-{nameof(textGrid)}"));
-            Log.Verbose(GridCrawler5.DumpGrid(normalizedGrid, $"{nameof(CrawlHoriz)}-{nameof(normalizedGrid)}"));
-
-            this.Pong();
-
-            return normalizedGrid;
+            catch (Exception ex)
+            {
+                Log.Error(ex, "Exception in Horizonatal crawl.");
+                Log.Debug(DumpGrid(textGrid, $"{nameof(CrawlHoriz)}-{nameof(textGrid)}"));
+                Log.Debug(DumpGrid(normalizedGrid, $"{nameof(CrawlHoriz)}-{nameof(normalizedGrid)}"));
+                throw ex;
+            }
         }
 
         public static (Word.Table first, Word.Table second, int splitRow) SplitTableAtRow(Word.Table original)
