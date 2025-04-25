@@ -77,10 +77,9 @@ namespace CoverageKiller2
             }
 
             var OfficeWord = CKOffice_Word.Instance;
-            if (OfficeWord.Start() != int.MinValue)
+            if (OfficeWord.Start() + OfficeWord.TryPutAddin(this) == 0)
             {
-
-                OfficeWord.TryPutAddin(this);
+                RegisterCrashHandlers();
                 LogExpertLoader.StartLogExpert(LoggingLoader.LogFile, true);
                 Log.Information("ThisAddIn started.");
             }
@@ -90,6 +89,39 @@ namespace CoverageKiller2
             }
 
 
+        }
+        private void RegisterCrashHandlers()
+        {
+            // Unhandled Word errors
+            this.Application.DocumentChange += () =>
+            {
+                try
+                {
+                    // Your safety check or doc validation logic here
+                }
+                catch (Exception ex)
+                {
+                    CKOffice_Word.Instance.Crash(ex, typeof(ThisAddIn), nameof(Application.DocumentChange));
+                }
+            };
+
+            AppDomain.CurrentDomain.UnhandledException += (s, e) =>
+            {
+                var ex = e.ExceptionObject as Exception;
+                CKOffice_Word.Instance.Crash(ex, typeof(ThisAddIn), "AppDomain.UnhandledException");
+            };
+
+            Application.DocumentOpen += (doc) =>
+            {
+                try
+                {
+                    // Optional additional hook
+                }
+                catch (Exception ex)
+                {
+                    CKOffice_Word.Instance.Crash(ex, typeof(ThisAddIn), nameof(Application.DocumentOpen));
+                }
+            };
         }
 
         /// <summary>

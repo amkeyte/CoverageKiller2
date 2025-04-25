@@ -189,10 +189,15 @@ namespace CoverageKiller2.DOM
         private bool _crashing = false;
         private bool _isTesting;
 
-        public void Crash(Type callerType, [MemberCallerName] string callerMember = null)
+        public void Crash(Exception ex, Type callerType, [MemberCallerName] string callerMember = null)
         {
             Log.Error($"Crashing {nameof(CKOffice_Word)}. Source: {callerType.Name}.{callerMember}");
             _crashing = true;
+            if (ex != null)
+            {
+                Log.Error(ex, "Exception during crash from {Caller}.{Member}", callerType?.Name, callerMember);
+            }
+
             for (int appIndex = 0; appIndex < Applications.Count(); appIndex++)
             {
                 var app = Applications.ElementAt(appIndex);
