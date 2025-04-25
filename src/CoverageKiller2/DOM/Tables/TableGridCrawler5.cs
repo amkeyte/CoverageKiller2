@@ -567,10 +567,10 @@ namespace CoverageKiller2.DOM.Tables
                 textGrid = textGrid ?? _textGrid;
                 normalizedGrid = normalizedGrid ?? _grid;
 
-                if (textGrid.SelectMany)
 
-                    // Determine the widest row to iterate columns safely
-                    var normalizedRowCount = normalizedGrid.LargestRowCount;
+
+                // Determine the widest row to iterate columns safely
+                var normalizedRowCount = normalizedGrid.LargestRowCount;
 
                 // Loop through each row
                 for (var rowIndex = 1; rowIndex <= normalizedGrid.Count; rowIndex++)
@@ -653,13 +653,19 @@ namespace CoverageKiller2.DOM.Tables
                     }
                 }
 
+
+                //validate
+                if (textGrid.Flatten().Count() != normalizedGrid.Flatten().Count())
+                    throw new ArgumentException("Input grids are out of alignment.");
+
+
                 // Save mutated structures back into local cache
                 _textGrid = textGrid;
                 _grid = normalizedGrid;
 
                 // Output final structures for debugging
-                Log.Verbose(GridCrawler5.DumpGrid(textGrid, $"{nameof(CrawlHoriz)}-{nameof(textGrid)}"));
-                Log.Verbose(GridCrawler5.DumpGrid(normalizedGrid, $"{nameof(CrawlHoriz)}-{nameof(normalizedGrid)}"));
+                Log.Verbose(DumpGrid(textGrid, $"{nameof(CrawlHoriz)}-{nameof(textGrid)}"));
+                Log.Verbose(DumpGrid(normalizedGrid, $"{nameof(CrawlHoriz)}-{nameof(normalizedGrid)}"));
 
                 this.Pong();
 
