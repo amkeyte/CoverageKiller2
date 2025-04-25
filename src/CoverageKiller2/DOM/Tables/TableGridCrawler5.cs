@@ -567,8 +567,10 @@ namespace CoverageKiller2.DOM.Tables
                 textGrid = textGrid ?? _textGrid;
                 normalizedGrid = normalizedGrid ?? _grid;
 
-                // Determine the widest row to iterate columns safely
-                var normalizedRowCount = normalizedGrid.LargestRowCount;
+                if (textGrid.SelectMany)
+
+                    // Determine the widest row to iterate columns safely
+                    var normalizedRowCount = normalizedGrid.LargestRowCount;
 
                 // Loop through each row
                 for (var rowIndex = 1; rowIndex <= normalizedGrid.Count; rowIndex++)
@@ -579,8 +581,16 @@ namespace CoverageKiller2.DOM.Tables
                     // Loop across the widest row column count
                     for (var cellIndex = 1; cellIndex <= normalizedRowCount; cellIndex++)
                     {
-                        var gridCell = gridRow[cellIndex];    // GridCell5 at this row,col
-                        var textCell = textRow[cellIndex];    // Corresponding text from ParseTableText()
+                        var gridCell = normalizedGrid.SafeGet(rowIndex, cellIndex);     // GridCell5 at this row,col
+                        var textCell = textGrid.SafeGet(rowIndex, cellIndex);    // Corresponding text from ParseTableText()
+                        if (gridCell == null || textCell == null)
+                        {
+                            Log.Error($"CrawlHoriz mismatch at ({rowIndex},{cellIndex}) - " +
+                                     $"normalized: {(gridCell == null ? "null" : "OK")}, " +
+                                     $"text: {(textCell == null ? "null" : "OK")}");
+
+                            throw new CKDebugException($"Mismatched cell in CrawlHoriz at ({rowIndex},{cellIndex})");
+                        }
 
                         // If it's a master cell and the text shows a merged marker (/r/a)
                         if (gridCell.IsMasterCell)

@@ -29,7 +29,14 @@ namespace CoverageKiller2.DOM.Tables
             }
         }
 
+        public T SafeGet(int row, int col)
+        {
+            if (row < 1 || row > Count) return default;
+            var rowList = _rows_0[row - 1];
+            if (rowList == null || col < 1 || col > rowList.Count) return default;
 
+            return rowList[col];
+        }
         /// <summary>
         /// Returns the largest column count across all rows.
         /// </summary>
