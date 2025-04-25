@@ -22,6 +22,7 @@ public class ShadowWorkspace : IDOMObject, IDisposable
         _doc = doc ?? throw new ArgumentNullException(nameof(doc));
         _app = app ?? throw new ArgumentNullException(nameof(app));
         _keepOpen = keepOpen;
+        _doc.Activate();//see what happens.
         this.Pong();
     }
 

@@ -231,6 +231,13 @@ namespace CoverageKiller2.DOM
         {
 
             _comDocument.Activate();
+
+            // Force layout pass
+            _comDocument.ActiveWindow.View.Type = Word.WdViewType.wdPrintView;
+            _comDocument.ActiveWindow.View.Zoom.Percentage = 100;
+
+            // Sleep briefly to let Word render
+            System.Threading.Thread.Sleep(250);
         }
         private string GenerateLogId()
         {

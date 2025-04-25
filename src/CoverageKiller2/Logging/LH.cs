@@ -93,28 +93,35 @@ namespace CoverageKiller2.Logging
             Word.Document doc = table.Range.Document;
             int start = table.Range.Start;
             int searchStart = Math.Max(1, start - 100);
-
-            Word.Range range = doc.Range(searchStart, start);
-            Word.Paragraphs paraList = range.Paragraphs;
-
-            string scrunchedTarget = CKTextHelper.Scrunch(markerText);
-
-            for (int i = paraList.Count; i >= 1; i--)
+            try
             {
-                Word.Paragraph para = paraList[i];
-                if (para.Range.End >= start) continue;
 
-                string paraText = para.Range.Text?.Trim();
-                if (string.IsNullOrWhiteSpace(paraText)) continue;
+                Word.Range range = doc.Range(searchStart, start);
+                Word.Paragraphs paraList = range.Paragraphs;
 
-                string scrunched = CKTextHelper.Scrunch(paraText);
-                if (scrunched.Contains(scrunchedTarget))
+                string scrunchedTarget = CKTextHelper.Scrunch(markerText);
+
+                for (int i = paraList.Count; i >= 1; i--)
                 {
-                    return paraText;
-                }
-            }
+                    Word.Paragraph para = paraList[i];
+                    if (para.Range.End >= start) continue;
 
-            return null;
+                    string paraText = para.Range.Text?.Trim();
+                    if (string.IsNullOrWhiteSpace(paraText)) continue;
+
+                    string scrunched = CKTextHelper.Scrunch(paraText);
+                    if (scrunched.Contains(scrunchedTarget))
+                    {
+                        return paraText;
+                    }
+                }
+
+                return null;
+            }
+            catch
+            {
+                return "UNKOWN";
+            }
         }
 
 

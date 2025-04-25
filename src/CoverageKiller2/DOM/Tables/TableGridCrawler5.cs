@@ -325,9 +325,13 @@ namespace CoverageKiller2.DOM.Tables
             {
                 var newRow = new Base1List<GridCell5>();
                 //insert cells where there are wide spaces
+                var _debugNewGridCellAddedCount = 0;
+                var _debugNewMergedCellAddedCount = 0;
                 foreach (var cell in row)
                 {
+                    Log.Debug($"Row {cell.RowIndex}, Col {cell.ColumnIndex} width = {cell.Width}");
                     var newCell = new GridCell5(cell.RowIndex + rowOffset, cell.ColumnIndex);
+                    _debugNewGridCellAddedCount++;
                     newRow.Add(newCell);
 
                     int span = Math.Max(1, (int)Math.Round(cell.Width / normalWidth));
@@ -335,9 +339,12 @@ namespace CoverageKiller2.DOM.Tables
                     for (int i = 1; i < span; i++)//for one cell, span is 1. 
                     {
                         newRow.Add(new MergedGridCell5(cell.RowIndex + rowOffset, cell.ColumnIndex + i, newCell));
+                        _debugNewMergedCellAddedCount++;
                     }
-                    span = 0;
 
+                    span = 0;
+                    Log.Debug($"\n\nRow {cell.RowIndex}, Col {cell.ColumnIndex} width = {cell.Width}\n\t" +
+                        $"Added new cells: GridCell ({_debugNewGridCellAddedCount}) MegedCell {_debugNewMergedCellAddedCount}");
                 }
                 //insert cells to fill out row
                 for (int i = newRow.Count; i < colCount; i++)
@@ -347,7 +354,7 @@ namespace CoverageKiller2.DOM.Tables
                 newRow.Add(new RowEndGridCell5());
                 newGrid.Add(newRow);
             }
-            Log.Verbose(DumpGrid(newGrid, $"\n{nameof(NormalizeByWidth)}-{nameof(newGrid)}"));
+            Log.Debug(DumpGrid(newGrid, $"\n{nameof(NormalizeByWidth)}-{nameof(newGrid)}"));
 
             _grid = newGrid;
             this.Pong();
@@ -379,7 +386,7 @@ namespace CoverageKiller2.DOM.Tables
             COMTable.AutoFitBehavior(Word.WdAutoFitBehavior.wdAutoFitContent);
             // set the table width to make.
             COMTable.PreferredWidthType = Word.WdPreferredWidthType.wdPreferredWidthPercent;
-            COMTable.PreferredWidth = 100f;
+            COMTable.PreferredWidth = 200f;
             //get the longest row (assuming to have all the columns)
             var longestRow = GetMasterGrid(COMTable)
                 .OrderByDescending(r => r.Count)

@@ -8,6 +8,7 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
+using Word = Microsoft.Office.Interop.Word;
 
 namespace CoverageKiller2.Tests.Scenarios
 
@@ -168,5 +169,58 @@ namespace CoverageKiller2.Tests.Scenarios
 
             Assert.Fail("No matching table found with scrunched row 1 text.");
         }
+
+        [TestMethod]
+        public void CanDetectGhostCellInTopRow_InTable()
+        {
+            ////////
+            ///bug 20250204-1656 was not duplicated using this test. however
+            ///a resolution was found by setting the grid to 200% in the prepare section. 
+            ///this allowed the width of each cell in the row to resize evenly for
+            ///a more liable average to compare against and better detect merges.
+
+
+
+
+            var CKDoc = _testFile;
+
+            // Force layout pass
+            var comDoc = CKDoc.GiveMeCOMDocumentIWillOwnItAndPromiseToCleanUpAfterMyself();
+            comDoc.ActiveWindow.View.Type = Word.WdViewType.wdPrintView;
+            comDoc.ActiveWindow.View.Zoom.Percentage = 100;
+            comDoc.Activate();
+
+            // Sleep briefly to let Word render
+            System.Threading.Thread.Sleep(250);
+
+
+            CKDoc.KeepAlive = true;
+
+            int tableIndex = 9;
+            Assert.IsTrue(CKDoc.Tables.Count >= tableIndex, "Test file does not contain at least 6 tables.");
+
+            var table = CKDoc.Tables[tableIndex];
+            table.AccessMode = TableAccessMode.IncludeOnlyAnchorCells;
+
+            // Force layout grid to be built (slow path will be taken due to access mode)
+            var rows = table.Rows;
+            Assert.IsTrue(rows.Count > 0, "Table returned no rows.");
+
+            // Directly verify GridCell5s for top-row ghosts
+            var grid = typeof(CKTable)
+                .GetProperty("Grid", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
+                .GetValue(table) as Base1JaggedList<GridCell5>;
+
+            Assert.IsNotNull(grid, "Internal grid not available.");
+
+            var topRow = grid[1];
+            Assert.IsNotNull(topRow, "Top row is missing from the visual grid.");
+
+            bool hasGhostInTopRow = topRow.Any(c => c.IsGhostCell);
+            Assert.IsTrue(hasGhostInTopRow, "Expected ghost cell in top row was not detected.");
+
+            TestContext.WriteLine("Test confirmed ghost cell exists in top row of Table 6.");
+        }
+
     }
 }
