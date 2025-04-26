@@ -331,6 +331,7 @@ namespace CoverageKiller2.DOM.Tables
                 var _debugNewGridCellAddedCount = 0;
                 foreach (var cell in row)
                 {
+
                     Log.Debug($"Row {cell.RowIndex}, Col {cell.ColumnIndex} width = {cell.Width}");
                     var newCell = new GridCell5(cell.RowIndex + rowOffset, cell.ColumnIndex);
                     _debugNewGridCellAddedCount++;
