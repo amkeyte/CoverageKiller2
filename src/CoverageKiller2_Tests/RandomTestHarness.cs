@@ -15,6 +15,10 @@ namespace CoverageKiller2.Test
     /// </remarks>
     public static class RandomTestHarness
     {
+        //Bug 20250425 fixed by inserting flag to keep open app and documents when CKOffice shuts down.
+        // not sure what happens during cras.
+
+
         public static bool RandomTestHarnessIsRunning { get; private set; } = false;
 
         /// <summary>
