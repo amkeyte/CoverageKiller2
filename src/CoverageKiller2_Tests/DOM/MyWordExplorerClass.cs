@@ -2,6 +2,7 @@
 using CoverageKiller2.Test;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Serilog;
+using Word = Microsoft.Office.Interop.Word;
 
 namespace CoverageKiller2._TestOperators
 {
@@ -18,7 +19,7 @@ namespace CoverageKiller2._TestOperators
         {
             Log.Information($"Running test => {GetType().Name}::{TestContext.TestName}");
             _testFilePath = RandomTestHarness.TestFile1;
-            _testFile = RandomTestHarness.GetTempDocumentFrom(_testFilePath);
+            _testFile = RandomTestHarness.GetTempDocumentFrom(_testFilePath, visible: true, cleanApp: true);
         }
         [TestCleanup]
         public void Cleanup()
@@ -35,6 +36,45 @@ namespace CoverageKiller2._TestOperators
             workspace.ShowDebuggerWindow();
         }
 
+        [TestMethod]
+        public void ExploreSetWidthEffects()
+        {
+            var workspace = _testFile.Application.GetShadowWorkspace(true);
+
+            // Step 1: Pick the source table (first table for now)
+            var ckTable = _testFile.Tables[4];
+            var sourceTable = ckTable.COMTable;
+            Assert.IsNotNull(sourceTable, "No table found in document.");
+
+            // Step 2: Set up test parameters
+            var testWidth = 100f; // in points (100 pt ≈ 1.4 inch)
+            var styles = new[]
+            {
+                Word.WdRulerStyle.wdAdjustNone,
+                Word.WdRulerStyle.wdAdjustFirstColumn,
+                Word.WdRulerStyle.wdAdjustProportional
+            };
+
+            // Step 3: Clone multiple copies of the table and apply settings
+            foreach (var style in styles)
+            {
+                // Clone table into workspace
+                var newTable = workspace.CloneFrom(ckTable);
+
+                // Apply SetWidth to each column in the new table
+                foreach (Word.Cell cell in newTable.Columns[2])
+                {
+                    cell.SetWidth(testWidth, style);
+                }
+
+                // Insert a paragraph after each table to make it easier to view
+                var paragraphAfter = newTable.COMRange.Next();
+                paragraphAfter.InsertParagraphAfter();
+                paragraphAfter.Text = $"--- Applied SetWidth({testWidth}, {style}) ---";
+            }
+
+            workspace.ShowDebuggerWindow();
+        }
 
 
     }
