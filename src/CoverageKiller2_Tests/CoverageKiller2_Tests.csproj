@@ -100,7 +100,7 @@
     <Compile Include="DOM\Tables\CKTableGridTests.cs" />
     <Compile Include="DOM\Tables\CKTablesTests.cs" />
     <Compile Include="DOM\Tables\CKTableTests.cs" />
-    <Compile Include="DOM\MyWordExplorerClass.cs" />
+    <Compile Include="DOM\MyWordExplorerTests.cs" />
     <Compile Include="DOM\RangeSnapshotTests.cs" />
     <Compile Include="DOM\Tables\CrawlBenchmarkTests.cs" />
     <Compile Include="DOM\Tables\GridCrawler5Tests.cs" />
