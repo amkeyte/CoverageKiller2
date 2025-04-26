@@ -221,6 +221,35 @@ namespace CoverageKiller2.Tests.Scenarios
 
             TestContext.WriteLine("Test confirmed ghost cell exists in top row of Table 6.");
         }
+        /// <summary>
+        /// Bug 20250425-0013
+        /// </summary>
+        [TestMethod]
+
+
+        public void CrawlHoriz_HandlesMisalignedGrid_Table4()
+        {
+            var CKDoc = _testFile;
+            CKDoc.KeepAlive = true;
+
+            int tableIndex = 4;
+            Assert.IsTrue(CKDoc.Tables.Count >= tableIndex, "Test file does not contain table 4.");
+
+            var table = CKDoc.Tables[tableIndex];
+            table.AccessMode = TableAccessMode.IncludeOnlyAnchorCells;
+
+            try
+            {
+                var rows = table.Rows; // should trigger Grid + CrawlHoriz
+                Assert.IsTrue(rows.Count > 0, "Table returned no rows.");
+                TestContext.WriteLine("Table 4 was processed successfully.");
+            }
+            catch (Exception ex)
+            {
+                Assert.Fail($"CrawlHoriz failed unexpectedly: {ex.Message}");
+            }
+        }
+
 
     }
 }

@@ -303,19 +303,22 @@ namespace CoverageKiller2.DOM.Tables
             this.Ping(msg: "$$$");
 
             var result = new Base1JaggedList<GridCell5>();
-            // Step 1: Build master-only grid
-            masterGrid = masterGrid ?? GetMasterGrid(_COMTable);
+            var widestRow = masterGrid
+             .Zip(_textGrid, (gridRow, textRow) => new { gridRow, textRow })
+             .Where(x => x.textRow.Count == x.gridRow.Count)
+             .OrderByDescending(x => x.gridRow.Sum(c => c.Width))
+             .Select(x => x.gridRow)
+             .FirstOrDefault();
 
-            if (masterGrid.Count == 0)
-                throw new InvalidOperationException("Table has no master grid rows.");
+            // Fallback if no good match found
+            if (widestRow == null) widestRow = masterGrid[2];
 
-            // Step 2: Find the row with the most master cells
-            var widestRow = masterGrid.OrderByDescending(r => r.Count).First();
             float totalRowWidth = widestRow.Sum(c => c.Width);
             int colCount = widestRow.Count;
-
-            // Step 3: Average width per column (baseline)
             float normalWidth = totalRowWidth / colCount;
+
+            Log.Debug($"[NormalizeByWidth] Using matched row width = {totalRowWidth}, columns = {colCount}");
+            Log.Debug($"[NormalizeByWidth] Calculated normalWidth = {normalWidth}");
 
 
             // Step 4: Pad each row by inserting ZombieCells after wide master cells
@@ -326,14 +329,15 @@ namespace CoverageKiller2.DOM.Tables
                 var newRow = new Base1List<GridCell5>();
                 //insert cells where there are wide spaces
                 var _debugNewGridCellAddedCount = 0;
-                var _debugNewMergedCellAddedCount = 0;
                 foreach (var cell in row)
                 {
+
                     Log.Debug($"Row {cell.RowIndex}, Col {cell.ColumnIndex} width = {cell.Width}");
                     var newCell = new GridCell5(cell.RowIndex + rowOffset, cell.ColumnIndex);
                     _debugNewGridCellAddedCount++;
                     newRow.Add(newCell);
 
+                    var _debugNewMergedCellAddedCount = 0;
                     int span = Math.Max(1, (int)Math.Round(cell.Width / normalWidth));
 
                     for (int i = 1; i < span; i++)//for one cell, span is 1. 
@@ -342,9 +346,8 @@ namespace CoverageKiller2.DOM.Tables
                         _debugNewMergedCellAddedCount++;
                     }
 
-                    span = 0;
                     Log.Debug($"\n\nRow {cell.RowIndex}, Col {cell.ColumnIndex} width = {cell.Width}\n\t" +
-                        $"Added new cells: GridCell ({_debugNewGridCellAddedCount}) MegedCell {_debugNewMergedCellAddedCount}");
+                        $"Added new cells to cover span of {span}: GridCell ({_debugNewGridCellAddedCount}) MegedCell {_debugNewMergedCellAddedCount}");
                 }
                 //insert cells to fill out row
                 for (int i = newRow.Count; i < colCount; i++)
@@ -567,6 +570,8 @@ namespace CoverageKiller2.DOM.Tables
                 textGrid = textGrid ?? _textGrid;
                 normalizedGrid = normalizedGrid ?? _grid;
 
+
+
                 // Determine the widest row to iterate columns safely
                 var normalizedRowCount = normalizedGrid.LargestRowCount;
 
@@ -579,8 +584,16 @@ namespace CoverageKiller2.DOM.Tables
                     // Loop across the widest row column count
                     for (var cellIndex = 1; cellIndex <= normalizedRowCount; cellIndex++)
                     {
-                        var gridCell = gridRow[cellIndex];    // GridCell5 at this row,col
-                        var textCell = textRow[cellIndex];    // Corresponding text from ParseTableText()
+                        var gridCell = normalizedGrid.SafeGet(rowIndex, cellIndex);     // GridCell5 at this row,col
+                        var textCell = textGrid.SafeGet(rowIndex, cellIndex);    // Corresponding text from ParseTableText()
+                        if (gridCell == null || textCell == null)
+                        {
+                            Log.Error($"CrawlHoriz mismatch at ({rowIndex},{cellIndex}) - " +
+                                     $"normalized: {(gridCell == null ? "null" : "OK")}, " +
+                                     $"text: {(textCell == null ? "null" : "OK")}");
+
+                            throw new CKDebugException($"Mismatched cell in CrawlHoriz at ({rowIndex},{cellIndex})");
+                        }
 
                         // If it's a master cell and the text shows a merged marker (/r/a)
                         if (gridCell.IsMasterCell)
@@ -634,6 +647,14 @@ namespace CoverageKiller2.DOM.Tables
                                 continue;
                             }
 
+                            ///added to debug 20250425-0013***********
+                            // If text row is too short, pad it out so we can safely access this index
+                            while (textRow.Count < cellIndex)
+                            {
+                                textRow.Add("/r/a"); // or null?
+                            }
+                            //***************************************
+
                             // If the text aligns, ghost is valid
                             if (textCell == "/r/a") continue;
 
@@ -643,13 +664,19 @@ namespace CoverageKiller2.DOM.Tables
                     }
                 }
 
+
+                //validate
+                if (textGrid.Flatten().Count() != normalizedGrid.Flatten().Count())
+                    throw new ArgumentException("Input grids are out of alignment.");
+
+
                 // Save mutated structures back into local cache
                 _textGrid = textGrid;
                 _grid = normalizedGrid;
 
                 // Output final structures for debugging
-                Log.Verbose(GridCrawler5.DumpGrid(textGrid, $"{nameof(CrawlHoriz)}-{nameof(textGrid)}"));
-                Log.Verbose(GridCrawler5.DumpGrid(normalizedGrid, $"{nameof(CrawlHoriz)}-{nameof(normalizedGrid)}"));
+                Log.Verbose(DumpGrid(textGrid, $"{nameof(CrawlHoriz)}-{nameof(textGrid)}"));
+                Log.Verbose(DumpGrid(normalizedGrid, $"{nameof(CrawlHoriz)}-{nameof(normalizedGrid)}"));
 
                 this.Pong();
 

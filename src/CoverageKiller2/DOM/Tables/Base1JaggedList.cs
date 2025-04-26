@@ -28,8 +28,53 @@ namespace CoverageKiller2.DOM.Tables
                 _rows_0.Add(new Base1List<T>(row));
             }
         }
+        /// <summary>
+        /// Flattens all inner lists into a single sequence of elements.
+        /// </summary>
+        public IEnumerable<T> Flatten()
+        {
+            for (int i = 1; i <= Count; i++)
+            {
+                var inner = this[i];
+                if (inner == null) continue;
 
+                for (int j = 1; j <= inner.Count; j++)
+                {
+                    yield return inner[j];
+                }
+            }
+        }
 
+        /// <summary>
+        /// Projects each element of each inner list and flattens the result.
+        /// </summary>
+        public IEnumerable<TResult> SelectMany<TResult>(Func<T, IEnumerable<TResult>> selector)
+        {
+            if (selector == null) throw new ArgumentNullException(nameof(selector));
+
+            for (int i = 1; i <= Count; i++)
+            {
+                var inner = this[i];
+                if (inner == null) continue;
+
+                for (int j = 1; j <= inner.Count; j++)
+                {
+                    var item = inner[j];
+                    foreach (var projected in selector(item))
+                    {
+                        yield return projected;
+                    }
+                }
+            }
+        }
+        public T SafeGet(int row, int col)
+        {
+            if (row < 1 || row > Count) return default;
+            var rowList = _rows_0[row - 1];
+            if (rowList == null || col < 1 || col > rowList.Count) return default;
+
+            return rowList[col];
+        }
         /// <summary>
         /// Returns the largest column count across all rows.
         /// </summary>

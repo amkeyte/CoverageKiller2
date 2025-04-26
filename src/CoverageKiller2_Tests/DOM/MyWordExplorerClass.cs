@@ -2,6 +2,7 @@
 using CoverageKiller2.Test;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Serilog;
+using System;
 using Word = Microsoft.Office.Interop.Word;
 
 namespace CoverageKiller2._TestOperators
@@ -21,7 +22,7 @@ namespace CoverageKiller2._TestOperators
             RandomTestHarness.PreserveTempFilesAfterTest = true;
 
             _testFilePath = RandomTestHarness.TestFile1;
-            _testFile = RandomTestHarness.GetTempDocumentFrom(_testFilePath, visible: true, cleanApp: true);
+            _testFile = RandomTestHarness.GetTempDocumentFrom(_testFilePath, visible: true);
         }
         [TestCleanup]
         public void Cleanup()
