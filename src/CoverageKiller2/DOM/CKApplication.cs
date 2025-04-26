@@ -334,22 +334,36 @@ namespace CoverageKiller2.DOM
         /// </summary>
         /// <param name="fromFile">The source file to clone. If empty, uses the default template.</param>
         /// <returns>A new CKDocument instance opened in this application.</returns>
-        public CKDocument GetTempDocument(string fromFile = "")
+        public CKDocument GetTempDocument(string fromFile = "", bool visible = false, bool keepAlive = false)
         {
             this.Ping(msg: "$$$");
+            Log.Information("Temp document requested.");
             fromFile = string.IsNullOrWhiteSpace(fromFile) ? DefaultTemplatePath : fromFile;
             if (!File.Exists(fromFile)) throw new FileNotFoundException("Template file not found.", fromFile);
+
 
             var tempPath = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName() + Path.GetExtension(fromFile));
             File.Copy(fromFile, tempPath);
 
             CKDocument doc = null;
-            WithSuppressedAlerts(() => doc = GetDocument(tempPath, visible: false));
+            WithSuppressedAlerts(() => doc = GetDocument(tempPath, visible: visible));
             doc.Saved = true;
             doc.ReadOnlyRecommended = false;
             doc.Final = false;
             doc.RemoveDocumentInformation(Word.WdRemoveDocInfoType.wdRDIDocumentProperties);
+            doc.KeepAlive = keepAlive;
+
+            if (doc.Content != null)
+            {
+                Log.Information("Temp document retreived.");
+            }
+            else
+            {
+                Log.Warning("Failed to retreive temp document.");
+            }
+
             this.Pong();
+
             return doc;
         }
 
@@ -357,11 +371,11 @@ namespace CoverageKiller2.DOM
         /// Creates a ShadowWorkspace using a hidden, disposable CKDocument.
         /// </summary>
         /// <returns>A new ShadowWorkspace instance.</returns>
-        public ShadowWorkspace GetShadowWorkspace(bool keepOpen = false)
+        public ShadowWorkspace GetShadowWorkspace(bool visible = false, bool keepAlive = false)
         {
             this.Ping(msg: "$$$");
-            var doc = GetTempDocument();
-            var workspace = new ShadowWorkspace(doc, this, keepOpen);
+            var doc = GetTempDocument(visible: visible, keepAlive: keepAlive);
+            var workspace = new ShadowWorkspace(doc, this, keepAlive);
             this.Pong();
             return workspace;
         }

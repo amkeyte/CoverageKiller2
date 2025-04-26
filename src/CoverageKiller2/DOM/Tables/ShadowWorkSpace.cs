@@ -14,14 +14,12 @@ public class ShadowWorkspace : IDOMObject, IDisposable
 {
     private readonly CKApplication _app;
     private readonly CKDocument _doc;
-    private readonly bool _keepOpen;
 
     internal ShadowWorkspace(CKDocument doc, CKApplication app, bool keepOpen)
     {
         this.Ping(msg: "$$$");
         _doc = doc ?? throw new ArgumentNullException(nameof(doc));
         _app = app ?? throw new ArgumentNullException(nameof(app));
-        _keepOpen = keepOpen;
         _doc.Activate();//see what happens.
         this.Pong();
     }
@@ -93,7 +91,7 @@ public class ShadowWorkspace : IDOMObject, IDisposable
 
             // Perform the paste at the insertion point
             insertionPoint.FormattedText = sourceRange;
-
+            _doc.EnsureLayoutReady();
             // Determine how much was inserted
             int insertStart = insertionPoint.Start;
             int insertEnd = insertionPoint.End;
@@ -153,11 +151,10 @@ public class ShadowWorkspace : IDOMObject, IDisposable
 
     /// <summary>
     /// Disposes and optionally closes the document.
-    /// it never gets called.
     /// </summary>
     public void Dispose()
     {
-        if (!_keepOpen)
+        if (!_doc.KeepAlive) //App close will handle document shutdown
         {
             try
             {
@@ -171,6 +168,7 @@ public class ShadowWorkspace : IDOMObject, IDisposable
     }
 
     public CKApplication Application => _app;
+
     public IDOMObject Parent => _doc;
     public bool IsDirty => _doc.IsDirty;
     public bool IsOrphan => _doc.IsOrphan;

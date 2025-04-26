@@ -464,8 +464,57 @@ namespace CoverageKiller2.DOM
                 return 0;
             }
         }
+        /// <summary>
+        /// Forces Word to complete document layout and rendering to ensure safe access to Ranges, Tables, and other elements.
+        /// </summary>
+        /// <remarks>Version: CK2.00.01.0021</remarks>
+        public bool EnsureLayoutReady()
+        {
+            try
+            {
+                if (_comDocument == null || _comDocument.Application == null)
+                {
+                    Log.Warning("EnsureLayoutReady called, but document or application is null.");
+                    return false;
+                }
 
+                var window = _comDocument.ActiveWindow;
+                if (window != null)
+                {
+                    window.View.Type = Word.WdViewType.wdPrintView;
+                    window.View.Zoom.Percentage = 100;
+                }
 
+                System.Threading.Thread.Sleep(250);
+                _comDocument.Repaginate();
+
+#if WINDOWS
+        System.Windows.Forms.Application.DoEvents();
+#endif
+
+                Log.Debug("EnsureLayoutReady completed successfully for document: {FileName}", FileName);
+                _EnsureLayoutReady_depth = 0; // ✅ reset depth on success
+                return true;
+            }
+            catch (COMException ex)
+            {
+                Log.Error("EnsureLayoutReady failed: {Message}", ex.Message);
+            }
+            catch (Exception ex)
+            {
+                Log.Error("Unexpected error during EnsureLayoutReady: {Message}", ex.Message);
+            }
+
+            if (_EnsureLayoutReady_depth++ < 10)
+            {
+                Log.Debug("...Waiting for document layout. Retry #{_EnsureLayoutReady_depth}...");
+                return EnsureLayoutReady();
+            }
+            _EnsureLayoutReady_depth = 0; // ✅ reset depth on fail if caller wants to try again
+            return false;
+        }
+
+        private int _EnsureLayoutReady_depth;
 
     }
 }
