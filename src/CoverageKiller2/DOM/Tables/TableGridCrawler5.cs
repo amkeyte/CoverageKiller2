@@ -381,11 +381,12 @@ namespace CoverageKiller2.DOM.Tables
             COMTable = COMTable ?? _COMTable;
             var COMRange = _COMTable.Range;
 
+            ///Bug 20250426-0026 fixed by stabling the table column spacing
+            ///using the normailization techniques below.
 
             //*******************************
             // here we normalize all the table's settings so that
             // the table will produce the correct numbers for measurement.
-
 
             //normalize the text
             COMRange.Font.Name = "Consolas";
@@ -427,7 +428,6 @@ namespace CoverageKiller2.DOM.Tables
                 .OrderByDescending(r => r.Count)
                 .FirstOrDefault();
 
-
             // ~78 X's will fit across the page. by stuffing each cell full 
             // to word wrap, it should autosize each column an equal width.
             // this will help avoid a trap where autosze can be inconsistent causing phantom hits
@@ -444,10 +444,12 @@ namespace CoverageKiller2.DOM.Tables
             // movement in the future.
             COMTable.AutoFitBehavior(Word.WdAutoFitBehavior.wdAutoFitFixed);
 
-
             this.Pong();
             return COMTable;
         }
+
+
+
         /// <summary>
         /// Retrieves a grid of master GridCell5s from the CKTable.
         /// </summary>
@@ -483,6 +485,8 @@ namespace CoverageKiller2.DOM.Tables
 
             return result;
         }
+
+
         /// <summary>
         /// Infers vertical cell merging by analyzing vertical alignment between the normalized grid and text grid.
         /// Updates the layout grid in-place to reflect vertical merges (row spans).
