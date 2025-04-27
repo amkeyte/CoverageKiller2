@@ -94,7 +94,8 @@ namespace CoverageKiller2.DOM.Tables
             return this.Pong(() => result);
         }
         private CKTableGrid _grid;
-        protected CKTableGrid Grid => Cache(ref _grid, () => CKTableGrid.GetInstance(this, COMTable));
+        [Obsolete("Internal for testing only. Do not use in production code.")]
+        internal CKTableGrid Grid => Cache(ref _grid, () => CKTableGrid.GetInstance(this, COMTable));
 
         private CKRows _rows_1;
         public CKRows Rows => this.PingPong(() => Cache(ref _rows_1, BuildRows));

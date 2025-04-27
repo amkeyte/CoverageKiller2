@@ -381,38 +381,71 @@ namespace CoverageKiller2.DOM.Tables
             COMTable = COMTable ?? _COMTable;
             var COMRange = _COMTable.Range;
 
+
+            //*******************************
+            // here we normalize all the table's settings so that
+            // the table will produce the correct numbers for measurement.
+
+
             //normalize the text
             COMRange.Font.Name = "Consolas";
             COMRange.Font.Size = 10;
+            // Clear out extra spacing
+            COMTable.TopPadding = 0f;
+            COMTable.BottomPadding = 0f;
+            COMTable.LeftPadding = 0f;
+            COMTable.RightPadding = 0f;
+            // Remove any cell spacing (sometimes tables have inside spacing between cells)
+            COMTable.Spacing = 0f;
+            // Remove table indentation from the left margin
+            COMTable.Rows.LeftIndent = 0f;
+            // Optional: Normalize individual cell padding too
+            foreach (Word.Cell cell in COMTable.Range.Cells)
+            {
+                cell.TopPadding = 0f;
+                cell.BottomPadding = 0f;
+                cell.LeftPadding = 0f;
+                cell.RightPadding = 0f;
+            }
+
+            //*******************************
+            // Gere we adjust the table's width and column behavior
+            // so that the columns auto-adjust into equal segments.
+            // this is important because the layout of horizontal
+            // merges will now become sized as multiples of the 
+            // regular grid size.
 
             // Enable auto-fit so columns stretch evenly to fill the table width
             COMTable.AutoFitBehavior(Word.WdAutoFitBehavior.wdAutoFitContent);
             // set the table width to make.
             COMTable.PreferredWidthType = Word.WdPreferredWidthType.wdPreferredWidthPercent;
-            COMTable.PreferredWidth = 200f;
+            COMTable.PreferredWidth = 100f;
+
+
             //get the longest row (assuming to have all the columns)
             var longestRow = GetMasterGrid(COMTable)
                 .OrderByDescending(r => r.Count)
                 .FirstOrDefault();
-            //~78 X's will fit across the page. by cleaning out all content, then stuffing each cell full 
-            //to word wrap, it should autosize each column an equal width.
-            //this will help avoid a trap where autosze can be inconsistent causing phantom hits
+
+
+            // ~78 X's will fit across the page. by stuffing each cell full 
+            // to word wrap, it should autosize each column an equal width.
+            // this will help avoid a trap where autosze can be inconsistent causing phantom hits
             // on the width/span algorythm.
             string cellStretcher = new string('X', 100 / longestRow.Count);
             COMTable.Range.Text = string.Empty;
 
             foreach (Word.Cell cell in COMRange.Cells)
             {
-                cell.Range.Text = "X";
-            }
-
-            foreach (Word.Cell cell in longestRow)
-            {
                 cell.Range.Text = cellStretcher;
             }
 
-            this.Pong();
+            // after the adjustments are made, lock in the fitting to prevent
+            // movement in the future.
+            COMTable.AutoFitBehavior(Word.WdAutoFitBehavior.wdAutoFitFixed);
 
+
+            this.Pong();
             return COMTable;
         }
         /// <summary>
@@ -687,6 +720,15 @@ namespace CoverageKiller2.DOM.Tables
                 Log.Error(ex, "Exception in Horizonatal crawl.");
                 Log.Debug(DumpGrid(textGrid, $"{nameof(CrawlHoriz)}-{nameof(textGrid)}"));
                 Log.Debug(DumpGrid(normalizedGrid, $"{nameof(CrawlHoriz)}-{nameof(normalizedGrid)}"));
+
+                ////really fucking roundabout way to get a CKDocument.
+                //var docName = _COMTable.Range.Document.FullName;
+                //var doc = CKOffice_Word.Instance.Applications.SelectMany(a => a.Documents)?
+                //    .FirstOrDefault(d => d.FileName == docName);
+                //doc.Visible = true;
+                //doc.Activate();
+                //doc.KeepAlive = true;
+
                 throw ex;
             }
         }
