@@ -10,10 +10,10 @@ using Word = Microsoft.Office.Interop.Word;
 Instances are primarily headless. Hwnd should not be used.
 
 Type Versioning:
-For any updated C# class or interface declaration add a comment including the following as a <remark>:
-Version: CK2.00.02.zzzz
-Where [App version].[xx my version].[yy my version].[zzzz you increment for this reference]
-If no Version present, use: Version: CK2.00.02.0000
+For any updated C# class or interface declaration shown as a file printout add a comment including the following as a <remark>:
+Version: CK2.xx.yy.zzzz
+Where [App version].[xx my version].[yy my version. (currently at 3)].[zzzz your version. increment for this reference per each file]
+If no Version present, use: Version: CK2.00.03.0000
 
 Other:
 For any C# type or public member declaration, add the xml documntation comment.

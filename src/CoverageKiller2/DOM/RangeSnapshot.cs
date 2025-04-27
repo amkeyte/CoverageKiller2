@@ -114,6 +114,6 @@ namespace CoverageKiller2.DOM
         }
 
         public override string ToString()
-            => $"Snapshot(Hash={FastHash}, Text=\"{TextPreview}\")";
+            => $"{FastHash}";
     }
 }

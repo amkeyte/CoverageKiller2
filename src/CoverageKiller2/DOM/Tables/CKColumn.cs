@@ -129,7 +129,13 @@ namespace CoverageKiller2.DOM.Tables
         {
             this.Ping();
 
+
             var table = CellRef.Table;
+
+            Log.Debug($"Deleting column {Index} from " +
+                $"{LH.GetTableTitle(table, "***Table")}:{Document.FileName}.{table.Snapshot}.Cell({CellsList_1[1]?.Snapshot})");
+
+
             var colIndex = CellRef.ColumnIndex;
 
             for (var i_1 = CellsList_1.Count; i_1 >= 1; i_1--)
@@ -139,6 +145,7 @@ namespace CoverageKiller2.DOM.Tables
                     cell.COMCell.Delete();
             }
 
+            IsDirty = true;
             this.Pong();
         }
     }
