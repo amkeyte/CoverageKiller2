@@ -1,0 +1,2 @@
+Bugs:
+https://github.com/amkeyte/CoverageKiller2/issues/1
