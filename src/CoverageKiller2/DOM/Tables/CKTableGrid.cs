@@ -144,7 +144,7 @@ namespace CoverageKiller2.DOM.Tables
         {
             this.Ping();
             //for debugging uncomment.
-            shadowWorkspace.ShowDebuggerWindow();
+            //shadowWorkspace.ShowDebuggerWindow();
             //shadowWorkspace.Document.KeepAlive = true;
 
             //put original table
