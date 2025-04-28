@@ -1,5 +1,6 @@
 ﻿using CoverageKiller2.DOM.Tables;
 using CoverageKiller2.Logging;
+using Serilog;
 using System;
 using System.IO;
 using Word = Microsoft.Office.Interop.Word;
@@ -54,6 +55,7 @@ namespace CoverageKiller2.DOM
             this.Ping(msg: "$$$");
             Parent = parent ?? throw new ArgumentNullException(nameof(parent));
             _COMRange = null;
+            _deferCOM = true;
             _isDirty = true;
             this.Pong(msg: $"{Document.FileName}::[COMRANGE NOT ASSIGNED]");
         }
@@ -207,28 +209,37 @@ namespace CoverageKiller2.DOM
         /// and removes extraneous control characters.
         /// </summary>
         public string PrettyText => Cache(ref _cachedPrettyText);
+        protected bool _deferCOM = false;
 
 
         protected T Cache<T>(ref T cachedField)
         {
             if (IsDirty || cachedField == null)
             {
+                if (_deferCOM)
+                {
+                    Log.Debug("Deferred COM access triggered inside Cache<T>.");
+                    _deferCOM = false;
+                }
                 Refresh();
             }
             return cachedField;
         }
+
         protected T Cache<T>(ref T cachedField, Func<T> refreshFunc)
         {
-            if (IsDirty || cachedField == null) cachedField = refreshFunc();
-
+            if (IsDirty || cachedField == null)
+            {
+                if (_deferCOM)
+                {
+                    Log.Debug("Deferred COM access triggered inside Cache<T> (custom refresh).");
+                    _deferCOM = false;
+                }
+                cachedField = refreshFunc();
+            }
             return cachedField;
         }
-        protected void SetCache<T>(ref T field, T value, Action<T> comSetter)
-        {
-            comSetter?.Invoke(value);
-            field = value;
-            IsDirty = true;
-        }
+
 
         /// <summary>
         /// Gets the scrunched version of the range's text, i.e. all whitespace removed,

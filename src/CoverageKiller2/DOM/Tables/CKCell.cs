@@ -138,9 +138,12 @@ namespace CoverageKiller2.DOM.Tables
         protected override void DoRefreshThings()
         {
             this.Ping();
-            //checked if it's null to force COMCell to update, so that COMRange is valid.
-            if (COMCell == null) throw new CKDebugException("COMCell cannot refresh.");
-            //base.Refresh();
+            if (_deferCOM)
+            {
+                //checked if it's null to force COMCell to update, so that COMRange is valid.
+                if (COMCell == null) throw new CKDebugException("COMCell cannot refresh.");
+            }
+            base.DoRefreshThings();
             this.Pong();
         }
         /// <summary>
@@ -180,14 +183,15 @@ namespace CoverageKiller2.DOM.Tables
             _COMCell = wdCell;
             CellRef = cellRef;
         }
-        public CKCell(CKCellRef cellRef) : base(cellRef?.Parent)
+        public CKCell(CKCellRef cellRef, bool deferCOM = false) : base(cellRef?.Parent)
         {
             //Table = new CKTable(wdCell.Tables[1], parent);
             //Table = table ?? throw new ArgumentNullException(nameof(table));
             CellRef = cellRef;
-            IsDirty = true;
+            _deferCOM = deferCOM;
+            IsDirty = !deferCOM;
         }
-
+        private bool _deferCOM = false;
         /// <summary>
         /// Gets or sets the background color of the cell.
         /// </summary>

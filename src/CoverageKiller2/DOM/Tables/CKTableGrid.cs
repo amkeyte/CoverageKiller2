@@ -1,6 +1,7 @@
 ﻿
 using CoverageKiller2.Logging;
 using Serilog;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -75,13 +76,51 @@ namespace CoverageKiller2.DOM.Tables
         }
 
         /// <summary>
+        /// Retrieves the master cell at a specific single-cell reference.
+        /// </summary>
+        /// <param name="gridRef">A <see cref="CKGridCellRef"/> fixed to a single (row, column) cell.</param>
+        /// <returns>The <see cref="GridCell5"/> representing the master cell.</returns>
+        /// <exception cref="ArgumentException">Thrown if the grid reference is not for exactly one cell.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown if the cell is out of grid bounds.</exception>
+        /// <exception cref="CKDebugException">Thrown if no master cell is found at the location.</exception>
+        internal GridCell5 GetMasterCell(CKGridCellRef gridRef)
+        {
+            if (gridRef.RowMin != gridRef.RowMax || gridRef.ColMin != gridRef.ColMax)
+                return null;//throw new ArgumentException("Grid reference must refer to a single cell.", nameof(gridRef));
+
+            int row = gridRef.RowMin;
+            int col = gridRef.ColMin;
+
+            if (row < 1 || row > RowCount)
+                return null;//throw new ArgumentOutOfRangeException(nameof(row), $"Row {row} is out of bounds (1-{RowCount}).");
+
+            var currentRow = _grid[row];
+            if (col < 1 || col > currentRow.Count)
+                return null;//throw new ArgumentOutOfRangeException(nameof(col), $"Column {col} is out of bounds (1-{currentRow.Count}).");
+
+            var cell = currentRow[col];
+
+            Log.Debug($"[Issue 5] Inspecting single cell at [{row},{col}]: {cell.GetType().Name}");
+
+            if (cell.IsMasterCell)
+                return cell;
+
+            if (cell.IsMergedCell)
+                return cell.MasterCell;
+
+            throw new CKDebugException($"[Issue 5] No master cell found at position [{row},{col}].");
+            //return null;//hacked
+        }
+
+
+        /// <summary>
         /// Retrieves all master cells from the grid that fall within the rectangular area defined by the grid reference.
         /// </summary>
         /// <param name="gridRef">The cell reference bounds (inclusive, 1-based) to search within.</param>
         /// <returns>An enumerable of <see cref="GridCell5"/> instances that are master cells within the specified bounds.</returns>
         internal IEnumerable<GridCell5> GetMasterCells(CKGridCellRef gridRef)
         {
-            Log.Debug($"MasterCells requested for: [{gridRef.RowMin}:{gridRef.ColMin}] to [{gridRef.RowMin}:{gridRef.ColMax}]");
+            Log.Debug($"[Issue 5] MasterCells requested for: [{gridRef.RowMin}:{gridRef.ColMin}] to [{gridRef.RowMin}:{gridRef.ColMax}]");
 
             var result = new List<GridCell5>();
 
@@ -96,7 +135,7 @@ namespace CoverageKiller2.DOM.Tables
 
                     var cell = currentRow[col];
 
-                    Log.Verbose($"Inspecting cell at [{row_1},{col}]: type={cell.GetType().Name}");
+                    Log.Debug($"[Issue 5] Inspecting cell at [{row_1},{col}]: type={cell.GetType().Name}");
                     if (cell.IsMasterCell)
                     {
                         result.Add(cell);
@@ -108,7 +147,7 @@ namespace CoverageKiller2.DOM.Tables
                 }
             }
 
-            Log.Debug($"Found {result.Count} master cells.");
+            Log.Debug($"[Issue 5] Found {result.Count} master cells.");
             if (!result.Any())
             {
                 throw new CKDebugException("No master cells found.");

@@ -87,7 +87,7 @@ namespace CoverageKiller2.DOM.Tables
                     result = !Grid.GetMergedCells(gridCellRef).Any();
                     break;
                 case TableAccessMode.ExcludeAllMergedCells:
-                    result = !Grid.GetMasterCells(gridCellRef).Any(gc => gc.RowSpan > 1 || gc.ColSpan > 1);
+                    result = Grid.GetMasterCell(gridCellRef) != null;//hacked
                     break;
             }
 
@@ -119,7 +119,7 @@ namespace CoverageKiller2.DOM.Tables
             {
                 var cellRef = new CKCellRef(cell.RowIndex, cell.ColumnIndex, new RangeSnapshot(cell.Range), this, this);
                 var gridRef = Converters.GetGridCellRef(cellRef);
-                return Grid.GetMasterCells(gridRef).Any();
+                return Grid.GetMasterCell(gridRef) != null; //hacked
             }
             catch
             {
@@ -131,7 +131,7 @@ namespace CoverageKiller2.DOM.Tables
         {
             this.Ping(msg: $"Table [{DocumentTableIndex}]");
             var gridCellRef = Converters.GetGridCellRef(cellRef);
-            var gridCell = Grid.GetMasterCells(gridCellRef).FirstOrDefault()
+            var gridCell = Grid.GetMasterCell(gridCellRef)//hacked
                 ?? throw new ArgumentException($"{nameof(cellRef)} did not fetch a master GridCell");
 
             int row = gridCell.GridRow;
@@ -156,17 +156,21 @@ namespace CoverageKiller2.DOM.Tables
         {
             this.Ping(msg: $"Table [{DocumentTableIndex}]");
             var gridCellRef = Converters.GetGridCellRef(cellRef);
-            var gridCells = Grid.GetMasterCells(gridCellRef);
+            var gridCells = Grid.GetMasterCell(gridCellRef);//hacked
 
-            if (gridCells == null || !gridCells.Any())
+            if (gridCells == null)// || !gridCells.An)
                 throw new ArgumentException($"{nameof(cellRef)} did not fetch a master GridCell");
 
+            //hacked for single cell use
             var result = new List<CKCell>();
-            foreach (var gridCell in gridCells)
-            {
-                var COMCell = COMTable.Cell(gridCell.GridRow, gridCell.GridCol);
-                result.Add(new CKCell(COMCell, cellRef));
-            }
+            var COMCell = COMTable.Cell(gridCells.GridRow, gridCells.GridCol);
+            result.Add(new CKCell(COMCell, cellRef));
+
+            //foreach (var gridCell in gridCells)
+            //{
+            //    
+            //    result.Add(new CKCell(COMCell, cellRef));
+            //}
             return new CKCells(result, cellRef.Parent);
         }
 
@@ -224,12 +228,13 @@ namespace CoverageKiller2.DOM.Tables
         public CKCell Cell(int index)
         {
             var gridCellRef = Converters.GetGridCellRef(index);
-            var gridCell = Grid.GetMasterCells(gridCellRef).FirstOrDefault()
+            var gridCell = Grid.GetMasterCell(gridCellRef)//.FirstOrDefault()
                 ?? throw new ArgumentException($"{nameof(index)} did not fetch a master GridCell");
 
             var cellRef = Converters.GetCellRef(gridCellRef, this);
-            var COMCell = COMTable.Cell(gridCell.GridRow, gridCell.GridCol);
-            return new CKCell(COMCell, cellRef);
+            return new CKCell(cellRef);
+            //var COMCell = COMTable.Cell(gridCell.GridRow, gridCell.GridCol);
+            //return new CKCell(COMCell, cellRef);
         }
 
         internal void AutoFitBehavior(Word.WdAutoFitBehavior wdAutoFitContent) => throw new NotImplementedException();

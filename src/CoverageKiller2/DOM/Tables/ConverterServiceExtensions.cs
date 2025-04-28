@@ -1,7 +1,6 @@
 ﻿// CKTable.Converters.cs
 using CoverageKiller2.Logging;
 using System;
-using System.Linq;
 using Word = Microsoft.Office.Interop.Word;
 
 namespace CoverageKiller2.DOM.Tables
@@ -16,7 +15,9 @@ namespace CoverageKiller2.DOM.Tables
             CKGridCellRef gridRef,
             IDOMObject parent)
         {
-            var master = service.Grid.GetMasterCells(gridRef).First();
+            var master = service.Grid.GetMasterCell(gridRef)
+                ?? throw new CKDebugException("No master cell returned.");
+            //.First();
             return new CKCellRef(master.GridRow, master.GridCol, service.Table, parent);
         }
 
