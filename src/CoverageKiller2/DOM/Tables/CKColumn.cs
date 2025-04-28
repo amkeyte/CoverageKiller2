@@ -98,29 +98,31 @@ namespace CoverageKiller2.DOM.Tables
         public void Delete()
         {
             var table = CellRef.Table;
-
-
-
-            Log.Debug($"[Issue1] Deleting column {Index} from " +
-               $"{LH.GetTableTitle(table, "***Table")}" +
-                   $".{Document.FileName}.{table.Snapshot}" +
-                   $".Cell({CellsList_1[1]?.Snapshot})");
-
-
-
-            if (!table.HasMerge)
-            {
-
-                table.COMTable.Columns[Index].Delete();
-                Log.Debug($"[Issue1] Fast deleted column: Index{Index}");
-            }
-            else
-            {
-                SlowDelete();
-            }
-
-            IsDirty = true;
+            table.Columns.Delete(this);
         }
+
+
+
+        //    Log.Debug($"[Issue1] Deleting column {Index} from " +
+        //       $"{LH.GetTableTitle(table, "***Table")}" +
+        //           $".{Document.FileName}.{table.Snapshot}" +
+        //           $".Cell({CellsList_1[1]?.Snapshot})");
+
+
+
+        //    if (!table.HasMerge)
+        //    {
+        //        table.Columns.Delete(this);
+        //        table.COMTable.Columns[Index].Delete();
+        //        Log.Debug($"[Issue1] Fast deleted column: Index{Index}");
+        //    }
+        //    else
+        //    {
+        //        SlowDelete();
+        //    }
+
+        //    IsDirty = true;
+        //}
 
         /// <summary>
         /// Deletes all non-merged cells in this column using the CKTable grid layout.
@@ -221,27 +223,107 @@ namespace CoverageKiller2.DOM.Tables
         public override string ToString() => $"CKColumns [Count: {Count}]";
 
         /// <summary>
+        /// Deletes the column at the specified one-based index.
+        /// </summary>
+        /// <param name="index">The one-based index of the column to delete.</param>
+        public void Delete(int index)
+        {
+            this.Ping();
+
+            if (index < 1 || index > Count)
+                throw new ArgumentOutOfRangeException(nameof(index), "Index out of valid range.");
+
+            var column = this[index];
+            Delete(column);
+
+            this.Pong();
+        }
+
+        /// <summary>
+        /// Deletes the specified column from the table.
+        /// </summary>
+        /// <param name="column">The column to delete.</param>
+        public void Delete(CKColumn column)
+        {
+            this.Ping();
+
+            if (column == null)
+                throw new ArgumentNullException(nameof(column));
+
+            if (!_columns_1.Contains(column))
+                throw new ArgumentException("Specified column does not exist in this collection.", nameof(column));
+
+            var table = column.CellRef.Table;
+
+            // Perform COM deletion here
+            if (!table.HasMerge)
+            {
+                table.COMTable.Columns[column.Index].Delete();
+            }
+            else
+            {
+                //TODO more thought on this later.
+                column.SlowDelete();
+
+            }
+
+            // Remove column from local cache
+            _columns_1.Remove(column);
+
+            IsDirty = true;
+
+            this.Pong();
+        }
+
+
+        /// <summary>
+        /// Deletes all the specified columns from the table.
+        /// </summary>
+        /// <param name="columns">The collection of columns to delete.</param>
+        public void Delete(IEnumerable<CKColumn> columns)
+        {
+            this.Ping();
+
+            if (columns == null) throw new ArgumentNullException(nameof(columns));
+
+            var targets = columns.ToList();
+
+            if (!targets.Any())
+            {
+                Log.Debug("No columns provided for deletion.");
+                this.Pong();
+                return;
+            }
+
+            var targetHeaders = targets.Select(col =>
+            {
+                try { return col[2].ScrunchedText; }
+                catch { return "[Error getting text]"; }
+            });
+
+            LH.Debug($"Batch deleting columns: {targetHeaders.DumpString()}");
+
+            for (int i = targets.Count - 1; i >= 0; i--)
+            {
+                Delete(targets[i]);
+            }
+
+            Log.Debug($"Batch deleted {targets.Count} columns. Remaining Count: {Count}");
+
+            IsDirty = true;
+
+            this.Pong();
+        }
+        /// <summary>
         /// Deletes all columns matching the given predicate.
         /// </summary>
         /// <param name="predicate">A function that evaluates each column.</param>
-        /// <returns>The list of columns that were deleted.</returns>
         public void Delete(Func<CKColumn, bool> predicate)
         {
-            this.Ping();
-            Log.Debug($"[Issue1] Batch Deleting columns {Document.FileName}::{Document.Content.Snapshot}::Before Count:{Count}");
+            if (predicate == null) throw new ArgumentNullException(nameof(predicate));
 
-
-            var x = this.Where(predicate).Select(col => col[2].ScrunchedText);
-            LH.Debug($"[Issue1] The following column headers are slated for deletion:{x.DumpString()}");
-
-            this.Where(predicate)
-               .Reverse().ToList()
-               .ForEach(col => col.Delete());
-
-            Log.Debug($"[Issue1] Batch Deleted columns {Document.FileName}::{Document.Content.Snapshot}::After Count:{Count}");
-
-            IsDirty = true;
-            this.Pong();
+            Delete(this.Where(predicate));
         }
+
     }
 }

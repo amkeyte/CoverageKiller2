@@ -230,7 +230,7 @@ namespace CoverageKiller2.DOM.Tables
                 Insert(index++, item);
             }
         }
-
+        public void Remove(T item) => _items_0.Remove(item);
         public void RemoveAt(int index)
         {
             if (index < 1 || index > Count)
@@ -318,25 +318,6 @@ namespace CoverageKiller2.DOM.Tables
             foreach (var item in _items_0)
             {
                 action(item);
-            }
-        }
-
-        /// <summary>
-        /// Provides a debug string for inspecting the contents of this list.
-        /// </summary>
-        /// <remarks>
-        /// Version: CK2.00.01.0039
-        /// </remarks>
-        public string DebugDump
-        {
-            get
-            {
-                var sb = new StringBuilder();
-                for (int i = 1; i <= Count; i++)
-                {
-                    sb.AppendLine($"[{i}] {this[i]?.ToString()}");
-                }
-                return sb.ToString();
             }
         }
     }
