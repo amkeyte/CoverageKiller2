@@ -268,7 +268,7 @@ namespace CoverageKiller2.DOM
                 _isCheckingDirty = false;
                 return this.Pong(() => _isDirty, msg: _isDirty.ToString());
             }
-            protected set => _isDirty = value;
+            set => _isDirty = value;
         }
 
         protected virtual bool CheckDirtyFor()

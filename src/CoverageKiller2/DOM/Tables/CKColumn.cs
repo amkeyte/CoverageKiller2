@@ -258,7 +258,14 @@ namespace CoverageKiller2.DOM.Tables
             // Perform COM deletion here
             if (!table.HasMerge)
             {
-                table.COMTable.Columns[column.Index].Delete();
+                SafeCOM.Execute(table,
+                    maxRetries: 1,
+                    rethrow: false,
+                    forceRefresh: true,
+                    action: () =>
+                    {
+                        table.COMTable.Columns[column.Index].Delete();
+                    });
             }
             else
             {
@@ -295,13 +302,13 @@ namespace CoverageKiller2.DOM.Tables
                 return;
             }
 
-            var targetHeaders = targets.Select(col =>
-            {
-                try { return col[2].ScrunchedText; }
-                catch { return "[Error getting text]"; }
-            });
+            //var targetHeaders = targets.Select(col =>
+            //{
+            //    try { return col[2].ScrunchedText; }
+            //    catch { return "[Error getting text]"; }
+            //});
 
-            LH.Debug($"Batch deleting columns: {targetHeaders.DumpString()}");
+            //LH.Debug($"Batch deleting columns: {targetHeaders.DumpString()}");
 
             for (int i = targets.Count - 1; i >= 0; i--)
             {

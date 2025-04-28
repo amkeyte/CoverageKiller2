@@ -26,7 +26,7 @@ namespace CoverageKiller2.Tests.Scenarios
         {
             Log.Information($"Running test => {GetType().Name}::{TestContext.TestName}");
             _testFilePath = RandomTestHarness.TestFile2;
-            _testFile = RandomTestHarness.GetTempDocumentFrom(_testFilePath);
+            _testFile = RandomTestHarness.GetTempDocumentFrom(_testFilePath, visible: true);
         }
 
         [TestCleanup]
@@ -206,6 +206,7 @@ namespace CoverageKiller2.Tests.Scenarios
         {
             Log.Debug("[Issue1] Testing removal of fields from Critical Points Report");
             var CKDoc = _testFile;
+            CKDoc.Activate();
             CKDoc.KeepAlive = true;
 
             // Setup
