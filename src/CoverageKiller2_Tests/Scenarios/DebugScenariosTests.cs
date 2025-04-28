@@ -204,6 +204,7 @@ namespace CoverageKiller2.Tests.Scenarios
         [TestMethod]
         public void Can_RemoveCriticalPointFields_FromFloorSectionTable()
         {
+            Log.Debug("[Issue1] Testing removal of fields from Critical Points Report");
             var CKDoc = _testFile;
             CKDoc.KeepAlive = true;
 
@@ -217,10 +218,10 @@ namespace CoverageKiller2.Tests.Scenarios
                 rowIndex,
                 TableAccessMode.IncludeOnlyAnchorCells); // avoid repeating header merged cells
 
-            Assert.IsNotNull(floorSectionCriticalPointsTable, "Critical Point Report table not found.");
+            Assert.IsNotNull(floorSectionCriticalPointsTable, "[Issue1]Critical Point Report table not found.");
 
             var originalColCount = floorSectionCriticalPointsTable.Columns.Count;
-            LH.Debug($"Original column count: {originalColCount}");
+            Log.Debug($"[Issue1] Original column count: {originalColCount}");
 
             // Deletion logic matching your pipeline
             var headersToRemove = "UL\r\nPower\r\n(dBm)\tUL\r\nS/N\r\n(dB)\tUL\r\nFBER\r\n(%)\tResult\tDL\r\nLoss\r\n(dB)\r\n"
@@ -228,28 +229,28 @@ namespace CoverageKiller2.Tests.Scenarios
                 .Select(s => s.Scrunch())
                 .ToList();
 
-            LH.Debug($"Headers to Remove: {headersToRemove.DumpString()}");
+            Log.Debug($"[Issue1] Headers to Remove: {headersToRemove.DumpString()}");
 
             var headersFound = floorSectionCriticalPointsTable.Columns.Select(col => col[2].Text);
-            LH.Debug($"Headers found: {headersToRemove.DumpString()}");
+            Log.Debug($"[Issue1] Headers found: {headersToRemove.DumpString()}");
 
             floorSectionCriticalPointsTable.Columns
-                .Delete(col => headersToRemove.Contains(col[2].Text.Scrunch()));
+                .Delete(col => headersToRemove.Contains(col[2].ScrunchedText));
 
             floorSectionCriticalPointsTable.MakeFullPage(); // finalize layout
 
             // Recheck
             var updatedColCount = floorSectionCriticalPointsTable.COMTable.Columns.Count;
-            LH.Debug($"Updated column count: {updatedColCount}");
+            Log.Debug($"[Issue1] Updated column count: {updatedColCount}");
 
             // Assert: At least one column must have been deleted
-            Assert.IsTrue(updatedColCount < originalColCount, "No columns were deleted from the Critical Point Report table.");
+            Assert.IsTrue(updatedColCount < originalColCount, "[Issue1] No columns were deleted from the Critical Point Report table.");
 
             // Extra safety: Make sure columns that should have been removed are gone
             foreach (var col in floorSectionCriticalPointsTable.Columns)
             {
                 var text = col[2].Text.Scrunch();
-                Assert.IsFalse(headersToRemove.Contains(text), $"Unexpected leftover column header: '{text}'");
+                Assert.IsFalse(headersToRemove.Contains(text), $"[Issue1] Unexpected leftover column header: '{text}'");
             }
         }
 

@@ -87,12 +87,11 @@ namespace CoverageKiller2.DOM.Tables
         /// </summary>
         public void Delete()
         {
-
-
-
             var table = CellRef.Table;
 
-            LH.Debug($"[Issue1](fast) Deleting column {Index} from " +
+
+
+            Log.Debug($"[Issue1] Deleting column {Index} from " +
                $"{LH.GetTableTitle(table, "***Table")}" +
                    $".{Document.FileName}.{table.Snapshot}" +
                    $".Cell({CellsList_1[1]?.Snapshot})");
@@ -103,6 +102,7 @@ namespace CoverageKiller2.DOM.Tables
             {
 
                 table.COMTable.Columns[Index].Delete();
+                Log.Debug($"[Issue1] Fast deleted column: Index{Index}");
             }
             else
             {
@@ -110,7 +110,6 @@ namespace CoverageKiller2.DOM.Tables
             }
 
             IsDirty = true;
-            LH.Debug($"Deleted column: Index{Index}");
         }
 
         /// <summary>
@@ -138,10 +137,14 @@ namespace CoverageKiller2.DOM.Tables
             {
                 var cell = CellsList_1[i_1];
                 if (cell.ColumnIndex == colIndex)
+                {
                     cell.COMCell.Delete();
+                    Log.Debug($"[Issue1] Deleted cell: Column {Index} Row {i_1}");
+
+                }
             }
 
-            LH.Debug($"Deleted column: Index{Index}");
+            Log.Debug($"[Issue1]Deleted column: Index{Index}");
             IsDirty = true;
             this.Pong();
         }
@@ -215,13 +218,18 @@ namespace CoverageKiller2.DOM.Tables
         public void Delete(Func<CKColumn, bool> predicate)
         {
             this.Ping();
-            Log.Debug($"Deleting columns {Document.FileName}::{Document.Content.Snapshot.FastHash}::Before Count:{Count}");
+            Log.Debug($"[Issue1] Batch Deleting columns {Document.FileName}::{Document.Content.Snapshot}::Before Count:{Count}");
+
+
+            var x = this.Where(predicate).Select(col => col[2].ScrunchedText); //col[2] happens to be at issue..
+                                                                               //if it causes problems just remove it.
+            LH.Debug($"[Issue1] The following column headers are slated for deletion:{x.DumpString()}");
 
             this.Where(predicate)
-           .Reverse().ToList()
-           .ForEach(col => col.Delete());
+               .Reverse().ToList()
+               .ForEach(col => col.Delete());
 
-            Log.Debug($"Deleting columns {Document.FileName}::{Document.Content.Snapshot.FastHash}::After Count:{Count}");
+            Log.Debug($"[Issue1] Batch Deleted columns {Document.FileName}::{Document.Content.Snapshot}::After Count:{Count}");
 
             IsDirty = true;
             this.Pong();
