@@ -3,7 +3,6 @@ using Serilog;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 
 namespace CoverageKiller2.DOM.Tables
@@ -91,16 +90,12 @@ namespace CoverageKiller2.DOM.Tables
 
 
 
-            var topCell = CellsList_1[1];
-            var table = topCell.Tables[1];
+            var table = CellRef.Table;
 
-            Log.Debug($"Deleting column Index: {Index}");
-            Log.Debug($"\tCollumn Document: {Document.FileName}::{Document.Content.Snapshot.FastHash}");
-            Log.Debug($"\ttopCell Document: {topCell.Document.FileName}::{topCell.Document.Content.Snapshot.FastHash}");
-            var comTblDoc = table.COMTable.Range.Document;
-            Log.Debug($"\tCOMtable Document: {Path.GetFileName(comTblDoc.FullName)}::{new RangeSnapshot(comTblDoc.Content).FastHash}");
-            var comRngDoc = table.COMRange.Document;
-            Log.Debug($"\tCOMtable Document: {Path.GetFileName(comRngDoc.FullName)}::{new RangeSnapshot(comRngDoc.Content).FastHash}");
+            LH.Debug($"[Issue1](fast) Deleting column {Index} from " +
+               $"{LH.GetTableTitle(table, "***Table")}" +
+                   $".{Document.FileName}.{table.Snapshot}" +
+                   $".Cell({CellsList_1[1]?.Snapshot})");
 
 
 
@@ -115,7 +110,7 @@ namespace CoverageKiller2.DOM.Tables
             }
 
             IsDirty = true;
-            Log.Debug($"Deleted column: Index{Index}");
+            LH.Debug($"Deleted column: Index{Index}");
         }
 
         /// <summary>
@@ -132,9 +127,10 @@ namespace CoverageKiller2.DOM.Tables
 
             var table = CellRef.Table;
 
-            Log.Debug($"Deleting column {Index} from " +
-                $"{LH.GetTableTitle(table, "***Table")}:{Document.FileName}.{table.Snapshot}.Cell({CellsList_1[1]?.Snapshot})");
-
+            LH.Debug($"[Issue1](slow) Deleting column {Index} from " +
+                $"{LH.GetTableTitle(table, "***Table")}" +
+                    $".{Document.FileName}.{table.Snapshot}" +
+                    $".Cell({CellsList_1[1]?.Snapshot})");
 
             var colIndex = CellRef.ColumnIndex;
 
@@ -145,6 +141,7 @@ namespace CoverageKiller2.DOM.Tables
                     cell.COMCell.Delete();
             }
 
+            LH.Debug($"Deleted column: Index{Index}");
             IsDirty = true;
             this.Pong();
         }

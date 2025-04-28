@@ -60,7 +60,28 @@ namespace CoverageKiller2.DOM
             }
         }
 
-        // ... existing members
+        /// <summary>
+        /// Attempts to find the CKApplication instance that owns the specified Word.Document.
+        /// </summary>
+        /// <param name="doc">The Word document to search for.</param>
+        /// <param name="ckApp">The matching CKApplication instance, if found.</param>
+        /// <returns>True if found; otherwise false.</returns>
+        public bool TryGetAppFor(Word.Document doc, out CKApplication ckApp)
+        {
+            ckApp = null;
+            if (doc == null) return false;
+
+            foreach (var app in Applications)
+            {
+                if (app.WordApp.Equals(doc.Application))
+                {
+                    ckApp = app;
+                    return true;
+                }
+            }
+
+            return false;
+        }
 
 
         private CKOffice_Word() { }

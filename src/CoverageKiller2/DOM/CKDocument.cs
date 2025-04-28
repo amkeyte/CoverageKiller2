@@ -464,21 +464,24 @@ namespace CoverageKiller2.DOM
                 return 0;
             }
         }
+
+        public bool EnsureLayoutReady() => EnsureLayoutReady(_comDocument);
+
         /// <summary>
         /// Forces Word to complete document layout and rendering to ensure safe access to Ranges, Tables, and other elements.
         /// </summary>
         /// <remarks>Version: CK2.00.01.0021</remarks>
-        public bool EnsureLayoutReady()
+        public static bool EnsureLayoutReady(Word.Document comDocument)
         {
             try
             {
-                if (_comDocument == null || _comDocument.Application == null)
+                if (comDocument == null || comDocument.Application == null)
                 {
                     Log.Warning("EnsureLayoutReady called, but document or application is null.");
                     return false;
                 }
 
-                var window = _comDocument.ActiveWindow;
+                var window = comDocument.ActiveWindow;
                 if (window != null)
                 {
                     window.View.Type = Word.WdViewType.wdPrintView;
@@ -486,13 +489,10 @@ namespace CoverageKiller2.DOM
                 }
 
                 System.Threading.Thread.Sleep(250);
-                _comDocument.Repaginate();
+                comDocument.Repaginate();
 
-#if WINDOWS
-        System.Windows.Forms.Application.DoEvents();
-#endif
-
-                Log.Debug("EnsureLayoutReady completed successfully for document: {FileName}", FileName);
+                Log.Debug("EnsureLayoutReady completed successfully for document: {FileName}",
+                    Path.GetFileName(comDocument.FullName));
                 _EnsureLayoutReady_depth = 0; // ✅ reset depth on success
                 return true;
             }
@@ -508,13 +508,13 @@ namespace CoverageKiller2.DOM
             if (_EnsureLayoutReady_depth++ < 10)
             {
                 Log.Debug("...Waiting for document layout. Retry #{_EnsureLayoutReady_depth}...");
-                return EnsureLayoutReady();
+                return EnsureLayoutReady(comDocument);
             }
             _EnsureLayoutReady_depth = 0; // ✅ reset depth on fail if caller wants to try again
             return false;
         }
-
-        private int _EnsureLayoutReady_depth;
+        //address if this is too restrictive, such as too many documents ensuring at once.
+        private static int _EnsureLayoutReady_depth;
 
     }
 }

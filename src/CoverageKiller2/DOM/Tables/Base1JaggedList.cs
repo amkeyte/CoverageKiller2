@@ -81,6 +81,12 @@ namespace CoverageKiller2.DOM.Tables
         public int LargestRowCount => _rows_0.Count == 0
             ? 0
             : _rows_0.Max(r => r?.Count ?? 0);
+        /// <summary>
+        /// Returns the largest column count across all rows.
+        /// </summary>
+        public Base1List<T> LargestRow => _rows_0.Count == 0
+            ? null
+            : _rows_0[LargestRowCount];
 
         public void Add(Base1List<T> row)
         {

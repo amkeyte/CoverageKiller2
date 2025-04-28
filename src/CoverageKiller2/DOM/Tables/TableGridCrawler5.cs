@@ -1,7 +1,7 @@
 ﻿using CoverageKiller2.Logging;
 using Serilog;
 using System;
-using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -20,8 +20,8 @@ namespace CoverageKiller2.DOM.Tables
     public class GridCrawler5
     {
         private readonly Word.Table _COMTable;
-        private Base1JaggedList<GridCell5> _grid;
-        private Base1JaggedList<GridCell5> _masterCells;
+        private Base1JaggedList<GridCell5> _grid = new Base1JaggedList<GridCell5>();
+        private Base1JaggedList<GridCell5> _masterCells = new Base1JaggedList<GridCell5>();
         //private ShadowWorkspace _shadowWorkspace;
         internal GridCrawler5(Word.Table table)
         {
@@ -109,24 +109,47 @@ namespace CoverageKiller2.DOM.Tables
 
             return sb.ToString();
         }
+        ///// <summary>
+        ///// Returns a labeled text representation of the grid.
+        ///// </summary>
+        //public static string DumpGrid(Base1JaggedList<string> grid, string message = null)
+        //{
+        //    var sb = new StringBuilder();
+        //    sb = sb.AppendLine(message + "\n");
+        //    sb.AppendLine("**********************");
+
+        //    foreach (var row in grid)
+        //    {
+        //        var line = row.Select(cell => string.IsNullOrEmpty(cell) ? "[NULL]" : cell);
+        //        sb.AppendLine(string.Join(" | ", line));
+        //    }
+        //    sb.AppendLine("**********************");
+
+        //    return sb.ToString();
+        //}
         /// <summary>
-        /// Returns a labeled text representation of the grid.
+        /// Returns a labeled text representation of a Base1JaggedList of any type.
         /// </summary>
-        public static string DumpGrid(Base1JaggedList<string> grid, string message = null)
+        /// <typeparam name="T">The element type of the grid.</typeparam>
+        /// <param name="grid">The grid to dump.</param>
+        /// <param name="message">Optional label message.</param>
+        /// <returns>A formatted string representation of the grid.</returns>
+        public static string DumpGrid<T>(Base1JaggedList<T> grid, string message = null)
         {
             var sb = new StringBuilder();
-            sb = sb.AppendLine(message + "\n");
+            sb.AppendLine(message + "\n");
             sb.AppendLine("**********************");
 
             foreach (var row in grid)
             {
-                var line = row.Select(cell => string.IsNullOrEmpty(cell) ? "[NULL]" : cell);
+                var line = row.Select(cell => cell?.ToString() ?? "[NULL]");
                 sb.AppendLine(string.Join(" | ", line));
             }
-            sb.AppendLine("**********************");
 
+            sb.AppendLine("**********************");
             return sb.ToString();
         }
+
         /// <summary>
         /// Dumps a string representation of the grid for debugging or visualization.
         /// </summary>
@@ -317,8 +340,8 @@ namespace CoverageKiller2.DOM.Tables
             int colCount = widestRow.Count;
             float normalWidth = totalRowWidth / colCount;
 
-            Log.Debug($"[NormalizeByWidth] Using matched row width = {totalRowWidth}, columns = {colCount}");
-            Log.Debug($"[NormalizeByWidth] Calculated normalWidth = {normalWidth}");
+            //Log.Debug($"[NormalizeByWidth] Using matched row width = {totalRowWidth}, columns = {colCount}");
+            //Log.Debug($"[NormalizeByWidth] Calculated normalWidth = {normalWidth}");
 
 
             // Step 4: Pad each row by inserting ZombieCells after wide master cells
@@ -332,7 +355,7 @@ namespace CoverageKiller2.DOM.Tables
                 foreach (var cell in row)
                 {
 
-                    Log.Debug($"Row {cell.RowIndex}, Col {cell.ColumnIndex} width = {cell.Width}");
+                    //Log.Debug($"Row {cell.RowIndex}, Col {cell.ColumnIndex} width = {cell.Width}");
                     var newCell = new GridCell5(cell.RowIndex + rowOffset, cell.ColumnIndex);
                     _debugNewGridCellAddedCount++;
                     newRow.Add(newCell);
@@ -346,8 +369,8 @@ namespace CoverageKiller2.DOM.Tables
                         _debugNewMergedCellAddedCount++;
                     }
 
-                    Log.Debug($"\n\nRow {cell.RowIndex}, Col {cell.ColumnIndex} width = {cell.Width}\n\t" +
-                        $"Added new cells to cover span of {span}: GridCell ({_debugNewGridCellAddedCount}) MegedCell {_debugNewMergedCellAddedCount}");
+                    //Log.Debug($"\n\nRow {cell.RowIndex}, Col {cell.ColumnIndex} width = {cell.Width}\n\t" +
+                    //    $"Added new cells to cover span of {span}: GridCell ({_debugNewGridCellAddedCount}) MegedCell {_debugNewMergedCellAddedCount}");
                 }
                 //insert cells to fill out row
                 for (int i = newRow.Count; i < colCount; i++)
@@ -357,7 +380,7 @@ namespace CoverageKiller2.DOM.Tables
                 newRow.Add(new RowEndGridCell5());
                 newGrid.Add(newRow);
             }
-            Log.Debug(DumpGrid(newGrid, $"\n{nameof(NormalizeByWidth)}-{nameof(newGrid)}"));
+            //Log.Debug(DumpGrid(newGrid, $"\n{nameof(NormalizeByWidth)}-{nameof(newGrid)}"));
 
             _grid = newGrid;
             this.Pong();
@@ -440,9 +463,12 @@ namespace CoverageKiller2.DOM.Tables
                 cell.Range.Text = cellStretcher;
             }
 
+            CKDocument.EnsureLayoutReady(COMTable.Range.Document);
+
             // after the adjustments are made, lock in the fitting to prevent
             // movement in the future.
             COMTable.AutoFitBehavior(Word.WdAutoFitBehavior.wdAutoFitFixed);
+
 
             this.Pong();
             return COMTable;
@@ -479,8 +505,9 @@ namespace CoverageKiller2.DOM.Tables
                 }
                 result.Add(list);
             }
-            Log.Verbose(DumpGrid(result, $"\n{nameof(GetMasterGrid)}-result"));
+            //Log.Verbose(DumpGrid(result, $"\n{nameof(GetMasterGrid)}-result"));
 
+            _COMCellGrid = result;
             this.Pong();
 
             return result;
@@ -523,13 +550,11 @@ namespace CoverageKiller2.DOM.Tables
                     {
                         // If cell is visually empty but not marked merged, something went wrong
                         if (textCell != "/r/a") continue;
-                        if (Debugger.IsAttached) Debugger.Break();
                     }
                     else if (gridCell.IsMergedCell)
                     {
                         // Confirm text grid alignment
                         if (textCell == "/r/a") continue;
-                        if (Debugger.IsAttached) Debugger.Break();
                     }
                     else if (gridCell.IsGhostCell)
                     {
@@ -585,8 +610,8 @@ namespace CoverageKiller2.DOM.Tables
 
             _grid = normalizedGrid;
 
-            Log.Verbose(DumpGrid(textGrid, $"{nameof(CrawlVertically)}-{nameof(textGrid)}"));
-            Log.Verbose(DumpGrid(normalizedGrid, $"{nameof(CrawlVertically)}-{nameof(normalizedGrid)}"));
+            //Log.Verbose(DumpGrid(textGrid, $"{nameof(CrawlVertically)}-{nameof(textGrid)}"));
+            //Log.Verbose(DumpGrid(normalizedGrid, $"{nameof(CrawlVertically)}-{nameof(normalizedGrid)}"));
 
             this.Pong();
             return normalizedGrid;
@@ -599,142 +624,126 @@ namespace CoverageKiller2.DOM.Tables
         {
             this.Ping(msg: "$$$");
 
-            try
+
+
+
+            // Use previously cached grids if not supplied
+            textGrid = textGrid ?? _textGrid;
+            normalizedGrid = normalizedGrid ?? _grid;
+
+
+
+            // Determine the widest row to iterate columns safely
+            var normalizedRowCount = normalizedGrid.LargestRowCount;
+
+            // Loop through each row
+            for (var rowIndex = 1; rowIndex <= normalizedGrid.Count; rowIndex++)
             {
+                var gridRow = normalizedGrid[rowIndex];   // visual grid row of GridCell5
+                var textRow = textGrid[rowIndex];         // raw text values for same row
 
-
-                // Use previously cached grids if not supplied
-                textGrid = textGrid ?? _textGrid;
-                normalizedGrid = normalizedGrid ?? _grid;
-
-
-
-                // Determine the widest row to iterate columns safely
-                var normalizedRowCount = normalizedGrid.LargestRowCount;
-
-                // Loop through each row
-                for (var rowIndex = 1; rowIndex <= normalizedGrid.Count; rowIndex++)
+                // Loop across the widest row column count
+                for (var cellIndex = 1; cellIndex <= normalizedRowCount; cellIndex++)
                 {
-                    var gridRow = normalizedGrid[rowIndex];   // visual grid row of GridCell5
-                    var textRow = textGrid[rowIndex];         // raw text values for same row
-
-                    // Loop across the widest row column count
-                    for (var cellIndex = 1; cellIndex <= normalizedRowCount; cellIndex++)
+                    var gridCell = normalizedGrid.SafeGet(rowIndex, cellIndex);     // GridCell5 at this row,col
+                    var textCell = textGrid.SafeGet(rowIndex, cellIndex);    // Corresponding text from ParseTableText()
+                    if (gridCell == null || textCell == null)
                     {
-                        var gridCell = normalizedGrid.SafeGet(rowIndex, cellIndex);     // GridCell5 at this row,col
-                        var textCell = textGrid.SafeGet(rowIndex, cellIndex);    // Corresponding text from ParseTableText()
-                        if (gridCell == null || textCell == null)
+                        Log.Error($"CrawlHoriz mismatch at ({rowIndex},{cellIndex}) - " +
+                                 $"normalized: {(gridCell == null ? "null" : "OK")}, " +
+                                 $"text: {(textCell == null ? "null" : "OK")}");
+
+                        throw new CKDebugException($"Abnormal cell in CrawlHoriz at ({rowIndex},{cellIndex})");
+                    }
+
+                    // If it's a master cell and the text shows a merged marker (/r/a)
+                    if (gridCell.IsMasterCell)
+                    {
+                        // If the text value isn't a merge indicator, skip
+                        if (textCell != "/r/a") continue;
+
+                        // Otherwise, insert a ghost cell to realign the layout grid
+                        gridRow.Insert(cellIndex, new GhostGridCell5());
+                    }
+
+                    // If it's a merged cell, we expect a "/r/a" in the text
+                    else if (gridCell.IsMergedCell)
+                    {
+                        // If the merge marker is already there, no fix needed
+                        if (textCell == "/r/a") continue;
+
+                        // Otherwise, insert the merge marker into the text row
+                        textRow.Insert(cellIndex, "/r/a");
+                    }
+
+                    // Handle row end markers (used to force row alignment)
+                    else if (gridCell.IsRowEndMarker)
+                    {
+                        // If the text doesn't end with "/r/a", patch it in
+                        if (textCell != "/r/a") textRow.Insert(cellIndex, "/r/a");
+
+                        // Now push all cells past the row end to the next row
+                        for (var i = textRow.Count; i > cellIndex; i--)
                         {
-                            Log.Error($"CrawlHoriz mismatch at ({rowIndex},{cellIndex}) - " +
-                                     $"normalized: {(gridCell == null ? "null" : "OK")}, " +
-                                     $"text: {(textCell == null ? "null" : "OK")}");
+                            // Add new row if it doesn't exist yet
+                            if (rowIndex + 1 > textGrid.Count)
+                                textGrid.Add(new Base1List<string>());
 
-                            throw new CKDebugException($"Mismatched cell in CrawlHoriz at ({rowIndex},{cellIndex})");
-                        }
+                            // Move last cell in this row to the front of the next row
+                            textGrid[rowIndex + 1].Insert(1, textRow.Last());
 
-                        // If it's a master cell and the text shows a merged marker (/r/a)
-                        if (gridCell.IsMasterCell)
-                        {
-                            // If the text value isn't a merge indicator, skip
-                            if (textCell != "/r/a") continue;
-
-                            // Otherwise, insert a ghost cell to realign the layout grid
-                            gridRow.Insert(cellIndex, new GhostGridCell5());
-                        }
-
-                        // If it's a merged cell, we expect a "/r/a" in the text
-                        else if (gridCell.IsMergedCell)
-                        {
-                            // If the merge marker is already there, no fix needed
-                            if (textCell == "/r/a") continue;
-
-                            // Otherwise, insert the merge marker into the text row
-                            textRow.Insert(cellIndex, "/r/a");
-                        }
-
-                        // Handle row end markers (used to force row alignment)
-                        else if (gridCell.IsRowEndMarker)
-                        {
-                            // If the text doesn't end with "/r/a", patch it in
-                            if (textCell != "/r/a") textRow.Insert(cellIndex, "/r/a");
-
-                            // Now push all cells past the row end to the next row
-                            for (var i = textRow.Count; i > cellIndex; i--)
-                            {
-                                // Add new row if it doesn't exist yet
-                                if (rowIndex + 1 > textGrid.Count)
-                                    textGrid.Add(new Base1List<string>());
-
-                                // Move last cell in this row to the front of the next row
-                                textGrid[rowIndex + 1].Insert(1, textRow.Last());
-
-                                // Remove the moved cell from current row
-                                textRow.RemoveAt(textRow.Count);
-                            }
-                        }
-
-                        // Ghost cells are placeholders introduced earlier
-                        else if (gridCell.IsGhostCell)
-                        {
-                            // If it's beyond the expected width, drop it and rewind index
-                            if (cellIndex >= normalizedRowCount)
-                            {
-                                gridRow.RemoveAt(cellIndex);
-                                cellIndex--;
-                                continue;
-                            }
-
-                            ///added to debug 20250425-0013***********
-                            // If text row is too short, pad it out so we can safely access this index
-                            while (textRow.Count < cellIndex)
-                            {
-                                textRow.Add("/r/a"); // or null?
-                            }
-                            //***************************************
-
-                            // If the text aligns, ghost is valid
-                            if (textCell == "/r/a") continue;
-
-                            // Otherwise, align text row by inserting the ghost cell marker
-                            textRow.Insert(cellIndex, "/r/a");
+                            // Remove the moved cell from current row
+                            textRow.RemoveAt(textRow.Count);
                         }
                     }
+
+                    // Ghost cells are placeholders introduced earlier
+                    else if (gridCell.IsGhostCell)
+                    {
+                        // If it's beyond the expected width, drop it and rewind index
+                        if (cellIndex >= normalizedRowCount)
+                        {
+                            gridRow.RemoveAt(cellIndex);
+                            cellIndex--;
+                            continue;
+                        }
+
+                        ///added to debug 20250425-0013***********
+                        // If text row is too short, pad it out so we can safely access this index
+                        while (textRow.Count < cellIndex)
+                        {
+                            textRow.Add("/r/a"); // or null?
+                        }
+                        //***************************************
+
+                        // If the text aligns, ghost is valid
+                        if (textCell == "/r/a") continue;
+
+                        // Otherwise, align text row by inserting the ghost cell marker
+                        textRow.Insert(cellIndex, "/r/a");
+                    }
                 }
-
-
-                //validate
-                if (textGrid.Flatten().Count() != normalizedGrid.Flatten().Count())
-                    throw new ArgumentException("Input grids are out of alignment.");
-
-
-                // Save mutated structures back into local cache
-                _textGrid = textGrid;
-                _grid = normalizedGrid;
-
-                // Output final structures for debugging
-                Log.Verbose(DumpGrid(textGrid, $"{nameof(CrawlHoriz)}-{nameof(textGrid)}"));
-                Log.Verbose(DumpGrid(normalizedGrid, $"{nameof(CrawlHoriz)}-{nameof(normalizedGrid)}"));
-
-                this.Pong();
-
-                return normalizedGrid;
             }
-            catch (Exception ex)
-            {
-                Log.Error(ex, "Exception in Horizonatal crawl.");
-                Log.Debug(DumpGrid(textGrid, $"{nameof(CrawlHoriz)}-{nameof(textGrid)}"));
-                Log.Debug(DumpGrid(normalizedGrid, $"{nameof(CrawlHoriz)}-{nameof(normalizedGrid)}"));
 
-                ////really fucking roundabout way to get a CKDocument.
-                //var docName = _COMTable.Range.Document.FullName;
-                //var doc = CKOffice_Word.Instance.Applications.SelectMany(a => a.Documents)?
-                //    .FirstOrDefault(d => d.FileName == docName);
-                //doc.Visible = true;
-                //doc.Activate();
-                //doc.KeepAlive = true;
 
-                throw ex;
-            }
+            //validate
+            if (textGrid.Flatten().Count() != normalizedGrid.Flatten().Count())
+                throw new ArgumentException("Input grids are out of alignment.");
+
+
+            // Save mutated structures back into local cache
+            _textGrid = textGrid;
+            _grid = normalizedGrid;
+
+            // Output final structures for debugging
+            //Log.Verbose(DumpGrid(textGrid, $"{nameof(CrawlHoriz)}-{nameof(textGrid)}"));
+            //Log.Verbose(DumpGrid(normalizedGrid, $"{nameof(CrawlHoriz)}-{nameof(normalizedGrid)}"));
+
+            this.Pong();
+
+            return normalizedGrid;
+
+
         }
 
         public static (Word.Table first, Word.Table second, int splitRow) SplitTableAtRow(Word.Table original)
@@ -760,12 +769,14 @@ namespace CoverageKiller2.DOM.Tables
         }
 
         private int _analyzeTableRecursivelyDepth = 0;
+        private Base1JaggedList<Word.Cell> _COMCellGrid;
+
         public Base1JaggedList<GridCell5> AnalyzeTableRecursively(Word.Table table = null, int rowOffset = 0)
         {
             this.Ping();
             table = table ?? _COMTable;
             if (table == null) throw new ArgumentNullException(nameof(table));
-            Log.Debug($"Analyzing table at position {table.Range.Start}, rowOffset = {rowOffset}");
+            //Log.Debug($"Analyzing table at position {table.Range.Start}, rowOffset = {rowOffset}");
 
             bool hasMerges = false;
             try
@@ -855,17 +866,75 @@ namespace CoverageKiller2.DOM.Tables
 
         public Base1JaggedList<GridCell5> BuildSlowGridFromTable(Word.Table table, int rowOffset = 0)
         {
+
             this.Ping();
-            if (table == null) throw new ArgumentNullException(nameof(table));
+            try
+            {
 
-            var clonedTable = PrepareTable();
-            var masterGrid = GetMasterGrid(clonedTable);
-            var textGrid = ParseTableText(clonedTable);
-            var normalGrid = NormalizeByWidth(masterGrid, rowOffset);
-            var horizGrid = CrawlHoriz(textGrid, normalGrid);
-            var vertGrid = CrawlVertically(rowOffset, textGrid, normalGrid);
+                if (table == null) throw new ArgumentNullException(nameof(table));
 
-            return this.Pong(() => vertGrid);
+                var clonedTable = PrepareTable();
+                var masterGrid = GetMasterGrid(clonedTable);
+                var textGrid = ParseTableText(clonedTable);
+                var normalGrid = NormalizeByWidth(masterGrid, rowOffset);
+                var horizGrid = CrawlHoriz(textGrid, normalGrid);
+                var vertGrid = CrawlVertically(rowOffset, textGrid, normalGrid);
+
+                return this.Pong(() => vertGrid);
+            }
+            catch (Exception ex)
+            {
+                //diagnostics
+
+                Log.Error(ex, "Exception in Horizonatal crawl.");
+
+                //concoct the width grid data***
+
+                var widthGrid = new Base1JaggedList<float>();
+
+                foreach (var row in _COMCellGrid)
+                {
+                    var widthRow = new Base1List<float>();
+                    foreach (var cell in row)
+                    {
+                        widthRow.Add(cell.Width);
+                    }
+                    widthGrid.Add(widthRow);
+                }
+                var totalWidth = widthGrid.LargestRow.Sum();
+                var normalWidth = totalWidth / widthGrid.LargestRowCount;
+                // *** done
+
+
+                //cast the log dump
+                Log.Debug("Diagnostic info:");
+                var sb = new StringBuilder();
+                sb.AppendLine(DumpGrid(_COMCellGrid, $"-{nameof(_COMCellGrid)}"));
+                sb.AppendLine(DumpGrid(widthGrid, $"-{nameof(widthGrid)}"));
+                sb.AppendLine($"Total Table width: {totalWidth}, Normal cell size: {normalWidth}");
+                sb.AppendLine(DumpGrid(_textGrid, $"-{nameof(_textGrid)}"));
+                sb.AppendLine(DumpGrid(_grid, $"-{nameof(_grid)}"));
+
+                //summon the CKDocument
+                var wdDoc = _COMTable.Range.Document;
+                if (CKOffice_Word.Instance.TryGetAppFor(wdDoc, out CKApplication ckApp)
+                    && ckApp.TryGetDocumentFor(wdDoc, out CKDocument ckDoc))
+                {
+                    ckDoc.Visible = true;
+                    ckDoc.Activate();
+                    ckDoc.ActiveWindow.Activate();
+                    ckDoc.KeepAlive = true;
+                    sb.AppendLine($"Document {ckDoc.FileName} is available for review.");
+                }
+                else
+                {
+                    sb.AppendLine($"Unable to make {Path.GetFileName(wdDoc.FullName)} visible.");
+                }
+
+                LH.Debug(sb.ToString());
+
+                throw ex;
+            }
         }
 
 

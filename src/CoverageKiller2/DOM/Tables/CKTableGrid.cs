@@ -144,9 +144,9 @@ namespace CoverageKiller2.DOM.Tables
         {
             this.Ping();
             //for debugging uncomment.
-            shadowWorkspace.ShowDebuggerWindow();
-            shadowWorkspace.Document.KeepAlive = true;
-            shadowWorkspace.Document.ActiveWindow.Activate();
+            //shadowWorkspace.ShowDebuggerWindow();
+            //shadowWorkspace.Document.KeepAlive = true;
+            //shadowWorkspace.Document.ActiveWindow.Activate();
 
             //put original table
             shadowWorkspace.CloneFrom(sourceTable); //make sure we aren't recursing tables here.

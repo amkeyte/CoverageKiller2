@@ -47,33 +47,7 @@ namespace CoverageKiller2.Logging
     {
         public static string GetTableTitle(CKTable table, string markerText)
         {
-            if (table == null || string.IsNullOrWhiteSpace(markerText)) return null;
-
-            //juts try to grab the few paragraphs right before the table. title tag should be there.
-            //Bug 20250426 00026: fixed - set max from 1 to 0; preents table.start = 0 -> out of range
-            var searchRangeStart = Math.Max(0, table.Start - 100);
-            var paraList = table.Document.Range(searchRangeStart, table.Start).Paragraphs;
-
-            int start = table.COMRange.Start;
-
-            string scrunchedTarget = CKTextHelper.Scrunch(markerText);
-
-            for (int i = paraList.Count; i >= 1; i--)
-            {
-                var para = paraList[i];
-                if (para.End >= start) continue; // skip paras after or inside the table
-
-                string paraText = para.Text?.Trim();
-                if (string.IsNullOrWhiteSpace(paraText)) continue;
-
-                string scrunched = CKTextHelper.Scrunch(paraText);
-                if (scrunched.Contains(scrunchedTarget))
-                {
-                    return paraText;
-                }
-            }
-
-            return null;
+            return GetTableTitle(table.COMTable, markerText);
         }
 
         /// <summary>
@@ -89,9 +63,11 @@ namespace CoverageKiller2.Logging
 
             Word.Document doc = table.Range.Document;
             int start = table.Range.Start;
-            int searchStart = Math.Max(1, start - 100);
+            int searchStart = Math.Max(0, start - 100);
             try
             {
+                //juts try to grab the few paragraphs right before the table. title tag should be there.
+                //Bug 20250426 00026: fixed - set max from 1 to 0; preents table.start = 0 -> out of range
 
                 Word.Range range = doc.Range(searchStart, start);
                 Word.Paragraphs paraList = range.Paragraphs;
@@ -364,11 +340,12 @@ namespace CoverageKiller2.Logging
         /// <param name="prefix">Optional prefix to apply to each line.</param>
         /// <param name="includeIndex">If true, include line numbers starting at 1.</param>
         /// <returns>A single formatted string.</returns>
-        public static string DumpString(this IEnumerable<string> lines, string prefix = "", bool includeIndex = false)
+        public static string DumpString(this IEnumerable<string> lines, string preamble = "\n", string prefix = "", bool includeIndex = false)
         {
             if (lines == null) return string.Empty;
 
             var sb = new StringBuilder();
+            sb.Append(preamble);
             int i = 1;
             foreach (var line in lines)
             {
@@ -378,6 +355,11 @@ namespace CoverageKiller2.Logging
                     sb.AppendLine($"{prefix}{line}");
             }
             return sb.ToString();
+        }
+
+        internal static void Debug(string message, [MemberCallerName] string memberCallerName = "")
+        {
+            Log.Debug($"Caller {memberCallerName} said:\n{message}\n");
         }
     }
 }

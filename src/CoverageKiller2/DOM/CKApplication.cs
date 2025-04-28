@@ -66,7 +66,28 @@ namespace CoverageKiller2.DOM
         /// </summary>
         public IReadOnlyList<CKDocument> Documents => _documents.AsReadOnly();
 
+        /// <summary>
+        /// Attempts to find the CKDocument instance corresponding to the given Word.Document.
+        /// </summary>
+        /// <param name="doc">The Word document to search for.</param>
+        /// <param name="ckDoc">The matching CKDocument instance, if found.</param>
+        /// <returns>True if found; otherwise false.</returns>
+        public bool TryGetDocumentFor(Word.Document doc, out CKDocument ckDoc)
+        {
+            ckDoc = null;
+            if (doc == null) return false;
 
+            foreach (var d in Documents)
+            {
+                if (d.Matches(doc))
+                {
+                    ckDoc = d;
+                    return true;
+                }
+            }
+
+            return false;
+        }
 
         /// <summary>
         /// Opens a document from disk and wraps it in a CKDocument.

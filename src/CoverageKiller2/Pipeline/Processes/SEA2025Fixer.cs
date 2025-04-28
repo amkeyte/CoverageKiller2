@@ -74,7 +74,7 @@ namespace CoverageKiller2.Pipeline.Processes
 
                 if (floorSectionHeadingTable != null)
                 {
-                    var headersToRemove = "Ant Gain\tCable Loss\tPh.\tType\tMod\tNAC"
+                    var headersToRemove = "Ant Gain\tCable Loss\tPh.\tType\tMod\tArea Points passed (%)\tCritical Points passed (%)"
                         .Split(new[] { '\t' }, StringSplitOptions.RemoveEmptyEntries)
                         .Select(s => s.Scrunch());
 
@@ -86,7 +86,7 @@ namespace CoverageKiller2.Pipeline.Processes
                 }
 
 
-                Log.Information("*** remove extra critical point fields");
+                Log.Information("[Issue1]*** remove extra critical point fields");
                 searchText = "Critical Point Report";
                 var floorSectionCriticalPointsTable = FindTableByRowText(section.Tables,
                     searchText,
@@ -104,7 +104,7 @@ namespace CoverageKiller2.Pipeline.Processes
                     floorSectionCriticalPointsTable.MakeFullPage();
                 }
 
-                Log.Information("*** remove extra area point fields");
+                Log.Information("[Issue1]*** remove extra area point fields");
 
                 searchText = "Area Report";
                 var floorSectionAreaReportTable = FindTableByRowText(section.Tables,
@@ -217,11 +217,17 @@ namespace CoverageKiller2.Pipeline.Processes
             LH.Ping<SEA2025Fixer>();
             foreach (var table in tables)
             {
+
                 table.AccessMode = accessMode;
                 var rowText = string.Join(string.Empty, table.Rows[rowIndex].Select(c => c.Text));
+
+                LH.Debug($"Searching {LH.GetTableTitle(table, "***Table")} with row {rowIndex} text \n" +
+                    $"[{rowText.Scrunch()}] using search text \n[{searchText.Scrunch()}]");
+
                 if (rowText.ScrunchContains(searchText))
                 {
                     result = table;
+                    LH.Debug("Table found");
                     break;
                 }
             }

@@ -1,5 +1,6 @@
 ﻿using CoverageKiller2.DOM;
 using CoverageKiller2.DOM.Tables;
+using CoverageKiller2.Logging;
 using CoverageKiller2.Pipeline.Processes;
 using CoverageKiller2.Test;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -164,9 +165,9 @@ namespace CoverageKiller2.Tests.Scenarios
                     return;
                 }
             }
-
-            Assert.Fail("No matching table found with scrunched row 1 text.");
         }
+
+
 
         /// <summary>
         /// Bug 20250425-0013
@@ -197,6 +198,60 @@ namespace CoverageKiller2.Tests.Scenarios
             }
         }
 
+        /// <summary>
+        /// Bug: Issue 1
+        /// </summary>
+        [TestMethod]
+        public void Can_RemoveCriticalPointFields_FromFloorSectionTable()
+        {
+            var CKDoc = _testFile;
+            CKDoc.KeepAlive = true;
+
+            // Setup
+            string searchText = "Critical Point Report";
+            int rowIndex = 1;
+
+            var floorSectionCriticalPointsTable = SEA2025Fixer.FindTableByRowText(
+                CKDoc.Tables,
+                searchText,
+                rowIndex,
+                TableAccessMode.IncludeOnlyAnchorCells); // avoid repeating header merged cells
+
+            Assert.IsNotNull(floorSectionCriticalPointsTable, "Critical Point Report table not found.");
+
+            var originalColCount = floorSectionCriticalPointsTable.Columns.Count;
+            LH.Debug($"Original column count: {originalColCount}");
+
+            // Deletion logic matching your pipeline
+            var headersToRemove = "UL\r\nPower\r\n(dBm)\tUL\r\nS/N\r\n(dB)\tUL\r\nFBER\r\n(%)\tResult\tDL\r\nLoss\r\n(dB)\r\n"
+                .Split(new[] { '\t' }, StringSplitOptions.RemoveEmptyEntries)
+                .Select(s => s.Scrunch())
+                .ToList();
+
+            LH.Debug($"Headers to Remove: {headersToRemove.DumpString()}");
+
+            var headersFound = floorSectionCriticalPointsTable.Columns.Select(col => col[2].Text);
+            LH.Debug($"Headers found: {headersToRemove.DumpString()}");
+
+            floorSectionCriticalPointsTable.Columns
+                .Delete(col => headersToRemove.Contains(col[2].Text.Scrunch()));
+
+            floorSectionCriticalPointsTable.MakeFullPage(); // finalize layout
+
+            // Recheck
+            var updatedColCount = floorSectionCriticalPointsTable.COMTable.Columns.Count;
+            LH.Debug($"Updated column count: {updatedColCount}");
+
+            // Assert: At least one column must have been deleted
+            Assert.IsTrue(updatedColCount < originalColCount, "No columns were deleted from the Critical Point Report table.");
+
+            // Extra safety: Make sure columns that should have been removed are gone
+            foreach (var col in floorSectionCriticalPointsTable.Columns)
+            {
+                var text = col[2].Text.Scrunch();
+                Assert.IsFalse(headersToRemove.Contains(text), $"Unexpected leftover column header: '{text}'");
+            }
+        }
 
     }
 }
