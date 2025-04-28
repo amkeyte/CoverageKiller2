@@ -51,15 +51,25 @@ namespace CoverageKiller2.DOM.Tables
             this.Pong();
         }
 
+        /// <summary>
+        /// Gets the CKCell by visual row index (1-based), matching the logical table row structure.
+        /// </summary>
         public override CKCell this[int index]
         {
             get
             {
-                if (index < 1 || index > Count)
-                    throw new ArgumentOutOfRangeException(nameof(index));
-                return CellsList_1[index];
+                //method updated to a search to keep indexer aligned with visual grid as expected. (issue 1)
+                if (index < 1) throw new ArgumentOutOfRangeException(nameof(index));
+                var cell = this.FirstOrDefault(c => c.RowIndex == index);
+                if (cell == null)
+                    throw new ArgumentOutOfRangeException($"No cell found at visual row {index} in column.");
+                return cell;
             }
         }
+
+        //get the column as a flat list if coordinate semantics are innapropriate
+        public CKCells Cells => new CKCells(this, Parent);
+
 
         public CKColCellRef CellRef { get; protected set; }
         public int Index => CellRef.Index;
@@ -221,8 +231,7 @@ namespace CoverageKiller2.DOM.Tables
             Log.Debug($"[Issue1] Batch Deleting columns {Document.FileName}::{Document.Content.Snapshot}::Before Count:{Count}");
 
 
-            var x = this.Where(predicate).Select(col => col[2].ScrunchedText); //col[2] happens to be at issue..
-                                                                               //if it causes problems just remove it.
+            var x = this.Where(predicate).Select(col => col[2].ScrunchedText);
             LH.Debug($"[Issue1] The following column headers are slated for deletion:{x.DumpString()}");
 
             this.Where(predicate)
