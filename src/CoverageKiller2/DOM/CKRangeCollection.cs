@@ -148,16 +148,20 @@ namespace CoverageKiller2.DOM
         {
             if (IsDirty || cachedField == null)
             {
-
-
+                cachedField = refreshFunc();
                 if (IsCOMDeferred)
                 {
                     Log.Debug($"Deferred COM access triggered inside Cache<T> (custom refresh) for {GetType().Name}.");
-                    cachedField = refreshFunc();
                     IsCOMDeferred = false;
                 }
             }
             return cachedField;
+        }
+        protected void SetCache<T>(ref T field, T value, Action<T> setter = null)
+        {
+            setter?.Invoke(value);
+            field = value;
+            IsDirty = true;
         }
 
         /// <summary>

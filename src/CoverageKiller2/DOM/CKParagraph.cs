@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CoverageKiller2.Logging;
+using System;
 using Word = Microsoft.Office.Interop.Word;
 
 namespace CoverageKiller2.DOM
@@ -13,20 +14,42 @@ namespace CoverageKiller2.DOM
         /// Gets the underlying Word.Paragraph COM object.
         /// May be null if deferred and not yet realized.
         /// </summary>
-        public Word.Paragraph COMParagraph { get; private set; }
+        protected Word.Paragraph COMParagraph
+        {
+            get => Cache(ref _COMParagraph, () =>
+            {
+                //here, either IsDirty is true or COMParagraph is null.
+                if (Parent is CKParagraphs parent && parent.Parent is CKRange parentRange)
+                {
+                    if (Index < 1 || Index > parentRange.COMRange.Paragraphs.Count)
+                        throw new CKDebugException($"Invalid index {Index} for Paragraphs collection.");
 
-        private readonly int _paragraphIndex; // 1-based
+                    var comPara = parentRange.COMRange.Paragraphs[Index];
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="CKParagraph"/> class with an immediate Word.Paragraph object.
-        /// </summary>
-        /// <param name="paragraph">The Word.Paragraph object to wrap.</param>
-        /// <param name="parent">The parent DOM object.</param>
-        public CKParagraph(Word.Paragraph paragraph, IDOMObject parent)
+                    // Here is the critical part you were asking for:
+                    COMRange = comPara.Range;
+                    Refresh(); // force recompute ScrunchedText, etc.
+
+                    return comPara;
+                }
+                throw new CKDebugException("Unsupported parent type for resolving COMParagraphs.");
+            });
+
+            private set => SetCache(ref _COMParagraph, value, (v) =>
+            {
+                if ()
+                    _COMParagraph = v;
+            });
+        }
+
+
+        private Word.Paragraph _COMParagraph;
+
+        public CKParagraph(Word.Paragraph paragraph, IDOMObject parent, int index = -1)
             : base(paragraph?.Range, parent)
         {
             COMParagraph = paragraph ?? throw new ArgumentNullException(nameof(paragraph));
-            _paragraphIndex = -1; // not needed if we already have the paragraph
+            Index = index;
         }
 
         /// <summary>
@@ -38,46 +61,27 @@ namespace CoverageKiller2.DOM
             : base(parent) // deferCOM = true
         {
             if (index < 1) throw new ArgumentOutOfRangeException(nameof(index));
-            _paragraphIndex = index;
+            Index = index;
             COMParagraph = null;
         }
 
-        /// <summary>
-        /// Ensures that the COMParagraph reference is available, resolving it if necessary.
-        /// </summary>
-        private void EnsureCOMParagraphReady()
+        protected override void DoRefreshThings()
         {
-            if (COMParagraph == null)
+            this.Ping();
+            if (IsCOMDeferred)
             {
-                if (Parent is CKParagraphs paras)
-                {
-                    if (paras.COMParagraphs == null)
-                        throw new InvalidOperationException("Deferred CKParagraph has no valid COMParagraphs collection.");
 
-                    if (_paragraphIndex < 1 || _paragraphIndex > paras.COMParagraphs.Count)
-                        throw new InvalidOperationException("Deferred CKParagraph has invalid index.");
-
-                    COMParagraph = paras.COMParagraphs[_paragraphIndex];
-                    _COMRange = COMParagraph.Range;
-                    _deferCOM = false;
-                    Refresh();
-                }
-                else
-                {
-                    throw new InvalidOperationException("Deferred CKParagraph must have CKParagraphs as parent.");
-                }
             }
+            else
+            {
+
+                //checked if it's null to force COMParagraph to update, so that COMRange is valid.
+                if (COMParagraph == null) throw new CKDebugException("COMParagraph cannot refresh.");
+            }
+            this.Pong();
         }
 
-        /// <inheritdoc/>
-        public override string Text
-        {
-            get
-            {
-                EnsureCOMParagraphReady();
-                return base.Text;
-            }
-        }
+        public int Index { get; private set; }
 
         /// <inheritdoc/>
         public override string ToString()
