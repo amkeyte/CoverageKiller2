@@ -74,7 +74,7 @@ namespace CoverageKiller2.DOM
         [TestMethod]
         public void CKParagraph_DeferConstructor_StartsDirty()
         {
-            var deferredPara = new CKParagraph(_testFile); // Using defer constructor
+            var deferredPara = new CKParagraph(_testFile, 1); // Using defer constructor
 
             Assert.IsTrue(deferredPara.IsDirty, "Deferred paragraph should be initially dirty.");
         }
@@ -82,7 +82,7 @@ namespace CoverageKiller2.DOM
         [TestMethod]
         public void CKParagraph_DeferConstructor_AccessText_LiftsDefer()
         {
-            var deferredPara = new CKParagraph(_testFile);
+            var deferredPara = new CKParagraph(_testFile, 1);
 
             Assert.ThrowsException<InvalidOperationException>(() =>
             {
@@ -93,7 +93,7 @@ namespace CoverageKiller2.DOM
         [TestMethod]
         public void CKParagraph_DeferConstructor_ManualRefreshThrows()
         {
-            var deferredPara = new CKParagraph(_testFile);
+            var deferredPara = new CKParagraph(_testFile, 1);
 
             Assert.ThrowsException<InvalidOperationException>(() =>
             {
@@ -104,7 +104,7 @@ namespace CoverageKiller2.DOM
         [TestMethod]
         public void CKParagraph_DeferConstructor_IsDirtyDoesNotLift()
         {
-            var deferredPara = new CKParagraph(_testFile);
+            var deferredPara = new CKParagraph(_testFile, 1);
 
             bool dirty = deferredPara.IsDirty;
 

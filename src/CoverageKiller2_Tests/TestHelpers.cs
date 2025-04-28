@@ -1,12 +1,14 @@
-﻿using System.Diagnostics;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Runtime.InteropServices;
+using Word = Microsoft.Office.Interop.Word;
 
 namespace CoverageKiller2._TestOperators
 
 {
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
-    using System;
-    using System.Runtime.InteropServices;
-    using Word = Microsoft.Office.Interop.Word;
+
     [TestClass]
     public class WordSlayer
     {
@@ -59,9 +61,35 @@ namespace CoverageKiller2._TestOperators
         }
     }
 }
-
 public static class TestHelpers
 {
+
+    public static IEnumerable<Word.Paragraph> TakeFirst(this Word.Paragraphs paragraphs, int count)
+    {
+        for (int i = 1; i <= Math.Min(count, paragraphs.Count); i++)
+        {
+            yield return paragraphs[i];
+        }
+    }
+    public static Word.Paragraphs GetFirstParagraphs(this Word.Paragraphs paragraphs, int count)
+    {
+        if (paragraphs == null) throw new ArgumentNullException(nameof(paragraphs));
+        if (count < 1) throw new ArgumentOutOfRangeException(nameof(count));
+
+        var firstPara = paragraphs[1];
+        var lastPara = paragraphs[Math.Min(count, paragraphs.Count)];
+
+        var start = firstPara.Range.Start;
+        var end = lastPara.Range.End;
+
+        Word.Range newRange = paragraphs[1].Range.Document.Range(start, end);
+
+        return newRange.Paragraphs;
+    }
+
+
+
+
     /// <summary>
     /// Searches backwards from the start of a table to find the first paragraph
     /// containing the specified marker text. Useful for labels like "***Table 1***".

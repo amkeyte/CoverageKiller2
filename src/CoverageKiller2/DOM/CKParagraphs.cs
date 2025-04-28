@@ -22,6 +22,7 @@ namespace CoverageKiller2.DOM
         {
             get => Cache(ref _cachedParagraphs, () =>
             {
+                Log.Debug("Pulling Paragraphs list");
                 var list = new List<CKParagraph>();
 
                 if (IsCOMDeferred)
@@ -31,6 +32,7 @@ namespace CoverageKiller2.DOM
                     {
                         list.Add(null); // Empty slots, paragraphs built on demand
                     }
+                    //does not call refresh
                 }
                 else
                 {
@@ -56,6 +58,7 @@ namespace CoverageKiller2.DOM
         {
             get => Cache(ref _COMParagraphs, () =>
                 {
+                    Log.Debug("getting _COMparagraphs");
                     if (Parent is CKRange parentRange)
                     {
                         return parentRange.COMRange.Paragraphs;
@@ -77,7 +80,7 @@ namespace CoverageKiller2.DOM
             if (collection.Count > 1000)
                 throw new ArgumentException($"Paragraphs collection is too large ({collection.Count}). Find a smaller subset.");
 
-            Log.Information($"CKParagraphs created with {collection.Count} entries (deferCOM={deferCOM}).");
+            Log.Debug($"CKParagraphs created with {collection.Count} entries (deferCOM={deferCOM}).");
 
             COMParagraphs = collection;
         }
@@ -109,6 +112,7 @@ namespace CoverageKiller2.DOM
         {
             get
             {
+                Log.Debug("Pulling index: " + index);
                 if (index < 1 || index > Count)
                     throw new ArgumentOutOfRangeException(nameof(index), "Index must be between 1 and the number of paragraphs.");
 
@@ -142,6 +146,7 @@ namespace CoverageKiller2.DOM
         {
             for (int i = 1; i <= Count; i++)
             {
+                Log.Debug("enumerating " + i);
                 yield return this[i];
             }
         }
@@ -166,8 +171,9 @@ namespace CoverageKiller2.DOM
         /// <inheritdoc/>
         protected override void DoRefreshThings()
         {
-            ParagraphsList = null;
-            COMParagraphs = null;
+            Log.Debug("Doing refresh things");
+            //ParagraphsList = null;
+            //COMParagraphs = null;
             IsDirty = false;
         }
     }

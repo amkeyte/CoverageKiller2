@@ -38,18 +38,19 @@ namespace CoverageKiller2.DOM
         [TestMethod]
         public void CKParagraphs_Count_MatchesUnderlyingWordParagraphsCount()
         {
-            var range = _testFile.Sections[1];
+            var range = _testFile.Range(0, 500);
+            var wdParas = range.COMRange.Paragraphs;
             var paragraphs = range.Paragraphs;
-
-            int expectedCount = range.COMRange.Paragraphs.Count;
-            Assert.AreEqual(expectedCount, paragraphs.Count,
+            int expectedCount = paragraphs.Count;
+            Assert.AreEqual(expectedCount, wdParas.Count,
                 "CKParagraphs count should match the Word Section's Paragraphs count.");
         }
 
         [TestMethod]
         public void CKParagraphs_Indexer_ReturnsValidCKParagraph_And_ThrowsOnInvalidIndex()
         {
-            var range = _testFile.Sections[1];
+            var range = _testFile.Range(0, 500);
+            var wdParas = range.COMRange.Paragraphs;
             var paragraphs = range.Paragraphs;
 
             if (paragraphs.Count > 0)
@@ -72,13 +73,14 @@ namespace CoverageKiller2.DOM
         [TestMethod]
         public void CKParagraphs_Enumeration_YieldsAllParagraphs()
         {
-            var range = _testFile.Sections[1];
+            var range = _testFile.Range(0, 500);
+            var wdParas = range.COMRange.Paragraphs;
             var paragraphs = range.Paragraphs;
 
             int fixedCount = paragraphs.Count;
             int enumeratedCount = 0;
 
-            Log.Verbose($"Enumerating {fixedCount} paragraphs.");
+            Log.Debug($"Enumerating {fixedCount} paragraphs.");
             foreach (var para in paragraphs)
             {
                 enumeratedCount++;
@@ -92,8 +94,10 @@ namespace CoverageKiller2.DOM
         [TestMethod]
         public void CKParagraphs_ToString_ReturnsValidString()
         {
-            var range = _testFile.Sections[1];
+            var range = _testFile.Range(0, 500);
+            var wdParas = range.COMRange.Paragraphs;
             var paragraphs = range.Paragraphs;
+
             string output = paragraphs.ToString();
 
             Assert.IsTrue(output.Contains("CKParagraphs"), "ToString() should contain 'CKParagraphs'.");
@@ -106,9 +110,11 @@ namespace CoverageKiller2.DOM
         [TestMethod]
         public void CKParagraphs_DeferConstructor_StartsDirty()
         {
-            var range = _testFile.Sections[1];
-            var comParas = range.COMRange.Paragraphs;
-            var deferredParas = new CKParagraphs(comParas, range, deferCOM: true);
+            var range = _testFile.Range(0, 500);
+            var wdParas = range.COMRange.Paragraphs;
+            var paragraphs = range.Paragraphs;
+
+            var deferredParas = new CKParagraphs(wdParas, range, deferCOM: true);
 
             Assert.IsTrue(deferredParas.IsDirty, "Deferred CKParagraphs should initially be dirty.");
         }
@@ -117,35 +123,41 @@ namespace CoverageKiller2.DOM
         public void CKParagraphs_DeferConstructor_EnumerationLiftsDefer()
         {
             var range = _testFile.Sections[1];
-            var comParas = range.COMRange.Paragraphs;
-            var deferredParas = new CKParagraphs(comParas, range, deferCOM: true);
+            var wdParas = range.COMRange.Paragraphs;
+            var paragraphs = range.Paragraphs;
+            Log.Debug("Creating new deferred paragraphs collection.");
+            var deferredParas = new CKParagraphs(wdParas, range, deferCOM: true);
 
+            Log.Debug($"deferred paras is dirty: {deferredParas.IsDirty.ToString()}");
             Assert.IsTrue(deferredParas.IsDirty, "Deferred CKParagraphs should start dirty.");
-
+            Log.Debug("enumerating...");
             int enumeratedCount = 0;
             foreach (var para in deferredParas)
             {
+                Log.Debug($"Got to para {para.Index}");
                 // touching paragraphs should lift defer automatically through Cache
                 enumeratedCount++;
             }
+            Log.Debug("...done");
 
             Assert.IsFalse(deferredParas.IsDirty, "After enumeration, CKParagraphs should no longer be dirty.");
-            Assert.AreEqual(comParas.Count, enumeratedCount, "Enumeration should yield all paragraphs after lifting defer.");
+            Assert.AreEqual(wdParas.Count, enumeratedCount, "Enumeration should yield all paragraphs after lifting defer.");
         }
 
         [TestMethod]
         public void CKParagraphs_ManualRefresh_RebuildsParagraphList()
         {
-            var range = _testFile.Sections[1];
-            var comParas = range.COMRange.Paragraphs;
-            var deferredParas = new CKParagraphs(comParas, range, deferCOM: true);
+            var range = _testFile.Range(0, 500);
+            var wdParas = range.COMRange.Paragraphs;
+            var paragraphs = range.Paragraphs;
+            var deferredParas = new CKParagraphs(wdParas, range, deferCOM: true);
 
             Assert.IsTrue(deferredParas.IsDirty, "Deferred CKParagraphs should start dirty.");
 
             deferredParas.Refresh();
 
             Assert.IsFalse(deferredParas.IsDirty, "After Refresh(), CKParagraphs should no longer be dirty.");
-            Assert.AreEqual(comParas.Count, deferredParas.Count, "Paragraph count after Refresh() should match Word COM count.");
+            Assert.AreEqual(wdParas.Count, deferredParas.Count, "Paragraph count after Refresh() should match Word COM count.");
         }
 
         #endregion

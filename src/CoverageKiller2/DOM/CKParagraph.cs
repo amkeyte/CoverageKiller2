@@ -18,26 +18,31 @@ namespace CoverageKiller2.DOM
         {
             get => Cache(ref _COMParagraph, () =>
             {
-                //here, either IsDirty is true or COMParagraph is null.
+                //here, either IsDirty is true or COMParagraph is null. Deferred is either. Refresh must be called.
+
+
+
                 if (Parent is CKParagraphs parent && parent.Parent is CKRange parentRange)
                 {
-                    if (Index < 1 || Index > parentRange.COMRange.Paragraphs.Count)
-                        throw new CKDebugException($"Invalid index {Index} for Paragraphs collection.");
+                    var comParas = parentRange.COMRange.Paragraphs;
 
-                    var comPara = parentRange.COMRange.Paragraphs[Index];
+                    if (Index < 1 || Index > comParas.Count)
+                        throw new CKDebugException($"Invalid index {Index} for given Paragraphs collection.");
 
-                    // Here is the critical part you were asking for:
-                    COMRange = comPara.Range;
-                    Refresh(); // force recompute ScrunchedText, etc.
+                    var comPara = comParas[Index];
+
+                    if (COMRange is null) COMRange = comPara.Range; // do not use ?? here
+                    Refresh();
 
                     return comPara;
                 }
-                throw new CKDebugException("Unsupported parent type for resolving COMParagraphs.");
+                throw new InvalidOperationException("Unsupported parent type for resolving COMParagraphs.");
+
             });
 
             private set => SetCache(ref _COMParagraph, value, (v) =>
             {
-                if ()
+                if (_COMParagraph != null)
                     _COMParagraph = v;
             });
         }

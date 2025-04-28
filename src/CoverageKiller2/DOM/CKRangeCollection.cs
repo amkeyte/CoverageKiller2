@@ -128,7 +128,7 @@ namespace CoverageKiller2.DOM
             {
                 if (IsCOMDeferred)
                 {
-                    Log.Debug($"Deferred COM access triggered inside Cache<T> for {GetType().Name}.");
+                    Log.Debug($"Deferred COM access standard refresh for {GetType().Name}.");
                     IsCOMDeferred = false;
                 }
 
@@ -148,13 +148,16 @@ namespace CoverageKiller2.DOM
         {
             if (IsDirty || cachedField == null)
             {
+                Log.Debug($"renewing cache: custom call of {typeof(T)} in {GetType().Name}.");
                 cachedField = refreshFunc();
                 if (IsCOMDeferred)
                 {
-                    Log.Debug($"Deferred COM access triggered inside Cache<T> (custom refresh) for {GetType().Name}.");
+                    Log.Debug($"Deferred COM access triggered inside Cache<T> (CUSTOM refresh) for {GetType().Name}.");
                     IsCOMDeferred = false;
                 }
+                Refresh();
             }
+            Log.Debug($"retrieved cache with return value {cachedField.ToString()}");
             return cachedField;
         }
         protected void SetCache<T>(ref T field, T value, Action<T> setter = null)
@@ -170,8 +173,10 @@ namespace CoverageKiller2.DOM
         /// </summary>
         public void Refresh()
         {
+            Log.Debug("refreshing!!");
             if (_isRefreshing) return;
             _isRefreshing = true;
+            Log.Debug("even more refreshing!");
             DoRefreshThings();
             IsDirty = false;
             _isRefreshing = false;

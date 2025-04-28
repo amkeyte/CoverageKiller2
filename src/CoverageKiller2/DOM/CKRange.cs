@@ -237,10 +237,10 @@ namespace CoverageKiller2.DOM
             }
             return cachedField;
         }
-        protected void SetCache<T>(ref T field, T value, Action<T> comSetter = null)
+        protected void SetCache<T>(ref T cachedField, T value, Action<T> setter = null)
         {
-            comSetter?.Invoke(value);
-            field = value;
+            setter?.Invoke(value);
+            cachedField = value;
             IsDirty = true;
         }
 
