@@ -90,7 +90,7 @@ namespace CoverageKiller2.Pipeline.Processes
                 searchText = "Critical Point Report";
                 var floorSectionCriticalPointsTable = FindTableByRowText(section.Tables,
                     searchText,
-                    accessMode: TableAccessMode.ExcludeAllMergedCells);//avoid the header cell
+                    accessMode: TableAccessMode.IncludeOnlyAnchorCells);//avoid the header cell
 
                 if (floorSectionCriticalPointsTable != null)
                 {
@@ -109,7 +109,7 @@ namespace CoverageKiller2.Pipeline.Processes
                 searchText = "Area Report";
                 var floorSectionAreaReportTable = FindTableByRowText(section.Tables,
                     searchText,
-                    accessMode: TableAccessMode.ExcludeAllMergedCells);//avoid the header cell
+                    accessMode: TableAccessMode.IncludeOnlyAnchorCells);//avoid the header cell
                 if (floorSectionAreaReportTable != null)
                 {
 
