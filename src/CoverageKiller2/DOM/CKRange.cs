@@ -37,26 +37,24 @@ namespace CoverageKiller2.DOM
         /// <param name="range">The Word.Range object to wrap.</param>
         /// <param name="parent">Parent DOM object; if not provided, will be looked up via CKDocuments.</param>
         /// <exception cref="ArgumentNullException">Thrown when the <paramref name="range"/> parameter is null.</exception>
-        public CKRange(Word.Range range, IDOMObject parent)
+        public CKRange(Word.Range range, IDOMObject parent, bool deferCom = false) : this(parent, deferCom)
         {
             this.Ping(msg: "$$$");
-            Parent = parent ?? throw new ArgumentNullException(nameof(parent));
             COMRange = range ?? throw new ArgumentNullException(nameof(range)); //document match done in here
-
+            IsCOMDeferred = false;
             var msg = $"_COMRange:[{Path.GetFileName(_COMRange.Document.FullName)}::{new RangeSnapshot(_COMRange).FastHash}]" +
                 $"CKRamge:[{Document.FileName}::{Snapshot.FastHash}";
 
             this.Pong(msg: msg);
         }
 
-        [Obsolete]
-        public CKRange(IDOMObject parent)
+        public CKRange(IDOMObject parent, bool deferCom = true)
         {
             this.Ping(msg: "$$$");
             Parent = parent ?? throw new ArgumentNullException(nameof(parent));
             _COMRange = null;
-            _deferCOM = true;
-            _isDirty = true;
+            IsCOMDeferred = deferCom;
+            IsDirty = !IsCOMDeferred;
             this.Pong(msg: $"{Document.FileName}::[COMRANGE NOT ASSIGNED]");
         }
 
@@ -209,17 +207,17 @@ namespace CoverageKiller2.DOM
         /// and removes extraneous control characters.
         /// </summary>
         public string PrettyText => Cache(ref _cachedPrettyText);
-        protected bool _deferCOM = false;
+        public bool IsCOMDeferred { get; private set; }
 
 
         protected T Cache<T>(ref T cachedField)
         {
             if (IsDirty || cachedField == null)
             {
-                if (_deferCOM)
+                if (IsCOMDeferred)
                 {
                     Log.Debug("Deferred COM access triggered inside Cache<T>.");
-                    _deferCOM = false;
+                    IsCOMDeferred = false;
                 }
                 Refresh();
             }
@@ -230,10 +228,10 @@ namespace CoverageKiller2.DOM
         {
             if (IsDirty || cachedField == null)
             {
-                if (_deferCOM)
+                if (IsCOMDeferred)
                 {
                     Log.Debug("Deferred COM access triggered inside Cache<T> (custom refresh).");
-                    _deferCOM = false;
+                    IsCOMDeferred = false;
                 }
                 cachedField = refreshFunc();
             }

@@ -183,13 +183,12 @@ namespace CoverageKiller2.DOM.Tables
             _COMCell = wdCell;
             CellRef = cellRef;
         }
-        public CKCell(CKCellRef cellRef, bool deferCOM = false) : base(cellRef?.Parent)
+        public CKCell(CKCellRef cellRef) : base(cellRef?.Parent)
         {
             //Table = new CKTable(wdCell.Tables[1], parent);
             //Table = table ?? throw new ArgumentNullException(nameof(table));
             CellRef = cellRef;
-            _deferCOM = deferCOM;
-            IsDirty = !deferCOM;
+            _deferCOM = true;
         }
         private bool _deferCOM = false;
         /// <summary>
