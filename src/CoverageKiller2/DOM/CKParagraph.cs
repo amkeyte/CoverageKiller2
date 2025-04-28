@@ -15,34 +15,71 @@ namespace CoverageKiller2.DOM
         /// </summary>
         public Word.Paragraph COMParagraph { get; private set; }
 
+        private readonly int _paragraphIndex; // 1-based
+
         /// <summary>
-        /// Initializes a new instance of the <see cref="CKParagraph"/> class
-        /// with an immediate Word.Paragraph object.
+        /// Initializes a new instance of the <see cref="CKParagraph"/> class with an immediate Word.Paragraph object.
         /// </summary>
         /// <param name="paragraph">The Word.Paragraph object to wrap.</param>
         /// <param name="parent">The parent DOM object.</param>
-        /// <exception cref="ArgumentNullException">Thrown when the paragraph parameter is null.</exception>
         public CKParagraph(Word.Paragraph paragraph, IDOMObject parent)
             : base(paragraph?.Range, parent)
         {
             COMParagraph = paragraph ?? throw new ArgumentNullException(nameof(paragraph));
+            _paragraphIndex = -1; // not needed if we already have the paragraph
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CKParagraph"/> class
-        /// in deferred mode without an immediate Word.Paragraph.
+        /// Initializes a new instance of the <see cref="CKParagraph"/> class in deferred mode with a known paragraph index.
         /// </summary>
-        /// <param name="parent">The parent DOM object.</param>
-        public CKParagraph(IDOMObject parent)
-            : base(parent) // triggers deferCOM = true
+        /// <param name="parent">The parent DOM object (must be a CKParagraphs).</param>
+        /// <param name="index">The 1-based paragraph index within the parent Word.Paragraphs collection.</param>
+        public CKParagraph(IDOMObject parent, int index)
+            : base(parent) // deferCOM = true
         {
+            if (index < 1) throw new ArgumentOutOfRangeException(nameof(index));
+            _paragraphIndex = index;
             COMParagraph = null;
         }
 
         /// <summary>
-        /// Returns a string representation of the CKParagraph.
+        /// Ensures that the COMParagraph reference is available, resolving it if necessary.
         /// </summary>
-        /// <returns>A string showing the paragraph's range.</returns>
+        private void EnsureCOMParagraphReady()
+        {
+            if (COMParagraph == null)
+            {
+                if (Parent is CKParagraphs paras)
+                {
+                    if (paras.COMParagraphs == null)
+                        throw new InvalidOperationException("Deferred CKParagraph has no valid COMParagraphs collection.");
+
+                    if (_paragraphIndex < 1 || _paragraphIndex > paras.COMParagraphs.Count)
+                        throw new InvalidOperationException("Deferred CKParagraph has invalid index.");
+
+                    COMParagraph = paras.COMParagraphs[_paragraphIndex];
+                    _COMRange = COMParagraph.Range;
+                    _deferCOM = false;
+                    Refresh();
+                }
+                else
+                {
+                    throw new InvalidOperationException("Deferred CKParagraph must have CKParagraphs as parent.");
+                }
+            }
+        }
+
+        /// <inheritdoc/>
+        public override string Text
+        {
+            get
+            {
+                EnsureCOMParagraphReady();
+                return base.Text;
+            }
+        }
+
+        /// <inheritdoc/>
         public override string ToString()
         {
             return $"CKParagraph: Range [{Start}, {End}]";

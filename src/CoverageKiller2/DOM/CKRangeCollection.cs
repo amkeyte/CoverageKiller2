@@ -19,14 +19,15 @@ namespace CoverageKiller2.DOM
         protected ACKRangeCollection(IDOMObject parent, bool deferCOM = false)
         {
             Parent = parent ?? throw new ArgumentNullException(nameof(parent));
-            _deferCOM = deferCOM;
+            IsCOMDeferred = deferCOM;
+            _isDirty = deferCOM;
         }
 
         /// <summary>
         /// Indicates whether COM access has been deferred for this collection.
         /// Flipped internally during first cache or IsDirty check if needed.
         /// </summary>
-        protected bool _deferCOM;
+        public bool IsCOMDeferred { get; private set; }
 
         /// <summary>
         /// Tracks dirty state for cache invalidation.
@@ -125,10 +126,10 @@ namespace CoverageKiller2.DOM
         {
             if (IsDirty || cachedField == null)
             {
-                if (_deferCOM)
+                if (IsCOMDeferred)
                 {
                     Log.Debug($"Deferred COM access triggered inside Cache<T> for {GetType().Name}.");
-                    _deferCOM = false;
+                    IsCOMDeferred = false;
                 }
 
                 Refresh();
@@ -147,13 +148,14 @@ namespace CoverageKiller2.DOM
         {
             if (IsDirty || cachedField == null)
             {
-                if (_deferCOM)
+
+
+                if (IsCOMDeferred)
                 {
                     Log.Debug($"Deferred COM access triggered inside Cache<T> (custom refresh) for {GetType().Name}.");
-                    _deferCOM = false;
+                    cachedField = refreshFunc();
+                    IsCOMDeferred = false;
                 }
-
-                cachedField = refreshFunc();
             }
             return cachedField;
         }
@@ -170,7 +172,7 @@ namespace CoverageKiller2.DOM
             IsDirty = false;
             _isRefreshing = false;
         }
-        protected void DoRefreshThings()
+        protected virtual void DoRefreshThings()
         {
             //no op
         }
