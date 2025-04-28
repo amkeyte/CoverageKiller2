@@ -10,7 +10,7 @@ namespace CoverageKiller2.DOM
     /// Represents a collection of <see cref="CKParagraph"/> objects associated with a <see cref="CKRange"/>.
     /// </summary>
     /// <remarks>
-    /// Version: CK2.00.01.0000
+    /// Version: CK2.00.02.0000
     /// </remarks>
     public class CKParagraphs : ACKRangeCollection, IEnumerable<CKParagraph>
     {
@@ -18,36 +18,33 @@ namespace CoverageKiller2.DOM
 
         /// <summary>
         /// Gets the underlying Word.Paragraphs COM object from the parent range.
+        /// May be null if deferred.
         /// </summary>
         public Word.Paragraphs COMParagraphs { get; private set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CKParagraphs"/> class.
         /// </summary>
+        /// <param name="collection">The Word.Paragraphs COM collection to wrap.</param>
         /// <param name="parent">The parent <see cref="CKRange"/> to associate with this instance.</param>
+        /// <param name="deferCOM">If true, initializes paragraphs in defer mode.</param>
         /// <exception cref="ArgumentNullException">Thrown when the parent parameter is null.</exception>
-        public CKParagraphs(Word.Paragraphs collection, IDOMObject parent) : base(parent)
+        public CKParagraphs(Word.Paragraphs collection, IDOMObject parent, bool deferCOM = false)
+            : base(parent, deferCOM)
         {
-            Log.Information($"CKParagraps was created with {collection.Count} entries.");
+            if (collection == null) throw new ArgumentNullException(nameof(collection));
+            if (collection.Count > 1000)
+                throw new ArgumentException($"Paragraphs collection is too large ({collection.Count}). Find a smaller subset.");
 
-            if (collection.Count > 1000) throw new ArgumentException($"Paragraphs collection is to large({collection.Count}). Find a smaller subset.");
+            Log.Information($"CKParagraphs created with {collection.Count} entries (deferCOM={deferCOM}).");
+
             COMParagraphs = collection;
-
         }
 
-        /// <summary>
-        /// Gets the number of paragraphs in the associated range.
-        /// </summary>
+        /// <inheritdoc/>
         public override int Count => ParagraphList.Count;
 
-        /// <summary>
-        /// Gets whether the paragraph cache is dirty.
-        /// </summary>
-        public override bool IsDirty { get; protected set; }
-
-        /// <summary>
-        /// Gets whether the paragraph collection is orphaned.
-        /// </summary>
+        /// <inheritdoc/>
         public override bool IsOrphan => Parent.IsOrphan;
 
         /// <summary>
@@ -69,30 +66,47 @@ namespace CoverageKiller2.DOM
         }
 
         /// <summary>
-        /// Gets the internal list of cached paragraphs, refreshing if dirty.
+        /// Gets the internal list of paragraphs, refreshing if dirty.
         /// </summary>
         private List<CKParagraph> ParagraphList
         {
             get
             {
-                if (_cachedParagraphs == null || IsDirty)
-                {
-                    _cachedParagraphs = new List<CKParagraph>();
-                    for (int i = 1; i <= COMParagraphs.Count; i++)
-                    {
-                        _cachedParagraphs.Add(new CKParagraph(COMParagraphs[i], this));
-                    }
-                    IsDirty = false;
-                }
-                return _cachedParagraphs;
+                return Cache(ref _cachedParagraphs, BuildParagraphList);
             }
         }
 
         /// <summary>
-        /// Returns the one-based index of the specified object, or -1 if not found.
+        /// Builds the internal paragraph list.
+        /// This does not touch COMParagraphs if defer is still active.
         /// </summary>
-        /// <param name="obj">The object to locate in the collection.</param>
-        /// <returns>The one-based index of the object, or -1 if not found.</returns>
+        private List<CKParagraph> BuildParagraphList()
+        {
+            var list = new List<CKParagraph>();
+
+            if (_deferCOM)
+            {
+                // Defer: create empty placeholder paragraphs
+                Log.Debug("Building deferred CKParagraphs.");
+                for (int i = 1; i <= COMParagraphs?.Count; i++)
+                {
+                    list.Add(new CKParagraph(this)); // Deferred CKParagraphs
+                }
+            }
+            else
+            {
+                // Immediate: wrap real COM paragraphs
+                Log.Debug("Building full CKParagraphs with COM access.");
+                for (int i = 1; i <= COMParagraphs.Count; i++)
+                {
+                    list.Add(new CKParagraph(COMParagraphs[i], this));
+                }
+            }
+
+            return list;
+        }
+
+        /// <inheritdoc/>
         public override int IndexOf(object obj)
         {
             if (obj is CKRange para)
@@ -106,34 +120,35 @@ namespace CoverageKiller2.DOM
             return -1;
         }
 
-        /// <summary>
-        /// Note: Iterating Pagraphs can be VERY slow for large collections. Fix this somehow.
-        /// Returns an enumerator that iterates through the collection of <see cref="CKParagraph"/> objects.
-        /// </summary>
-        /// <returns>An enumerator for the collection of <see cref="CKParagraph"/> objects.</returns>
+        /// <inheritdoc/>
         public IEnumerator<CKParagraph> GetEnumerator()
         {
             return ParagraphList.GetEnumerator();
         }
 
-        /// <summary>
-        /// Returns an enumerator that iterates through the collection.
-        /// </summary>
-        /// <returns>An enumerator for the collection.</returns>
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
-        /// <summary>
-        /// Returns a string representation of the CKParagraphs collection.
-        /// </summary>
-        /// <returns>A string containing the count of paragraphs.</returns>
+        /// <inheritdoc/>
+        public override void Clear()
+        {
+            _cachedParagraphs?.Clear();
+            _cachedParagraphs = null;
+            _isDirty = true;
+        }
+
+        /// <inheritdoc/>
         public override string ToString()
         {
             return $"CKParagraphs [Count: {Count}]";
         }
 
-        public override void Clear()
+        /// <summary>
+        /// Forces a refresh of the paragraph list.
+        /// </summary>
+        protected override void Refresh()
         {
-            _cachedParagraphs.Clear();
+            _cachedParagraphs = BuildParagraphList();
+            _isDirty = false;
         }
     }
 }

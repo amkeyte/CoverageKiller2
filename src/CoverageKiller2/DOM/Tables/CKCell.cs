@@ -138,14 +138,15 @@ namespace CoverageKiller2.DOM.Tables
         protected override void DoRefreshThings()
         {
             this.Ping();
-            if (_deferCOM)
+            if (IsCOMDeferred)
             {
                 //checked if it's null to force COMCell to update, so that COMRange is valid.
                 if (COMCell == null) throw new CKDebugException("COMCell cannot refresh.");
             }
-            base.DoRefreshThings();
             this.Pong();
         }
+
+
         /// <summary>
         /// Gets the CKTable to which this cell belongs.
         /// </summary>
@@ -175,22 +176,20 @@ namespace CoverageKiller2.DOM.Tables
         /// <param name="wordRow">One-based row index of the cell.</param>
         /// <param name="wordColumn">One-based column index of the cell.</param>
         /// <exception cref="ArgumentNullException">Thrown if any parameter is null.</exception>
-        public CKCell(Word.Cell wdCell, CKCellRef cellRef)
-            : base(wdCell?.Range, cellRef?.Parent)
+        public CKCell(Word.Cell wdCell, CKCellRef cellRef, bool deferCOM = true)
+            : base(wdCell?.Range, cellRef?.Parent, deferCOM)
         {
             //Table = new CKTable(wdCell.Tables[1], parent);
             //Table = table ?? throw new ArgumentNullException(nameof(table));
             _COMCell = wdCell;
             CellRef = cellRef;
         }
-        public CKCell(CKCellRef cellRef) : base(cellRef?.Parent)
+        public CKCell(CKCellRef cellRef, bool deferCOM = true) : base(cellRef?.Parent, deferCOM)
         {
             //Table = new CKTable(wdCell.Tables[1], parent);
             //Table = table ?? throw new ArgumentNullException(nameof(table));
             CellRef = cellRef;
-            _deferCOM = true;
         }
-        private bool _deferCOM = false;
         /// <summary>
         /// Gets or sets the background color of the cell.
         /// </summary>
@@ -242,6 +241,8 @@ namespace CoverageKiller2.DOM.Tables
                 return _cachedCells_1;
             }
         }
+
+
 
         public override void Clear()
         {

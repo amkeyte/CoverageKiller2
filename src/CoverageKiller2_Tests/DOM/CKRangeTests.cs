@@ -1,6 +1,8 @@
-﻿using CoverageKiller2.Test;
+﻿using CoverageKiller2.Logging;
+using CoverageKiller2.Test;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Serilog;
+using System;
 using System.Linq;
 using System.Runtime.InteropServices;
 namespace CoverageKiller2.DOM
@@ -126,5 +128,50 @@ namespace CoverageKiller2.DOM
             Assert.AreEqual(rangeA.GetHashCode(), rangeB.GetHashCode());
             Assert.AreNotEqual(rangeA.GetHashCode(), rangeC.GetHashCode());
         }
+        [TestMethod]
+        public void CKRange_DeferCOM_StartsDirty()
+        {
+            var deferredRange = new CKRange(_testFile); // Using defer constructor
+
+            Assert.IsTrue(deferredRange.IsDirty, "Deferred range should be initially dirty.");
+        }
+
+        [TestMethod]
+        public void CKRange_DeferCOM_CacheLiftsDefer()
+        {
+            var deferredRange = new CKRange(_testFile); // Defer mode
+
+            // Confirm defer is active (private _deferCOM is hidden, so we infer via behavior)
+            Assert.IsTrue(deferredRange.IsDirty, "Deferred range should start dirty.");
+
+            // Accessing Text should lift defer and Refresh
+            Assert.ThrowsException<InvalidOperationException>(() =>
+            {
+                var text = deferredRange.Text; // COMRange is null => should fail on real Refresh
+            }, "Accessing Text on a truly empty deferred range should throw due to missing COMRange.");
+        }
+
+        [TestMethod]
+        public void CKRange_DeferCOM_ManualRefreshThrows()
+        {
+            var deferredRange = new CKRange(_testFile); // Defer mode
+
+            Assert.ThrowsException<CKDebugException>(() =>
+            {
+                deferredRange.Refresh();
+            }, "Manual Refresh() on a deferred CKRange without COM should throw.");
+        }
+
+        [TestMethod]
+        public void CKRange_DeferCOM_IsDirtyWithoutLifting()
+        {
+            var deferredRange = new CKRange(_testFile); // Defer mode
+
+            // Check IsDirty without causing defer lift
+            bool dirty = deferredRange.IsDirty;
+
+            Assert.IsTrue(dirty, "Deferred range should report dirty without lifting defer.");
+        }
+
     }
 }

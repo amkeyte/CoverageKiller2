@@ -69,5 +69,49 @@ namespace CoverageKiller2.DOM
             Assert.IsTrue(output.Contains(ckParagraph.Start.ToString()), "ToString() should include the Start value.");
             Assert.IsTrue(output.Contains(ckParagraph.End.ToString()), "ToString() should include the End value.");
         }
+        #region DeferCOM Tests
+
+        [TestMethod]
+        public void CKParagraph_DeferConstructor_StartsDirty()
+        {
+            var deferredPara = new CKParagraph(_testFile); // Using defer constructor
+
+            Assert.IsTrue(deferredPara.IsDirty, "Deferred paragraph should be initially dirty.");
+        }
+
+        [TestMethod]
+        public void CKParagraph_DeferConstructor_AccessText_LiftsDefer()
+        {
+            var deferredPara = new CKParagraph(_testFile);
+
+            Assert.ThrowsException<InvalidOperationException>(() =>
+            {
+                var text = deferredPara.Text; // No COMRange assigned, accessing Text forces defer lifting and throws
+            }, "Accessing Text on a truly empty deferred paragraph should throw due to missing COMRange.");
+        }
+
+        [TestMethod]
+        public void CKParagraph_DeferConstructor_ManualRefreshThrows()
+        {
+            var deferredPara = new CKParagraph(_testFile);
+
+            Assert.ThrowsException<InvalidOperationException>(() =>
+            {
+                deferredPara.Refresh();
+            }, "Manual Refresh() on a deferred CKParagraph without COM should throw.");
+        }
+
+        [TestMethod]
+        public void CKParagraph_DeferConstructor_IsDirtyDoesNotLift()
+        {
+            var deferredPara = new CKParagraph(_testFile);
+
+            bool dirty = deferredPara.IsDirty;
+
+            Assert.IsTrue(dirty, "Deferred paragraph should report dirty without lifting defer.");
+        }
+
+        #endregion
+
     }
 }

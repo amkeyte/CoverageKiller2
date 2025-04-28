@@ -54,7 +54,7 @@ namespace CoverageKiller2.DOM
             Parent = parent ?? throw new ArgumentNullException(nameof(parent));
             _COMRange = null;
             IsCOMDeferred = deferCom;
-            IsDirty = !IsCOMDeferred;
+            IsDirty = IsCOMDeferred;
             this.Pong(msg: $"{Document.FileName}::[COMRANGE NOT ASSIGNED]");
         }
 
@@ -237,7 +237,12 @@ namespace CoverageKiller2.DOM
             }
             return cachedField;
         }
-
+        protected void SetCache<T>(ref T field, T value, Action<T> comSetter)
+        {
+            comSetter?.Invoke(value);
+            field = value;
+            IsDirty = true;
+        }
 
         /// <summary>
         /// Gets the scrunched version of the range's text, i.e. all whitespace removed,
@@ -434,7 +439,7 @@ namespace CoverageKiller2.DOM
 
             DoRefreshThings(); //sometimes COMRange could be assigned here.
 
-            if (_COMRange is null) throw new CKDebugException($"{nameof(_COMRange)} cannot be null.");
+            if (_COMRange is null) throw new InvalidOperationException($"{nameof(_COMRange)} cannot be null.");
 
             _cachedText = _COMRange.Text;
             _cachedStart = _COMRange.Start;
