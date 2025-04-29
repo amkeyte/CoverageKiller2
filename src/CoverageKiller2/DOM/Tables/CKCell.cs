@@ -1,4 +1,5 @@
 ﻿using CoverageKiller2.Logging;
+using Serilog;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -113,21 +114,25 @@ namespace CoverageKiller2.DOM.Tables
         /// Gets the underlying Word.Cell COM object, with caching support.
         /// </summary>
         [Obsolete("Make protected")]
-        public Word.Cell COMCell
+        internal Word.Cell COMCell
         {
-            get
+            get => Cache(ref _COMCell, () =>
             {
-                this.Ping();
-                if (_COMCell == null || IsDirty)
-                {
-                    var table = CellRef.Table;
-                    _COMCell = table.GetCellFor(CellRef);
-                    if (COMRange is null) COMRange = _COMCell.Range;
-                    //COMRange = _COMCell.Range;
-                }
-                this.Pong();
-                return _COMCell;
-            }
+                Log.Debug("Getting COMcell cache");
+                var table = CellRef.Table;
+                var comCell = table.GetCellFor(CellRef);
+
+                Log.Debug($"Checking on COMRange {COMRange}");
+                if (COMRange is null) COMRange = comCell.Range;
+                Log.Debug($"returning on COMRange {COMRange}");
+                return comCell;
+            });
+
+            private set => SetCache(ref _COMCell, value, (v) =>
+            {
+                if (_COMCell != null)//i think this is backwards??
+                    _COMCell = v;
+            });
         }
         private Word.Cell _COMCell;
 
@@ -138,12 +143,16 @@ namespace CoverageKiller2.DOM.Tables
         protected override void DoRefreshThings()
         {
             this.Ping();
-            if (IsCOMDeferred)
-            {
-                //checked if it's null to force COMCell to update, so that COMRange is valid.
-                if (COMCell == null) throw new CKDebugException("COMCell cannot refresh.");
-            }
-            this.Pong();
+            //if (IsCOMDeferred)//does this make sense? Range is about to crash.
+            //{
+            //    Log.Debug("Doing the Referesh thing in CKCell and com is defereed. anything to do here?");
+            //}
+            //else
+            //{
+            //checked if it's null to force COMCell to update, so that COMRange is valid.
+            if (COMCell == null) throw new CKDebugException("COMCell cannot refresh.");
+            //}
+
         }
 
 
@@ -176,19 +185,22 @@ namespace CoverageKiller2.DOM.Tables
         /// <param name="wordRow">One-based row index of the cell.</param>
         /// <param name="wordColumn">One-based column index of the cell.</param>
         /// <exception cref="ArgumentNullException">Thrown if any parameter is null.</exception>
-        public CKCell(Word.Cell wdCell, CKCellRef cellRef, bool deferCOM = true)
-            : base(wdCell?.Range, cellRef?.Parent, deferCOM)
+        public CKCell(Word.Cell wdCell, CKCellRef cellRef)
+            : base(wdCell?.Range, cellRef?.Parent)
         {
             //Table = new CKTable(wdCell.Tables[1], parent);
             //Table = table ?? throw new ArgumentNullException(nameof(table));
-            _COMCell = wdCell;
             CellRef = cellRef;
+            COMCell = wdCell ?? throw new ArgumentNullException(nameof(wdCell));
+            Log.Debug("Constructing COM loaded cell");
         }
-        public CKCell(CKCellRef cellRef, bool deferCOM = true) : base(cellRef?.Parent, deferCOM)
+        public CKCell(CKCellRef cellRef) : base(cellRef?.Parent)
         {
             //Table = new CKTable(wdCell.Tables[1], parent);
             //Table = table ?? throw new ArgumentNullException(nameof(table));
             CellRef = cellRef;
+            COMCell = null;
+            Log.Debug("Constructing Deferred COM cell");
         }
         /// <summary>
         /// Gets or sets the background color of the cell.

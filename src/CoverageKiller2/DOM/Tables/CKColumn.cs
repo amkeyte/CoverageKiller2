@@ -4,6 +4,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Word = Microsoft.Office.Interop.Word;
 
 namespace CoverageKiller2.DOM.Tables
 {
@@ -131,35 +132,136 @@ namespace CoverageKiller2.DOM.Tables
         /// <remarks>
         /// Version: CK2.00.03.0001
         /// </remarks>
-        public void SlowDelete()
+        //public void SlowDelete()
+        //{
+        //    this.Ping();
+
+
+        //    var table = CellRef.Table;
+
+        //    LH.Debug($"[Issue1](slow) Deleting column {Index} from " +
+        //        $"{LH.GetTableTitle(table, "***Table")}" +
+        //            $".{Document.FileName}.{table.Snapshot}" +
+        //            $".Cell({CellsList_1[1]?.Snapshot})");
+
+        //    var colIndex = CellRef.ColumnIndex;
+
+        //    for (var i_1 = CellsList_1.Count; i_1 >= 1; i_1--)
+        //    {
+        //        var cell = CellsList_1[i_1];
+        //        if (cell.ColumnIndex == colIndex)
+        //        {
+        //            cell.COMCell.Delete();
+        //            Log.Debug($"[Issue1] Deleted cell: Column {Index} Row {i_1}");
+
+        //        }
+        //    }
+
+        //    Log.Debug($"[Issue1]Deleted column: Index{Index}");
+        //    IsDirty = true;
+        //    this.Pong();
+        //}
+        /// <summary>
+        /// Deletes all cells in this column efficiently by batching COM deletions.
+        /// </summary>
+        public void SlowDelete2()
         {
             this.Ping();
 
+            if (Count == 0) return;
 
-            var table = CellRef.Table;
+            var wordApp = Document.Application.WordApp;
+            var wordDoc = Document.GiveMeCOMDocumentIWillOwnItAndPromiseToCleanUpAfterMyself();
 
-            LH.Debug($"[Issue1](slow) Deleting column {Index} from " +
-                $"{LH.GetTableTitle(table, "***Table")}" +
-                    $".{Document.FileName}.{table.Snapshot}" +
-                    $".Cell({CellsList_1[1]?.Snapshot})");
-
-            var colIndex = CellRef.ColumnIndex;
-
-            for (var i_1 = CellsList_1.Count; i_1 >= 1; i_1--)
+            try
             {
-                var cell = CellsList_1[i_1];
-                if (cell.ColumnIndex == colIndex)
-                {
-                    cell.COMCell.Delete();
-                    Log.Debug($"[Issue1] Deleted cell: Column {Index} Row {i_1}");
+                Log.Debug($"[CKColumn.Delete] Beginning batch delete for {Count} cells.");
 
+                wordApp.ScreenUpdating = false;
+                //wordApp.EnableEvents = false;
+
+                // Collect all Word.Cell COM objects for this column
+                var comCells = new List<Word.Cell>();
+                foreach (var cell in this)
+                {
+                    if (cell != null)
+                    {
+                        comCells.Add(cell.COMCell);
+                    }
+                }
+
+                // Delete all cells
+                foreach (var comCell in comCells)
+                {
+                    comCell.Delete();
                 }
             }
+            finally
+            {
+                wordApp.ScreenUpdating = true;
+                //wordApp.EnableEvents = true;
+            }
 
-            Log.Debug($"[Issue1]Deleted column: Index{Index}");
+            // Clear internal cache if needed
+            Clear();
+
             IsDirty = true;
             this.Pong();
         }
+        public void SlowDelete()
+        {
+
+
+
+            var wordApp = Document.Application.WordApp;
+            //var wordDoc = Document.GiveMeCOMDocumentIWillOwnItAndPromiseToCleanUpAfterMyself();
+
+            try
+            {
+                if (Count == 0) return;
+
+                wordApp.ScreenUpdating = false;
+
+                // Pre-load COMCells once
+                var comCells = new List<Word.Cell>();
+                foreach (var cell in this.Cells)
+                {
+                    if (cell != null)
+                    {
+                        comCells.Add(cell.COMCell);
+                    }
+                }
+
+                Word.Cell mergedCell = null;
+
+                Log.Debug($"[CKColumn.SlowDelete] Merging {comCells.Count} real cells for batch delete.");
+
+                foreach (var comCell in comCells)
+                {
+                    if (mergedCell == null)
+                    {
+                        mergedCell = comCell;
+                    }
+                    else
+                    {
+                        mergedCell.Merge(comCell);
+                    }
+                }
+
+                if (mergedCell != null)
+                {
+                    mergedCell.Delete();
+                }
+            }
+            finally
+            {
+                wordApp.ScreenUpdating = true;
+                this.Pong();
+            }
+            this.Clear();
+            this.IsDirty = true;
+        }
+
     }
 
 

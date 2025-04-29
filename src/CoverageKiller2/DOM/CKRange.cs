@@ -155,28 +155,24 @@ namespace CoverageKiller2.DOM
 
         public Word.Range COMRange
         {
-            get
+            get => Cache(ref _COMRange, () =>
             {
-                this.Ping();
-                if (_COMRange == null || IsDirty)//isDirty?
-                {
-
-                    Refresh();
-                    //throw new CKDebugException("Range is null");//just for tracking.
-                }
-                this.Pong();
+                if (_COMRange == null) throw new InvalidOperationException("Cannot access COMRange; it hasn't been set.");
                 return _COMRange;
-            }
-            protected set
+            });
+
+            protected set => SetCache(ref _COMRange, value, (v) =>
             {
-                this.Ping();
-                if (_COMRange != null) throw new CKDebugException("Attempted to assign a populated Range.");
-                if (value is null) throw new ArgumentNullException("value");
-                if (!Document.Matches(value)) throw new ArgumentException("value must share document refernce with host.");
-                IsDirty = true;
-                _COMRange = value;
-                this.Pong();
-            }
+                {
+                    this.Ping();
+                    if (_COMRange != null) throw new CKDebugException("Attempted to assign a populated Range.");
+                    if (value is null) throw new ArgumentNullException("value");
+                    if (!Document.Matches(value)) throw new ArgumentException("value must share document refernce with host.");
+                    IsDirty = true;
+                    _COMRange = value;
+                    this.Pong();
+                }
+            });
         }
         /// <summary>
         /// Unchecked COM range (typically call COMRange when the range might be dirty)
@@ -234,6 +230,7 @@ namespace CoverageKiller2.DOM
                     Log.Debug("Deferred COM access triggered inside Cache<T> (custom refresh).");
                     IsCOMDeferred = false;
                 }
+                Refresh();
             }
             return cachedField;
         }
@@ -254,12 +251,12 @@ namespace CoverageKiller2.DOM
         /// <summary>
         /// Gets the starting position of the range.
         /// </summary>
-        public int Start => Cache(ref _cachedStart, () => COMRange.Start);
+        public int Start => Cache(ref _cachedStart);//, () => COMRange.Start);
 
         /// <summary>
         /// Gets the ending position of the range.
         /// </summary>
-        public int End => Cache(ref _cachedEnd, () => COMRange.End);
+        public int End => Cache(ref _cachedEnd);//, () => COMRange.End);
 
 
         private bool _isCheckingDirty = false;
@@ -398,9 +395,9 @@ namespace CoverageKiller2.DOM
         /// </remarks>
         public CKRange CollapseToStart()
         {
-            int start = COMRange.Start;
+            int start = Start;
             var docRange = Document.Range();
-            int max = Math.Max(0, docRange.End - 1);
+            int max = Math.Max(0, End - 1);
 
             if (start > max) start = max;
             if (start < 0) start = 0;
@@ -446,6 +443,7 @@ namespace CoverageKiller2.DOM
             _cachedEnd = _COMRange.End;
             _cachedPrettyText = CKTextHelper.Pretty(_cachedText);
             _cachedScrunchedText = CKTextHelper.Scrunch(_cachedText);
+            _snapshot = new RangeSnapshot(_COMRange);
 
             IsDirty = false;
             _isRefreshing = false;
@@ -466,16 +464,8 @@ namespace CoverageKiller2.DOM
 
         public RangeSnapshot Snapshot
         {
-            get
-            {
-                this.Ping();
-                if (_snapshot == null)
-                {
-                    _snapshot = new RangeSnapshot(_COMRange);
-                }
-                this.Pong();
-                return _snapshot;
-            }
+            get => Cache(ref _snapshot, () => new RangeSnapshot(_COMRange));
+
         }
 
         public override bool Equals(object obj)
