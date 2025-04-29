@@ -18,10 +18,7 @@ namespace CoverageKiller2.DOM
         {
             get => Cache(ref _COMParagraph, () =>
             {
-                //here, either IsDirty is true or COMParagraph is null. Deferred is either. Refresh must be called.
-
-
-
+                //find a way access the COM object now that we have a need for it.
                 if (Parent is CKParagraphs parent && parent.Parent is CKRange parentRange)
                 {
                     var comParas = parentRange.COMRange.Paragraphs;
@@ -34,12 +31,20 @@ namespace CoverageKiller2.DOM
                     if (COMRange is null) COMRange = comPara.Range; // do not use ?? here
 
                     return comPara;
-                }
+                }//add in other parent types if needed in the future
                 throw new InvalidOperationException("Unsupported parent type for resolving COMParagraphs.");
 
             });
 
-            private set => SetCache(ref _COMParagraph, value, (v) => COMParagraph = v);
+            private set => SetCache(ref _COMParagraph, value, (v) =>
+            {
+                if (_COMParagraph == null)
+                {
+                    _COMParagraph = v;
+                }
+                else throw new InvalidOperationException("COMParagraph already set");
+
+            });
         }
 
 

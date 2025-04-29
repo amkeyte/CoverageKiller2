@@ -67,21 +67,26 @@ namespace CoverageKiller2.Pipeline.Processes
                 for (int i = CKDoc.Sections.Count; i > 0; i--)
                 {
 
-                    CopyColumnFromSecondDocument(
+                    var ckColCrit = CopyColumnFromSecondDocument(
                         sourceDoc,
                         "Critical Point Report",
                         "Critical Point Report",
                         "DL\r\nPower\r\n(dBm)\r\n",
-                        "UL\r\nS/N\r\n(dB)\r\n",
+                        "Result",
                         i);
 
-                    CopyColumnFromSecondDocument(
+                    ckColCrit[2].Text = "CH5\nNF\n(dBm)";
+                    ckColCrit.CellRef.Table.Rows[ckColCrit[2].RowIndex]
+
+                    var ckColArea = CopyColumnFromSecondDocument(
                         sourceDoc,
                         "Area Report",
                         "Area Report",
                         "DL\r\nPower\r\n(dBm)\r\n",
-                        "UL\r\nS/N\r\n(dB)\r\n",
+                        "Result",
                         i);
+                    ckColArea[2].Text = "CH5\nNF\n(dBm)";
+
                 }
             }
             finally
@@ -137,7 +142,7 @@ namespace CoverageKiller2.Pipeline.Processes
 
                 if (floorSectionCriticalPointsTable != null)
                 {
-                    var headersToRemove = "UL\r\nPower\r\n(dBm)\r\n\tUL\r\nFBER\r\n(%)\tResult\tDL\r\nLoss\r\n(dB)\r\n"
+                    var headersToRemove = "UL\r\nPower\r\n(dBm)\tUL\r\nS/N\r\n(dB)\tUL\r\nFBER\r\n(%)\r\n"
                         .Split(new[] { '\t' }, StringSplitOptions.RemoveEmptyEntries)
                         .Select(s => s.Scrunch());
 
@@ -156,7 +161,7 @@ namespace CoverageKiller2.Pipeline.Processes
                 if (floorSectionAreaReportTable != null)
                 {
 
-                    var headersToRemove = "UL\r\nPower\r\n(dBm)\r\n\tUL\r\nFBER\r\n(%)\tResult\tDL\r\nLoss\r\n(dB)\r\n"
+                    var headersToRemove = "UL\r\nPower\r\n(dBm)\tUL\r\nS/N\r\n(dB)\tUL\r\nFBER\r\n(%)\r\n"
                         .Split(new[] { '\t' }, StringSplitOptions.RemoveEmptyEntries)
                         .Select(s => s.Scrunch());
 
@@ -272,7 +277,7 @@ namespace CoverageKiller2.Pipeline.Processes
         }
 
 
-        public void CopyColumnFromSecondDocument(
+        public CKColumn CopyColumnFromSecondDocument(
            CKDocument sourceDoc,
            string sourceTableSearchText,
            string destinationTableSearchText,
@@ -283,6 +288,7 @@ namespace CoverageKiller2.Pipeline.Processes
             if (sourceDoc == null) throw new ArgumentNullException(nameof(sourceDoc));
 
             this.Ping();
+            CKColumn result = default;
 
             try
             {
@@ -292,18 +298,19 @@ namespace CoverageKiller2.Pipeline.Processes
                 if (sourceTable == null || destinationTable == null)
                 {
                     Log.Warning($"Could not find matching tables for Section {sectionIndex}.");
-                    return;
+                    return null;
                 }
 
                 var sourceColumn = sourceTable.Columns
                     .FirstOrDefault(col => col[2].Text.ScrunchContains(sourceHeadingText));
-                var destinationColumn = destinationTable.Columns
+                CKColumn destinationColumn = default;
+                result = destinationColumn = destinationTable.Columns
                     .FirstOrDefault(col => col[2].Text.ScrunchContains(destinationHeadingText));
 
                 if (sourceColumn == null || destinationColumn == null)
                 {
                     Log.Warning($"Source or destination column not found for Section {sectionIndex}.");
-                    return;
+                    return null;
                 }
 
                 CopyColumn(sourceColumn, destinationColumn);
@@ -318,8 +325,8 @@ namespace CoverageKiller2.Pipeline.Processes
                 Log.Warning("Section index out of range during column copy.");
                 Log.Error(ex.Message);
             }
-
             this.Pong();
+            return result;
         }
 
         /// <summary>
@@ -344,7 +351,7 @@ namespace CoverageKiller2.Pipeline.Processes
 
             for (int i = 1; i <= destinationCells.Count; i++)
             {
-                destinationCells[i].Text = sourceCells[i].Text;
+                destinationCells[i].FormattedText = sourceCells[i].FormattedText;
             }
 
             Log.Information($"Copied {destinationCells.Count} cells from {sourceCells.Document.FileName}.");

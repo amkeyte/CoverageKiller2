@@ -118,10 +118,9 @@ namespace CoverageKiller2.DOM.Tables
         {
             get => Cache(ref _COMCell, () =>
             {
-                //LH.Debug("Tracker[!sd]", "COMCell_get");
+                //find a way access the COM object now that we have a need for it.
                 var table = CellRef.Table;
                 var comCell = table.GetCellFor(CellRef);
-                //LH.Debug("Tracker[!sd]", "<-- COMCell_get");
 
                 if (COMRange is null) COMRange = comCell.Range;
                 return comCell;
