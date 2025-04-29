@@ -145,7 +145,6 @@ namespace CoverageKiller2.DOM.Tables
         /// <exception cref="CKDebugException"></exception>
         protected override void DoRefreshThings()
         {
-            this.Ping();
             //if (IsCOMDeferred)//does this make sense? Range is about to crash.
             //{
             //    Log.Debug("Doing the Referesh thing in CKCell and com is defereed. anything to do here?");

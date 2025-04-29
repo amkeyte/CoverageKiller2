@@ -39,11 +39,7 @@ namespace CoverageKiller2.DOM
 
             });
 
-            private set => SetCache(ref _COMParagraph, value, (v) =>
-            {
-                if (_COMParagraph != null)
-                    _COMParagraph = v;
-            });
+            private set => SetCache(ref _COMParagraph, value, (v) => COMParagraph = v);
         }
 
 

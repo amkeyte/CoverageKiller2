@@ -266,6 +266,7 @@ namespace CoverageKiller2.Tests.Scenarios
 
             string destinationTestFilePath =
             "C:\\Users\\akeyte.PCM\\source\\repos\\CoverageKiller2\\src\\CoverageKiller2_Tests\\TestFiles\\SEA Garage (Noise Floor)_20250313_152027 - Copy.docx";
+
             Assert.IsTrue(File.Exists(sourceTestFilePath), "Source test file not found.");
             Assert.IsTrue(File.Exists(destinationTestFilePath), "Destination test file not found.");
 
@@ -286,7 +287,7 @@ namespace CoverageKiller2.Tests.Scenarios
                 string sourceColumnHeaderText = "DL\r\nPower\r\n(dBm)\r\n";
                 string destinationColumnHeaderText = "UL\r\nPower\r\n(dBm)\r\n";
 
-                int sectionIndex = 1; // section 1 for simplicity (you can parameterize later)
+                int sectionIndex = 3; //first floor report
 
                 // 🔥 Find source and destination tables
                 var sourceTable = SEA2025Fixer.FindTableByRowText(
@@ -315,24 +316,29 @@ namespace CoverageKiller2.Tests.Scenarios
                 // 🔥 Perform the copy
                 new SEA2025Fixer().CopyColumn(sourceColumn, destinationColumn);
 
-                // 🔥 Validate: cell-by-cell comparison
-                // Validate: cell-by-cell comparison with checkpoint asserts
-                for (int i = 1; i <= destinationColumn.Count; i++)
+                const int CheckpointInterval = 10;
+
+                var sourceCells = sourceColumn.Cells;
+                var destinationCells = destinationColumn.Cells;
+
+                Assert.AreEqual(sourceCells.Count, destinationCells.Count, "Source and destination column cell counts do not match.");
+
+                for (int i = 1; i <= sourceCells.Count; i++)
                 {
-                    string sourceText = sourceColumn[i].Text.Scrunch();
-                    string destText = destinationColumn[i].Text.Scrunch();
+                    string sourceText = sourceCells[i].Text.Scrunch();
+                    string destText = destinationCells[i].Text.Scrunch();
 
                     Assert.AreEqual(
                         sourceText,
                         destText,
-                        $"Mismatch at row {i}: Source '{sourceColumn[i].Text}' vs Destination '{destinationColumn[i].Text}'");
+                        $"Mismatch at visual row {i}: Source '{sourceCells[i].Text}' vs Destination '{destinationCells[i].Text}'");
 
-                    // 🔥 Every 10 rows, emit a success message
-                    if (i % 10 == 0 || i == destinationColumn.Count)
+                    if (i % CheckpointInterval == 0 || i == sourceCells.Count)
                     {
-                        TestContext.WriteLine($"Verified {i} rows copied successfully...");
+                        TestContext.WriteLine($"Verified {i} visual rows copied successfully...");
                     }
                 }
+
 
                 Log.Information("Column copy test passed successfully.");
             }

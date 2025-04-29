@@ -161,7 +161,7 @@ namespace CoverageKiller2.DOM
         {
             get => Cache(ref _COMRange, () =>
             {
-                ////LH.Debug("Tracker[!sd]", "COMRange_get");
+
 
                 //if (_COMRange == null) throw new InvalidOperationException("Cannot access COMRange; it hasn't been set.");
                 return _COMRange;
@@ -172,19 +172,16 @@ namespace CoverageKiller2.DOM
                 {
                     try
                     {
-
-                        ////LH.Debug("Tracker[!sd]", "COMRange_set");
-
                         if (_COMRange != null) throw new CKDebugException("Attempted to assign a populated Range.");
                         if (value is null) throw new ArgumentNullException("value");
                         if (!Document.Matches(value)) throw new ArgumentException("value must share document refernce with host.");
                         IsDirty = true;
                         _COMRange = value;
                     }
-                    catch (Exception ex)// debug Issue 7
+                    catch (Exception ex)
                     {
-                        Log.Error(ex.InnerException, "[Issue 7] Faild to set COMRange.");
-                        throw ex;
+                        Log.Error(ex, "Faild to set COMRange.");
+                        throw;
                     }
                 }
             });
@@ -205,7 +202,7 @@ namespace CoverageKiller2.DOM
         {
 
             get => Cache(ref _cachedText);
-            set => SetCache(ref _cachedText, value);
+            set => SetCache(ref _cachedText, value, (v) => COMRange.Text = v);
         }
         /// <summary>
         /// unsage.
@@ -249,12 +246,24 @@ namespace CoverageKiller2.DOM
             }
             return cachedField;
         }
-        protected void SetCache<T>(ref T cachedField, T value, Action<T> setter = null)
+        /// <summary>
+        /// Sets a cached field value, updates the underlying COM object,
+        /// and marks the object dirty to force revalidation of related caches.
+        /// </summary>
+        /// <typeparam name="T">The type of the cached field.</typeparam>
+        /// <param name="cachedField">Reference to the cached field to update.</param>
+        /// <param name="value">The new value to set.</param>
+        /// <param name="comSetter">An action that sets the underlying COM object. Must not be null.</param>
+        protected void SetCache<T>(ref T cachedField, T value, Action<T> comSetter)
         {
-            setter?.Invoke(value);
-            cachedField = value;
-            IsDirty = true;
+            if (comSetter == null)
+                throw new ArgumentNullException(nameof(comSetter));
+
+            comSetter(value);        // ✅ COM updated first
+            cachedField = value;     // ✅ Cache updated for this one field
+            IsDirty = true;          // ✅ WHOLE object marked dirty (layout/text/etc. must refresh later)
         }
+
 
         /// <summary>
         /// Gets the scrunched version of the range's text, i.e. all whitespace removed,
