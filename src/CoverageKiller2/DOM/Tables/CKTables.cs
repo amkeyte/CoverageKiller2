@@ -22,15 +22,16 @@ namespace CoverageKiller2.DOM.Tables
         /// Initializes a new instance of the <see cref="CKTables"/> class from the specified parent range.
         /// </summary>
         /// <param name="collection">The Word tables collection.</param>
-        /// <param name="parent">The parent is the Document that owns the tables.</param>
+        /// <param name="parent">The parent is the Document that owns the tables.  </param>
+        /// <remarks>In CSTO, the parent of a Tables collection is ALWAYS the document,
+        /// regardles of the range it was pulled from</remarks>
         public CKTables(Word.Tables collection, CKDocument parent) : base(parent)
         {
-            this.Ping(msg: parent.Document.FileName);
+
             if (!parent.Matches(collection.Parent))
                 throw new ArgumentException("collection and parent must have the same document.");
 
             _comTables = collection;
-            this.Pong();
         }
 
         /// <inheritdoc/>

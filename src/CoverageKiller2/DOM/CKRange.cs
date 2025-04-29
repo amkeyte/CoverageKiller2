@@ -53,7 +53,6 @@ namespace CoverageKiller2.DOM
         {
             //this.Ping(msg: "$$$");
             Parent = parent ?? throw new ArgumentNullException(nameof(parent));
-            _COMRange = null;
             IsCOMDeferred = deferCom;
             IsDirty = IsCOMDeferred;
             //this.Pong(msg: $"{Document.FileName}::[COMRANGE NOT ASSIGNED]");
@@ -132,7 +131,10 @@ namespace CoverageKiller2.DOM
         {
             if (string.IsNullOrEmpty(text)) return null;
 
-            Word.Find finder = COMRange.Find;
+            // 🔥 Clone the range first!
+            var dupRange = COMRange.Duplicate;
+            Word.Find finder = dupRange.Find;
+
             finder.ClearFormatting();
             finder.Text = text;
             finder.MatchWildcards = matchWildcards;
@@ -143,7 +145,7 @@ namespace CoverageKiller2.DOM
 
             if (found)
             {
-                return new CKRange(COMRange.Duplicate, Parent);
+                return new CKRange(dupRange, Parent); // <- use duplicated range
             }
             return null;
         }
@@ -167,20 +169,29 @@ namespace CoverageKiller2.DOM
             protected set => SetCache(ref _COMRange, value, (v) =>
             {
                 {
-                    LH.Debug("Tracker[!sd]", "COMRange_set");
+                    try
+                    {
 
-                    if (_COMRange != null) throw new CKDebugException("Attempted to assign a populated Range.");
-                    if (value is null) throw new ArgumentNullException("value");
-                    if (!Document.Matches(value)) throw new ArgumentException("value must share document refernce with host.");
-                    IsDirty = true;
-                    _COMRange = value;
+                        LH.Debug("Tracker[!sd]", "COMRange_set");
+
+                        if (_COMRange != null) throw new CKDebugException("Attempted to assign a populated Range.");
+                        if (value is null) throw new ArgumentNullException("value");
+                        if (!Document.Matches(value)) throw new ArgumentException("value must share document refernce with host.");
+                        IsDirty = true;
+                        _COMRange = value;
+                    }
+                    catch (Exception ex)// debug Issue 7
+                    {
+                        Log.Error(ex.InnerException, "[Issue 7] Faild to set COMRange.");
+                        throw ex;
+                    }
                 }
             });
         }
         /// <summary>
         /// Unchecked COM range (typically call COMRange when the range might be dirty)
         /// </summary>
-        private Word.Range _COMRange;
+        private Word.Range _COMRange = default;
         /// <summary>
         /// Gets the raw text of the range as returned by Word without caching.
         /// </summary>
@@ -322,7 +333,7 @@ namespace CoverageKiller2.DOM
         /// <summary>
         /// Gets the sections contained in the range.
         /// </summary>
-        public CKSections Sections => new CKSections(COMRange.Sections, this);
+        public CKSections Sections => new CKSections(COMRange.Sections, Document);
 
         /// <summary>
         /// Gets the paragraphs contained in the range.
@@ -332,6 +343,7 @@ namespace CoverageKiller2.DOM
         /// <summary>
         /// Gets the tables contained in the range.
         /// </summary>
+        /// <remarks>Parent of a Tables collection is ALWAYS the document.</remarks>
         public CKTables Tables => new CKTables(COMRange.Tables, Document);
         /// <summary>
         /// Gets or sets the formatted text for this range. Setting this value replaces the contents and formatting of the range.

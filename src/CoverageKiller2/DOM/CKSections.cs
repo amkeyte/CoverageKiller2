@@ -48,7 +48,7 @@ namespace CoverageKiller2.DOM
         /// <summary>
         /// Probably will get hidden. Avoid use if possible.
         /// </summary>
-        public Word.Sections COMSection { get; }
+        public Word.Sections COMSections { get; }
 
 
         /// <summary>
@@ -62,13 +62,13 @@ namespace CoverageKiller2.DOM
             if (parent is null) throw new ArgumentNullException(nameof(parent));//remive
             if (!parent.Document.Matches(collection.Parent)) throw new ArgumentException("collection and parent must have matching documents.");
 
-            COMSection = collection;
+            COMSections = collection;
         }
 
         /// <summary>
         /// Gets the number of sections in the range.
         /// </summary>
-        public override int Count => COMSection.Count;
+        public override int Count => COMSections.Count;
 
         public override bool IsDirty { get; protected set; }
 
@@ -89,7 +89,7 @@ namespace CoverageKiller2.DOM
             {
                 if (index < 1 || index > Count)
                     throw new ArgumentOutOfRangeException(nameof(index), "Index must be between 1 and the number of sections.");
-                return new CKSection(COMSection[index], this);
+                return new CKSection(COMSections[index], this);
             }
         }
 

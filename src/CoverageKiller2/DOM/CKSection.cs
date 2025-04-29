@@ -21,7 +21,7 @@ namespace CoverageKiller2.DOM
         /// <exception cref="ArgumentNullException">Thrown when the section parameter is null.</exception>
         public CKSection(Word.Section section, IDOMObject parent) : base(section?.Range, parent)
         {
-            COMSection = section ?? throw new ArgumentNullException(nameof(section));
+            COMSection = (Word.Section)section ?? throw new ArgumentNullException(nameof(section));
         }
 
         /// <summary>

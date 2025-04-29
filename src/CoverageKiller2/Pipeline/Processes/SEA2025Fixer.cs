@@ -143,28 +143,24 @@ namespace CoverageKiller2.Pipeline.Processes
 
         private void FixSection1()
         {
-            this.Ping(msg: CKDoc.FileName);
 
             var section = CKDoc.Sections[1];
             CKDoc.Activate();
+            CKDoc.KeepAlive = true;
             Log.Information($"...Section 1{CKDoc.FileName})");
 
             Log.Information("*** remove Pass/Fail title");
             var pass_failPara = section.TryFindNext("(Adjacent Area Rule)")
-                ?? CKDoc.Sections[1].TryFindNext("Result: Passed");
+                ?? section.TryFindNext("Result: Passed");
 
             if (pass_failPara?.Paragraphs.Count >= 1)
                 pass_failPara.Paragraphs[1].Delete();
             else
-                Log.Warning("Pass/Fail paragraph not found.");
+                Log.Warning("Pass/Fail title paragraph not found.");
 
             pass_failPara.Paragraphs[1].Delete();
 
-
-
-
-            CKDoc.Activate();
-            Log.Information("*** fix Test Report Summary");
+            Log.Information("[Issue 7] *** fix Test Report Summary");
             string searchText = "Channel/ Ch Group\tFreq (MHz)\tTechnology\tBand\tResult\tArea Points\r\npassed (%)\tCritical Points passed (%)\r\n";
             var TRSTable = FindTableByRowText(section.Tables, searchText);
 
@@ -184,7 +180,8 @@ namespace CoverageKiller2.Pipeline.Processes
             {
                 Log.Warning("The requested table was not found.");
             }
-            CKDoc.Activate();
+
+
             Log.Information("*** remove Test Details");
 
             searchText = "Test Details";
@@ -194,16 +191,15 @@ namespace CoverageKiller2.Pipeline.Processes
 
             Log.Information("*** TODO add Equipment Config data");
 
-            CKDoc.Activate();
             Log.Information("*** remove 'page 2'");
             var thresholdSettingsPara = section
                 .TryFindNext("Threshold Settings")
                 .Paragraphs[1];
 
-            var page2Range = CKDoc.Range(thresholdSettingsPara.Start, section.End - 1);
-            page2Range.Delete();
+            thresholdSettingsPara.Delete();
+            //var page2Range = CKDoc.Range(thresholdSettingsPara.Start, section.End - 1);
+            //page2Range.Delete();
 
-            this.Pong();
         }
 
 

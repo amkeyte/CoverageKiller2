@@ -62,17 +62,7 @@ namespace CoverageKiller2.DOM
         /// <summary>
         /// Provides access to the document's sections as a <see cref="CKSections"/> collection.
         /// </summary>
-        public CKSections Sections
-        {
-            get
-            {
-                if (_sections == null || _sections.IsDirty)
-                {
-                    _sections = new CKSections(_comDocument.Sections, this);
-                }
-                return _sections;
-            }
-        }
+        public CKSections Sections => Content.Sections;
 
         /// <inheritdoc/>
         public CKDocument Document => this;
@@ -133,7 +123,7 @@ namespace CoverageKiller2.DOM
             get => _comDocument.Windows[1].Visible;
             set => _comDocument.Windows[1].Visible = value;
         }
-        public CKRange Content => this.PingPong(() => new CKRange(_comDocument.Content, this));
+        public CKRange Content => new CKRange(_comDocument.Content, this);
 
 
         /// <summary>
