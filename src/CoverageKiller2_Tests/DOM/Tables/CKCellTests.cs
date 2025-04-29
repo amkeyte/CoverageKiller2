@@ -79,7 +79,8 @@ namespace CoverageKiller2.DOM.Tables
         {
             var table = _testFile.Tables[_testTableIndex];
             var cell = table.Cell(1);
-            cell.Refresh();
+            cell.IsDirty = true;
+            _ = cell.Text; //force refresh
             Assert.IsNotNull(cell.COMRange);
         }
     }

@@ -32,7 +32,6 @@ namespace CoverageKiller2.DOM
                     var comPara = comParas[Index];
 
                     if (COMRange is null) COMRange = comPara.Range; // do not use ?? here
-                    Refresh();
 
                     return comPara;
                 }
@@ -54,6 +53,7 @@ namespace CoverageKiller2.DOM
             : base(paragraph?.Range, parent)
         {
             COMParagraph = paragraph ?? throw new ArgumentNullException(nameof(paragraph));
+
             Index = index;
         }
 

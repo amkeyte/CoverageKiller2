@@ -90,16 +90,7 @@ namespace CoverageKiller2.DOM
             }, "Accessing Text on a truly empty deferred paragraph should throw due to missing COMRange.");
         }
 
-        [TestMethod]
-        public void CKParagraph_DeferConstructor_ManualRefreshThrows()
-        {
-            var deferredPara = new CKParagraph(_testFile, 1);
 
-            Assert.ThrowsException<InvalidOperationException>(() =>
-            {
-                deferredPara.Refresh();
-            }, "Manual Refresh() on a deferred CKParagraph without COM should throw.");
-        }
 
         [TestMethod]
         public void CKParagraph_DeferConstructor_IsDirtyDoesNotLift()

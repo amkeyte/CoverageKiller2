@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using Word = Microsoft.Office.Interop.Word;
 
 namespace CoverageKiller2.DOM
@@ -188,7 +189,7 @@ namespace CoverageKiller2.DOM
             {
                 string logFile = LogTailLoader.GetLogFile();
 
-                LoggingLoader.Configure(logFile, Serilog.Events.LogEventLevel.Verbose);
+                LoggingLoader.Configure(logFile, Serilog.Events.LogEventLevel.Debug);
 
                 Log.Information("******************************************************************** CKOffice_Word started. ******************************************************************");
 
@@ -210,7 +211,7 @@ namespace CoverageKiller2.DOM
         private bool _crashing = false;
         private bool _isTesting;
 
-        public void Crash(Exception ex, Type callerType, [MemberCallerName] string callerMember = null)
+        public void Crash(Exception ex, Type callerType, [CallerMemberName] string callerMember = null)
         {
             Log.Error($"Crashing {nameof(CKOffice_Word)}. Source: {callerType.Name}.{callerMember}");
             _crashing = true;

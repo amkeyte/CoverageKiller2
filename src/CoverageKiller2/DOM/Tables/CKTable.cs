@@ -129,21 +129,24 @@ namespace CoverageKiller2.DOM.Tables
 
         public Word.Cell GetCellFor(CKCellRef cellRef)
         {
-            this.Ping(msg: $"Table [{DocumentTableIndex}]");
+            LH.Debug("Tracker[!sd]");
             var gridCellRef = Converters.GetGridCellRef(cellRef);
             var gridCell = Grid.GetMasterCell(gridCellRef)//hacked
                 ?? throw new ArgumentException($"{nameof(cellRef)} did not fetch a master GridCell");
 
             int row = gridCell.GridRow;
             int col = gridCell.GridCol;
-
+            LH.Debug("Tracker[!sd]", "COMTable_get");
+            LH.Debug("Tracker[!sd]", "COMTable_get");
             if (row > COMTable.Rows.Count || col > COMTable.Columns.Count)
                 throw new ArgumentOutOfRangeException($"Cell ({row}, {col}) does not exist in COM table [Rows: {COMTable.Rows.Count}, Cols: {COMTable.Columns.Count}].");
-
+            LH.Debug("Tracker[!sd]", "COMTable_get");
+            LH.Debug("Tracker[!sd]", "COMTable_get");
             if (gridCell.GridRow > COMTable.Rows.Count || gridCell.GridCol > COMTable.Columns.Count)
                 throw new CKDebugException($"COM cell [{gridCell.GridRow},{gridCell.GridCol}] is outside table bounds [{COMTable.Rows.Count},{COMTable.Columns.Count}].");
 
-            Log.Debug($"Requesting COMTable[{LH.GetTableTitle(this, "***Table")}][{Snapshot.FastHash}].Cell({gridCell.GridRow}, {gridCell.GridCol})");
+            Log.Debug($"Requesting Cell({gridCell.GridRow}, {gridCell.GridCol})");
+            LH.Debug("Tracker[!sd]", "COMTable_get");
             var COMCell = COMTable.Cell(gridCell.GridRow, gridCell.GridCol);
             //Log.Debug($"Requesting COMTable cell returned cell[{gridCell.GridRow},{gridCell.GridCol})" +
             //    $" returned cell text '{COMCell.Range.Text.Scrunch()}");

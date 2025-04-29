@@ -25,7 +25,7 @@ namespace CoverageKiller2.DOM
 
         public RangeSnapshot(Word.Range range)
         {
-            this.Ping();
+            LH.Debug("Tracker[!sd]");
 
             if (range == null) throw new ArgumentNullException(nameof(range));
 
@@ -38,12 +38,11 @@ namespace CoverageKiller2.DOM
 
             var hash = ComputeHash().ToString();
             FastHash = hash.Substring(hash.Length - 6);
-
-            this.Pong(msg: $"FastHash = {FastHash}");
         }
 
         private ulong ComputeHash()
         {
+            LH.Debug("Tracker[!sd]");
             var data = $"{TextPreview}|{FontName}|{FontSize}|{Alignment}|{TableCount}|{FieldCount}";
             var bytes = Encoding.UTF8.GetBytes(data);
             return XXH64.DigestOf(bytes);
@@ -53,7 +52,10 @@ namespace CoverageKiller2.DOM
         /// Fast comparison using only precomputed hash values.
         /// </summary>
         public bool FastMatch(RangeSnapshot other)
-            => other != null && this.FastHash == other.FastHash;
+        {
+            LH.Debug("Tracker[!sd]");
+            return other != null && this.FastHash == other.FastHash;
+        }
 
         /// <summary>
         /// Builds a new snapshot from the given Word.Range and compares hashes.
@@ -88,6 +90,7 @@ namespace CoverageKiller2.DOM
         /// </summary>
         public static bool SlowMatch(Word.Range a, Word.Range b)
         {
+            LH.Debug("Tracker[!sd]");
             if (a == null || b == null) return false;
             var snapA = new RangeSnapshot(a);
             var snapB = new RangeSnapshot(b);

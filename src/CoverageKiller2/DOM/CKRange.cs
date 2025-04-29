@@ -2,7 +2,7 @@
 using CoverageKiller2.Logging;
 using Serilog;
 using System;
-using System.IO;
+using System.Runtime.CompilerServices;
 using Word = Microsoft.Office.Interop.Word;
 
 namespace CoverageKiller2.DOM
@@ -37,25 +37,26 @@ namespace CoverageKiller2.DOM
         /// <param name="range">The Word.Range object to wrap.</param>
         /// <param name="parent">Parent DOM object; if not provided, will be looked up via CKDocuments.</param>
         /// <exception cref="ArgumentNullException">Thrown when the <paramref name="range"/> parameter is null.</exception>
-        public CKRange(Word.Range range, IDOMObject parent, bool deferCom = false) : this(parent, deferCom)
+        public CKRange(Word.Range range, IDOMObject parent, bool deferCom = false, [CallerMemberName] string caller = "") : this(parent, deferCom)
         {
-            this.Ping(msg: "$$$");
+            //this.Ping(msg: "$$$");
             COMRange = range ?? throw new ArgumentNullException(nameof(range)); //document match done in here
             IsCOMDeferred = false;
-            var msg = $"_COMRange:[{Path.GetFileName(_COMRange.Document.FullName)}::{new RangeSnapshot(_COMRange).FastHash}]" +
-                $"CKRamge:[{Document.FileName}::{Snapshot.FastHash}";
+            //var msg = $"_COMRange:[{Path.GetFileName(_COMRange.Document.FullName)}::{new RangeSnapshot(_COMRange).FastHash}]\n" +
+            //    $"CKRamge:[{Document.FileName}::{Snapshot.FastHash}\n" +
+            //    $"called by {caller}";
 
-            this.Pong(msg: msg);
+            //this.Pong(msg: msg);
         }
 
-        public CKRange(IDOMObject parent, bool deferCom = true)
+        public CKRange(IDOMObject parent, bool deferCom = true, [CallerMemberName] string caller = "")
         {
-            this.Ping(msg: "$$$");
+            //this.Ping(msg: "$$$");
             Parent = parent ?? throw new ArgumentNullException(nameof(parent));
             _COMRange = null;
             IsCOMDeferred = deferCom;
             IsDirty = IsCOMDeferred;
-            this.Pong(msg: $"{Document.FileName}::[COMRANGE NOT ASSIGNED]");
+            //this.Pong(msg: $"{Document.FileName}::[COMRANGE NOT ASSIGNED]");
         }
 
         #endregion
@@ -157,20 +158,22 @@ namespace CoverageKiller2.DOM
         {
             get => Cache(ref _COMRange, () =>
             {
-                if (_COMRange == null) throw new InvalidOperationException("Cannot access COMRange; it hasn't been set.");
+                LH.Debug("Tracker[!sd]", "COMRange_get");
+
+                //if (_COMRange == null) throw new InvalidOperationException("Cannot access COMRange; it hasn't been set.");
                 return _COMRange;
             });
 
             protected set => SetCache(ref _COMRange, value, (v) =>
             {
                 {
-                    this.Ping();
+                    LH.Debug("Tracker[!sd]", "COMRange_set");
+
                     if (_COMRange != null) throw new CKDebugException("Attempted to assign a populated Range.");
                     if (value is null) throw new ArgumentNullException("value");
                     if (!Document.Matches(value)) throw new ArgumentException("value must share document refernce with host.");
                     IsDirty = true;
                     _COMRange = value;
-                    this.Pong();
                 }
             });
         }
@@ -428,9 +431,9 @@ namespace CoverageKiller2.DOM
         /// Updates cached text values from the underlying COMRange and resets the dirty flag.
         /// </summary>
         /// <remarks>overrides should always call base to ensure range cache is refreshed.</remarks>
-        public void Refresh()
+        private void Refresh()
         {
-            this.Ping();
+            LH.Debug("Tracker [!sb]");
             if (_isRefreshing) return;
             _isRefreshing = true;
 
@@ -447,7 +450,7 @@ namespace CoverageKiller2.DOM
 
             IsDirty = false;
             _isRefreshing = false;
-            this.Pong();
+
 
         }
         public bool _isRefreshing = false;

@@ -22,7 +22,7 @@ namespace CoverageKiller2.DOM.Tables
         internal int RowCount => _grid.Count;
         internal int ColCount => _grid.LargestRowCount - 1;//-1 to account for end of row cell.
 
-        public static CKTableGrid GetInstance(CKTable ckTable, Word.Table comTable, [MemberCallerName] string callerName = null)
+        public static CKTableGrid GetInstance(CKTable ckTable, Word.Table comTable, [CallerMemberName] string callerName = null)
         {
             LH.Ping<CKTableGrid>();
             var tableId = $"{ckTable.Document.FileName}[{ckTable.Snapshot.FastHash}]";
@@ -85,6 +85,7 @@ namespace CoverageKiller2.DOM.Tables
         /// <exception cref="CKDebugException">Thrown if no master cell is found at the location.</exception>
         internal GridCell5 GetMasterCell(CKGridCellRef gridRef)
         {
+            LH.Debug("Tracker[!sd]");
             if (gridRef.RowMin != gridRef.RowMax || gridRef.ColMin != gridRef.ColMax)
                 return null;//throw new ArgumentException("Grid reference must refer to a single cell.", nameof(gridRef));
 
@@ -109,7 +110,6 @@ namespace CoverageKiller2.DOM.Tables
                 return cell.MasterCell;
 
             throw new CKDebugException($"[Issue 5] No master cell found at position [{row},{col}].");
-            //return null;//hacked
         }
 
 

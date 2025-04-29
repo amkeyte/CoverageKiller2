@@ -266,7 +266,6 @@
     <Compile Include="Logging\LogExpertLoader.cs" />
     <Compile Include="Logging\LoggingLoader.cs" />
     <Compile Include="Logging\LogTailLoader.cs" />
-    <Compile Include="Logging\MemberCallerNameAttribute.cs" />
     <Compile Include="Logging\SomeTestClass.cs" />
     <Compile Include="Logging\Tracer.cs" />
     <Compile Include="IndoorReportTemplate.cs" />

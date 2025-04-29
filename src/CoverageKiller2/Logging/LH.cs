@@ -357,9 +357,9 @@ namespace CoverageKiller2.Logging
             return sb.ToString();
         }
 
-        internal static void Debug(string message, [MemberCallerName] string memberCallerName = "")
+        internal static void Debug(string message, [CallerMemberName] string memberCallerName = "")
         {
-            Log.Debug($"Caller {memberCallerName} said:\n{message}\n");
+            Log.Debug($"Caller {memberCallerName} said:  {message}");
         }
     }
 }

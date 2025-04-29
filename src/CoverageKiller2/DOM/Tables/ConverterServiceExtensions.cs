@@ -41,10 +41,9 @@ namespace CoverageKiller2.DOM.Tables
             this CKTable.CKCellRefConverterService service,
             CKCellRef cellRef)
         {
-            LH.Ping(typeof(ConverterServiceExtensions));
+            LH.Debug("Tracker[!sd]");
             if (cellRef == null) throw new ArgumentNullException(nameof(cellRef));
 
-            LH.Pong(typeof(ConverterServiceExtensions));
             return new CKGridCellRef(
                 cellRef.RowIndex,
                 cellRef.ColumnIndex,

@@ -118,20 +118,23 @@ namespace CoverageKiller2.DOM.Tables
         {
             get => Cache(ref _COMCell, () =>
             {
-                Log.Debug("Getting COMcell cache");
+                LH.Debug("Tracker[!sd]", "COMCell_get");
                 var table = CellRef.Table;
                 var comCell = table.GetCellFor(CellRef);
+                LH.Debug("Tracker[!sd]", "<-- COMCell_get");
 
-                Log.Debug($"Checking on COMRange {COMRange}");
                 if (COMRange is null) COMRange = comCell.Range;
-                Log.Debug($"returning on COMRange {COMRange}");
                 return comCell;
             });
 
             private set => SetCache(ref _COMCell, value, (v) =>
             {
-                if (_COMCell != null)//i think this is backwards??
+                if (_COMCell == null)
+                {
                     _COMCell = v;
+                }
+                else throw new InvalidOperationException("COMCell already set");
+
             });
         }
         private Word.Cell _COMCell;
@@ -258,11 +261,14 @@ namespace CoverageKiller2.DOM.Tables
 
         public override void Clear()
         {
+            LH.Debug("Tracker[!sd]");
+
             _cachedCells_1?.Clear();
         }
 
         public CKCells(IEnumerable<CKCell> cells, IDOMObject parent) : base(parent)
         {
+            LH.Debug("Tracker[!sd]");
             _cachedCells_1 = new Base1List<CKCell>(cells);
             CellRefrences_1 = new Base1List<CKCellRef>(cells.Select(c => c.CellRef));
             if (cells.Any(c => !Document.Matches(parent.Document)))

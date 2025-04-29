@@ -26,8 +26,7 @@ namespace CoverageKiller2.DOM
         public static void Execute(CKTable table, Action action,
             int maxRetries = 1,
             int retryDelayMs = 100,
-            bool rethrow = true,
-            bool forceRefresh = false)
+            bool rethrow = true)
         {
             if (table == null) throw new ArgumentNullException(nameof(table));
             if (action == null) throw new ArgumentNullException(nameof(action));
@@ -49,7 +48,9 @@ namespace CoverageKiller2.DOM
                     Log.Warning($"SafeCOMAction: COMException encountered (Attempt {attempts}): {comEx.Message}");
 
                     table.IsDirty = true;
-                    if (forceRefresh) table.Refresh();
+                    //someday this will actually be a cached value 
+                    if (table.COMTable is null)
+                        throw new InvalidOperationException("COMTable is null. Sorry, but no amount of retries are gonna help.", comEx);
 
                     if (attempts > maxRetries)
                     {

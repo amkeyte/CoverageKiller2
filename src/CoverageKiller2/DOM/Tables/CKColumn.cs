@@ -210,7 +210,7 @@ namespace CoverageKiller2.DOM.Tables
         }
         public void SlowDelete()
         {
-
+            LH.Debug("Tracker[!sd]* Starting slow delete");
 
 
             var wordApp = Document.Application.WordApp;
@@ -228,13 +228,14 @@ namespace CoverageKiller2.DOM.Tables
                 {
                     if (cell != null)
                     {
+                        LH.Debug("Tracker[!sd] - looping");
                         comCells.Add(cell.COMCell);
                     }
                 }
 
                 Word.Cell mergedCell = null;
 
-                Log.Debug($"[CKColumn.SlowDelete] Merging {comCells.Count} real cells for batch delete.");
+                Log.Debug($"[!sd][CKColumn.SlowDelete] Merging {comCells.Count} real cells for batch delete.");
 
                 foreach (var comCell in comCells)
                 {
@@ -247,11 +248,13 @@ namespace CoverageKiller2.DOM.Tables
                         mergedCell.Merge(comCell);
                     }
                 }
-
+                Log.Debug("[!sd]cells merged.");
                 if (mergedCell != null)
                 {
                     mergedCell.Delete();
                 }
+                Log.Debug("[!sd]Deleted");
+
             }
             finally
             {
@@ -260,6 +263,7 @@ namespace CoverageKiller2.DOM.Tables
             }
             this.Clear();
             this.IsDirty = true;
+            Log.Debug("Tracker [!sd]* Done tracking");
         }
 
     }
@@ -363,7 +367,6 @@ namespace CoverageKiller2.DOM.Tables
                 SafeCOM.Execute(table,
                     maxRetries: 1,
                     rethrow: false,
-                    forceRefresh: true,
                     action: () =>
                     {
                         table.COMTable.Columns[column.Index].Delete();
