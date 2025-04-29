@@ -225,7 +225,7 @@ namespace CoverageKiller2.Tests.Scenarios
             Log.Debug($"[Issue1] Original column count: {originalColCount}");
 
             // Deletion logic matching your pipeline
-            var headersToRemove = "UL\r\nPower\r\n(dBm)\tUL\r\nS/N\r\n(dB)\tUL\r\nFBER\r\n(%)\tResult\tDL\r\nLoss\r\n(dB)\r\n"
+            var headersToRemove = "UL\r\nPower\r\n(dBm)\tUL\r\nS/N\r\n(dB)\tUL\r\nFBER\r\n(%)\r\n"
                 .Split(new[] { '\t' }, StringSplitOptions.RemoveEmptyEntries)
                 .Select(s => s.Scrunch())
                 .ToList();

@@ -74,9 +74,11 @@ namespace CoverageKiller2.Pipeline.Processes
                         "DL\r\nPower\r\n(dBm)\r\n",
                         "Result",
                         i);
+                    if (ckColCrit is null) continue;
+
 
                     ckColCrit[2].Text = "CH5\nNF\n(dBm)";
-                    ckColCrit.CellRef.Table.Rows[ckColCrit[2].RowIndex]
+                    ckColCrit.CellRef.Table.Rows[2][ckColCrit.Index + 1].Text = "IWN\nDL Power\n(dBm)";
 
                     var ckColArea = CopyColumnFromSecondDocument(
                         sourceDoc,
@@ -85,7 +87,10 @@ namespace CoverageKiller2.Pipeline.Processes
                         "DL\r\nPower\r\n(dBm)\r\n",
                         "Result",
                         i);
+                    if (ckColArea is null) continue;
+
                     ckColArea[2].Text = "CH5\nNF\n(dBm)";
+                    ckColArea.CellRef.Table.Rows[2][ckColArea.Index + 1].Text = "IWN\nDL Power\n(dBm)";
 
                 }
             }

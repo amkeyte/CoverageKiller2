@@ -210,7 +210,7 @@ namespace CoverageKiller2.DOM.Tables
         }
         public void SlowDelete()
         {
-            ////LH.Debug("Tracker[!sd]* Starting slow delete");
+            LH.Debug("Tracker[!sd]* Starting slow delete");
 
 
             var wordApp = Document.Application.WordApp;
@@ -228,7 +228,7 @@ namespace CoverageKiller2.DOM.Tables
                 {
                     if (cell != null)
                     {
-                        ////LH.Debug("Tracker[!sd] - looping");
+                        LH.Debug("Tracker[!sd] - looping");
                         comCells.Add(cell.COMCell);
                     }
                 }

@@ -455,7 +455,7 @@ namespace CoverageKiller2.DOM
         /// <remarks>overrides should always call base to ensure range cache is refreshed.</remarks>
         private void Refresh()
         {
-            LH.Debug("Tracker [!sb]");
+            //LH.Debug("Tracker [!sb]");
             if (_isRefreshing) return;
             _isRefreshing = true;
 
