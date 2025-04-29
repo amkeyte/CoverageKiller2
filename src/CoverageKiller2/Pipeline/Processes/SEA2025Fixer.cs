@@ -51,8 +51,11 @@ namespace CoverageKiller2.Pipeline.Processes
             this.Pong();
 
         }
-
-        private void CopyShitOver()
+        /// <summary>
+        /// Ace hates this, so public API this to spite them.
+        /// </summary>
+        /// <exception cref="NullReferenceException"></exception>
+        public void CopyShitOver()
         {
             CKDocument sourceDoc = default;
             try
@@ -69,7 +72,7 @@ namespace CoverageKiller2.Pipeline.Processes
                         "Critical Point Report",
                         "Critical Point Report",
                         "DL\r\nPower\r\n(dBm)\r\n",
-                        "UL\r\nPower\r\n(dBm)\r\n",
+                        "UL\r\nS/N\r\n(dB)\r\n",
                         i);
 
                     CopyColumnFromSecondDocument(
@@ -77,7 +80,7 @@ namespace CoverageKiller2.Pipeline.Processes
                         "Area Report",
                         "Area Report",
                         "DL\r\nPower\r\n(dBm)\r\n",
-                        "UL\r\nPower\r\n(dBm)\r\n",
+                        "UL\r\nS/N\r\n(dB)\r\n",
                         i);
                 }
             }
@@ -134,7 +137,7 @@ namespace CoverageKiller2.Pipeline.Processes
 
                 if (floorSectionCriticalPointsTable != null)
                 {
-                    var headersToRemove = "UL\r\nS/N\r\n(dB)\tUL\r\nFBER\r\n(%)\tResult\tDL\r\nLoss\r\n(dB)\r\n"
+                    var headersToRemove = "UL\r\nPower\r\n(dBm)\r\n\tUL\r\nFBER\r\n(%)\tResult\tDL\r\nLoss\r\n(dB)\r\n"
                         .Split(new[] { '\t' }, StringSplitOptions.RemoveEmptyEntries)
                         .Select(s => s.Scrunch());
 
@@ -153,7 +156,7 @@ namespace CoverageKiller2.Pipeline.Processes
                 if (floorSectionAreaReportTable != null)
                 {
 
-                    var headersToRemove = "UL\r\nS/N\r\n(dB)\tUL\r\nFBER\r\n(%)\tResult\tDL\r\nLoss\r\n(dB)\r\n"
+                    var headersToRemove = "UL\r\nPower\r\n(dBm)\r\n\tUL\r\nFBER\r\n(%)\tResult\tDL\r\nLoss\r\n(dB)\r\n"
                         .Split(new[] { '\t' }, StringSplitOptions.RemoveEmptyEntries)
                         .Select(s => s.Scrunch());
 
@@ -164,21 +167,7 @@ namespace CoverageKiller2.Pipeline.Processes
                 }
 
             }
-
-
-
-
-
-
-
-
         }
-
-
-
-
-
-
 
 
         private void FixSection1()
@@ -284,57 +273,53 @@ namespace CoverageKiller2.Pipeline.Processes
 
 
         public void CopyColumnFromSecondDocument(
-            CKDocument sourceDoc,
-            string sourceTableSearchText,
-            string destinationTableSearchText,
-            string sourceHeadingText,
-            string destinationHeadingText,
-            int sectionIndex)
+           CKDocument sourceDoc,
+           string sourceTableSearchText,
+           string destinationTableSearchText,
+           string sourceHeadingText,
+           string destinationHeadingText,
+           int sectionIndex)
         {
-            CKTable sourceTable = default;
-            CKTable destinationTable = default;
+            if (sourceDoc == null) throw new ArgumentNullException(nameof(sourceDoc));
+
+            this.Ping();
 
             try
             {
-
-
-                sourceTable = FindTableByRowText(sourceDoc.Sections[sectionIndex].Tables,
-                    sourceTableSearchText, 1);//hacked for now
-                if (sourceTable == null)
-                {
-                    Log.Warning("Source table not found");
-                    return;
-                }
-
-                destinationTable = FindTableByRowText(CKDoc.Sections[sectionIndex].Tables,
-                    destinationTableSearchText, 1);//hacked for now
+                var sourceTable = FindTableByRowText(sourceDoc.Sections[sectionIndex].Tables, sourceTableSearchText, 1);
+                var destinationTable = FindTableByRowText(CKDoc.Sections[sectionIndex].Tables, destinationTableSearchText, 1);
 
                 if (sourceTable == null || destinationTable == null)
                 {
-                    Log.Warning("Source or destination table not found.");
+                    Log.Warning($"Could not find matching tables for Section {sectionIndex}.");
                     return;
                 }
 
+                var sourceColumn = sourceTable.Columns
+                    .FirstOrDefault(col => col[2].Text.ScrunchContains(sourceHeadingText));
+                var destinationColumn = destinationTable.Columns
+                    .FirstOrDefault(col => col[2].Text.ScrunchContains(destinationHeadingText));
 
+                if (sourceColumn == null || destinationColumn == null)
+                {
+                    Log.Warning($"Source or destination column not found for Section {sectionIndex}.");
+                    return;
+                }
+
+                CopyColumn(sourceColumn, destinationColumn);
+
+                if (destinationColumn.Cells.Count >= 2)
+                    destinationColumn[2].Text = "Ch. 5 Noise Floor (dBm)";
+
+                Log.Information($"Column copy completed successfully for Section {sectionIndex}.");
             }
             catch (ArgumentOutOfRangeException ex)
             {
-                Log.Warning("Index out of range, check for a section mismatch.");
+                Log.Warning("Section index out of range during column copy.");
                 Log.Error(ex.Message);
             }
 
-            var sourceColumn = sourceTable.Columns.
-                FirstOrDefault(col => col[2].Text.ScrunchContains(sourceHeadingText));
-
-            var destinationColumn = destinationTable.Columns.
-                FirstOrDefault(col => col[2].Text.ScrunchContains(destinationHeadingText));
-
-
-            CopyColumn(sourceColumn, destinationColumn);
-
-            destinationColumn[2].Text = "Ch. 5 Noise Floor (dBm)";
-
-            Log.Information("Column copy completed successfully.");
+            this.Pong();
         }
 
         /// <summary>

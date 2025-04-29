@@ -145,16 +145,12 @@ namespace CoverageKiller2.DOM.Tables
         /// <exception cref="CKDebugException"></exception>
         protected override void DoRefreshThings()
         {
-            //if (IsCOMDeferred)//does this make sense? Range is about to crash.
-            //{
-            //    Log.Debug("Doing the Referesh thing in CKCell and com is defereed. anything to do here?");
-            //}
-            //else
-            //{
-            //checked if it's null to force COMCell to update, so that COMRange is valid.
+            //double wrapping protection for her pleasure.
             if (COMCell == null) throw new CKDebugException("COMCell cannot refresh.");
-            //}
-
+            if (_COMCell != null && COMRange == null)
+            {
+                COMRange = _COMCell.Range;
+            }
         }
 
 

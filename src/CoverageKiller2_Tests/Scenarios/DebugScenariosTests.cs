@@ -261,11 +261,11 @@ namespace CoverageKiller2.Tests.Scenarios
 
             // 🔥 Supply test file paths manually
             string sourceTestFilePath =
-            "C:\\Users\\akeyte.PCM\\source\\repos\\CoverageKiller2\\src\\CoverageKiller2_Tests\\TestFiles\\SEA Garage (CC)_20250313_150625.docx";
-
+            "C:\\Users\\akeyte.PCM\\source\\repos\\CoverageKiller2\\src\\CoverageKiller2_Tests\\TestFiles\\SEA Garage (Noise Floor)_20250313_152027 - Copy.docx";
 
             string destinationTestFilePath =
-            "C:\\Users\\akeyte.PCM\\source\\repos\\CoverageKiller2\\src\\CoverageKiller2_Tests\\TestFiles\\SEA Garage (Noise Floor)_20250313_152027 - Copy.docx";
+            "C:\\Users\\akeyte.PCM\\source\\repos\\CoverageKiller2\\src\\CoverageKiller2_Tests\\TestFiles\\SEA Garage (CC)_20250313_150625.docx";
+
 
             Assert.IsTrue(File.Exists(sourceTestFilePath), "Source test file not found.");
             Assert.IsTrue(File.Exists(destinationTestFilePath), "Destination test file not found.");

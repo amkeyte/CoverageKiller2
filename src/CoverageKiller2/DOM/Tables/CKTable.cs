@@ -147,7 +147,7 @@ namespace CoverageKiller2.DOM.Tables
 
             Log.Debug($"Requesting Cell({gridCell.GridRow}, {gridCell.GridCol})");
             //LH.Debug("Tracker[!sd]", "COMTable_get");
-            var COMCell = COMTable.Cell(gridCell.GridRow, gridCell.GridCol);
+            var COMCell = COMTable.Cell(gridCell.GridRow, gridCell.GridCol); // this may break out of range.
             //Log.Debug($"Requesting COMTable cell returned cell[{gridCell.GridRow},{gridCell.GridCol})" +
             //    $" returned cell text '{COMCell.Range.Text.Scrunch()}");
             this.Pong();
