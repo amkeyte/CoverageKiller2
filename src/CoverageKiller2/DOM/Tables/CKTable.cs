@@ -129,24 +129,24 @@ namespace CoverageKiller2.DOM.Tables
 
         public Word.Cell GetCellFor(CKCellRef cellRef)
         {
-            LH.Debug("Tracker[!sd]");
+            //LH.Debug("Tracker[!sd]");
             var gridCellRef = Converters.GetGridCellRef(cellRef);
             var gridCell = Grid.GetMasterCell(gridCellRef)//hacked
                 ?? throw new ArgumentException($"{nameof(cellRef)} did not fetch a master GridCell");
 
             int row = gridCell.GridRow;
             int col = gridCell.GridCol;
-            LH.Debug("Tracker[!sd]", "COMTable_get");
-            LH.Debug("Tracker[!sd]", "COMTable_get");
+            //LH.Debug("Tracker[!sd]", "COMTable_get");
+            //LH.Debug("Tracker[!sd]", "COMTable_get");
             if (row > COMTable.Rows.Count || col > COMTable.Columns.Count)
                 throw new ArgumentOutOfRangeException($"Cell ({row}, {col}) does not exist in COM table [Rows: {COMTable.Rows.Count}, Cols: {COMTable.Columns.Count}].");
-            LH.Debug("Tracker[!sd]", "COMTable_get");
-            LH.Debug("Tracker[!sd]", "COMTable_get");
+            //LH.Debug("Tracker[!sd]", "COMTable_get");
+            //LH.Debug("Tracker[!sd]", "COMTable_get");
             if (gridCell.GridRow > COMTable.Rows.Count || gridCell.GridCol > COMTable.Columns.Count)
                 throw new CKDebugException($"COM cell [{gridCell.GridRow},{gridCell.GridCol}] is outside table bounds [{COMTable.Rows.Count},{COMTable.Columns.Count}].");
 
             Log.Debug($"Requesting Cell({gridCell.GridRow}, {gridCell.GridCol})");
-            LH.Debug("Tracker[!sd]", "COMTable_get");
+            //LH.Debug("Tracker[!sd]", "COMTable_get");
             var COMCell = COMTable.Cell(gridCell.GridRow, gridCell.GridCol);
             //Log.Debug($"Requesting COMTable cell returned cell[{gridCell.GridRow},{gridCell.GridCol})" +
             //    $" returned cell text '{COMCell.Range.Text.Scrunch()}");
@@ -177,39 +177,8 @@ namespace CoverageKiller2.DOM.Tables
             return new CKCells(result, cellRef.Parent);
         }
 
-        [Obsolete] public string DebugText => RawText.Replace("\\", "\\\\");
 
-        [Obsolete]
-        public Base1JaggedList<string> ParsedDebugText
-        {
-            get
-            {
-                var rows = new Base1JaggedList<string>();
-                var currentRow = new Base1List<string>();
-                var parts = DebugText.Split(new[] { "\r\a" }, StringSplitOptions.None);
 
-                foreach (var part in parts)
-                {
-                    if (string.IsNullOrWhiteSpace(part))
-                    {
-                        if (currentRow.Count > 0)
-                        {
-                            rows.Add(currentRow);
-                            currentRow = new Base1List<string>();
-                        }
-                    }
-                    else
-                    {
-                        currentRow.Add(part.Trim());
-                    }
-                }
-
-                if (currentRow.Count > 0)
-                    rows.Add(currentRow);
-
-                return rows;
-            }
-        }
 
         public int GridRowCount => Grid.RowCount;
         public int GridColCount => Grid.ColCount;

@@ -391,7 +391,7 @@ namespace CoverageKiller2.DOM
         /// <returns></returns>
         public bool Matches(object other)
         {
-            LH.Debug("Tracker[!sd] CKDocument::");
+            ////LH.Debug("Tracker[!sd] CKDocument::");
 
             if (_comDocument == null || other == null) return false;
 
@@ -405,7 +405,7 @@ namespace CoverageKiller2.DOM
         }
         public bool Matches(Word.Document other)
         {
-            LH.Debug("Tracker[!sd]");
+            //LH.Debug("Tracker[!sd]");
             if (ReferenceEquals(_comDocument, other)) return true;
 
             try

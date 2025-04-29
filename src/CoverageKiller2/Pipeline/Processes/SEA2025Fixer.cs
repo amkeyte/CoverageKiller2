@@ -4,6 +4,7 @@ using CoverageKiller2.Logging;
 using Serilog;
 using System;
 using System.Linq;
+using System.Windows.Forms;
 
 
 
@@ -44,8 +45,46 @@ namespace CoverageKiller2.Pipeline.Processes
             FixFloorSections();
             //Remove the Informaton
             RemoveMoreInfoSection();
+            //copy shit over
+            CopyShitOver();
+
             this.Pong();
 
+        }
+
+        private void CopyShitOver()
+        {
+            CKDocument sourceDoc = default;
+            try
+            {
+                var sourceDocFile = PromptForSecondFile();
+                sourceDoc = CKDoc.Application.GetTempDocument(sourceDocFile, visible: false);
+                if (sourceDoc == null) throw new NullReferenceException("Source doc is null");
+
+                for (int i = CKDoc.Sections.Count; i > 0; i--)
+                {
+
+                    CopyColumnFromSecondDocument(
+                        sourceDoc,
+                        "Critical Point Report",
+                        "Critical Point Report",
+                        "DL\r\nPower\r\n(dBm)\r\n",
+                        "UL\r\nPower\r\n(dBm)\r\n",
+                        i);
+
+                    CopyColumnFromSecondDocument(
+                        sourceDoc,
+                        "Area Report",
+                        "Area Report",
+                        "DL\r\nPower\r\n(dBm)\r\n",
+                        "UL\r\nPower\r\n(dBm)\r\n",
+                        i);
+                }
+            }
+            finally
+            {
+                CKDoc.Application.CloseDocument(sourceDoc);
+            }
         }
 
         private void RemoveMoreInfoSection()
@@ -54,7 +93,8 @@ namespace CoverageKiller2.Pipeline.Processes
             this.Ping();
 
             var additionalInfoSection = CKDoc.Range().TryFindNext("Additional Info");
-            additionalInfoSection.Sections[1].Delete();
+
+            additionalInfoSection?.Sections[1].Delete();
 
             this.Pong();
         }
@@ -94,7 +134,7 @@ namespace CoverageKiller2.Pipeline.Processes
 
                 if (floorSectionCriticalPointsTable != null)
                 {
-                    var headersToRemove = "UL\r\nPower\r\n(dBm)\tUL\r\nS/N\r\n(dB)\tUL\r\nFBER\r\n(%)\tResult\tDL\r\nLoss\r\n(dB)\r\n"
+                    var headersToRemove = "UL\r\nS/N\r\n(dB)\tUL\r\nFBER\r\n(%)\tResult\tDL\r\nLoss\r\n(dB)\r\n"
                         .Split(new[] { '\t' }, StringSplitOptions.RemoveEmptyEntries)
                         .Select(s => s.Scrunch());
 
@@ -113,7 +153,7 @@ namespace CoverageKiller2.Pipeline.Processes
                 if (floorSectionAreaReportTable != null)
                 {
 
-                    var headersToRemove = "UL\r\nPower\r\n(dBm)\tUL\r\nS/N\r\n(dB)\tUL\r\nFBER\r\n(%)\tResult\tDL\r\nLoss\r\n(dB)\r\n"
+                    var headersToRemove = "UL\r\nS/N\r\n(dB)\tUL\r\nFBER\r\n(%)\tResult\tDL\r\nLoss\r\n(dB)\r\n"
                         .Split(new[] { '\t' }, StringSplitOptions.RemoveEmptyEntries)
                         .Select(s => s.Scrunch());
 
@@ -158,7 +198,6 @@ namespace CoverageKiller2.Pipeline.Processes
             else
                 Log.Warning("Pass/Fail title paragraph not found.");
 
-            pass_failPara.Paragraphs[1].Delete();
 
             Log.Information("[Issue 7] *** fix Test Report Summary");
             string searchText = "Channel/ Ch Group\tFreq (MHz)\tTechnology\tBand\tResult\tArea Points\r\npassed (%)\tCritical Points passed (%)\r\n";
@@ -242,6 +281,108 @@ namespace CoverageKiller2.Pipeline.Processes
             LH.Pong<SEA2025Fixer>();
             return result;
         }
+
+
+        public void CopyColumnFromSecondDocument(
+            CKDocument sourceDoc,
+            string sourceTableSearchText,
+            string destinationTableSearchText,
+            string sourceHeadingText,
+            string destinationHeadingText,
+            int sectionIndex)
+        {
+            CKTable sourceTable = default;
+            CKTable destinationTable = default;
+
+            try
+            {
+
+
+                sourceTable = FindTableByRowText(sourceDoc.Sections[sectionIndex].Tables,
+                    sourceTableSearchText, 1);//hacked for now
+                if (sourceTable == null)
+                {
+                    Log.Warning("Source table not found");
+                    return;
+                }
+
+                destinationTable = FindTableByRowText(CKDoc.Sections[sectionIndex].Tables,
+                    destinationTableSearchText, 1);//hacked for now
+
+                if (sourceTable == null || destinationTable == null)
+                {
+                    Log.Warning("Source or destination table not found.");
+                    return;
+                }
+
+
+            }
+            catch (ArgumentOutOfRangeException ex)
+            {
+                Log.Warning("Index out of range, check for a section mismatch.");
+                Log.Error(ex.Message);
+            }
+
+            var sourceColumn = sourceTable.Columns.
+                FirstOrDefault(col => col[2].Text.ScrunchContains(sourceHeadingText));
+
+            var destinationColumn = destinationTable.Columns.
+                FirstOrDefault(col => col[2].Text.ScrunchContains(destinationHeadingText));
+
+
+            CopyColumn(sourceColumn, destinationColumn);
+
+            destinationColumn[2].Text = "Ch. 5 Noise Floor (dBm)";
+
+            Log.Information("Column copy completed successfully.");
+        }
+
+        /// <summary>
+        /// Copies text from the source CKColumn to the destination CKColumn.
+        /// </summary>
+        /// <param name="sourceColumn">The column to copy from.</param>
+        /// <param name="destinationColumn">The column to copy into.</param>
+        /// <remarks>Version: CK2.00.01.0004</remarks>
+        public void CopyColumn(CKColumn sourceColumn, CKColumn destinationColumn)
+        {
+            if (sourceColumn == null) throw new ArgumentNullException(nameof(sourceColumn));
+            if (destinationColumn == null) throw new ArgumentNullException(nameof(destinationColumn));
+
+            this.Ping($"{sourceColumn.Document.FileName}");
+
+            var sourceCells = sourceColumn.Cells;
+            var destinationCells = destinationColumn.Cells;
+
+            if (sourceCells.Count != destinationCells.Count)
+                throw new CKDebugException("Tables don't match");
+            //int rowCount = Math.Min(sourceColumn.Count, destinationColumn.Count);
+
+            for (int i = 1; i <= destinationCells.Count; i++)
+            {
+                destinationCells[i].Text = sourceCells[i].Text;
+            }
+
+            Log.Information($"Copied {destinationCells.Count} cells from {sourceCells.Document.FileName}.");
+
+            this.Pong();
+        }
+
+        private string PromptForSecondFile()
+        {
+            using (var dlg = new OpenFileDialog())
+            {
+                dlg.RestoreDirectory = true;
+                dlg.Title = "Select Source Document";
+                dlg.Filter = "Word Documents (*.docx)|*.docx|All Files (*.*)|*.*";
+                dlg.Multiselect = false;
+
+                if (dlg.ShowDialog() == DialogResult.OK)
+                    return dlg.FileName;
+
+                return null;
+            }
+        }
+
 
     }
 }

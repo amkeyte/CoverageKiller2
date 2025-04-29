@@ -85,7 +85,7 @@ namespace CoverageKiller2.DOM.Tables
         /// <exception cref="CKDebugException">Thrown if no master cell is found at the location.</exception>
         internal GridCell5 GetMasterCell(CKGridCellRef gridRef)
         {
-            LH.Debug("Tracker[!sd]");
+            //LH.Debug("Tracker[!sd]");
             if (gridRef.RowMin != gridRef.RowMax || gridRef.ColMin != gridRef.ColMax)
                 return null;//throw new ArgumentException("Grid reference must refer to a single cell.", nameof(gridRef));
 
@@ -170,13 +170,16 @@ namespace CoverageKiller2.DOM.Tables
 
         private CKTableGrid(CKTable parent)//, Word.Table table)
         {
-            this.Ping(msg: parent.Snapshot.FastHash.ToString());
+            //this.Ping(msg: parent.Snapshot.FastHash.ToString());
             //_ckTable = parent;
             //_comTable = table;
-            var clonedTable = CloneToShadow(parent, parent.Application.GetShadowWorkspace());
+            var workspace = parent.Application.GetShadowWorkspace();
+            var clonedTable = CloneToShadow(parent, workspace);
             _crawler = new GridCrawler5(clonedTable);
             _grid = _crawler.Grid;
-            this.Pong();
+            parent.Application.CloseDocument(workspace.Document);
+
+            //this.Pong();
         }
 
         private Word.Table CloneToShadow(CKTable sourceTable, ShadowWorkspace shadowWorkspace)

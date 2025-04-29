@@ -37,7 +37,7 @@ namespace CoverageKiller2.DOM.Tables
         /// <param name="rMax">End row (inclusive, zero-based).</param>
         public CKGridCellRef(int rMin, int cMin, int rMax, int cMax)
         {
-            LH.Debug("Tracker[!sd]");
+            //LH.Debug("Tracker[!sd]");
             ColMin = cMin;
             RowMin = rMin;
             ColMax = cMax;

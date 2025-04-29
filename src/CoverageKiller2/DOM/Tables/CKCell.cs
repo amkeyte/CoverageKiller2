@@ -118,10 +118,10 @@ namespace CoverageKiller2.DOM.Tables
         {
             get => Cache(ref _COMCell, () =>
             {
-                LH.Debug("Tracker[!sd]", "COMCell_get");
+                //LH.Debug("Tracker[!sd]", "COMCell_get");
                 var table = CellRef.Table;
                 var comCell = table.GetCellFor(CellRef);
-                LH.Debug("Tracker[!sd]", "<-- COMCell_get");
+                //LH.Debug("Tracker[!sd]", "<-- COMCell_get");
 
                 if (COMRange is null) COMRange = comCell.Range;
                 return comCell;
@@ -261,14 +261,14 @@ namespace CoverageKiller2.DOM.Tables
 
         public override void Clear()
         {
-            LH.Debug("Tracker[!sd]");
+            //LH.Debug("Tracker[!sd]");
 
             _cachedCells_1?.Clear();
         }
 
         public CKCells(IEnumerable<CKCell> cells, IDOMObject parent) : base(parent)
         {
-            LH.Debug("Tracker[!sd]");
+            //LH.Debug("Tracker[!sd]");
             _cachedCells_1 = new Base1List<CKCell>(cells);
             CellRefrences_1 = new Base1List<CKCellRef>(cells.Select(c => c.CellRef));
             if (cells.Any(c => !Document.Matches(parent.Document)))

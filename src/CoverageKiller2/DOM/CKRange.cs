@@ -161,7 +161,7 @@ namespace CoverageKiller2.DOM
         {
             get => Cache(ref _COMRange, () =>
             {
-                LH.Debug("Tracker[!sd]", "COMRange_get");
+                ////LH.Debug("Tracker[!sd]", "COMRange_get");
 
                 //if (_COMRange == null) throw new InvalidOperationException("Cannot access COMRange; it hasn't been set.");
                 return _COMRange;
@@ -173,7 +173,7 @@ namespace CoverageKiller2.DOM
                     try
                     {
 
-                        LH.Debug("Tracker[!sd]", "COMRange_set");
+                        ////LH.Debug("Tracker[!sd]", "COMRange_set");
 
                         if (_COMRange != null) throw new CKDebugException("Attempted to assign a populated Range.");
                         if (value is null) throw new ArgumentNullException("value");
@@ -196,7 +196,7 @@ namespace CoverageKiller2.DOM
         /// <summary>
         /// Gets the raw text of the range as returned by Word without caching.
         /// </summary>
-        public string RawText => _COMRange.Text;
+
 
         /// <summary>
         /// Gets the text of the range with caching.
@@ -205,7 +205,7 @@ namespace CoverageKiller2.DOM
         {
 
             get => Cache(ref _cachedText);
-            set => SetCache(ref _cachedText, value, v => _COMRange.Text = v);
+            set => SetCache(ref _cachedText, value);
         }
         /// <summary>
         /// unsage.

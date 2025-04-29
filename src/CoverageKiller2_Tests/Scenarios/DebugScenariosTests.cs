@@ -254,6 +254,96 @@ namespace CoverageKiller2.Tests.Scenarios
                 Assert.IsFalse(headersToRemove.Contains(text), $"[Issue1] Unexpected leftover column header: '{text}'");
             }
         }
+        [TestMethod]
+        public void Can_CopyColumn_FromSourceDocument()
+        {
+            this.Ping();
+
+            // 🔥 Supply test file paths manually
+            string sourceTestFilePath =
+            "C:\\Users\\akeyte.PCM\\source\\repos\\CoverageKiller2\\src\\CoverageKiller2_Tests\\TestFiles\\SEA Garage (CC)_20250313_150625.docx";
+
+
+            string destinationTestFilePath =
+            "C:\\Users\\akeyte.PCM\\source\\repos\\CoverageKiller2\\src\\CoverageKiller2_Tests\\TestFiles\\SEA Garage (Noise Floor)_20250313_152027 - Copy.docx";
+            Assert.IsTrue(File.Exists(sourceTestFilePath), "Source test file not found.");
+            Assert.IsTrue(File.Exists(destinationTestFilePath), "Destination test file not found.");
+
+            // 🔥 Open both documents
+            var sourceDoc = RandomTestHarness.GetTempDocumentFrom(sourceTestFilePath, visible: true);
+            var destinationDoc = RandomTestHarness.GetTempDocumentFrom(destinationTestFilePath, visible: true);
+
+            sourceDoc.KeepAlive = true;
+            sourceDoc.Visible = true;
+            sourceDoc.Activate();
+
+            destinationDoc.KeepAlive = true;
+
+            try
+            {
+                string sourceTableSearchText = "Critical Point Report";
+                string destinationTableSearchText = "Critical Point Report";
+                string sourceColumnHeaderText = "DL\r\nPower\r\n(dBm)\r\n";
+                string destinationColumnHeaderText = "UL\r\nPower\r\n(dBm)\r\n";
+
+                int sectionIndex = 1; // section 1 for simplicity (you can parameterize later)
+
+                // 🔥 Find source and destination tables
+                var sourceTable = SEA2025Fixer.FindTableByRowText(
+                    sourceDoc.Sections[sectionIndex].Tables,
+                    sourceTableSearchText,
+                    rowIndex: 1);
+
+                var destinationTable = SEA2025Fixer.FindTableByRowText(
+                    destinationDoc.Sections[sectionIndex].Tables,
+                    destinationTableSearchText,
+                    rowIndex: 1);
+
+                Assert.IsNotNull(sourceTable, "Source table not found.");
+                Assert.IsNotNull(destinationTable, "Destination table not found.");
+
+                // 🔥 Find columns by header text
+                var sourceColumn = sourceTable.Columns
+                    .FirstOrDefault(col => col[2].Text.ScrunchContains(sourceColumnHeaderText));
+
+                var destinationColumn = destinationTable.Columns
+                    .FirstOrDefault(col => col[2].Text.ScrunchContains(destinationColumnHeaderText));
+
+                Assert.IsNotNull(sourceColumn, "Source column not found.");
+                Assert.IsNotNull(destinationColumn, "Destination column not found.");
+
+                // 🔥 Perform the copy
+                new SEA2025Fixer().CopyColumn(sourceColumn, destinationColumn);
+
+                // 🔥 Validate: cell-by-cell comparison
+                // Validate: cell-by-cell comparison with checkpoint asserts
+                for (int i = 1; i <= destinationColumn.Count; i++)
+                {
+                    string sourceText = sourceColumn[i].Text.Scrunch();
+                    string destText = destinationColumn[i].Text.Scrunch();
+
+                    Assert.AreEqual(
+                        sourceText,
+                        destText,
+                        $"Mismatch at row {i}: Source '{sourceColumn[i].Text}' vs Destination '{destinationColumn[i].Text}'");
+
+                    // 🔥 Every 10 rows, emit a success message
+                    if (i % 10 == 0 || i == destinationColumn.Count)
+                    {
+                        TestContext.WriteLine($"Verified {i} rows copied successfully...");
+                    }
+                }
+
+                Log.Information("Column copy test passed successfully.");
+            }
+            finally
+            {
+                RandomTestHarness.CleanUp(sourceDoc, force: true);
+                RandomTestHarness.CleanUp(destinationDoc, force: true);
+            }
+
+            this.Pong();
+        }
 
     }
 }

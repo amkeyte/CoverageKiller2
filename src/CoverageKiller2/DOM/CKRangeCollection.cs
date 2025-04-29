@@ -18,7 +18,7 @@ namespace CoverageKiller2.DOM
         /// <param name="deferCOM">If true, defers COM access until first real usage.</param>
         protected ACKRangeCollection(IDOMObject parent, bool deferCOM = false)
         {
-            LH.Debug("Tracker[!sd]");
+            //LH.Debug("Tracker[!sd]");
             Parent = parent ?? throw new ArgumentNullException(nameof(parent));
             IsCOMDeferred = deferCOM;
             _isDirty = deferCOM;
