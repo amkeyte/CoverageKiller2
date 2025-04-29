@@ -350,6 +350,101 @@ namespace CoverageKiller2.Tests.Scenarios
 
             this.Pong();
         }
+        [TestMethod]
+        public void Can_DeleteAndThenCopyNoiseFloorColumn()
+        {
+            Log.Debug("[Issue1] Testing cleanup + noise floor column copy");
+
+            //setup test file not needed.
+            _testFile.Application.CloseDocument(_testFile);
+
+            // 🔥 Supply test file paths manually
+            string sourceTestFilePath =
+            "C:\\Users\\akeyte.PCM\\source\\repos\\CoverageKiller2\\src\\CoverageKiller2_Tests\\TestFiles\\SEA Garage (Noise Floor)_20250313_152027 - Copy.docx";
+
+            string destinationTestFilePath =
+            "C:\\Users\\akeyte.PCM\\source\\repos\\CoverageKiller2\\src\\CoverageKiller2_Tests\\TestFiles\\SEA Garage (CC)_20250313_150625.docx";
+
+
+            Assert.IsTrue(File.Exists(sourceTestFilePath), "Source test file not found.");
+            Assert.IsTrue(File.Exists(destinationTestFilePath), "Destination test file not found.");
+
+            // 🔥 Open both documents
+            var sourceDoc = RandomTestHarness.GetTempDocumentFrom(sourceTestFilePath, visible: true);
+            var destinationDoc = RandomTestHarness.GetTempDocumentFrom(destinationTestFilePath, visible: true);
+
+            destinationDoc.KeepAlive = true;
+            destinationDoc.Visible = true;
+            sourceDoc.KeepAlive = true;
+            sourceDoc.Visible = true;
+
+            destinationDoc.Activate();
+
+            // Step 1: Locate the Critical Point Report table
+            string searchText = "Critical Point Report";
+            int rowIndex = 1;
+            int sectionIndex = 3; // assumed to be the first floor section (adjust if needed)
+
+            var criticalPointCCTable = SEA2025Fixer.FindTableByRowText(
+                destinationDoc.Tables,
+                searchText,
+                rowIndex,
+                TableAccessMode.IncludeOnlyAnchorCells);
+
+            Assert.IsNotNull(criticalPointCCTable, "Critical Point Report table not found.");
+
+            var originalColCount = criticalPointCCTable.Columns.Count;
+            Log.Debug($"Original column count: {originalColCount}");
+
+            // Step 2: Remove unwanted fields
+            var headersToRemove = "UL\r\nPower\r\n(dBm)\tUL\r\nS/N\r\n(dB)\tUL\r\nFBER\r\n(%)"
+                .Split(new[] { '\t' }, StringSplitOptions.RemoveEmptyEntries)
+                .Select(s => s.Scrunch())
+                .ToList();
+
+            criticalPointCCTable.Columns
+                .Delete(col => headersToRemove.Contains(col[2].Text.Scrunch()));
+
+            criticalPointCCTable.MakeFullPage();
+
+            var updatedColCount = criticalPointCCTable.COMTable.Columns.Count;
+            Log.Debug($"Updated column count after deletion: {updatedColCount}");
+
+            Assert.IsTrue(updatedColCount < originalColCount, "Expected at least one column to be deleted.");
+
+            // Step 3: Run the column copy procedure (CopyShitOver)
+
+            try
+            {
+                var fixer = new SEA2025Fixer();
+                fixer.CKDoc = destinationDoc; // inject your destination doc
+                fixer.CopyColumnFromSecondDocument(
+                    sourceDoc,
+                        "Critical Point Report",
+                        "Critical Point Report",
+                        "DL\r\nPower\r\n(dBm)\r\n",
+                        "Result",
+                    sectionIndex);
+            }
+            finally
+            {
+                RandomTestHarness.CleanUp(sourceDoc, force: false);
+            }
+
+            // Step 4: Validate UL Power column was restored
+            var restoredTable = SEA2025Fixer.FindTableByRowText(
+                destinationDoc.Tables,
+                searchText,
+                rowIndex,
+                TableAccessMode.IncludeOnlyAnchorCells);
+
+            var ulPowerCol = restoredTable.Columns
+                .FirstOrDefault(col => col[2].Text.ScrunchContains("UL\r\nPower\r\n(dBm)\r\n"));
+
+            Assert.IsNotNull(ulPowerCol, "UL Power column was not restored after copy.");
+
+            Log.Information("Cleanup and copy test passed.");
+        }
 
     }
 }
