@@ -75,6 +75,42 @@ namespace CoverageKiller2.DOM.Tables
         }
 
         /// <summary>
+        /// Deletes the table at the specified one-based index.
+        /// </summary>
+        /// <param name="index">The one-based index of the table to delete.</param>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown if index is out of bounds.</exception>
+        public void Delete(int index)
+        {
+
+            if (index < 1 || index > Count)
+                throw new ArgumentOutOfRangeException(nameof(index), "Index must be between 1 and the number of tables.");
+
+            // Grab the CKTable at that index
+            var ckTable = this[index];
+            Delete(ckTable);
+
+        }
+
+        /// <summary>
+        /// Deletes the specified CKTable from the document.
+        /// </summary>
+        /// <param name="table">The table to delete.</param>
+        /// <exception cref="ArgumentNullException">Thrown if table is null.</exception>
+        public void Delete(CKTable table)
+        {
+
+            if (table == null)
+                throw new ArgumentNullException(nameof(table));
+
+            // Call delete on the underlying Word.Table
+            table.COMTable.Delete();
+
+            IsDirty = true; // Force reload on next access
+            _cachedTables_1.Clear(); // Clear cache immediately maybe maybe not. 
+
+        }
+
+        /// <summary>
         /// Gets the <see cref="CKTable"/> at the specified one-based index.
         /// </summary>
         /// <param name="index">One-based index of the table.</param>

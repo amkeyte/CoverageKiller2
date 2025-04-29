@@ -2,6 +2,7 @@
 using CoverageKiller2.Logging;
 using Serilog;
 using System;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using Word = Microsoft.Office.Interop.Word;
 
@@ -557,9 +558,77 @@ namespace CoverageKiller2.DOM
             GC.SuppressFinalize(this);
         }
 
-        internal void Delete()
+        internal virtual void Delete()
         {
             _COMRange.Delete();
+        }
+        /// <summary>
+        /// Sets the background color for all cells in this range if present,
+        /// or for the range itself if no cells exist.
+        /// </summary>
+        /// <param name="color">The Word color to apply.</param>
+        /// <remarks>Version: CK2.00.01.0003</remarks>
+        public void SetBackgroundColor(Word.WdColor color)
+        {
+            //this.Ping(Document.FileName);
+
+            //// Prefer setting cell backgrounds if there are cells
+            //if (Cells.Count > 0)
+            //{
+            //    foreach (var cell in Cells)
+            //    {
+            //        cell.BackgroundColor = color;
+            //    }
+            //}
+            //else
+            //{
+            // No cells: set the entire range shading
+            COMRange.Shading.BackgroundPatternColor = color;
+            //}
+
+            //this.Pong();
+        }
+
+        /// <summary>
+        /// Deletes all tables in the specified <see cref="CKTables"/> collection that fall within this range.
+        /// </summary>
+        /// <param name="tables">The collection of tables to consider for deletion.</param>
+        /// <exception cref="ArgumentNullException">Thrown if tables is null.</exception>
+        /// <remarks>
+        /// Version: CK2.00.01.0001
+        /// </remarks>
+        public void Delete(CKTables tables)
+        {
+            this.Ping(Document.FileName);
+
+            if (tables == null)
+                throw new ArgumentNullException(nameof(tables));
+
+            // Delete in reverse order to avoid reindexing problems
+            foreach (var table in tables.Reverse())
+            {
+                if (Contains(table))
+                {
+                    table.COMTable.Delete();
+                }
+            }
+
+            IsDirty = true; // Invalidate this range after deletion
+
+            this.Pong();
+        }
+        /// <summary>
+        /// Determines whether this range fully contains the specified range.
+        /// </summary>
+        /// <param name="other">The range to check for containment.</param>
+        /// <returns>True if the other range is entirely within this range; otherwise, false.</returns>
+        /// <remarks>Version: CK2.00.01.0002</remarks>
+        public bool Contains(CKRange other)
+        {
+            if (other == null) throw new ArgumentNullException(nameof(other));
+            if (IsOrphan || other.IsOrphan) return false;
+
+            return this.Start <= other.Start && this.End >= other.End;
         }
     }
 
