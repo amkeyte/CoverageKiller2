@@ -5,6 +5,7 @@ using Serilog;
 using System;
 using System.Linq;
 using System.Windows.Forms;
+using Word = Microsoft.Office.Interop.Word;
 
 
 
@@ -22,8 +23,10 @@ namespace CoverageKiller2.Pipeline.Processes
         public Tracer Tracer { get; } = new Tracer(typeof(SEA2025Fixer));
         public override void Process()
         {
-            this.Ping();
 
+
+            Log.Information("Fixing Footer.");
+            Template.CopyHeaderAndFooterTo(CKDoc);
 
             Log.Information($"**** Fixing for SEA2025 {CKDoc.FileName}");
 
@@ -190,7 +193,7 @@ namespace CoverageKiller2.Pipeline.Processes
 
             Log.Information("*** remove Pass/Fail title");
             var pass_failPara = section.TryFindNext("(Adjacent Area Rule)")
-                ?? section.TryFindNext("Result: Passed");
+                ?? section.TryFindNext("Result: Pass");
 
             if (pass_failPara?.Paragraphs.Count >= 1)
                 pass_failPara.Paragraphs[1].Delete();
@@ -354,16 +357,38 @@ namespace CoverageKiller2.Pipeline.Processes
                 throw new CKDebugException("Tables don't match");
             //int rowCount = Math.Min(sourceColumn.Count, destinationColumn.Count);
 
+            var templateFont = destinationColumn.CellRef.Table.Rows[3][2].Font;
             for (int i = 1; i <= destinationCells.Count; i++)
             {
-                destinationCells[i].FormattedText = sourceCells[i].FormattedText;
+                var destinationCell = destinationCells[i];
+                destinationCell.Text = sourceCells[i].Text;
+
+                ApplyFontFromTemplate(destinationCell, templateFont);
+
             }
 
             Log.Information($"Copied {destinationCells.Count} cells from {sourceCells.Document.FileName}.");
 
+            destinationCells[1].Font.Bold = -1;
+
+            Log.Information($"Set column font.");
+
             this.Pong();
         }
 
+
+        public void ApplyFontFromTemplate(CKCell cell, Word.Font templateFont)
+        {
+            foreach (var para in cell.Paragraphs)
+            {
+                var font = para.Font;
+                font.Name = templateFont.Name;
+                font.Size = templateFont.Size;
+                font.Bold = templateFont.Bold;
+                font.Italic = templateFont.Italic;
+                font.Color = templateFont.Color;
+            }
+        }
         private string PromptForSecondFile()
         {
             using (var dlg = new OpenFileDialog())
@@ -378,8 +403,9 @@ namespace CoverageKiller2.Pipeline.Processes
 
                 return null;
             }
+
+
+
         }
-
-
     }
 }

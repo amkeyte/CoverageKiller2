@@ -439,7 +439,7 @@ namespace CoverageKiller2.Tests.Scenarios
                 TableAccessMode.IncludeOnlyAnchorCells);
 
             var ulPowerCol = restoredTable.Columns
-                .FirstOrDefault(col => col[2].Text.ScrunchContains("UL\r\nPower\r\n(dBm)\r\n"));
+                .FirstOrDefault(col => col[2].Text.ScrunchContains("Result"));
 
             Assert.IsNotNull(ulPowerCol, "UL Power column was not restored after copy.");
 

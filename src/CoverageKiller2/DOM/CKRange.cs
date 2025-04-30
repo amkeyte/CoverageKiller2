@@ -207,8 +207,15 @@ namespace CoverageKiller2.DOM
         /// <summary>
         /// unsage.
         /// </summary>
-        public Word.Font Font => _COMRange?.Font ?? throw new CKDebugException($"{nameof(_COMRange)} or Font was null.");
+        public Word.Font Font
+        {
 
+            get => Cache(ref _cachedFont);
+            set => SetCache(ref _cachedFont, value, (v) => COMRange.Font = v);
+        }
+
+
+        private Word.Font _cachedFont = default;
         /// <summary>
         /// Gets a "pretty" version of the range's text.
         /// This version replaces cell markers with tabs, preserves Windows-style newlines,
@@ -468,6 +475,8 @@ namespace CoverageKiller2.DOM
             _cachedEnd = _COMRange.End;
             _cachedPrettyText = CKTextHelper.Pretty(_cachedText);
             _cachedScrunchedText = CKTextHelper.Scrunch(_cachedText);
+            _cachedFont = _COMRange.Font;
+
             _snapshot = new RangeSnapshot(_COMRange);
 
             IsDirty = false;
