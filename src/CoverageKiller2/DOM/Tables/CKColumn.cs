@@ -1,4 +1,5 @@
-﻿using CoverageKiller2.Logging;
+﻿using CoverageKiller2.Helpers;
+using CoverageKiller2.Logging;
 using Serilog;
 using System;
 using System.Collections;
@@ -212,9 +213,7 @@ namespace CoverageKiller2.DOM.Tables
         {
             LH.Debug("Tracker[!sd]* Starting slow delete");
 
-
             var wordApp = Document.Application.WordApp;
-            //var wordDoc = Document.GiveMeCOMDocumentIWillOwnItAndPromiseToCleanUpAfterMyself();
 
             try
             {
@@ -233,34 +232,57 @@ namespace CoverageKiller2.DOM.Tables
                     }
                 }
 
-                Word.Cell mergedCell = null;
+                Log.Debug($"[!sd][CKColumn.SlowDelete] Preparing to merge {comCells.Count} cells.");
 
-                Log.Debug($"[!sd][CKColumn.SlowDelete] Merging {comCells.Count} real cells for batch delete.");
+                int totalMerged = 0;
+                int batchSize = 10;
 
-                foreach (var comCell in comCells)
+                var progress = new LongOperationHelpers.ProgressLogger("CKColumn.SlowDelete-Merge", comCells.Count);
+
+                for (int i = 0; i < comCells.Count; i += batchSize)
                 {
-                    if (mergedCell == null)
+                    Word.Cell mergedCell = null;
+
+                    int limit = Math.Min(batchSize, comCells.Count - i);
+                    for (int j = 0; j < limit; j++)
                     {
-                        mergedCell = comCell;
+                        var currentCell = comCells[i + j];
+                        if (mergedCell == null)
+                        {
+                            LH.Debug("Tracker[!sd] - merge loop start");
+                            mergedCell = currentCell;
+                        }
+                        else
+                        {
+                            mergedCell.Merge(currentCell);
+                        }
                     }
-                    else
+
+                    if (mergedCell != null)
                     {
-                        mergedCell.Merge(comCell);
+                        mergedCell.Delete();
+                        Log.Debug($"[!sd] Batch deleted ({i + 1} to {i + limit})");
+                    }
+
+                    totalMerged += limit;
+                    progress.Report();
+
+                    if (totalMerged % 100 == 0)
+                    {
+                        Log.Debug($"[!sd] Saving document after {totalMerged} merged cells...");
+                        LongOperationHelpers.TrySilentSave(Document, $"after {totalMerged} merged cells");
                     }
                 }
-                Log.Debug("[!sd]cells merged.");
-                if (mergedCell != null)
-                {
-                    mergedCell.Delete();
-                }
-                Log.Debug("[!sd]Deleted");
 
+                progress.Finish();
+                Log.Debug("[!sd] All batches processed.");
             }
             finally
             {
                 wordApp.ScreenUpdating = true;
                 this.Pong();
             }
+
             this.Clear();
             this.IsDirty = true;
             Log.Debug("Tracker [!sd]* Done tracking");

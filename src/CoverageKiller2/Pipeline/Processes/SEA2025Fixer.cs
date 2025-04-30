@@ -227,17 +227,23 @@ namespace CoverageKiller2.Pipeline.Processes
 
             searchText = "Test Details";
             var testDetailTable = FindTableByRowText(section.Tables, searchText);
-            section.Tables.Delete(testDetailTable);
+            if (testDetailTable != null) section.Tables.Delete(testDetailTable);
 
 
             Log.Warning("*** TODO add Equipment Config data");
 
             Log.Information("*** remove 'page 2'");
             section = CKDoc.Sections[1]; //fix stale reference. need to fix internals somehow.
-            var thresholdSettingsPara = section
-                .TryFindNext("Threshold Settings")
+            var thresholdSettingsPara = section?
+                .TryFindNext("Threshold Settings")?
                 .Paragraphs[1];
-            var page2Range = CKDoc.Range(thresholdSettingsPara.Start, section.End - 2);
+            if (thresholdSettingsPara != null)
+            {
+                var page2Range = CKDoc.Range(thresholdSettingsPara.Start, section.End - 2);
+                page2Range.Delete();
+
+            }
+
             //page2Range.Delete(page2Range.Tables);
 
             ////reaquire the same range, since the tables borked up the original
@@ -251,7 +257,6 @@ namespace CoverageKiller2.Pipeline.Processes
             //CKDoc.EnsureLayoutReady();
             //page2Range.SetBackgroundColor(Microsoft.Office.Interop.Word.WdColor.wdColorBlue);
             //CKDoc.EnsureLayoutReady();
-            page2Range.Delete();
         }
 
 

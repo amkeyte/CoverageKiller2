@@ -270,6 +270,7 @@
     <Compile Include="Logging\Tracer.cs" />
     <Compile Include="IndoorReportTemplate.cs" />
     <Compile Include="DOM\Tables\CKTable.cs" />
+    <Compile Include="LongOperationHelpers.cs" />
     <Compile Include="Pipeline\CKWordPipeline.cs" />
     <Compile Include="Pipeline\CKWordPipelineProcess.cs" />
     <Compile Include="Pipeline\Config\ProcessConfigLoader.cs" />
