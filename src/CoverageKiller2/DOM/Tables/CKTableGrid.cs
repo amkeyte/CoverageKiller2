@@ -48,7 +48,7 @@ namespace CoverageKiller2.DOM.Tables
         }
         internal IEnumerable<GridCell5> GetMergedCells(CKGridCellRef gridRef)
         {
-            Log.Debug($"MergedCells requested for: [{gridRef.RowMin}:{gridRef.ColMin}] to [{gridRef.RowMax}:{gridRef.ColMax}]");
+            Log.Verbose($"MergedCells requested for: [{gridRef.RowMin}:{gridRef.ColMin}] to [{gridRef.RowMax}:{gridRef.ColMax}]");
 
             var result = new List<GridCell5>();
 
@@ -101,7 +101,7 @@ namespace CoverageKiller2.DOM.Tables
 
             var cell = currentRow[col];
 
-            Log.Debug($"[Issue 5] Inspecting single cell at [{row},{col}]: {cell.GetType().Name}");
+            Log.Verbose($"[Issue 5] Inspecting single cell at [{row},{col}]: {cell.GetType().Name}");
 
             if (cell.IsMasterCell)
                 return cell;
@@ -120,7 +120,7 @@ namespace CoverageKiller2.DOM.Tables
         /// <returns>An enumerable of <see cref="GridCell5"/> instances that are master cells within the specified bounds.</returns>
         internal IEnumerable<GridCell5> GetMasterCells(CKGridCellRef gridRef)
         {
-            Log.Debug($"[Issue 5] MasterCells requested for: [{gridRef.RowMin}:{gridRef.ColMin}] to [{gridRef.RowMin}:{gridRef.ColMax}]");
+            Log.Verbose($"[Issue 5] MasterCells requested for: [{gridRef.RowMin}:{gridRef.ColMin}] to [{gridRef.RowMin}:{gridRef.ColMax}]");
 
             var result = new List<GridCell5>();
 
@@ -135,7 +135,7 @@ namespace CoverageKiller2.DOM.Tables
 
                     var cell = currentRow[col];
 
-                    Log.Debug($"[Issue 5] Inspecting cell at [{row_1},{col}]: type={cell.GetType().Name}");
+                    Log.Verbose($"[Issue 5] Inspecting cell at [{row_1},{col}]: type={cell.GetType().Name}");
                     if (cell.IsMasterCell)
                     {
                         result.Add(cell);
@@ -147,7 +147,7 @@ namespace CoverageKiller2.DOM.Tables
                 }
             }
 
-            Log.Debug($"[Issue 5] Found {result.Count} master cells.");
+            Log.Verbose($"[Issue 5] Found {result.Count} master cells.");
             if (!result.Any())
             {
                 throw new CKDebugException("No master cells found.");

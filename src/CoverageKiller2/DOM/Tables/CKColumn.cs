@@ -275,6 +275,8 @@ namespace CoverageKiller2.DOM.Tables
                 }
 
                 progress.Finish();
+                LongOperationHelpers.TrySilentSave(Document, $"SlowDelete: End of column delete operation.");
+
                 Log.Debug("[!sd] All batches processed.");
             }
             finally

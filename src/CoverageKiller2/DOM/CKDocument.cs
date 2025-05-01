@@ -215,6 +215,7 @@ namespace CoverageKiller2.DOM
             }
         }
 
+        public bool ReadOnly => _comDocument.ReadOnly;
 
 
         public void Activate()
@@ -506,6 +507,49 @@ namespace CoverageKiller2.DOM
             _EnsureLayoutReady_depth = 0; // ✅ reset depth on fail if caller wants to try again
             return false;
         }
+
+        internal void SaveAs2(
+            string fileName,
+            object fileFormat = null,
+            object lockComments = null,
+            object password = null,
+            object addToRecentFiles = null,
+            object writePassword = null,
+            object readOnlyRecommended = null,
+            object embedTrueTypeFonts = null,
+            object saveNativePictureFormat = null,
+            object saveFormsData = null,
+            object saveAsAOCELetter = null,
+            object encoding = null,
+            object insertLineBreaks = null,
+            object allowSubstitutions = null,
+            object lineEnding = null,
+            object addBiDiMarks = null,
+            object compatibilityMode = null
+        )
+        {
+            _comDocument.SaveAs2(
+                fileName,
+                fileFormat ?? Word.WdSaveFormat.wdFormatXMLDocument,
+                lockComments ?? Type.Missing,
+                password ?? Type.Missing,
+                addToRecentFiles ?? Type.Missing,
+                writePassword ?? Type.Missing,
+                readOnlyRecommended ?? Type.Missing,
+                embedTrueTypeFonts ?? Type.Missing,
+                saveNativePictureFormat ?? Type.Missing,
+                saveFormsData ?? Type.Missing,
+                saveAsAOCELetter ?? Type.Missing,
+                encoding ?? Type.Missing,
+                insertLineBreaks ?? Type.Missing,
+                allowSubstitutions ?? Type.Missing,
+                lineEnding ?? Type.Missing,
+                addBiDiMarks ?? Type.Missing,
+                compatibilityMode ?? Type.Missing
+            );
+        }
+
+
         //address if this is too restrictive, such as too many documents ensuring at once.
         private static int _EnsureLayoutReady_depth;
 

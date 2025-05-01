@@ -189,7 +189,7 @@ namespace CoverageKiller2.DOM.Tables
             //Table = table ?? throw new ArgumentNullException(nameof(table));
             CellRef = cellRef;
             COMCell = wdCell ?? throw new ArgumentNullException(nameof(wdCell));
-            Log.Debug("Constructing COM loaded cell");
+            Log.Verbose("Constructing COM loaded cell");
         }
         public CKCell(CKCellRef cellRef) : base(cellRef?.Parent)
         {
@@ -197,7 +197,7 @@ namespace CoverageKiller2.DOM.Tables
             //Table = table ?? throw new ArgumentNullException(nameof(table));
             CellRef = cellRef;
             COMCell = null;
-            Log.Debug("Constructing Deferred COM cell");
+            Log.Verbose("Constructing Deferred COM cell");
         }
         /// <summary>
         /// Gets or sets the background color of the cell.

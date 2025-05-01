@@ -1,7 +1,9 @@
 ﻿using CoverageKiller2.DOM;
 using Serilog;
 using System;
-using System.Runtime.InteropServices;
+using System.IO;
+using System.Linq;
+using Word = Microsoft.Office.Interop.Word;
 
 namespace CoverageKiller2.Helpers
 {
@@ -26,20 +28,104 @@ namespace CoverageKiller2.Helpers
                 return;
             }
 
+            var path = doc.FullPath;
+            if (!File.Exists(path))
+            {
+                Log.Warning($"[TrySilentSave] File does not exist: {path}");
+                return;
+            }
+
+            // Check if Word considers it readonly
+            if (doc.ReadOnly)
+            {
+                Log.Warning($"[TrySilentSave] Word document is marked read-only. Falling back to backup save. {context}");
+                SaveBackupCopy(doc, context);
+                return;
+            }
+
+            // Check if file is writable on disk
+            try
+            {
+                using (FileStream fs = File.Open(path, FileMode.Open, FileAccess.Write)) { }
+            }
+            catch (IOException)
+            {
+                Log.Warning($"[TrySilentSave] File is not writable. Falling back to backup save. {context}");
+                SaveBackupCopy(doc, context);
+                return;
+            }
+
             try
             {
                 doc.Saved = false;
                 doc.Application.WordApp.ActiveDocument.Save();
-                Log.Information($"[TrySilentSave] Document saved successfully. {context}");
-            }
-            catch (COMException comEx)
-            {
-                Log.Warning($"[TrySilentSave] COMException during save. {context}: {comEx.Message}");
+                Log.Debug($"[TrySilentSave] Document saved successfully. {context}");
             }
             catch (Exception ex)
             {
-                Log.Error(ex, $"[TrySilentSave] Unexpected error during save. {context}");
+                Log.Warning(ex, $"[TrySilentSave] Save failed unexpectedly. Falling back to backup. {context}");
+                SaveBackupCopy(doc, context);
             }
+        }
+
+        private static void SaveBackupCopy(CKDocument doc, string context)
+        {
+            try
+            {
+                var dir = Path.GetDirectoryName(doc.FullPath);
+                var baseName = Path.GetFileNameWithoutExtension(doc.FullPath);
+                var ext = Path.GetExtension(doc.FullPath);
+
+                int counter = 1;
+
+                string backupPath = GetNextBackupPath(doc.FullPath);
+
+                Log.Warning($"[TrySilentSave] Writing backup copy to: {backupPath}");
+
+                doc.Application.WithSuppressedAlerts(() =>
+                {
+                    doc.SaveAs2(
+                        backupPath,
+                        fileFormat: Word.WdSaveFormat.wdFormatXMLDocument,
+                        addToRecentFiles: false
+                    );
+                });
+
+                Log.Information($"[TrySilentSave] Backup saved successfully: {backupPath}");
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, $"[TrySilentSave] Failed to write backup copy. {context}");
+            }
+        }
+        private static string GetNextBackupPath(string originalPath)
+        {
+            var dir = Path.GetDirectoryName(originalPath);
+            var fileName = Path.GetFileNameWithoutExtension(originalPath);
+            var ext = Path.GetExtension(originalPath);
+
+            // Remove any existing _Backup-XX suffix
+            var baseName = System.Text.RegularExpressions.Regex.Replace(
+                fileName,
+                @"_Backup-\d{2}$", // match "_Backup-XX" at end
+                ""
+            );
+
+            // Look for files that match the backup pattern for this baseName
+            var existing = Directory.GetFiles(dir, $"{baseName}_Backup-??{ext}");
+
+            int nextIndex = existing
+                .Select(path => Path.GetFileNameWithoutExtension(path))
+                .Select(name =>
+                {
+                    var suffix = name.Substring(name.LastIndexOf("-") + 1);
+                    return int.TryParse(suffix, out var num) ? num : 0;
+                })
+                .DefaultIfEmpty(0)
+                .Max() + 1;
+
+            var backupPath = Path.Combine(dir, $"{baseName}_Backup-{nextIndex:00}{ext}");
+            return backupPath;
         }
 
         /// <summary>
