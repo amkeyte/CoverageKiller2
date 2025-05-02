@@ -1,10 +1,10 @@
-﻿using CoverageKiller2.Helpers;
-using CoverageKiller2.Logging;
+﻿using CoverageKiller2.Logging;
 using Serilog;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using Word = Microsoft.Office.Interop.Word;
 
 namespace CoverageKiller2.DOM.Tables
@@ -105,110 +105,62 @@ namespace CoverageKiller2.DOM.Tables
 
 
 
-        //    Log.Debug($"[Issue1] Deleting column {Index} from " +
-        //       $"{LH.GetTableTitle(table, "***Table")}" +
-        //           $".{Document.FileName}.{table.Snapshot}" +
-        //           $".Cell({CellsList_1[1]?.Snapshot})");
-
-
-
-        //    if (!table.HasMerge)
-        //    {
-        //        table.Columns.Delete(this);
-        //        table.COMTable.Columns[Index].Delete();
-        //        Log.Debug($"[Issue1] Fast deleted column: Index{Index}");
-        //    }
-        //    else
-        //    {
-        //        SlowDelete();
-        //    }
-
-        //    IsDirty = true;
-        //}
-
-        /// <summary>
-        /// Deletes all non-merged cells in this column using the CKTable grid layout.
-        /// This is a fallback method when Word's native column deletion fails due to merged cells.
-        /// </summary>
-        /// <remarks>
-        /// Version: CK2.00.03.0001
-        /// </remarks>
-        //public void SlowDelete()
-        //{
-        //    this.Ping();
-
-
-        //    var table = CellRef.Table;
-
-        //    LH.Debug($"[Issue1](slow) Deleting column {Index} from " +
-        //        $"{LH.GetTableTitle(table, "***Table")}" +
-        //            $".{Document.FileName}.{table.Snapshot}" +
-        //            $".Cell({CellsList_1[1]?.Snapshot})");
-
-        //    var colIndex = CellRef.ColumnIndex;
-
-        //    for (var i_1 = CellsList_1.Count; i_1 >= 1; i_1--)
-        //    {
-        //        var cell = CellsList_1[i_1];
-        //        if (cell.ColumnIndex == colIndex)
-        //        {
-        //            cell.COMCell.Delete();
-        //            Log.Debug($"[Issue1] Deleted cell: Column {Index} Row {i_1}");
-
-        //        }
-        //    }
-
-        //    Log.Debug($"[Issue1]Deleted column: Index{Index}");
-        //    IsDirty = true;
-        //    this.Pong();
-        //}
-        /// <summary>
-        /// Deletes all cells in this column efficiently by batching COM deletions.
-        /// </summary>
-        public void SlowDelete2()
+        public void SlowDeleteBak()
         {
-            this.Ping();
-
-            if (Count == 0) return;
+            LH.Debug("Tracker[!sd]* Starting horizontal merge delete");
 
             var wordApp = Document.Application.WordApp;
-            var wordDoc = Document.GiveMeCOMDocumentIWillOwnItAndPromiseToCleanUpAfterMyself();
 
             try
             {
-                Log.Debug($"[CKColumn.Delete] Beginning batch delete for {Count} cells.");
+                if (Index <= 1) throw new InvalidOperationException("Cannot merge left from column 1.");
+                if (Count == 0) return;
 
                 wordApp.ScreenUpdating = false;
-                //wordApp.EnableEvents = false;
 
-                // Collect all Word.Cell COM objects for this column
-                var comCells = new List<Word.Cell>();
-                foreach (var cell in this)
+                var progress = new LongOperationHelpers.ProgressLogger("CKColumn.MergeLeftDelete", Count);
+
+                for (int i = 1; i <= Count; i++)
                 {
-                    if (cell != null)
+                    var rightCell = this[i];
+
+                    try
                     {
-                        comCells.Add(cell.COMCell);
+                        var row = rightCell.RowIndex;
+                        var leftCell = rightCell.CellRef.Table.GetCellsFor(CellRef).FirstOrDefault();
+                        if (leftCell != null) throw new CKDebugException("Cell not retrieved.");
+
+                        LH.Debug($"[!sd] Merging Row {row}: Left ({Index - 1}) <- Right ({Index})");
+                        leftCell.Merge(rightCell);
+                    }
+                    catch (COMException ex)
+                    {
+                        Log.Warning(ex, $"[!sd] Merge failed at row {i}");
+                    }
+
+                    progress.Report();
+
+                    if (i % 100 == 0)
+                    {
+                        Log.Debug($"[!sd] Saving document after {i} row merges...");
+                        LongOperationHelpers.TrySilentSave(Document, $"after {i} left merges");
                     }
                 }
 
-                // Delete all cells
-                foreach (var comCell in comCells)
-                {
-                    comCell.Delete();
-                }
+                progress.Finish();
+                LongOperationHelpers.TrySilentSave(Document, "MergeLeftAndDeleteColumn: End of column merge operation.");
             }
             finally
             {
                 wordApp.ScreenUpdating = true;
-                //wordApp.EnableEvents = true;
+                this.Pong();
             }
 
-            // Clear internal cache if needed
-            Clear();
-
-            IsDirty = true;
-            this.Pong();
+            this.Clear();
+            this.IsDirty = true;
+            Log.Debug("Tracker [!sd]* Done tracking (Merge Left)");
         }
+
         public void SlowDelete()
         {
             LH.Debug("Tracker[!sd]* Starting slow delete");

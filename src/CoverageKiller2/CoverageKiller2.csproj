@@ -277,7 +277,6 @@
     <Compile Include="Pipeline\Config\ProcessorConfig.cs" />
     <Compile Include="Pipeline\Processes\DefaultFixer1.cs" />
     <Compile Include="Pipeline\Processes\DefaultFixer2.cs" />
-    <Compile Include="Pipeline\Processes\FixerHelpers.cs" />
     <Compile Include="Pipeline\Processes\FooterHeaderFixer.cs" />
     <Compile Include="Pipeline\Processes\SEA2025Fixer.cs" />
     <Compile Include="Pipeline\WordHelpers\TableFinder.cs" />

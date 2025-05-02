@@ -152,6 +152,12 @@ namespace CoverageKiller2.DOM.Tables
             }
         }
 
+        internal void Merge(CKCell rightCell)
+        {
+            COMCell.Merge(rightCell.COMCell);
+
+        }
+
 
         /// <summary>
         /// Gets the CKTable to which this cell belongs.

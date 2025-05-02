@@ -10,29 +10,12 @@ namespace CoverageKiller2.Pipeline.Processes
         {
             Template = template;
         }
-        public FooterHeaderFixer()
-        {
 
-        }
         public override void Process()
         {
-            Log.Information("Fixing Footer.");
-            Template.CopyHeaderAndFooterTo(CKDoc);
-            //var wordApp = CKDoc.WordApp;
-            //template.SelectFooterWholeStory(); //needs to be moved out to CKDocument, not an extension to Word.Document.
-            //wordApp.Selection.Copy();
-
-            //CKDoc.Activate();
-            //wordApp.Selection.GoTo(
-            //    What: Word.WdGoToItem.wdGoToSection,
-            //    Which: Word.WdGoToDirection.wdGoToAbsolute,
-            //    Count: 1);
-
-            //CKDoc.COMObject.SelectFooterWholeStory();
-            //wordApp.Selection.Delete();
-            //wordApp.Selection.PasteAndFormat(Word.WdRecoveryType.wdFormatOriginalFormatting);
-
-            //Clipboard.Clear();
+            Log.Information("Fixing Header / Footer.");
+            Template.CopyHeaderTo(CKDoc);
+            Template.CopyFooterTo(CKDoc);
         }
 
     }

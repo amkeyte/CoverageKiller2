@@ -488,7 +488,7 @@ namespace CoverageKiller2.DOM
 
         protected virtual void DoRefreshThings()
         {
-            this.PingPong();
+            //this.PingPong();
         }
 
 

@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 using Word = Microsoft.Office.Interop.Word;
 
@@ -29,15 +30,12 @@ namespace CoverageKiller2
             var ckDoc = new CKDocument(wDoc);
             var template = IndoorReportTemplate.OpenResource(ckDoc.Application);
             Log.Information("Running Pipeline: Fix Headers and footers for document {Document}", wDoc.Name);
+
             var pipeline = new CKWordPipeline(ckDoc)
             {
-                //{ new GetUserState() },
-                //{ new PageSetupFixer(template)  },
-                //{ new HeaderFixer(template) },
                 { new FooterHeaderFixer(template) },
-
-                //{ new ResetUserState() },
             };
+
             pipeline.Run();
             Log.Information("Pipeline completed.");
 
@@ -95,32 +93,29 @@ namespace CoverageKiller2
             //ckDoc.COMObject.ActiveWindow.ActivePane.View.SeekView = Word.WdSeekView.wdSeekMainDocument;
         }
 
-        public static void TestProcessor(CKDocument document)
+        public static int RunProcessor(CKDocument document)
         {
-            LH.Ping<CkDocHelpers>();
 
             string configPath = SelectConfigFile();
             if (string.IsNullOrEmpty(configPath))
             {
                 Log.Warning("No file selected. Aborting.");
-                return;
+                return -1;
             }
             var _loader = new ProcessorConfigLoader();
             bool success = _loader.LoadConfig(configPath);
 
             if (success)
             {
-                Log.Information($"Processor Name: {_loader.ProcessorConfig.Name}");
-                Log.Information($"Description: {_loader.ProcessorConfig.Description}");
-                Log.Information($"Source Template: {_loader.ProcessorConfig.SourceTemplate}");
+                Log.Information($"Loading editing process:\n" +
+                    $"\tProcessor Name: {_loader.ProcessorConfig.Name}\n" +
+                    $"\tDescription: {_loader.ProcessorConfig.Description}\n" +
+                    $"\tSource Template: {_loader.ProcessorConfig.SourceTemplate}\n" +
+                    $"\tSteps: {_loader.ProcessorConfig.Pipeline.Steps.StepList.Select(s => s.Name).DumpString("", "\t\t")}"
+                    );
 
-                foreach (var step in _loader.ProcessorConfig.Pipeline.Steps.StepList)
-                {
-                    Log.Information($"Step: {step.Name}");
-                }
-
-                //var ckDoc = new CKDocument(document);
                 var template = IndoorReportTemplate.OpenResource(document.Application);
+
                 Dictionary<string, object> initVars = new Dictionary<string, object>
                     {
                         { nameof(document), document },
@@ -129,47 +124,53 @@ namespace CoverageKiller2
                     };
 
                 var pipeline = new CKWordPipeline(initVars);
-                foreach (var x in _loader.ProcessorConfig.Pipeline.Steps.StepList)
+
+                foreach (var step in _loader.ProcessorConfig.Pipeline.Steps.StepList)
                 {
-                    Log.Debug("var x in _loader...");
                     // Get the step class type dynamically using reflection
-                    Type stepType = Type.GetType($"{x.Namespace}.{x.Name}");
+                    Type stepType = Type.GetType($"{step.Namespace}.{step.Name}");
 
                     if (stepType == null)
                     {
-                        Log.Error($"Step type '{x.Name}' not found.");
+                        Log.Warning($"Step type '{step.Name}' not found.");
+
+
+                        bool doContinue = LongOperationHelpers.PauseWithCountdown(
+                            $"Step type '{step.Name}' not found. Press Cancel to abort.",
+                            allowCancel: true);
+
+                        if (!doContinue)
+                            return -1;
+
                         continue;
                     }
 
                     try
                     {
-                        Log.Debug("trying...");
                         // Assuming the constructor takes an instance of IndoorReportTemplate
                         CKWordPipelineProcess instance =
                             (CKWordPipelineProcess)Activator.CreateInstance(stepType);
                         pipeline.Add(instance);
-                        Log.Information($"Successfully created instance of {x.Name}");
+                        Log.Information($"Successfully created instance of {step.Name}");
                     }
                     catch (Exception ex)
                     {
-                        Log.Error($"Error creating instance of {x.Name}: {ex.Message}");
-
-
+                        Log.Error(ex, $"Error creating instance of {step.Name}");
                         if (Debugger.IsAttached) Debugger.Break();
+                        throw;
                     }
                 }
                 pipeline.Run();
-                Log.Information("Pipeline completed.");
 
                 document.Application.CloseDocument(template);
-
-
+                Log.Information("Pipeline completed successfuly.");
+                return 0;
             }
             else
             {
-                Log.Error("Failed to load processor configuration.");
+                Log.Warning("Failed to load processor configuration.");
+                return -1;
             }
-            LH.Pong<CkDocHelpers>();
         }
 
 

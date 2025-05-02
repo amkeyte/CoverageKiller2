@@ -1,11 +1,13 @@
 ﻿using CoverageKiller2.DOM;
 using Serilog;
 using System;
+using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Windows.Forms;
 using Word = Microsoft.Office.Interop.Word;
 
-namespace CoverageKiller2.Helpers
+namespace CoverageKiller2
 {
     /// <summary>
     /// Provides utilities for managing long-running document operations.
@@ -15,6 +17,113 @@ namespace CoverageKiller2.Helpers
     /// </remarks>
     public static class LongOperationHelpers
     {
+        public static bool PauseWithCountdown(string message = "Paused", int seconds = 30, bool allowCancel = false)
+        {
+            bool shouldContinue = false;
+            bool userCanceled = false;
+
+            var form = new Form
+            {
+                Text = "Pause for Inspection",
+                Width = 400,
+                Height = 160,
+                StartPosition = FormStartPosition.CenterScreen,
+                FormBorderStyle = FormBorderStyle.FixedDialog,
+                MaximizeBox = false,
+                MinimizeBox = false,
+                TopMost = true
+            };
+
+            var label = new Label
+            {
+                Text = $"{message}\nContinuing automatically in {seconds} seconds...",
+                Dock = DockStyle.Top,
+                Height = 60,
+                TextAlign = ContentAlignment.MiddleCenter
+            };
+
+            var continueBtn = new Button
+            {
+                Text = "Continue Now",
+                Dock = DockStyle.Left,
+                Width = form.Width / (allowCancel ? 2 : 1)
+            };
+
+            continueBtn.Click += (s, e) =>
+            {
+                shouldContinue = true;
+                form.Close();
+            };
+
+            Button cancelBtn = null;
+            if (allowCancel)
+            {
+                cancelBtn = new Button
+                {
+                    Text = "Cancel",
+                    Dock = DockStyle.Right,
+                    Width = form.Width / 2
+                };
+                cancelBtn.Click += (s, e) =>
+                {
+                    userCanceled = true;
+                    form.Close();
+                };
+            }
+
+            var panel = new Panel { Dock = DockStyle.Bottom, Height = 50 };
+            panel.Controls.Add(continueBtn);
+            if (allowCancel) panel.Controls.Add(cancelBtn);
+
+            form.Controls.Add(label);
+            form.Controls.Add(panel);
+
+            var timer = new System.Windows.Forms.Timer { Interval = 1000 };
+            timer.Tick += (s, e) =>
+            {
+                seconds--;
+                label.Text = $"{message}\nContinuing automatically in {seconds} seconds...";
+                if (seconds <= 0)
+                {
+                    shouldContinue = true;
+                    form.Close();
+                }
+            };
+
+            timer.Start();
+            form.Show();
+
+            // Manual event loop that lets Word GUI respond
+            while (form.Visible)
+            {
+                System.Windows.Forms.Application.DoEvents();
+                System.Threading.Thread.Sleep(50);
+            }
+
+            timer.Stop();
+            form.Dispose();
+
+            return allowCancel ? shouldContinue && !userCanceled : true;
+        }
+
+
+        public static void DoStandardPause()
+        {
+            bool continueOperation = LongOperationHelpers.PauseWithCountdown(
+                message: "Inspect and continue...",
+                seconds: 30,
+                allowCancel: true
+            );
+
+
+            if (!continueOperation)
+            {
+                Log.Warning("User canceled operation during pause checkpoint.");
+                CKOffice_Word.Instance.ShutDown();
+                return;
+            }
+            Log.Information("Continuing after pause");
+        }
         /// <summary>
         /// Attempts to save the document without prompting the user. Logs and suppresses errors.
         /// </summary>

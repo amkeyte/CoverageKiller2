@@ -24,82 +24,110 @@ namespace CoverageKiller2.Pipeline.Processes
         public override void Process()
         {
 
-
-            Log.Information("Fixing Footer.");
-            Template.CopyHeaderAndFooterTo(CKDoc);
-
             Log.Information($"**** Fixing for SEA2025 {CKDoc.FileName}");
 
-            //remove test result references
-            RemoveTestResultRefernces();
-            //Add test radio information
 
-        }
-
-        private void RemoveTestResultRefernces()
-        {
-            this.Ping();
-
-            Log.Information("Removing Test Result References");
+            Log.Information("Starting Fixing Section 1");
             //Fix section 1
             FixSection1();
-
+            Log.Information("Finished Fixing Section 1");
+            Log.Information("Starting Fixing Floor Sections");
+            LongOperationHelpers.TrySilentSave(CKDoc);
+            LongOperationHelpers.DoStandardPause();
             //Remove Floor Section result references
             FixFloorSections();
+            Log.Information("Done Fixing Floor Sections");
+            Log.Information("Removing More Info");
+            LongOperationHelpers.TrySilentSave(CKDoc);
+            LongOperationHelpers.DoStandardPause();
             //Remove the Informaton
             RemoveMoreInfoSection();
+            Log.Information("Done Removing More Info");
+            Log.Information("Copying Shit Over");
+            LongOperationHelpers.TrySilentSave(CKDoc);
+            LongOperationHelpers.DoStandardPause();
             //copy shit over
             CopyShitOver();
-
-            this.Pong();
+            Log.Information("Done Copying shit over.");
+            LongOperationHelpers.TrySilentSave(CKDoc);
+            LongOperationHelpers.DoStandardPause();
 
         }
+
+
         /// <summary>
         /// Ace hates this, so public API this to spite them.
         /// </summary>
         /// <exception cref="NullReferenceException"></exception>
         public void CopyShitOver()
         {
-            CKDocument sourceDoc = default;
+            CKDocument ch5sourceDoc = default;
+            CKDocument iwnSourceDoc = default;
             try
             {
-                var sourceDocFile = PromptForSecondFile();
-                sourceDoc = CKDoc.Application.GetTempDocument(sourceDocFile, visible: false);
-                if (sourceDoc == null) throw new NullReferenceException("Source doc is null");
-
+                var ch5sourceDocFile = PromptForSecondFile();
+                ch5sourceDoc = CKDoc.Application.GetTempDocument(ch5sourceDocFile, visible: false);
+                if (ch5sourceDoc == null) throw new NullReferenceException("Source doc is null");
+                Log.Information("Copying Channel 5 data");
                 for (int i = CKDoc.Sections.Count; i > 0; i--)
                 {
 
                     var ckColCrit = CopyColumnFromSecondDocument(
-                        sourceDoc,
+                        ch5sourceDoc,
                         "Critical Point Report",
                         "Critical Point Report",
                         "DL\r\nPower\r\n(dBm)\r\n",
                         "Result",
                         i);
-                    if (ckColCrit is null) continue;
-
-
-                    ckColCrit[2].Text = "CH5\nNF\n(dBm)";
-                    ckColCrit.CellRef.Table.Rows[2][ckColCrit.Index + 1].Text = "IWN\nDL Power\n(dBm)";
+                    if (ckColCrit != null)
+                    {
+                        ckColCrit[2].Text = "CH5\nNF\n(dBm)";
+                        ckColCrit.CellRef.Table.Rows[2][ckColCrit.Index + 1].Text = "IWN\nDL Power\n(dBm)";
+                    }
 
                     var ckColArea = CopyColumnFromSecondDocument(
-                        sourceDoc,
+                        ch5sourceDoc,
                         "Area Report",
                         "Area Report",
                         "DL\r\nPower\r\n(dBm)\r\n",
                         "Result",
                         i);
-                    if (ckColArea is null) continue;
-
-                    ckColArea[2].Text = "CH5\nNF\n(dBm)";
-                    ckColArea.CellRef.Table.Rows[2][ckColArea.Index + 1].Text = "IWN\nDL Power\n(dBm)";
-
+                    if (ckColArea != null)
+                    {
+                        ckColArea[2].Text = "CH5\nNF\n(dBm)";
+                        ckColArea.CellRef.Table.Rows[2][ckColArea.Index + 1].Text = "IWN\nDL Power\n(dBm)";
+                    }
                 }
+
+                LongOperationHelpers.DoStandardPause();
+                var iwnSourceDocFile = PromptForSecondFile();
+                iwnSourceDoc = CKDoc.Application.GetTempDocument(iwnSourceDocFile, visible: false);
+                if (iwnSourceDoc == null) throw new NullReferenceException("Source doc is null");
+                Log.Information("Copying IWN data");
+                for (int i = CKDoc.Sections.Count; i > 1; i--) //hacked to 1 to leave column heading
+                {
+                    var ckColCrit = CopyColumnFromSecondDocument(
+                        iwnSourceDoc,
+                        "Critical Point Report",
+                        "Critical Point Report",
+                        "DL\r\nPower\r\n(dBm)\r\n",
+                        "IWN\nDL Power\n(dBm)",
+                        i);
+
+                    var ckColIWN = CopyColumnFromSecondDocument(
+                        iwnSourceDoc,
+                        "Area Report",
+                        "Area Report",
+                        "DL\r\nPower\r\n(dBm)\r\n",
+                        "IWN\nDL Power\n(dBm)",
+                        i);
+                }
+
             }
             finally
             {
-                CKDoc.Application.CloseDocument(sourceDoc);
+                iwnSourceDoc?.Application.CloseDocument(iwnSourceDoc);
+                ch5sourceDoc?.Application.CloseDocument(ch5sourceDoc);
             }
         }
 
@@ -185,6 +213,10 @@ namespace CoverageKiller2.Pipeline.Processes
 
         private void FixSection1()
         {
+
+            Log.Information("Fixing Header / Footer.");
+            Template.CopyHeaderTo(CKDoc);
+            Template.CopyFooterTo(CKDoc);
 
             var section = CKDoc.Sections[1];
             CKDoc.Activate();
