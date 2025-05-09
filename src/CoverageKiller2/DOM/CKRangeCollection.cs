@@ -1,5 +1,4 @@
-﻿using CoverageKiller2.Logging;
-using Serilog;
+﻿using Serilog;
 using System;
 using System.Diagnostics;
 
@@ -74,11 +73,9 @@ namespace CoverageKiller2.DOM
         {
             get
             {
-                this.Ping(msg: $"Parent: {Parent.GetType()}");
 
                 if (_isDirty || _isCheckingDirty)
                 {
-                    this.Pong();
                     return _isDirty;
                 }
 
@@ -100,7 +97,6 @@ namespace CoverageKiller2.DOM
                     _isCheckingDirty = false;
                 }
 
-                this.Pong(msg: _isDirty.ToString());
                 return _isDirty;
             }
             protected set => _isDirty = value;
@@ -114,7 +110,7 @@ namespace CoverageKiller2.DOM
         /// <returns>True if dirty; otherwise, false.</returns>
         protected virtual bool CheckDirtyFor()
         {
-            return this.PingPong(() => false, msg: false.ToString());
+            return false;
         }
 
         /// <summary>

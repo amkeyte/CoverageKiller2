@@ -1,5 +1,4 @@
-﻿using CoverageKiller2.Logging;
-using Serilog;
+﻿using Serilog;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -51,13 +50,12 @@ namespace CoverageKiller2.DOM
         /// <param name="isOwned">Whether CKOffice is responsible for cleanup.</param>
         public CKApplication(Word.Application wordApp, int pid, bool isOwned = true)
         {
-            this.Ping(msg: "$$$");
+
             _wordApp = wordApp ?? throw new ArgumentNullException(nameof(wordApp));
             IsOwned = isOwned;
             _PID = pid.ToString();
 
             Log.Verbose("CKApplication ctor success [{PID}] (Owned={IsOwned})", _PID, IsOwned);
-            this.Pong();
         }
 
         /// <summary>
@@ -93,7 +91,6 @@ namespace CoverageKiller2.DOM
         /// </summary>
         public CKDocument GetDocument(string fullPath, bool visible = false, bool createIfNotFound = false)
         {
-            this.Ping(msg: "$$$");
             if (string.IsNullOrWhiteSpace(fullPath))
                 throw new ArgumentException("Invalid file path.", nameof(fullPath));
 
@@ -115,7 +112,6 @@ namespace CoverageKiller2.DOM
                 _comDocs[ckDoc] = comDoc;
 
                 Log.Information("Document opened and tracked: {fileName}", ckDoc.FileName);
-                this.Pong();
                 return ckDoc;
             }
             catch (Exception ex)
@@ -329,7 +325,6 @@ namespace CoverageKiller2.DOM
         /// <returns>The result of the function.</returns>
         public T WithSuppressedAlerts<T>(Func<T> func)
         {
-            this.Ping();
             var originalAlerts = WordApp.DisplayAlerts;
             var originalSecurity = WordApp.AutomationSecurity;
 
@@ -337,7 +332,6 @@ namespace CoverageKiller2.DOM
             {
                 WordApp.DisplayAlerts = Word.WdAlertLevel.wdAlertsNone;
                 WordApp.AutomationSecurity = Microsoft.Office.Core.MsoAutomationSecurity.msoAutomationSecurityForceDisable;
-                this.Pong(msg: "try");
 
                 return func();
             }
@@ -345,7 +339,6 @@ namespace CoverageKiller2.DOM
             {
                 WordApp.DisplayAlerts = originalAlerts;
                 WordApp.AutomationSecurity = originalSecurity;
-                this.Pong("finally");
             }
         }
 
@@ -356,7 +349,7 @@ namespace CoverageKiller2.DOM
         /// <returns>A new CKDocument instance opened in this application.</returns>
         public CKDocument GetTempDocument(string fromFile = "", bool visible = false, bool keepAlive = false)
         {
-            this.Ping(msg: "$$$");
+
             Log.Information("Temp document requested.");
             fromFile = string.IsNullOrWhiteSpace(fromFile) ? DefaultTemplatePath : fromFile;
             if (!File.Exists(fromFile)) throw new FileNotFoundException("Template file not found.", fromFile);
@@ -382,7 +375,6 @@ namespace CoverageKiller2.DOM
                 Log.Warning("Failed to retreive temp document.");
             }
 
-            this.Pong();
 
             return doc;
         }
@@ -393,10 +385,9 @@ namespace CoverageKiller2.DOM
         /// <returns>A new ShadowWorkspace instance.</returns>
         public ShadowWorkspace GetShadowWorkspace(bool visible = false, bool keepAlive = false)
         {
-            this.Ping(msg: "$$$");
+
             var doc = GetTempDocument(visible: visible, keepAlive: keepAlive);
             var workspace = new ShadowWorkspace(doc, this, keepAlive);
-            this.Pong();
             return workspace;
         }
     }

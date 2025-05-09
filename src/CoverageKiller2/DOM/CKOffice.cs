@@ -111,7 +111,6 @@ namespace CoverageKiller2.DOM
         /// <returns>0 if registered successfully.</returns>
         public int TryPutAddin(ThisAddIn addin)
         {
-            this.Ping();
             var wordApp = Globals.ThisAddIn.Application;
             if (_isTesting) return 0;
             _addinInstance = addin ?? throw new ArgumentNullException(nameof(addin));
@@ -132,7 +131,6 @@ namespace CoverageKiller2.DOM
         /// </remarks>
         public int TryGetNewApp(out CKApplication app, bool visible = false)
         {
-            this.Ping(msg: $"Found {_applications.Count} open CKApplication instances.");
             int pid = -1;
 
             try
@@ -158,14 +156,12 @@ namespace CoverageKiller2.DOM
                 AppRecordManager.Save();
 
                 Log.Information("New CKApplication({PID}) created and registered.", app.PID);
-                this.Pong();
                 return _applications.Count;
             }
             catch (Exception ex)
             {
                 Log.Error("Failed to create CKApplication:{PID} {Message}", pid, ex.Message);
                 app = null;
-                this.Pong();
                 return -1;
             }
         }
@@ -236,7 +232,6 @@ namespace CoverageKiller2.DOM
         }
         public int ShutDown()
         {
-            this.Ping();
 
             if (!_isRunning)
             {
@@ -282,13 +277,11 @@ namespace CoverageKiller2.DOM
                 Log.Information("ThisAddIn still running. CKOffice_Word remains available.");
             }
 
-            this.Pong();
             return 0;
         }
 
         protected virtual void Dispose(bool disposing)
         {
-            this.Ping();
             if (!_disposedValue)
             {
                 if (disposing)
@@ -301,7 +294,6 @@ namespace CoverageKiller2.DOM
 
         public void Dispose()
         {
-            this.Ping();
             Dispose(disposing: true);
             GC.SuppressFinalize(this);
         }

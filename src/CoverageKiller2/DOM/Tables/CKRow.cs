@@ -1,5 +1,4 @@
-﻿using CoverageKiller2.Logging;
-using Serilog;
+﻿using Serilog;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -17,14 +16,12 @@ namespace CoverageKiller2.DOM.Tables
             TableAccessMode accessMode = TableAccessMode.IncludeAllCells)
             : base(rowIndex, table.GridColCount, table, parent)
         {
-            this.Ping();
 
 
             Index = rowIndex;
             Table = table;
             Parent = parent;
             AccessMode = accessMode;
-            this.Pong();
         }
 
         public int Index { get; }
@@ -48,10 +45,8 @@ namespace CoverageKiller2.DOM.Tables
         public CKRow(CKRowCellRef rowRef, IDOMObject parent)
             : base(parent)
         {
-            this.Ping();
             RowRef = rowRef;
             CellRefrences_1 = SplitCellRefs(rowRef, this);//maybe do this lazy
-            this.Pong();
         }
 
         public override CKCell this[int index]
@@ -98,7 +93,6 @@ namespace CoverageKiller2.DOM.Tables
         /// </remarks>
         public void SlowDelete()
         {
-            this.Ping();
 
             var table = RowRef.Table;
             var rowIndex = RowRef.RowIndex;
@@ -110,12 +104,10 @@ namespace CoverageKiller2.DOM.Tables
                     cell.COMCell.Delete();
             }
 
-            this.Pong();
         }
 
         private IEnumerable<CKCellRef> SplitCellRefs(CKRowCellRef rowRef, IDOMObject parent)
         {
-            this.Ping();
             var cellRefs = new Base1List<CKCellRef>();
             var colCount = rowRef.Table.GridColCount;
 
@@ -128,7 +120,7 @@ namespace CoverageKiller2.DOM.Tables
             var result = cellRefs.Where(cr => cr.Table.FitsAccessMode(cr));
 
 
-            return this.Pong(() => result, msg: result.ToString());
+            return result;
 
         }
     }
@@ -147,16 +139,12 @@ namespace CoverageKiller2.DOM.Tables
         internal string DumpList => _rows_1.Dump();
         public CKRows(IDOMObject parent)
         {
-            this.Ping();
             Parent = parent ?? throw new ArgumentNullException(nameof(parent));
-            this.Pong();
         }
 
         internal void Add(CKRow row)
         {
-            this.Ping();
             _rows_1.Add(row);
-            this.Pong();
         }
 
         public override IDOMObject Parent { get; protected set; }
@@ -177,9 +165,7 @@ namespace CoverageKiller2.DOM.Tables
         {
             get
             {
-                this.Ping(msg: $"Calling down to {typeof(Base1List<int>).Name}");
                 var row = _rows_1[index];
-                this.Pong();
                 return row;
             }
         }

@@ -40,23 +40,19 @@ namespace CoverageKiller2.DOM
         /// <exception cref="ArgumentNullException">Thrown when the <paramref name="range"/> parameter is null.</exception>
         public CKRange(Word.Range range, IDOMObject parent, bool deferCom = false, [CallerMemberName] string caller = "") : this(parent, deferCom)
         {
-            //this.Ping(msg: "$$$");
             COMRange = range ?? throw new ArgumentNullException(nameof(range)); //document match done in here
             IsCOMDeferred = false;
             //var msg = $"_COMRange:[{Path.GetFileName(_COMRange.Document.FullName)}::{new RangeSnapshot(_COMRange).FastHash}]\n" +
             //    $"CKRamge:[{Document.FileName}::{Snapshot.FastHash}\n" +
             //    $"called by {caller}";
 
-            //this.Pong(msg: msg);
         }
 
         public CKRange(IDOMObject parent, bool deferCom = true, [CallerMemberName] string caller = "")
         {
-            //this.Ping(msg: "$$$");
             Parent = parent ?? throw new ArgumentNullException(nameof(parent));
             IsCOMDeferred = deferCom;
             IsDirty = IsCOMDeferred;
-            //this.Pong(msg: $"{Document.FileName}::[COMRANGE NOT ASSIGNED]");
         }
 
         #endregion
@@ -297,10 +293,9 @@ namespace CoverageKiller2.DOM
         {
             get
             {
-                this.Ping();
                 if (_isDirtyCount++ % 20 == 0) LH.Checkpoint($"CKRange.IsDirty count: {_isDirtyCount}");
 
-                if (_isCheckingDirty) return this.Pong(() => _isDirty);
+                if (_isCheckingDirty) return _isDirty;
                 _isCheckingDirty = true;
 
 
@@ -308,14 +303,13 @@ namespace CoverageKiller2.DOM
 
 
                 _isCheckingDirty = false;
-                return this.Pong(() => _isDirty, msg: _isDirty.ToString());
+                return _isDirty;
             }
             set => _isDirty = value;
         }
 
         protected virtual bool CheckDirtyFor()
         {
-            this.PingPong();
             return false;
         }
 
@@ -369,22 +363,18 @@ namespace CoverageKiller2.DOM
         {
             get
             {
-                this.Ping();
                 if (COMRange == null) throw new InvalidOperationException("COMRange is null.");
                 var formatted = _COMRange.FormattedText;
                 var result = new CKRange(formatted, Parent);
-                this.Pong();
                 return result;
 
             }
             set
             {
-                this.Ping();
                 if (COMRange == null) throw new InvalidOperationException("COMRange is null.");
                 if (value?._COMRange == null) throw new ArgumentNullException(nameof(value));
                 _COMRange.FormattedText = value._COMRange;
                 IsDirty = true;
-                this.Pong();
 
             }
         }
@@ -488,7 +478,6 @@ namespace CoverageKiller2.DOM
 
         protected virtual void DoRefreshThings()
         {
-            //this.PingPong();
         }
 
 
@@ -588,7 +577,6 @@ namespace CoverageKiller2.DOM
         /// <remarks>Version: CK2.00.01.0003</remarks>
         public void SetBackgroundColor(Word.WdColor color)
         {
-            //this.Ping(Document.FileName);
 
             //// Prefer setting cell backgrounds if there are cells
             //if (Cells.Count > 0)
@@ -604,7 +592,6 @@ namespace CoverageKiller2.DOM
             COMRange.Shading.BackgroundPatternColor = color;
             //}
 
-            //this.Pong();
         }
 
         /// <summary>
@@ -617,7 +604,6 @@ namespace CoverageKiller2.DOM
         /// </remarks>
         public void Delete(CKTables tables)
         {
-            this.Ping(Document.FileName);
 
             if (tables == null)
                 throw new ArgumentNullException(nameof(tables));
@@ -633,7 +619,6 @@ namespace CoverageKiller2.DOM
 
             IsDirty = true; // Invalidate this range after deletion
 
-            this.Pong();
         }
         /// <summary>
         /// Determines whether this range fully contains the specified range.

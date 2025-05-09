@@ -1,5 +1,4 @@
-﻿using CoverageKiller2.Logging;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace CoverageKiller2.DOM
@@ -82,13 +81,11 @@ namespace CoverageKiller2.DOM
         /// <returns>The converted object of type T.</returns>
         public static T Cast<T>(IDOMObject input) where T : IDOMObject
         {
-            LH.Ping(typeof(IDOMCaster), new Type[] { typeof(T) });
             if (input == null) throw new ArgumentNullException(nameof(input));
             if (_casters.TryGetValue(typeof(T), out var caster))
             {
                 var result = (T)caster(input);
 
-                LH.Pong(typeof(IDOMCaster), new Type[] { typeof(T) });
                 return result;
             }
 

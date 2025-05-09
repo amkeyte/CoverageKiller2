@@ -1,5 +1,4 @@
 ﻿using CoverageKiller2.DOM;
-using CoverageKiller2.Logging;
 using Serilog;
 using System;
 
@@ -17,11 +16,9 @@ public class ShadowWorkspace : IDOMObject, IDisposable
 
     internal ShadowWorkspace(CKDocument doc, CKApplication app, bool keepOpen)
     {
-        this.Ping(msg: "$$$");
         _doc = doc ?? throw new ArgumentNullException(nameof(doc));
         _app = app ?? throw new ArgumentNullException(nameof(app));
         _doc.Activate();//see what happens.
-        this.Pong();
     }
 
     /// <summary>
@@ -76,7 +73,6 @@ public class ShadowWorkspace : IDOMObject, IDisposable
     /// </remarks>
     public T CloneFrom<T>(T objToClone, CKRange cloneToTarget) where T : IDOMObject
     {
-        this.Ping(new[] { typeof(T) });
 
         if (objToClone == null) throw new ArgumentNullException(nameof(objToClone));
         if (cloneToTarget == null) throw new ArgumentNullException(nameof(cloneToTarget));
@@ -98,7 +94,6 @@ public class ShadowWorkspace : IDOMObject, IDisposable
 
             var result = IDOMCaster.Cast<T>(_doc.Range(insertStart, insertEnd));
 
-            this.Pong(new[] { typeof(T) });
             return result;
         });
     }
@@ -114,13 +109,11 @@ public class ShadowWorkspace : IDOMObject, IDisposable
     /// </remarks>
     public T CloneFrom<T>(T objToClone) where T : IDOMObject
     {
-        this.Pong(new[] { typeof(T) });
 
         if (objToClone == null) throw new ArgumentNullException(nameof(objToClone));
 
         var result = CloneFrom(objToClone, _doc.Content.CollapseToEnd());
 
-        LH.Pong(GetType(), new Type[] { typeof(T) });
         return result;
     }
 
@@ -137,7 +130,6 @@ public class ShadowWorkspace : IDOMObject, IDisposable
     /// </remarks>
     public T CloneFrom<T>(T objToClone, int start, int end) where T : IDOMObject
     {
-        this.Ping(new[] { typeof(T) });
 
         if (objToClone == null) throw new ArgumentNullException(nameof(objToClone));
         if (start < 0 || end < start) throw new ArgumentOutOfRangeException();
@@ -145,7 +137,6 @@ public class ShadowWorkspace : IDOMObject, IDisposable
         var range = _doc.Range(start, end);
         var result = CloneFrom(objToClone, range);
 
-        this.Pong(new[] { typeof(T) });
         return result;
     }
 

@@ -63,10 +63,8 @@ namespace CoverageKiller2.DOM.Tables
 
         public CKTable(Word.Table table, IDOMObject parent) : base(table.Range, parent)
         {
-            this.Ping();
             COMTable = table ?? throw new ArgumentNullException(nameof(table));
             _converterService = new CKCellRefConverterService(this);
-            this.Pong();
         }
 
         public Word.Table COMTable { get; private set; }
@@ -91,17 +89,17 @@ namespace CoverageKiller2.DOM.Tables
                     break;
             }
 
-            return this.Pong(() => result);
+            return result;
         }
         private CKTableGrid _grid;
         [Obsolete("Internal for testing only. Do not use in production code.")]
         internal CKTableGrid Grid => Cache(ref _grid, () => CKTableGrid.GetInstance(this, COMTable));
 
         private CKRows _rows_1;
-        public CKRows Rows => this.PingPong(() => Cache(ref _rows_1, BuildRows));
+        public CKRows Rows => Cache(ref _rows_1, BuildRows);
 
         private CKColumns _cols_1;
-        public CKColumns Columns => this.PingPong(() => Cache(ref _cols_1, BuildColumns));
+        public CKColumns Columns => Cache(ref _cols_1, BuildColumns);
 
         private readonly CKCellRefConverterService _converterService;
 
@@ -150,14 +148,12 @@ namespace CoverageKiller2.DOM.Tables
             var COMCell = COMTable.Cell(gridCell.GridRow, gridCell.GridCol); // this may break out of range.
             //Log.Debug($"Requesting COMTable cell returned cell[{gridCell.GridRow},{gridCell.GridCol})" +
             //    $" returned cell text '{COMCell.Range.Text.Scrunch()}");
-            this.Pong();
             return COMCell;
         }
 
 
         public CKCells GetCellsFor(CKCellRef cellRef)
         {
-            this.Ping(msg: $"Table [{DocumentTableIndex}]");
             var gridCellRef = Converters.GetGridCellRef(cellRef);
             var gridCells = Grid.GetMasterCell(gridCellRef);//hacked
 
@@ -213,7 +209,6 @@ namespace CoverageKiller2.DOM.Tables
 
         private CKRows BuildRows()
         {
-            this.Ping();
             var rowCount = Grid.RowCount;
             var rows = new CKRows(this);
             for (var rowIndex = 1; rowIndex <= rowCount; rowIndex++)
@@ -223,14 +218,12 @@ namespace CoverageKiller2.DOM.Tables
             }
 
 
-            this.Pong();
 
             return _rows_1 = rows;
         }
 
         private CKColumns BuildColumns()
         {
-            this.Ping();
             var colCount = Grid.ColCount;
             var cols = new CKColumns(this);
 
@@ -240,7 +233,6 @@ namespace CoverageKiller2.DOM.Tables
                 cols.Add(new CKColumn(colRef, cols));
             }
 
-            this.Pong();
             return _cols_1 = cols;
         }
 

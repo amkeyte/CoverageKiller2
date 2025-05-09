@@ -1,5 +1,4 @@
 ﻿using CoverageKiller2.DOM;
-using CoverageKiller2.Logging;
 using CoverageKiller2.Pipeline.Config;
 using System;
 using System.Collections;
@@ -43,7 +42,6 @@ namespace CoverageKiller2.Pipeline
 
         public CKWordPipeline(Dictionary<string, object> initVars)
         {
-            this.Ping();
             try
             {
 
@@ -55,7 +53,6 @@ namespace CoverageKiller2.Pipeline
             {
                 if (Debugger.IsAttached) Debugger.Break();
             }
-            this.Pong();
 
         }
 

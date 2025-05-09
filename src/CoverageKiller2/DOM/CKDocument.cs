@@ -55,8 +55,7 @@ namespace CoverageKiller2.DOM
         /// <summary>
         /// Provides access to the document's tables as a CKTables collection.
         /// </summary>
-
-        public CKTables Tables => this.PingPong(() => Content.Tables, msg: "$$$");
+        public CKTables Tables => Content.Tables;
 
 
         /// <summary>

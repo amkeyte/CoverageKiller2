@@ -152,7 +152,6 @@ namespace CoverageKiller2.DOM.Tables
             {
                 throw new CKDebugException("No master cells found.");
             }
-            this.Pong();
             return result;
         }
         public bool HasMerge//TODO cache this someday
@@ -170,7 +169,6 @@ namespace CoverageKiller2.DOM.Tables
 
         private CKTableGrid(CKTable parent)//, Word.Table table)
         {
-            //this.Ping(msg: parent.Snapshot.FastHash.ToString());
             //_ckTable = parent;
             //_comTable = table;
             var workspace = parent.Application.GetShadowWorkspace();
@@ -179,12 +177,10 @@ namespace CoverageKiller2.DOM.Tables
             _grid = _crawler.Grid;
             parent.Application.CloseDocument(workspace.Document);
 
-            //this.Pong();
         }
 
         private Word.Table CloneToShadow(CKTable sourceTable, ShadowWorkspace shadowWorkspace)
         {
-            this.Ping();
             //for debugging uncomment.
             //shadowWorkspace.ShowDebuggerWindow();
             //shadowWorkspace.Document.KeepAlive = true;
@@ -202,7 +198,7 @@ namespace CoverageKiller2.DOM.Tables
 
             //pulling once
 
-            return this.Pong(() => clonedTable.COMTable);
+            return clonedTable.COMTable;
         }
     }
 }

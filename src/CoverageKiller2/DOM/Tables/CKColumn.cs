@@ -21,7 +21,6 @@ namespace CoverageKiller2.DOM.Tables
             TableAccessMode accessMode = TableAccessMode.IncludeAllCells)
             : base(1, colIndex, table, parent)//first cell as filler.
         {
-            this.Ping();
             if (parent == null) throw new ArgumentNullException(nameof(parent));
             if (table == null) throw new ArgumentNullException(nameof(table));
             if (!table.Document.Equals(parent.Document)) throw new ArgumentException("table and parent must have the same document.");
@@ -29,7 +28,6 @@ namespace CoverageKiller2.DOM.Tables
             Table = table;
             Parent = parent;
             AccessMode = accessMode;
-            this.Pong();
         }
 
         public int Index { get; }
@@ -46,11 +44,9 @@ namespace CoverageKiller2.DOM.Tables
         public CKColumn(CKColCellRef colRef, IDOMObject parent)
             : base(parent)
         {
-            this.Ping();
 
             CellRef = colRef;
             CellRefrences_1 = SplitCellRefs(colRef, this);
-            this.Pong();
         }
 
         /// <summary>
@@ -78,7 +74,6 @@ namespace CoverageKiller2.DOM.Tables
 
         private IEnumerable<CKCellRef> SplitCellRefs(CKColCellRef colRef, IDOMObject parent)
         {
-            this.Ping();
             //split out the ColRef into its individual cells.
             var cellRefs_1 = new Base1List<CKCellRef>();
             var rowCount = colRef.Table.GridRowCount;
@@ -92,7 +87,7 @@ namespace CoverageKiller2.DOM.Tables
             var result = cellRefs_1.Where(cr => cr.Table.FitsAccessMode(cr));
             IsDirty = true;
 
-            return this.Pong(() => result, msg: result.ToString());
+            return result;
         }
         /// <summary>
         /// Deletes the column if no merged cells exist, or falls back to SlowDelete.
@@ -153,7 +148,6 @@ namespace CoverageKiller2.DOM.Tables
             finally
             {
                 wordApp.ScreenUpdating = true;
-                this.Pong();
             }
 
             this.Clear();
@@ -234,7 +228,6 @@ namespace CoverageKiller2.DOM.Tables
             finally
             {
                 wordApp.ScreenUpdating = true;
-                this.Pong();
             }
 
             this.Clear();
@@ -259,16 +252,12 @@ namespace CoverageKiller2.DOM.Tables
 
         public CKColumns(IDOMObject parent)
         {
-            this.Ping();
             Parent = parent ?? throw new ArgumentNullException(nameof(parent));
-            this.Pong();
         }
 
         internal void Add(CKColumn column)
         {
-            this.Ping();
             _columns_1.Add(column);
-            this.Pong();
         }
 
         public override IDOMObject Parent { get; protected set; }
@@ -289,9 +278,7 @@ namespace CoverageKiller2.DOM.Tables
         {
             get
             {
-                this.Ping(msg: $"Calling down to {typeof(Base1List<int>).Name}");
                 var row = _columns_1[index];
-                this.Pong();
                 return row;
             }
         }
@@ -310,7 +297,6 @@ namespace CoverageKiller2.DOM.Tables
         /// <param name="index">The one-based index of the column to delete.</param>
         public void Delete(int index)
         {
-            this.Ping();
 
             if (index < 1 || index > Count)
                 throw new ArgumentOutOfRangeException(nameof(index), "Index out of valid range.");
@@ -318,7 +304,6 @@ namespace CoverageKiller2.DOM.Tables
             var column = this[index];
             Delete(column);
 
-            this.Pong();
         }
 
         /// <summary>
@@ -327,7 +312,6 @@ namespace CoverageKiller2.DOM.Tables
         /// <param name="column">The column to delete.</param>
         public void Delete(CKColumn column)
         {
-            this.Ping();
 
             if (column == null)
                 throw new ArgumentNullException(nameof(column));
@@ -360,7 +344,6 @@ namespace CoverageKiller2.DOM.Tables
 
             IsDirty = true;
 
-            this.Pong();
         }
 
 
@@ -370,7 +353,6 @@ namespace CoverageKiller2.DOM.Tables
         /// <param name="columns">The collection of columns to delete.</param>
         public void Delete(IEnumerable<CKColumn> columns)
         {
-            this.Ping();
 
             if (columns == null) throw new ArgumentNullException(nameof(columns));
 
@@ -379,7 +361,6 @@ namespace CoverageKiller2.DOM.Tables
             if (!targets.Any())
             {
                 Log.Debug("No columns provided for deletion.");
-                this.Pong();
                 return;
             }
 
@@ -400,7 +381,6 @@ namespace CoverageKiller2.DOM.Tables
 
             IsDirty = true;
 
-            this.Pong();
         }
         /// <summary>
         /// Deletes all columns matching the given predicate.

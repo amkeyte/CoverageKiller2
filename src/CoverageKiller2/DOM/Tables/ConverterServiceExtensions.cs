@@ -54,7 +54,6 @@ namespace CoverageKiller2.DOM.Tables
             this CKTable.CKCellRefConverterService service,
             CKRowCellRef rowRef)
         {
-            LH.Ping(typeof(ConverterServiceExtensions));
             if (rowRef == null) throw new ArgumentNullException(nameof(rowRef));
             return new CKGridCellRef(
                 rowRef.Index, 1, rowRef.Index, service.Grid.ColCount);

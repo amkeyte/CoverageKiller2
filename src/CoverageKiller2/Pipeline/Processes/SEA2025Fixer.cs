@@ -134,17 +134,14 @@ namespace CoverageKiller2.Pipeline.Processes
         private void RemoveMoreInfoSection()
 
         {
-            this.Ping();
 
             var additionalInfoSection = CKDoc.Range().TryFindNext("Additional Info");
 
             additionalInfoSection?.Sections[1].Delete();
 
-            this.Pong();
         }
         private void FixFloorSections()
         {
-            this.Ping(msg: CKDoc.FileName);
 
             foreach (var section in CKDoc.Sections.Reverse())
             {
@@ -332,7 +329,6 @@ namespace CoverageKiller2.Pipeline.Processes
         {
             if (sourceDoc == null) throw new ArgumentNullException(nameof(sourceDoc));
 
-            this.Ping();
             CKColumn result = default;
 
             try
@@ -370,7 +366,6 @@ namespace CoverageKiller2.Pipeline.Processes
                 Log.Warning("Section index out of range during column copy.");
                 Log.Error(ex.Message);
             }
-            this.Pong();
             return result;
         }
 
@@ -385,7 +380,6 @@ namespace CoverageKiller2.Pipeline.Processes
             if (sourceColumn == null) throw new ArgumentNullException(nameof(sourceColumn));
             if (destinationColumn == null) throw new ArgumentNullException(nameof(destinationColumn));
 
-            this.Ping($"{sourceColumn.Document.FileName}");
 
             var sourceCells = sourceColumn.Cells;
             var destinationCells = destinationColumn.Cells;
@@ -410,7 +404,6 @@ namespace CoverageKiller2.Pipeline.Processes
 
             Log.Information($"Set column font.");
 
-            this.Pong();
         }
 
 

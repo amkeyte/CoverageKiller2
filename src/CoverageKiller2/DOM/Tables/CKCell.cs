@@ -70,7 +70,6 @@ namespace CoverageKiller2.DOM.Tables
         /// <param name="parent">The owning DOM object (table or collection).</param>
         public CKCellRef(int rowIndex, int colIndex, RangeSnapshot snapshot, CKTable table, IDOMObject parent)
         {
-            this.Ping();
             if (parent == null) throw new ArgumentNullException(nameof(parent));
             if (table == null) throw new ArgumentNullException(nameof(table));
 
@@ -79,7 +78,6 @@ namespace CoverageKiller2.DOM.Tables
             Snapshot = snapshot;
             Table = table;
             Parent = parent;
-            this.Pong();
         }
         public CKTable Table { get; }
 
@@ -88,7 +86,6 @@ namespace CoverageKiller2.DOM.Tables
         public CKCellRef(int rowIndex, int colIndex, CKTable table, IDOMObject parent)
             : this(rowIndex, colIndex, null, table, parent)
         {
-            this.Ping();
 
 
             if (rowIndex < 1 || rowIndex > table.GridRowCount) throw new ArgumentOutOfRangeException(nameof(rowIndex));
@@ -98,7 +95,6 @@ namespace CoverageKiller2.DOM.Tables
             if (parent == null) throw new ArgumentNullException(nameof(parent));
             if (table == null) throw new ArgumentNullException(nameof(table));
             if (!table.Document.Matches(table.Document)) throw new ArgumentException("table and parent must share a document.");
-            this.Pong();
         }
     }
 
@@ -242,7 +238,6 @@ namespace CoverageKiller2.DOM.Tables
         {
             get
             {
-                this.Ping();
                 if (_cachedCells_1.Count == 0 || IsDirty)
                 {
                     _cachedCells_1 = new Base1List<CKCell>();
@@ -252,7 +247,6 @@ namespace CoverageKiller2.DOM.Tables
                     }
                     IsDirty = false;
                 }
-                this.Pong();
                 return _cachedCells_1;
             }
         }
@@ -328,7 +322,6 @@ namespace CoverageKiller2.DOM.Tables
 
         public override int IndexOf(object obj)
         {
-            this.Ping();
             int index = -1; //default return not found.
             CKCell foundCell = default;
             if (obj is CKCell ckCell)
@@ -342,7 +335,6 @@ namespace CoverageKiller2.DOM.Tables
             }
 
             index = CellsList_1.IndexOf(foundCell);
-            this.Pong();
             return index;
         }
     }

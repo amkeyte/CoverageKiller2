@@ -1,5 +1,4 @@
-﻿using CoverageKiller2.Logging;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,7 +34,7 @@ namespace CoverageKiller2.DOM.Tables
         }
 
         /// <inheritdoc/>
-        public override int Count => this.PingPong(() => TablesList_1.Count);
+        public override int Count => TablesList_1.Count;
 
         /// <inheritdoc/>
         public override void Clear() => _cachedTables_1.Clear();
@@ -46,18 +45,16 @@ namespace CoverageKiller2.DOM.Tables
         /// <inheritdoc/>
         protected override bool CheckDirtyFor()
         {
-            this.PingPong();
             // Placeholder logic: needs refinement
             return false;
         }
 
-        private Word.Tables COMTables => this.PingPong(() => _comTables);
+        private Word.Tables COMTables => _comTables;
 
         private Base1List<CKTable> TablesList_1
         {
             get
             {
-                this.Ping(msg: Document.FileName);
 
                 if (!_cachedTables_1.Any() || IsDirty)
                 {
@@ -69,7 +66,6 @@ namespace CoverageKiller2.DOM.Tables
                     IsDirty = false;
                 }
 
-                this.Pong();
                 return _cachedTables_1;
             }
         }
@@ -119,11 +115,9 @@ namespace CoverageKiller2.DOM.Tables
         {
             get
             {
-                this.Ping(Document.FileName);
                 if (index < 1 || index > Count)
                     throw new ArgumentOutOfRangeException(nameof(index), "Index must be between 1 and the number of tables.");
                 var result = TablesList_1[index];
-                this.Pong();
                 return result;
             }
         }
@@ -131,16 +125,13 @@ namespace CoverageKiller2.DOM.Tables
         /// <inheritdoc/>
         public override int IndexOf(object obj)
         {
-            this.Ping(Document.FileName);
 
             if (obj is CKTable table)
             {
                 int index = TablesList_1.IndexOf(table);
-                this.Pong();
                 return index;
             }
 
-            this.Pong();
             return -1;
         }
 
@@ -158,7 +149,6 @@ namespace CoverageKiller2.DOM.Tables
         /// </remarks>
         public CKTable Add(CKRange insertAt, int numRows, int numColumns)
         {
-            this.Ping(Document.FileName);
 
             if (insertAt == null) throw new ArgumentNullException(nameof(insertAt));
             if (numRows < 1) throw new ArgumentOutOfRangeException(nameof(numRows));
@@ -169,7 +159,7 @@ namespace CoverageKiller2.DOM.Tables
             var wordTable = COMTables.Add(insertAt.COMRange, numRows, numColumns);
 
             IsDirty = true;
-            return this.Pong(() => new CKTable(wordTable, this));
+            return new CKTable(wordTable, this);
         }
 
         /// <summary>
@@ -183,14 +173,12 @@ namespace CoverageKiller2.DOM.Tables
         /// </remarks>
         internal CKTable ItemOf(Word.Cell cell)
         {
-            this.Ping(Document.FileName);
 
             if (cell == null) throw new ArgumentNullException(nameof(cell));
 
             var ckTable = TablesList_1.FirstOrDefault(t => t.Contains(cell))
                 ?? throw new ArgumentOutOfRangeException(nameof(cell), "Cell is not contained in any known table.");
 
-            this.Pong();
             return ckTable;
         }
 

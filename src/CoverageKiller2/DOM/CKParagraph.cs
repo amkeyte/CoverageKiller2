@@ -73,7 +73,6 @@ namespace CoverageKiller2.DOM
 
         protected override void DoRefreshThings()
         {
-            this.Ping();
             if (IsCOMDeferred)
             {
 
@@ -84,7 +83,6 @@ namespace CoverageKiller2.DOM
                 //checked if it's null to force COMParagraph to update, so that COMRange is valid.
                 if (COMParagraph == null) throw new CKDebugException("COMParagraph cannot refresh.");
             }
-            this.Pong();
         }
 
         public int Index { get; private set; }
