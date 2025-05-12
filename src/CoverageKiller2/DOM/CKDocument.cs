@@ -14,7 +14,7 @@ namespace CoverageKiller2.DOM
     /// headers, footers, and other editable regions of the document.
     /// </summary>
     /// <remarks>
-    /// Version: CK2.00.00.0001
+    /// Version: CK2.00.00. 0001
     /// </remarks>
     public class CKDocument : IDOMObject, IDisposable
     {

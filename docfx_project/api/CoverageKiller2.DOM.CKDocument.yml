@@ -61,7 +61,7 @@ items:
     Represents a wrapper around a Word document, providing DOM access to tables, sections,
 
     headers, footers, and other editable regions of the document.
-  remarks: 'Version: CK2.00.00.0001'
+  remarks: 'Version: CK2.00.00. 0001'
   example: []
   syntax:
     content: 'public class CKDocument : IDOMObject, IDisposable'
