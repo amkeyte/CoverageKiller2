@@ -1,0 +1,973 @@
+### YamlMime:ManagedReference
+items:
+- uid: CoverageKiller2.Logging.PingService
+  commentId: T:CoverageKiller2.Logging.PingService
+  id: PingService
+  parent: CoverageKiller2.Logging
+  children:
+  - CoverageKiller2.Logging.PingService.Checkpoint(System.String,System.Type,System.String)
+  - CoverageKiller2.Logging.PingService.PingPong``1(``0,System.String)
+  - CoverageKiller2.Logging.PingService.PingPong``1(``0,System.String,System.String)
+  - CoverageKiller2.Logging.PingService.PingPong``2(System.Func{``1},System.String,System.String)
+  - CoverageKiller2.Logging.PingService.PingPong``2(``0,System.Func{``1},System.String,System.String)
+  - CoverageKiller2.Logging.PingService.Ping``1(System.String)
+  - CoverageKiller2.Logging.PingService.Ping``1(System.String,System.String)
+  - CoverageKiller2.Logging.PingService.Ping``1(``0,System.String)
+  - CoverageKiller2.Logging.PingService.Ping``1(``0,System.String,System.String)
+  - CoverageKiller2.Logging.PingService.Ping``1(``0,System.Type[],System.String)
+  - CoverageKiller2.Logging.PingService.Pong``1(System.String)
+  - CoverageKiller2.Logging.PingService.Pong``1(System.String,System.String)
+  - CoverageKiller2.Logging.PingService.Pong``1(``0,System.String)
+  - CoverageKiller2.Logging.PingService.Pong``1(``0,System.String,System.String)
+  - CoverageKiller2.Logging.PingService.Pong``1(``0,System.Type,System.String)
+  - CoverageKiller2.Logging.PingService.Pong``1(``0,System.Type[],System.String)
+  - CoverageKiller2.Logging.PingService.Pong``2(``0,System.Func{``1},System.String,System.String)
+  langs:
+  - csharp
+  - vb
+  name: PingService
+  nameWithType: PingService
+  fullName: CoverageKiller2.Logging.PingService
+  type: Class
+  assemblies:
+  - CoverageKiller2
+  namespace: CoverageKiller2.Logging
+  syntax:
+    content: public static class PingService
+    content.vb: Public Module PingService
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.ToString
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+- uid: CoverageKiller2.Logging.PingService.Checkpoint(System.String,System.Type,System.String)
+  commentId: M:CoverageKiller2.Logging.PingService.Checkpoint(System.String,System.Type,System.String)
+  id: Checkpoint(System.String,System.Type,System.String)
+  parent: CoverageKiller2.Logging.PingService
+  langs:
+  - csharp
+  - vb
+  name: Checkpoint(string, Type, string)
+  nameWithType: PingService.Checkpoint(string, Type, string)
+  fullName: CoverageKiller2.Logging.PingService.Checkpoint(string, System.Type, string)
+  type: Method
+  assemblies:
+  - CoverageKiller2
+  namespace: CoverageKiller2.Logging
+  syntax:
+    content: public static void Checkpoint(string msg, Type caller = null, string callerName = "")
+    parameters:
+    - id: msg
+      type: System.String
+    - id: caller
+      type: System.Type
+    - id: callerName
+      type: System.String
+    content.vb: Public Shared Sub Checkpoint(msg As String, caller As Type = Nothing, callerName As String = "")
+  overload: CoverageKiller2.Logging.PingService.Checkpoint*
+  nameWithType.vb: PingService.Checkpoint(String, Type, String)
+  fullName.vb: CoverageKiller2.Logging.PingService.Checkpoint(String, System.Type, String)
+  name.vb: Checkpoint(String, Type, String)
+- uid: CoverageKiller2.Logging.PingService.Ping``1(System.String)
+  commentId: M:CoverageKiller2.Logging.PingService.Ping``1(System.String)
+  id: Ping``1(System.String)
+  parent: CoverageKiller2.Logging.PingService
+  langs:
+  - csharp
+  - vb
+  name: Ping<T>(string)
+  nameWithType: PingService.Ping<T>(string)
+  fullName: CoverageKiller2.Logging.PingService.Ping<T>(string)
+  type: Method
+  assemblies:
+  - CoverageKiller2
+  namespace: CoverageKiller2.Logging
+  syntax:
+    content: public static void Ping<T>(string callerName = "")
+    parameters:
+    - id: callerName
+      type: System.String
+    typeParameters:
+    - id: T
+    content.vb: Public Shared Sub Ping(Of T)(callerName As String = "")
+  overload: CoverageKiller2.Logging.PingService.Ping*
+  nameWithType.vb: PingService.Ping(Of T)(String)
+  fullName.vb: CoverageKiller2.Logging.PingService.Ping(Of T)(String)
+  name.vb: Ping(Of T)(String)
+- uid: CoverageKiller2.Logging.PingService.Ping``1(System.String,System.String)
+  commentId: M:CoverageKiller2.Logging.PingService.Ping``1(System.String,System.String)
+  id: Ping``1(System.String,System.String)
+  parent: CoverageKiller2.Logging.PingService
+  langs:
+  - csharp
+  - vb
+  name: Ping<T>(string, string)
+  nameWithType: PingService.Ping<T>(string, string)
+  fullName: CoverageKiller2.Logging.PingService.Ping<T>(string, string)
+  type: Method
+  assemblies:
+  - CoverageKiller2
+  namespace: CoverageKiller2.Logging
+  syntax:
+    content: public static void Ping<T>(string msg, string callerName = "")
+    parameters:
+    - id: msg
+      type: System.String
+    - id: callerName
+      type: System.String
+    typeParameters:
+    - id: T
+    content.vb: Public Shared Sub Ping(Of T)(msg As String, callerName As String = "")
+  overload: CoverageKiller2.Logging.PingService.Ping*
+  nameWithType.vb: PingService.Ping(Of T)(String, String)
+  fullName.vb: CoverageKiller2.Logging.PingService.Ping(Of T)(String, String)
+  name.vb: Ping(Of T)(String, String)
+- uid: CoverageKiller2.Logging.PingService.Ping``1(``0,System.String)
+  commentId: M:CoverageKiller2.Logging.PingService.Ping``1(``0,System.String)
+  id: Ping``1(``0,System.String)
+  isExtensionMethod: true
+  parent: CoverageKiller2.Logging.PingService
+  langs:
+  - csharp
+  - vb
+  name: Ping<T>(T, string)
+  nameWithType: PingService.Ping<T>(T, string)
+  fullName: CoverageKiller2.Logging.PingService.Ping<T>(T, string)
+  type: Method
+  assemblies:
+  - CoverageKiller2
+  namespace: CoverageKiller2.Logging
+  syntax:
+    content: public static void Ping<T>(this T caller, string callerName = "")
+    parameters:
+    - id: caller
+      type: '{T}'
+    - id: callerName
+      type: System.String
+    typeParameters:
+    - id: T
+    content.vb: Public Shared Sub Ping(Of T)(caller As T, callerName As String = "")
+  overload: CoverageKiller2.Logging.PingService.Ping*
+  nameWithType.vb: PingService.Ping(Of T)(T, String)
+  fullName.vb: CoverageKiller2.Logging.PingService.Ping(Of T)(T, String)
+  name.vb: Ping(Of T)(T, String)
+- uid: CoverageKiller2.Logging.PingService.Ping``1(``0,System.String,System.String)
+  commentId: M:CoverageKiller2.Logging.PingService.Ping``1(``0,System.String,System.String)
+  id: Ping``1(``0,System.String,System.String)
+  isExtensionMethod: true
+  parent: CoverageKiller2.Logging.PingService
+  langs:
+  - csharp
+  - vb
+  name: Ping<T>(T, string, string)
+  nameWithType: PingService.Ping<T>(T, string, string)
+  fullName: CoverageKiller2.Logging.PingService.Ping<T>(T, string, string)
+  type: Method
+  assemblies:
+  - CoverageKiller2
+  namespace: CoverageKiller2.Logging
+  syntax:
+    content: public static void Ping<T>(this T caller, string msg, string callerName = "")
+    parameters:
+    - id: caller
+      type: '{T}'
+    - id: msg
+      type: System.String
+    - id: callerName
+      type: System.String
+    typeParameters:
+    - id: T
+    content.vb: Public Shared Sub Ping(Of T)(caller As T, msg As String, callerName As String = "")
+  overload: CoverageKiller2.Logging.PingService.Ping*
+  nameWithType.vb: PingService.Ping(Of T)(T, String, String)
+  fullName.vb: CoverageKiller2.Logging.PingService.Ping(Of T)(T, String, String)
+  name.vb: Ping(Of T)(T, String, String)
+- uid: CoverageKiller2.Logging.PingService.Ping``1(``0,System.Type[],System.String)
+  commentId: M:CoverageKiller2.Logging.PingService.Ping``1(``0,System.Type[],System.String)
+  id: Ping``1(``0,System.Type[],System.String)
+  isExtensionMethod: true
+  parent: CoverageKiller2.Logging.PingService
+  langs:
+  - csharp
+  - vb
+  name: Ping<T>(T, Type[], string)
+  nameWithType: PingService.Ping<T>(T, Type[], string)
+  fullName: CoverageKiller2.Logging.PingService.Ping<T>(T, System.Type[], string)
+  type: Method
+  assemblies:
+  - CoverageKiller2
+  namespace: CoverageKiller2.Logging
+  syntax:
+    content: public static void Ping<T>(this T caller, Type[] genericParams, string callerName = "")
+    parameters:
+    - id: caller
+      type: '{T}'
+    - id: genericParams
+      type: System.Type[]
+    - id: callerName
+      type: System.String
+    typeParameters:
+    - id: T
+    content.vb: Public Shared Sub Ping(Of T)(caller As T, genericParams As Type(), callerName As String = "")
+  overload: CoverageKiller2.Logging.PingService.Ping*
+  nameWithType.vb: PingService.Ping(Of T)(T, Type(), String)
+  fullName.vb: CoverageKiller2.Logging.PingService.Ping(Of T)(T, System.Type(), String)
+  name.vb: Ping(Of T)(T, Type(), String)
+- uid: CoverageKiller2.Logging.PingService.Pong``1(System.String)
+  commentId: M:CoverageKiller2.Logging.PingService.Pong``1(System.String)
+  id: Pong``1(System.String)
+  parent: CoverageKiller2.Logging.PingService
+  langs:
+  - csharp
+  - vb
+  name: Pong<T>(string)
+  nameWithType: PingService.Pong<T>(string)
+  fullName: CoverageKiller2.Logging.PingService.Pong<T>(string)
+  type: Method
+  assemblies:
+  - CoverageKiller2
+  namespace: CoverageKiller2.Logging
+  syntax:
+    content: public static void Pong<T>(string callerName = "")
+    parameters:
+    - id: callerName
+      type: System.String
+    typeParameters:
+    - id: T
+    content.vb: Public Shared Sub Pong(Of T)(callerName As String = "")
+  overload: CoverageKiller2.Logging.PingService.Pong*
+  nameWithType.vb: PingService.Pong(Of T)(String)
+  fullName.vb: CoverageKiller2.Logging.PingService.Pong(Of T)(String)
+  name.vb: Pong(Of T)(String)
+- uid: CoverageKiller2.Logging.PingService.Pong``1(System.String,System.String)
+  commentId: M:CoverageKiller2.Logging.PingService.Pong``1(System.String,System.String)
+  id: Pong``1(System.String,System.String)
+  parent: CoverageKiller2.Logging.PingService
+  langs:
+  - csharp
+  - vb
+  name: Pong<T>(string, string)
+  nameWithType: PingService.Pong<T>(string, string)
+  fullName: CoverageKiller2.Logging.PingService.Pong<T>(string, string)
+  type: Method
+  assemblies:
+  - CoverageKiller2
+  namespace: CoverageKiller2.Logging
+  syntax:
+    content: public static void Pong<T>(string msg, string callerName = "")
+    parameters:
+    - id: msg
+      type: System.String
+    - id: callerName
+      type: System.String
+    typeParameters:
+    - id: T
+    content.vb: Public Shared Sub Pong(Of T)(msg As String, callerName As String = "")
+  overload: CoverageKiller2.Logging.PingService.Pong*
+  nameWithType.vb: PingService.Pong(Of T)(String, String)
+  fullName.vb: CoverageKiller2.Logging.PingService.Pong(Of T)(String, String)
+  name.vb: Pong(Of T)(String, String)
+- uid: CoverageKiller2.Logging.PingService.Pong``1(``0,System.String)
+  commentId: M:CoverageKiller2.Logging.PingService.Pong``1(``0,System.String)
+  id: Pong``1(``0,System.String)
+  isExtensionMethod: true
+  parent: CoverageKiller2.Logging.PingService
+  langs:
+  - csharp
+  - vb
+  name: Pong<T>(T, string)
+  nameWithType: PingService.Pong<T>(T, string)
+  fullName: CoverageKiller2.Logging.PingService.Pong<T>(T, string)
+  type: Method
+  assemblies:
+  - CoverageKiller2
+  namespace: CoverageKiller2.Logging
+  syntax:
+    content: public static void Pong<T>(this T caller, string callerName = "")
+    parameters:
+    - id: caller
+      type: '{T}'
+    - id: callerName
+      type: System.String
+    typeParameters:
+    - id: T
+    content.vb: Public Shared Sub Pong(Of T)(caller As T, callerName As String = "")
+  overload: CoverageKiller2.Logging.PingService.Pong*
+  nameWithType.vb: PingService.Pong(Of T)(T, String)
+  fullName.vb: CoverageKiller2.Logging.PingService.Pong(Of T)(T, String)
+  name.vb: Pong(Of T)(T, String)
+- uid: CoverageKiller2.Logging.PingService.Pong``1(``0,System.String,System.String)
+  commentId: M:CoverageKiller2.Logging.PingService.Pong``1(``0,System.String,System.String)
+  id: Pong``1(``0,System.String,System.String)
+  isExtensionMethod: true
+  parent: CoverageKiller2.Logging.PingService
+  langs:
+  - csharp
+  - vb
+  name: Pong<T>(T, string, string)
+  nameWithType: PingService.Pong<T>(T, string, string)
+  fullName: CoverageKiller2.Logging.PingService.Pong<T>(T, string, string)
+  type: Method
+  assemblies:
+  - CoverageKiller2
+  namespace: CoverageKiller2.Logging
+  syntax:
+    content: public static void Pong<T>(this T caller, string msg, string callerName = "")
+    parameters:
+    - id: caller
+      type: '{T}'
+    - id: msg
+      type: System.String
+    - id: callerName
+      type: System.String
+    typeParameters:
+    - id: T
+    content.vb: Public Shared Sub Pong(Of T)(caller As T, msg As String, callerName As String = "")
+  overload: CoverageKiller2.Logging.PingService.Pong*
+  nameWithType.vb: PingService.Pong(Of T)(T, String, String)
+  fullName.vb: CoverageKiller2.Logging.PingService.Pong(Of T)(T, String, String)
+  name.vb: Pong(Of T)(T, String, String)
+- uid: CoverageKiller2.Logging.PingService.Pong``1(``0,System.Type[],System.String)
+  commentId: M:CoverageKiller2.Logging.PingService.Pong``1(``0,System.Type[],System.String)
+  id: Pong``1(``0,System.Type[],System.String)
+  isExtensionMethod: true
+  parent: CoverageKiller2.Logging.PingService
+  langs:
+  - csharp
+  - vb
+  name: Pong<T>(T, Type[], string)
+  nameWithType: PingService.Pong<T>(T, Type[], string)
+  fullName: CoverageKiller2.Logging.PingService.Pong<T>(T, System.Type[], string)
+  type: Method
+  assemblies:
+  - CoverageKiller2
+  namespace: CoverageKiller2.Logging
+  syntax:
+    content: public static void Pong<T>(this T caller, Type[] genericParams, string callerName = "")
+    parameters:
+    - id: caller
+      type: '{T}'
+    - id: genericParams
+      type: System.Type[]
+    - id: callerName
+      type: System.String
+    typeParameters:
+    - id: T
+    content.vb: Public Shared Sub Pong(Of T)(caller As T, genericParams As Type(), callerName As String = "")
+  overload: CoverageKiller2.Logging.PingService.Pong*
+  nameWithType.vb: PingService.Pong(Of T)(T, Type(), String)
+  fullName.vb: CoverageKiller2.Logging.PingService.Pong(Of T)(T, System.Type(), String)
+  name.vb: Pong(Of T)(T, Type(), String)
+- uid: CoverageKiller2.Logging.PingService.Pong``1(``0,System.Type,System.String)
+  commentId: M:CoverageKiller2.Logging.PingService.Pong``1(``0,System.Type,System.String)
+  id: Pong``1(``0,System.Type,System.String)
+  isExtensionMethod: true
+  parent: CoverageKiller2.Logging.PingService
+  langs:
+  - csharp
+  - vb
+  name: Pong<T>(T, Type, string)
+  nameWithType: PingService.Pong<T>(T, Type, string)
+  fullName: CoverageKiller2.Logging.PingService.Pong<T>(T, System.Type, string)
+  type: Method
+  assemblies:
+  - CoverageKiller2
+  namespace: CoverageKiller2.Logging
+  syntax:
+    content: public static void Pong<T>(this T caller, Type genericParam, string callerName = "")
+    parameters:
+    - id: caller
+      type: '{T}'
+    - id: genericParam
+      type: System.Type
+    - id: callerName
+      type: System.String
+    typeParameters:
+    - id: T
+    content.vb: Public Shared Sub Pong(Of T)(caller As T, genericParam As Type, callerName As String = "")
+  overload: CoverageKiller2.Logging.PingService.Pong*
+  nameWithType.vb: PingService.Pong(Of T)(T, Type, String)
+  fullName.vb: CoverageKiller2.Logging.PingService.Pong(Of T)(T, System.Type, String)
+  name.vb: Pong(Of T)(T, Type, String)
+- uid: CoverageKiller2.Logging.PingService.PingPong``1(``0,System.String)
+  commentId: M:CoverageKiller2.Logging.PingService.PingPong``1(``0,System.String)
+  id: PingPong``1(``0,System.String)
+  isExtensionMethod: true
+  parent: CoverageKiller2.Logging.PingService
+  langs:
+  - csharp
+  - vb
+  name: PingPong<T>(T, string)
+  nameWithType: PingService.PingPong<T>(T, string)
+  fullName: CoverageKiller2.Logging.PingService.PingPong<T>(T, string)
+  type: Method
+  assemblies:
+  - CoverageKiller2
+  namespace: CoverageKiller2.Logging
+  syntax:
+    content: public static void PingPong<T>(this T caller, string callerName = "")
+    parameters:
+    - id: caller
+      type: '{T}'
+    - id: callerName
+      type: System.String
+    typeParameters:
+    - id: T
+    content.vb: Public Shared Sub PingPong(Of T)(caller As T, callerName As String = "")
+  overload: CoverageKiller2.Logging.PingService.PingPong*
+  nameWithType.vb: PingService.PingPong(Of T)(T, String)
+  fullName.vb: CoverageKiller2.Logging.PingService.PingPong(Of T)(T, String)
+  name.vb: PingPong(Of T)(T, String)
+- uid: CoverageKiller2.Logging.PingService.PingPong``1(``0,System.String,System.String)
+  commentId: M:CoverageKiller2.Logging.PingService.PingPong``1(``0,System.String,System.String)
+  id: PingPong``1(``0,System.String,System.String)
+  isExtensionMethod: true
+  parent: CoverageKiller2.Logging.PingService
+  langs:
+  - csharp
+  - vb
+  name: PingPong<T>(T, string, string)
+  nameWithType: PingService.PingPong<T>(T, string, string)
+  fullName: CoverageKiller2.Logging.PingService.PingPong<T>(T, string, string)
+  type: Method
+  assemblies:
+  - CoverageKiller2
+  namespace: CoverageKiller2.Logging
+  syntax:
+    content: public static void PingPong<T>(this T caller, string msg, string callerName = "")
+    parameters:
+    - id: caller
+      type: '{T}'
+    - id: msg
+      type: System.String
+    - id: callerName
+      type: System.String
+    typeParameters:
+    - id: T
+    content.vb: Public Shared Sub PingPong(Of T)(caller As T, msg As String, callerName As String = "")
+  overload: CoverageKiller2.Logging.PingService.PingPong*
+  nameWithType.vb: PingService.PingPong(Of T)(T, String, String)
+  fullName.vb: CoverageKiller2.Logging.PingService.PingPong(Of T)(T, String, String)
+  name.vb: PingPong(Of T)(T, String, String)
+- uid: CoverageKiller2.Logging.PingService.PingPong``2(System.Func{``1},System.String,System.String)
+  commentId: M:CoverageKiller2.Logging.PingService.PingPong``2(System.Func{``1},System.String,System.String)
+  id: PingPong``2(System.Func{``1},System.String,System.String)
+  parent: CoverageKiller2.Logging.PingService
+  langs:
+  - csharp
+  - vb
+  name: PingPong<T, TResult>(Func<TResult>, string, string)
+  nameWithType: PingService.PingPong<T, TResult>(Func<TResult>, string, string)
+  fullName: CoverageKiller2.Logging.PingService.PingPong<T, TResult>(System.Func<TResult>, string, string)
+  type: Method
+  assemblies:
+  - CoverageKiller2
+  namespace: CoverageKiller2.Logging
+  syntax:
+    content: public static TResult PingPong<T, TResult>(Func<TResult> action, string msg = null, string callerName = "")
+    parameters:
+    - id: action
+      type: System.Func{{TResult}}
+    - id: msg
+      type: System.String
+    - id: callerName
+      type: System.String
+    typeParameters:
+    - id: T
+    - id: TResult
+    return:
+      type: '{TResult}'
+    content.vb: Public Shared Function PingPong(Of T, TResult)(action As Func(Of TResult), msg As String = Nothing, callerName As String = "") As TResult
+  overload: CoverageKiller2.Logging.PingService.PingPong*
+  nameWithType.vb: PingService.PingPong(Of T, TResult)(Func(Of TResult), String, String)
+  fullName.vb: CoverageKiller2.Logging.PingService.PingPong(Of T, TResult)(System.Func(Of TResult), String, String)
+  name.vb: PingPong(Of T, TResult)(Func(Of TResult), String, String)
+- uid: CoverageKiller2.Logging.PingService.PingPong``2(``0,System.Func{``1},System.String,System.String)
+  commentId: M:CoverageKiller2.Logging.PingService.PingPong``2(``0,System.Func{``1},System.String,System.String)
+  id: PingPong``2(``0,System.Func{``1},System.String,System.String)
+  isExtensionMethod: true
+  parent: CoverageKiller2.Logging.PingService
+  langs:
+  - csharp
+  - vb
+  name: PingPong<T, TResult>(T, Func<TResult>, string, string)
+  nameWithType: PingService.PingPong<T, TResult>(T, Func<TResult>, string, string)
+  fullName: CoverageKiller2.Logging.PingService.PingPong<T, TResult>(T, System.Func<TResult>, string, string)
+  type: Method
+  assemblies:
+  - CoverageKiller2
+  namespace: CoverageKiller2.Logging
+  syntax:
+    content: public static TResult PingPong<T, TResult>(this T caller, Func<TResult> action, string msg = null, string callerName = "")
+    parameters:
+    - id: caller
+      type: '{T}'
+    - id: action
+      type: System.Func{{TResult}}
+    - id: msg
+      type: System.String
+    - id: callerName
+      type: System.String
+    typeParameters:
+    - id: T
+    - id: TResult
+    return:
+      type: '{TResult}'
+    content.vb: Public Shared Function PingPong(Of T, TResult)(caller As T, action As Func(Of TResult), msg As String = Nothing, callerName As String = "") As TResult
+  overload: CoverageKiller2.Logging.PingService.PingPong*
+  nameWithType.vb: PingService.PingPong(Of T, TResult)(T, Func(Of TResult), String, String)
+  fullName.vb: CoverageKiller2.Logging.PingService.PingPong(Of T, TResult)(T, System.Func(Of TResult), String, String)
+  name.vb: PingPong(Of T, TResult)(T, Func(Of TResult), String, String)
+- uid: CoverageKiller2.Logging.PingService.Pong``2(``0,System.Func{``1},System.String,System.String)
+  commentId: M:CoverageKiller2.Logging.PingService.Pong``2(``0,System.Func{``1},System.String,System.String)
+  id: Pong``2(``0,System.Func{``1},System.String,System.String)
+  isExtensionMethod: true
+  parent: CoverageKiller2.Logging.PingService
+  langs:
+  - csharp
+  - vb
+  name: Pong<T, TResult>(T, Func<TResult>, string, string)
+  nameWithType: PingService.Pong<T, TResult>(T, Func<TResult>, string, string)
+  fullName: CoverageKiller2.Logging.PingService.Pong<T, TResult>(T, System.Func<TResult>, string, string)
+  type: Method
+  assemblies:
+  - CoverageKiller2
+  namespace: CoverageKiller2.Logging
+  syntax:
+    content: public static TResult Pong<T, TResult>(this T caller, Func<TResult> action, string msg = null, string callerName = "")
+    parameters:
+    - id: caller
+      type: '{T}'
+    - id: action
+      type: System.Func{{TResult}}
+    - id: msg
+      type: System.String
+    - id: callerName
+      type: System.String
+    typeParameters:
+    - id: T
+    - id: TResult
+    return:
+      type: '{TResult}'
+    content.vb: Public Shared Function Pong(Of T, TResult)(caller As T, action As Func(Of TResult), msg As String = Nothing, callerName As String = "") As TResult
+  overload: CoverageKiller2.Logging.PingService.Pong*
+  nameWithType.vb: PingService.Pong(Of T, TResult)(T, Func(Of TResult), String, String)
+  fullName.vb: CoverageKiller2.Logging.PingService.Pong(Of T, TResult)(T, System.Func(Of TResult), String, String)
+  name.vb: Pong(Of T, TResult)(T, Func(Of TResult), String, String)
+references:
+- uid: CoverageKiller2.Logging
+  commentId: N:CoverageKiller2.Logging
+  isExternal: true
+  href: CoverageKiller2.html
+  name: CoverageKiller2.Logging
+  nameWithType: CoverageKiller2.Logging
+  fullName: CoverageKiller2.Logging
+  spec.csharp:
+  - uid: CoverageKiller2
+    name: CoverageKiller2
+    isExternal: true
+    href: CoverageKiller2.html
+  - name: .
+  - uid: CoverageKiller2.Logging
+    name: Logging
+    isExternal: true
+    href: CoverageKiller2.Logging.html
+  spec.vb:
+  - uid: CoverageKiller2
+    name: CoverageKiller2
+    isExternal: true
+    href: CoverageKiller2.html
+  - name: .
+  - uid: CoverageKiller2.Logging
+    name: Logging
+    isExternal: true
+    href: CoverageKiller2.Logging.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: CoverageKiller2.Logging.PingService.Checkpoint*
+  commentId: Overload:CoverageKiller2.Logging.PingService.Checkpoint
+  isExternal: true
+  href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Checkpoint_System_String_System_Type_System_String_
+  name: Checkpoint
+  nameWithType: PingService.Checkpoint
+  fullName: CoverageKiller2.Logging.PingService.Checkpoint
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: System.Type
+  commentId: T:System.Type
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.type
+  name: Type
+  nameWithType: Type
+  fullName: System.Type
+- uid: CoverageKiller2.Logging.PingService.Ping*
+  commentId: Overload:CoverageKiller2.Logging.PingService.Ping
+  isExternal: true
+  href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Ping__1_System_String_
+  name: Ping
+  nameWithType: PingService.Ping
+  fullName: CoverageKiller2.Logging.PingService.Ping
+- uid: '{T}'
+  commentId: '!:T'
+  definition: T
+  name: T
+  nameWithType: T
+  fullName: T
+- uid: T
+  name: T
+  nameWithType: T
+  fullName: T
+- uid: System.Type[]
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.type
+  name: Type[]
+  nameWithType: Type[]
+  fullName: System.Type[]
+  nameWithType.vb: Type()
+  fullName.vb: System.Type()
+  name.vb: Type()
+  spec.csharp:
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: '['
+  - name: ']'
+  spec.vb:
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: (
+  - name: )
+- uid: CoverageKiller2.Logging.PingService.Pong*
+  commentId: Overload:CoverageKiller2.Logging.PingService.Pong
+  isExternal: true
+  href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1_System_String_
+  name: Pong
+  nameWithType: PingService.Pong
+  fullName: CoverageKiller2.Logging.PingService.Pong
+- uid: CoverageKiller2.Logging.PingService.PingPong*
+  commentId: Overload:CoverageKiller2.Logging.PingService.PingPong
+  isExternal: true
+  href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_PingPong__1___0_System_String_
+  name: PingPong
+  nameWithType: PingService.PingPong
+  fullName: CoverageKiller2.Logging.PingService.PingPong
+- uid: System.Func{{TResult}}
+  commentId: T:System.Func{``1}
+  parent: System
+  definition: System.Func`1
+  href: https://learn.microsoft.com/dotnet/api/system.func-1
+  name: Func<TResult>
+  nameWithType: Func<TResult>
+  fullName: System.Func<TResult>
+  nameWithType.vb: Func(Of TResult)
+  fullName.vb: System.Func(Of TResult)
+  name.vb: Func(Of TResult)
+  spec.csharp:
+  - uid: System.Func`1
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-1
+  - name: <
+  - name: TResult
+  - name: '>'
+  spec.vb:
+  - uid: System.Func`1
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TResult
+  - name: )
+- uid: '{TResult}'
+  commentId: '!:TResult'
+  definition: TResult
+  name: TResult
+  nameWithType: TResult
+  fullName: TResult
+- uid: System.Func`1
+  commentId: T:System.Func`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.func-1
+  name: Func<TResult>
+  nameWithType: Func<TResult>
+  fullName: System.Func<TResult>
+  nameWithType.vb: Func(Of TResult)
+  fullName.vb: System.Func(Of TResult)
+  name.vb: Func(Of TResult)
+  spec.csharp:
+  - uid: System.Func`1
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-1
+  - name: <
+  - name: TResult
+  - name: '>'
+  spec.vb:
+  - uid: System.Func`1
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TResult
+  - name: )
+- uid: TResult
+  name: TResult
+  nameWithType: TResult
+  fullName: TResult

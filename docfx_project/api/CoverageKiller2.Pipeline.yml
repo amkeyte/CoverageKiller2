@@ -1,0 +1,60 @@
+### YamlMime:ManagedReference
+items:
+- uid: CoverageKiller2.Pipeline
+  commentId: N:CoverageKiller2.Pipeline
+  id: CoverageKiller2.Pipeline
+  children:
+  - CoverageKiller2.Pipeline.CKWordPipeline
+  - CoverageKiller2.Pipeline.CKWordPipelineProcess
+  langs:
+  - csharp
+  - vb
+  name: CoverageKiller2.Pipeline
+  nameWithType: CoverageKiller2.Pipeline
+  fullName: CoverageKiller2.Pipeline
+  type: Namespace
+  assemblies:
+  - CoverageKiller2
+references:
+- uid: CoverageKiller2.Pipeline.CKWordPipeline
+  commentId: T:CoverageKiller2.Pipeline.CKWordPipeline
+  isExternal: true
+  href: CoverageKiller2.Pipeline.CKWordPipeline.html
+  name: CKWordPipeline
+  nameWithType: CKWordPipeline
+  fullName: CoverageKiller2.Pipeline.CKWordPipeline
+- uid: CoverageKiller2.Pipeline.CKWordPipelineProcess
+  commentId: T:CoverageKiller2.Pipeline.CKWordPipelineProcess
+  parent: CoverageKiller2.Pipeline
+  isExternal: true
+  href: CoverageKiller2.Pipeline.CKWordPipelineProcess.html
+  name: CKWordPipelineProcess
+  nameWithType: CKWordPipelineProcess
+  fullName: CoverageKiller2.Pipeline.CKWordPipelineProcess
+- uid: CoverageKiller2.Pipeline
+  commentId: N:CoverageKiller2.Pipeline
+  isExternal: true
+  href: CoverageKiller2.html
+  name: CoverageKiller2.Pipeline
+  nameWithType: CoverageKiller2.Pipeline
+  fullName: CoverageKiller2.Pipeline
+  spec.csharp:
+  - uid: CoverageKiller2
+    name: CoverageKiller2
+    isExternal: true
+    href: CoverageKiller2.html
+  - name: .
+  - uid: CoverageKiller2.Pipeline
+    name: Pipeline
+    isExternal: true
+    href: CoverageKiller2.Pipeline.html
+  spec.vb:
+  - uid: CoverageKiller2
+    name: CoverageKiller2
+    isExternal: true
+    href: CoverageKiller2.html
+  - name: .
+  - uid: CoverageKiller2.Pipeline
+    name: Pipeline
+    isExternal: true
+    href: CoverageKiller2.Pipeline.html

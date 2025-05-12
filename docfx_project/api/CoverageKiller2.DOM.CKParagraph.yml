@@ -1,0 +1,2928 @@
+### YamlMime:ManagedReference
+items:
+- uid: CoverageKiller2.DOM.CKParagraph
+  commentId: T:CoverageKiller2.DOM.CKParagraph
+  id: CKParagraph
+  parent: CoverageKiller2.DOM
+  children:
+  - CoverageKiller2.DOM.CKParagraph.#ctor(CoverageKiller2.DOM.IDOMObject,System.Int32)
+  - CoverageKiller2.DOM.CKParagraph.#ctor(Microsoft.Office.Interop.Word.Paragraph,CoverageKiller2.DOM.IDOMObject,System.Int32)
+  - CoverageKiller2.DOM.CKParagraph.COMParagraph
+  - CoverageKiller2.DOM.CKParagraph.DoRefreshThings
+  - CoverageKiller2.DOM.CKParagraph.Index
+  - CoverageKiller2.DOM.CKParagraph.ToString
+  langs:
+  - csharp
+  - vb
+  name: CKParagraph
+  nameWithType: CKParagraph
+  fullName: CoverageKiller2.DOM.CKParagraph
+  type: Class
+  assemblies:
+  - CoverageKiller2
+  namespace: CoverageKiller2.DOM
+  summary: >-
+    Represents a basic wrapper for a Word.Paragraph object.
+
+    Inherits from CKRange since a paragraph is fundamentally a range.
+  example: []
+  syntax:
+    content: 'public class CKParagraph : CKRange, IDOMObject, IDisposable'
+    content.vb: Public Class CKParagraph Inherits CKRange Implements IDOMObject, IDisposable
+  inheritance:
+  - System.Object
+  - CoverageKiller2.DOM.CKRange
+  implements:
+  - CoverageKiller2.DOM.IDOMObject
+  - System.IDisposable
+  inheritedMembers:
+  - CoverageKiller2.DOM.CKRange._isRefreshing
+  - CoverageKiller2.DOM.CKRange.TryFindNext(System.String,System.Boolean,System.Boolean,System.Boolean)
+  - CoverageKiller2.DOM.CKRange.Cache``1({T}@)
+  - CoverageKiller2.DOM.CKRange.Cache``1({T}@,System.Func{{T}})
+  - CoverageKiller2.DOM.CKRange.SetCache``1({T}@,{T},System.Action{{T}})
+  - CoverageKiller2.DOM.CKRange.CheckDirtyFor
+  - CoverageKiller2.DOM.CKRange.CollapseToEnd
+  - CoverageKiller2.DOM.CKRange.CollapseToStart
+  - CoverageKiller2.DOM.CKRange.Equals(System.Object)
+  - CoverageKiller2.DOM.CKRange.Equals(CoverageKiller2.DOM.CKRange)
+  - CoverageKiller2.DOM.CKRange.GetHashCode
+  - CoverageKiller2.DOM.CKRange.Dispose(System.Boolean)
+  - CoverageKiller2.DOM.CKRange.SetBackgroundColor(Microsoft.Office.Interop.Word.WdColor)
+  - CoverageKiller2.DOM.CKRange.Delete(CoverageKiller2.DOM.Tables.CKTables)
+  - CoverageKiller2.DOM.CKRange.Contains(CoverageKiller2.DOM.CKRange)
+  - CoverageKiller2.DOM.CKRange.Cells
+  - CoverageKiller2.DOM.CKRange.COMRange
+  - CoverageKiller2.DOM.CKRange.Text
+  - CoverageKiller2.DOM.CKRange.Font
+  - CoverageKiller2.DOM.CKRange.PrettyText
+  - CoverageKiller2.DOM.CKRange.IsCOMDeferred
+  - CoverageKiller2.DOM.CKRange.ScrunchedText
+  - CoverageKiller2.DOM.CKRange.Start
+  - CoverageKiller2.DOM.CKRange.End
+  - CoverageKiller2.DOM.CKRange.IsDirty
+  - CoverageKiller2.DOM.CKRange.IsOrphan
+  - CoverageKiller2.DOM.CKRange.Parent
+  - CoverageKiller2.DOM.CKRange.Document
+  - CoverageKiller2.DOM.CKRange.Application
+  - CoverageKiller2.DOM.CKRange.Sections
+  - CoverageKiller2.DOM.CKRange.Paragraphs
+  - CoverageKiller2.DOM.CKRange.Tables
+  - CoverageKiller2.DOM.CKRange.FormattedText
+  - CoverageKiller2.DOM.CKRange.Snapshot
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  extensionMethods:
+  - CoverageKiller2.DOM.CKParagraph.CoverageKiller2.Logging.PingService.PingPong``1(System.String)
+  - CoverageKiller2.DOM.CKParagraph.CoverageKiller2.Logging.PingService.PingPong``1(System.String,System.String)
+  - CoverageKiller2.DOM.CKParagraph.CoverageKiller2.Logging.PingService.PingPong``2(System.Func{{TResult}},System.String,System.String)
+  - CoverageKiller2.DOM.CKParagraph.CoverageKiller2.Logging.PingService.Ping``1(System.String)
+  - CoverageKiller2.DOM.CKParagraph.CoverageKiller2.Logging.PingService.Ping``1(System.String,System.String)
+  - CoverageKiller2.DOM.CKParagraph.CoverageKiller2.Logging.PingService.Ping``1(System.Type[],System.String)
+  - CoverageKiller2.DOM.CKParagraph.CoverageKiller2.Logging.PingService.Pong``1(System.String)
+  - CoverageKiller2.DOM.CKParagraph.CoverageKiller2.Logging.PingService.Pong``1(System.String,System.String)
+  - CoverageKiller2.DOM.CKParagraph.CoverageKiller2.Logging.PingService.Pong``1(System.Type,System.String)
+  - CoverageKiller2.DOM.CKParagraph.CoverageKiller2.Logging.PingService.Pong``1(System.Type[],System.String)
+  - CoverageKiller2.DOM.CKParagraph.CoverageKiller2.Logging.PingService.Pong``2(System.Func{{TResult}},System.String,System.String)
+- uid: CoverageKiller2.DOM.CKParagraph.#ctor(Microsoft.Office.Interop.Word.Paragraph,CoverageKiller2.DOM.IDOMObject,System.Int32)
+  commentId: M:CoverageKiller2.DOM.CKParagraph.#ctor(Microsoft.Office.Interop.Word.Paragraph,CoverageKiller2.DOM.IDOMObject,System.Int32)
+  id: '#ctor(Microsoft.Office.Interop.Word.Paragraph,CoverageKiller2.DOM.IDOMObject,System.Int32)'
+  parent: CoverageKiller2.DOM.CKParagraph
+  langs:
+  - csharp
+  - vb
+  name: CKParagraph(Paragraph, IDOMObject, int)
+  nameWithType: CKParagraph.CKParagraph(Paragraph, IDOMObject, int)
+  fullName: CoverageKiller2.DOM.CKParagraph.CKParagraph(Microsoft.Office.Interop.Word.Paragraph, CoverageKiller2.DOM.IDOMObject, int)
+  type: Constructor
+  assemblies:
+  - CoverageKiller2
+  namespace: CoverageKiller2.DOM
+  syntax:
+    content: public CKParagraph(Paragraph paragraph, IDOMObject parent, int index = -1)
+    parameters:
+    - id: paragraph
+      type: Microsoft.Office.Interop.Word.Paragraph
+    - id: parent
+      type: CoverageKiller2.DOM.IDOMObject
+    - id: index
+      type: System.Int32
+    content.vb: Public Sub New(paragraph As Paragraph, parent As IDOMObject, index As Integer = -1)
+  overload: CoverageKiller2.DOM.CKParagraph.#ctor*
+  nameWithType.vb: CKParagraph.New(Paragraph, IDOMObject, Integer)
+  fullName.vb: CoverageKiller2.DOM.CKParagraph.New(Microsoft.Office.Interop.Word.Paragraph, CoverageKiller2.DOM.IDOMObject, Integer)
+  name.vb: New(Paragraph, IDOMObject, Integer)
+- uid: CoverageKiller2.DOM.CKParagraph.#ctor(CoverageKiller2.DOM.IDOMObject,System.Int32)
+  commentId: M:CoverageKiller2.DOM.CKParagraph.#ctor(CoverageKiller2.DOM.IDOMObject,System.Int32)
+  id: '#ctor(CoverageKiller2.DOM.IDOMObject,System.Int32)'
+  parent: CoverageKiller2.DOM.CKParagraph
+  langs:
+  - csharp
+  - vb
+  name: CKParagraph(IDOMObject, int)
+  nameWithType: CKParagraph.CKParagraph(IDOMObject, int)
+  fullName: CoverageKiller2.DOM.CKParagraph.CKParagraph(CoverageKiller2.DOM.IDOMObject, int)
+  type: Constructor
+  assemblies:
+  - CoverageKiller2
+  namespace: CoverageKiller2.DOM
+  summary: Initializes a new instance of the <xref href="CoverageKiller2.DOM.CKParagraph" data-throw-if-not-resolved="false"></xref> class in deferred mode with a known paragraph index.
+  example: []
+  syntax:
+    content: public CKParagraph(IDOMObject parent, int index)
+    parameters:
+    - id: parent
+      type: CoverageKiller2.DOM.IDOMObject
+      description: The parent DOM object (must be a CKParagraphs).
+    - id: index
+      type: System.Int32
+      description: The 1-based paragraph index within the parent Word.Paragraphs collection.
+    content.vb: Public Sub New(parent As IDOMObject, index As Integer)
+  overload: CoverageKiller2.DOM.CKParagraph.#ctor*
+  nameWithType.vb: CKParagraph.New(IDOMObject, Integer)
+  fullName.vb: CoverageKiller2.DOM.CKParagraph.New(CoverageKiller2.DOM.IDOMObject, Integer)
+  name.vb: New(IDOMObject, Integer)
+- uid: CoverageKiller2.DOM.CKParagraph.DoRefreshThings
+  commentId: M:CoverageKiller2.DOM.CKParagraph.DoRefreshThings
+  id: DoRefreshThings
+  parent: CoverageKiller2.DOM.CKParagraph
+  langs:
+  - csharp
+  - vb
+  name: DoRefreshThings()
+  nameWithType: CKParagraph.DoRefreshThings()
+  fullName: CoverageKiller2.DOM.CKParagraph.DoRefreshThings()
+  type: Method
+  assemblies:
+  - CoverageKiller2
+  namespace: CoverageKiller2.DOM
+  example: []
+  syntax:
+    content: protected override void DoRefreshThings()
+    content.vb: Protected Overrides Sub DoRefreshThings()
+  overridden: CoverageKiller2.DOM.CKRange.DoRefreshThings
+  overload: CoverageKiller2.DOM.CKParagraph.DoRefreshThings*
+- uid: CoverageKiller2.DOM.CKParagraph.ToString
+  commentId: M:CoverageKiller2.DOM.CKParagraph.ToString
+  id: ToString
+  parent: CoverageKiller2.DOM.CKParagraph
+  langs:
+  - csharp
+  - vb
+  name: ToString()
+  nameWithType: CKParagraph.ToString()
+  fullName: CoverageKiller2.DOM.CKParagraph.ToString()
+  type: Method
+  assemblies:
+  - CoverageKiller2
+  namespace: CoverageKiller2.DOM
+  example: []
+  syntax:
+    content: public override string ToString()
+    return:
+      type: System.String
+    content.vb: Public Overrides Function ToString() As String
+  overridden: System.Object.ToString
+  overload: CoverageKiller2.DOM.CKParagraph.ToString*
+- uid: CoverageKiller2.DOM.CKParagraph.COMParagraph
+  commentId: P:CoverageKiller2.DOM.CKParagraph.COMParagraph
+  id: COMParagraph
+  parent: CoverageKiller2.DOM.CKParagraph
+  langs:
+  - csharp
+  - vb
+  name: COMParagraph
+  nameWithType: CKParagraph.COMParagraph
+  fullName: CoverageKiller2.DOM.CKParagraph.COMParagraph
+  type: Property
+  assemblies:
+  - CoverageKiller2
+  namespace: CoverageKiller2.DOM
+  summary: >-
+    Gets the underlying Word.Paragraph COM object.
+
+    May be null if deferred and not yet realized.
+  example: []
+  syntax:
+    content: protected Paragraph COMParagraph { get; }
+    parameters: []
+    return:
+      type: Microsoft.Office.Interop.Word.Paragraph
+    content.vb: Protected ReadOnly Property COMParagraph As Paragraph
+  overload: CoverageKiller2.DOM.CKParagraph.COMParagraph*
+- uid: CoverageKiller2.DOM.CKParagraph.Index
+  commentId: P:CoverageKiller2.DOM.CKParagraph.Index
+  id: Index
+  parent: CoverageKiller2.DOM.CKParagraph
+  langs:
+  - csharp
+  - vb
+  name: Index
+  nameWithType: CKParagraph.Index
+  fullName: CoverageKiller2.DOM.CKParagraph.Index
+  type: Property
+  assemblies:
+  - CoverageKiller2
+  namespace: CoverageKiller2.DOM
+  syntax:
+    content: public int Index { get; }
+    parameters: []
+    return:
+      type: System.Int32
+    content.vb: Public ReadOnly Property Index As Integer
+  overload: CoverageKiller2.DOM.CKParagraph.Index*
+references:
+- uid: CoverageKiller2.DOM
+  commentId: N:CoverageKiller2.DOM
+  isExternal: true
+  href: CoverageKiller2.html
+  name: CoverageKiller2.DOM
+  nameWithType: CoverageKiller2.DOM
+  fullName: CoverageKiller2.DOM
+  spec.csharp:
+  - uid: CoverageKiller2
+    name: CoverageKiller2
+    isExternal: true
+    href: CoverageKiller2.html
+  - name: .
+  - uid: CoverageKiller2.DOM
+    name: DOM
+    isExternal: true
+    href: CoverageKiller2.DOM.html
+  spec.vb:
+  - uid: CoverageKiller2
+    name: CoverageKiller2
+    isExternal: true
+    href: CoverageKiller2.html
+  - name: .
+  - uid: CoverageKiller2.DOM
+    name: DOM
+    isExternal: true
+    href: CoverageKiller2.DOM.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: CoverageKiller2.DOM.CKRange
+  commentId: T:CoverageKiller2.DOM.CKRange
+  parent: CoverageKiller2.DOM
+  isExternal: true
+  href: CoverageKiller2.DOM.CKRange.html
+  name: CKRange
+  nameWithType: CKRange
+  fullName: CoverageKiller2.DOM.CKRange
+- uid: CoverageKiller2.DOM.IDOMObject
+  commentId: T:CoverageKiller2.DOM.IDOMObject
+  parent: CoverageKiller2.DOM
+  isExternal: true
+  href: CoverageKiller2.DOM.IDOMObject.html
+  name: IDOMObject
+  nameWithType: IDOMObject
+  fullName: CoverageKiller2.DOM.IDOMObject
+- uid: System.IDisposable
+  commentId: T:System.IDisposable
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.idisposable
+  name: IDisposable
+  nameWithType: IDisposable
+  fullName: System.IDisposable
+- uid: CoverageKiller2.DOM.CKRange._isRefreshing
+  commentId: F:CoverageKiller2.DOM.CKRange._isRefreshing
+  parent: CoverageKiller2.DOM.CKRange
+  isExternal: true
+  href: CoverageKiller2.DOM.CKRange.html#CoverageKiller2_DOM_CKRange__isRefreshing
+  name: _isRefreshing
+  nameWithType: CKRange._isRefreshing
+  fullName: CoverageKiller2.DOM.CKRange._isRefreshing
+- uid: CoverageKiller2.DOM.CKRange.TryFindNext(System.String,System.Boolean,System.Boolean,System.Boolean)
+  commentId: M:CoverageKiller2.DOM.CKRange.TryFindNext(System.String,System.Boolean,System.Boolean,System.Boolean)
+  parent: CoverageKiller2.DOM.CKRange
+  isExternal: true
+  href: CoverageKiller2.DOM.CKRange.html#CoverageKiller2_DOM_CKRange_TryFindNext_System_String_System_Boolean_System_Boolean_System_Boolean_
+  name: TryFindNext(string, bool, bool, bool)
+  nameWithType: CKRange.TryFindNext(string, bool, bool, bool)
+  fullName: CoverageKiller2.DOM.CKRange.TryFindNext(string, bool, bool, bool)
+  nameWithType.vb: CKRange.TryFindNext(String, Boolean, Boolean, Boolean)
+  fullName.vb: CoverageKiller2.DOM.CKRange.TryFindNext(String, Boolean, Boolean, Boolean)
+  name.vb: TryFindNext(String, Boolean, Boolean, Boolean)
+  spec.csharp:
+  - uid: CoverageKiller2.DOM.CKRange.TryFindNext(System.String,System.Boolean,System.Boolean,System.Boolean)
+    name: TryFindNext
+    isExternal: true
+    href: CoverageKiller2.DOM.CKRange.html#CoverageKiller2_DOM_CKRange_TryFindNext_System_String_System_Boolean_System_Boolean_System_Boolean_
+  - name: (
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: CoverageKiller2.DOM.CKRange.TryFindNext(System.String,System.Boolean,System.Boolean,System.Boolean)
+    name: TryFindNext
+    isExternal: true
+    href: CoverageKiller2.DOM.CKRange.html#CoverageKiller2_DOM_CKRange_TryFindNext_System_String_System_Boolean_System_Boolean_System_Boolean_
+  - name: (
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: CoverageKiller2.DOM.CKRange.Cache``1({T}@)
+  commentId: M:CoverageKiller2.DOM.CKRange.Cache``1(``0@)
+  parent: CoverageKiller2.DOM.CKRange
+  definition: CoverageKiller2.DOM.CKRange.Cache``1(``0@)
+  href: CoverageKiller2.DOM.CKRange.html#CoverageKiller2_DOM_CKRange_Cache__1___0__
+  name: Cache<T>(ref T)
+  nameWithType: CKRange.Cache<T>(ref T)
+  fullName: CoverageKiller2.DOM.CKRange.Cache<T>(ref T)
+  nameWithType.vb: CKRange.Cache(Of T)(T)
+  fullName.vb: CoverageKiller2.DOM.CKRange.Cache(Of T)(T)
+  name.vb: Cache(Of T)(T)
+  spec.csharp:
+  - uid: CoverageKiller2.DOM.CKRange.Cache``1(``0@)
+    name: Cache
+    isExternal: true
+    href: CoverageKiller2.DOM.CKRange.html#CoverageKiller2_DOM_CKRange_Cache__1___0__
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: ref
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: CoverageKiller2.DOM.CKRange.Cache``1(``0@)
+    name: Cache
+    isExternal: true
+    href: CoverageKiller2.DOM.CKRange.html#CoverageKiller2_DOM_CKRange_Cache__1___0__
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: )
+- uid: CoverageKiller2.DOM.CKRange.Cache``1({T}@,System.Func{{T}})
+  commentId: M:CoverageKiller2.DOM.CKRange.Cache``1(``0@,System.Func{``0})
+  parent: CoverageKiller2.DOM.CKRange
+  definition: CoverageKiller2.DOM.CKRange.Cache``1(``0@,System.Func{``0})
+  href: CoverageKiller2.DOM.CKRange.html#CoverageKiller2_DOM_CKRange_Cache__1___0__System_Func___0__
+  name: Cache<T>(ref T, Func<T>)
+  nameWithType: CKRange.Cache<T>(ref T, Func<T>)
+  fullName: CoverageKiller2.DOM.CKRange.Cache<T>(ref T, System.Func<T>)
+  nameWithType.vb: CKRange.Cache(Of T)(T, Func(Of T))
+  fullName.vb: CoverageKiller2.DOM.CKRange.Cache(Of T)(T, System.Func(Of T))
+  name.vb: Cache(Of T)(T, Func(Of T))
+  spec.csharp:
+  - uid: CoverageKiller2.DOM.CKRange.Cache``1(``0@,System.Func{``0})
+    name: Cache
+    isExternal: true
+    href: CoverageKiller2.DOM.CKRange.html#CoverageKiller2_DOM_CKRange_Cache__1___0__System_Func___0__
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: ref
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Func`1
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-1
+  - name: <
+  - name: T
+  - name: '>'
+  - name: )
+  spec.vb:
+  - uid: CoverageKiller2.DOM.CKRange.Cache``1(``0@,System.Func{``0})
+    name: Cache
+    isExternal: true
+    href: CoverageKiller2.DOM.CKRange.html#CoverageKiller2_DOM_CKRange_Cache__1___0__System_Func___0__
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Func`1
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: )
+- uid: CoverageKiller2.DOM.CKRange.SetCache``1({T}@,{T},System.Action{{T}})
+  commentId: M:CoverageKiller2.DOM.CKRange.SetCache``1(``0@,``0,System.Action{``0})
+  parent: CoverageKiller2.DOM.CKRange
+  definition: CoverageKiller2.DOM.CKRange.SetCache``1(``0@,``0,System.Action{``0})
+  href: CoverageKiller2.DOM.CKRange.html#CoverageKiller2_DOM_CKRange_SetCache__1___0____0_System_Action___0__
+  name: SetCache<T>(ref T, T, Action<T>)
+  nameWithType: CKRange.SetCache<T>(ref T, T, Action<T>)
+  fullName: CoverageKiller2.DOM.CKRange.SetCache<T>(ref T, T, System.Action<T>)
+  nameWithType.vb: CKRange.SetCache(Of T)(T, T, Action(Of T))
+  fullName.vb: CoverageKiller2.DOM.CKRange.SetCache(Of T)(T, T, System.Action(Of T))
+  name.vb: SetCache(Of T)(T, T, Action(Of T))
+  spec.csharp:
+  - uid: CoverageKiller2.DOM.CKRange.SetCache``1(``0@,``0,System.Action{``0})
+    name: SetCache
+    isExternal: true
+    href: CoverageKiller2.DOM.CKRange.html#CoverageKiller2_DOM_CKRange_SetCache__1___0____0_System_Action___0__
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: ref
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Action`1
+    name: Action
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.action-1
+  - name: <
+  - name: T
+  - name: '>'
+  - name: )
+  spec.vb:
+  - uid: CoverageKiller2.DOM.CKRange.SetCache``1(``0@,``0,System.Action{``0})
+    name: SetCache
+    isExternal: true
+    href: CoverageKiller2.DOM.CKRange.html#CoverageKiller2_DOM_CKRange_SetCache__1___0____0_System_Action___0__
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Action`1
+    name: Action
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.action-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: )
+- uid: CoverageKiller2.DOM.CKRange.CheckDirtyFor
+  commentId: M:CoverageKiller2.DOM.CKRange.CheckDirtyFor
+  parent: CoverageKiller2.DOM.CKRange
+  isExternal: true
+  href: CoverageKiller2.DOM.CKRange.html#CoverageKiller2_DOM_CKRange_CheckDirtyFor
+  name: CheckDirtyFor()
+  nameWithType: CKRange.CheckDirtyFor()
+  fullName: CoverageKiller2.DOM.CKRange.CheckDirtyFor()
+  spec.csharp:
+  - uid: CoverageKiller2.DOM.CKRange.CheckDirtyFor
+    name: CheckDirtyFor
+    isExternal: true
+    href: CoverageKiller2.DOM.CKRange.html#CoverageKiller2_DOM_CKRange_CheckDirtyFor
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: CoverageKiller2.DOM.CKRange.CheckDirtyFor
+    name: CheckDirtyFor
+    isExternal: true
+    href: CoverageKiller2.DOM.CKRange.html#CoverageKiller2_DOM_CKRange_CheckDirtyFor
+  - name: (
+  - name: )
+- uid: CoverageKiller2.DOM.CKRange.CollapseToEnd
+  commentId: M:CoverageKiller2.DOM.CKRange.CollapseToEnd
+  parent: CoverageKiller2.DOM.CKRange
+  isExternal: true
+  href: CoverageKiller2.DOM.CKRange.html#CoverageKiller2_DOM_CKRange_CollapseToEnd
+  name: CollapseToEnd()
+  nameWithType: CKRange.CollapseToEnd()
+  fullName: CoverageKiller2.DOM.CKRange.CollapseToEnd()
+  spec.csharp:
+  - uid: CoverageKiller2.DOM.CKRange.CollapseToEnd
+    name: CollapseToEnd
+    isExternal: true
+    href: CoverageKiller2.DOM.CKRange.html#CoverageKiller2_DOM_CKRange_CollapseToEnd
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: CoverageKiller2.DOM.CKRange.CollapseToEnd
+    name: CollapseToEnd
+    isExternal: true
+    href: CoverageKiller2.DOM.CKRange.html#CoverageKiller2_DOM_CKRange_CollapseToEnd
+  - name: (
+  - name: )
+- uid: CoverageKiller2.DOM.CKRange.CollapseToStart
+  commentId: M:CoverageKiller2.DOM.CKRange.CollapseToStart
+  parent: CoverageKiller2.DOM.CKRange
+  isExternal: true
+  href: CoverageKiller2.DOM.CKRange.html#CoverageKiller2_DOM_CKRange_CollapseToStart
+  name: CollapseToStart()
+  nameWithType: CKRange.CollapseToStart()
+  fullName: CoverageKiller2.DOM.CKRange.CollapseToStart()
+  spec.csharp:
+  - uid: CoverageKiller2.DOM.CKRange.CollapseToStart
+    name: CollapseToStart
+    isExternal: true
+    href: CoverageKiller2.DOM.CKRange.html#CoverageKiller2_DOM_CKRange_CollapseToStart
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: CoverageKiller2.DOM.CKRange.CollapseToStart
+    name: CollapseToStart
+    isExternal: true
+    href: CoverageKiller2.DOM.CKRange.html#CoverageKiller2_DOM_CKRange_CollapseToStart
+  - name: (
+  - name: )
+- uid: CoverageKiller2.DOM.CKRange.Equals(System.Object)
+  commentId: M:CoverageKiller2.DOM.CKRange.Equals(System.Object)
+  parent: CoverageKiller2.DOM.CKRange
+  isExternal: true
+  href: CoverageKiller2.DOM.CKRange.html#CoverageKiller2_DOM_CKRange_Equals_System_Object_
+  name: Equals(object)
+  nameWithType: CKRange.Equals(object)
+  fullName: CoverageKiller2.DOM.CKRange.Equals(object)
+  nameWithType.vb: CKRange.Equals(Object)
+  fullName.vb: CoverageKiller2.DOM.CKRange.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: CoverageKiller2.DOM.CKRange.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: CoverageKiller2.DOM.CKRange.html#CoverageKiller2_DOM_CKRange_Equals_System_Object_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: CoverageKiller2.DOM.CKRange.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: CoverageKiller2.DOM.CKRange.html#CoverageKiller2_DOM_CKRange_Equals_System_Object_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: CoverageKiller2.DOM.CKRange.Equals(CoverageKiller2.DOM.CKRange)
+  commentId: M:CoverageKiller2.DOM.CKRange.Equals(CoverageKiller2.DOM.CKRange)
+  parent: CoverageKiller2.DOM.CKRange
+  isExternal: true
+  href: CoverageKiller2.DOM.CKRange.html#CoverageKiller2_DOM_CKRange_Equals_CoverageKiller2_DOM_CKRange_
+  name: Equals(CKRange)
+  nameWithType: CKRange.Equals(CKRange)
+  fullName: CoverageKiller2.DOM.CKRange.Equals(CoverageKiller2.DOM.CKRange)
+  spec.csharp:
+  - uid: CoverageKiller2.DOM.CKRange.Equals(CoverageKiller2.DOM.CKRange)
+    name: Equals
+    isExternal: true
+    href: CoverageKiller2.DOM.CKRange.html#CoverageKiller2_DOM_CKRange_Equals_CoverageKiller2_DOM_CKRange_
+  - name: (
+  - uid: CoverageKiller2.DOM.CKRange
+    name: CKRange
+    isExternal: true
+    href: CoverageKiller2.DOM.CKRange.html
+  - name: )
+  spec.vb:
+  - uid: CoverageKiller2.DOM.CKRange.Equals(CoverageKiller2.DOM.CKRange)
+    name: Equals
+    isExternal: true
+    href: CoverageKiller2.DOM.CKRange.html#CoverageKiller2_DOM_CKRange_Equals_CoverageKiller2_DOM_CKRange_
+  - name: (
+  - uid: CoverageKiller2.DOM.CKRange
+    name: CKRange
+    isExternal: true
+    href: CoverageKiller2.DOM.CKRange.html
+  - name: )
+- uid: CoverageKiller2.DOM.CKRange.GetHashCode
+  commentId: M:CoverageKiller2.DOM.CKRange.GetHashCode
+  parent: CoverageKiller2.DOM.CKRange
+  isExternal: true
+  href: CoverageKiller2.DOM.CKRange.html#CoverageKiller2_DOM_CKRange_GetHashCode
+  name: GetHashCode()
+  nameWithType: CKRange.GetHashCode()
+  fullName: CoverageKiller2.DOM.CKRange.GetHashCode()
+  spec.csharp:
+  - uid: CoverageKiller2.DOM.CKRange.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: CoverageKiller2.DOM.CKRange.html#CoverageKiller2_DOM_CKRange_GetHashCode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: CoverageKiller2.DOM.CKRange.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: CoverageKiller2.DOM.CKRange.html#CoverageKiller2_DOM_CKRange_GetHashCode
+  - name: (
+  - name: )
+- uid: CoverageKiller2.DOM.CKRange.Dispose(System.Boolean)
+  commentId: M:CoverageKiller2.DOM.CKRange.Dispose(System.Boolean)
+  parent: CoverageKiller2.DOM.CKRange
+  isExternal: true
+  href: CoverageKiller2.DOM.CKRange.html#CoverageKiller2_DOM_CKRange_Dispose_System_Boolean_
+  name: Dispose(bool)
+  nameWithType: CKRange.Dispose(bool)
+  fullName: CoverageKiller2.DOM.CKRange.Dispose(bool)
+  nameWithType.vb: CKRange.Dispose(Boolean)
+  fullName.vb: CoverageKiller2.DOM.CKRange.Dispose(Boolean)
+  name.vb: Dispose(Boolean)
+  spec.csharp:
+  - uid: CoverageKiller2.DOM.CKRange.Dispose(System.Boolean)
+    name: Dispose
+    isExternal: true
+    href: CoverageKiller2.DOM.CKRange.html#CoverageKiller2_DOM_CKRange_Dispose_System_Boolean_
+  - name: (
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: CoverageKiller2.DOM.CKRange.Dispose(System.Boolean)
+    name: Dispose
+    isExternal: true
+    href: CoverageKiller2.DOM.CKRange.html#CoverageKiller2_DOM_CKRange_Dispose_System_Boolean_
+  - name: (
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: CoverageKiller2.DOM.CKRange.SetBackgroundColor(Microsoft.Office.Interop.Word.WdColor)
+  commentId: M:CoverageKiller2.DOM.CKRange.SetBackgroundColor(Microsoft.Office.Interop.Word.WdColor)
+  parent: CoverageKiller2.DOM.CKRange
+  isExternal: true
+  href: CoverageKiller2.DOM.CKRange.html#CoverageKiller2_DOM_CKRange_SetBackgroundColor_Microsoft_Office_Interop_Word_WdColor_
+  name: SetBackgroundColor(WdColor)
+  nameWithType: CKRange.SetBackgroundColor(WdColor)
+  fullName: CoverageKiller2.DOM.CKRange.SetBackgroundColor(Microsoft.Office.Interop.Word.WdColor)
+  spec.csharp:
+  - uid: CoverageKiller2.DOM.CKRange.SetBackgroundColor(Microsoft.Office.Interop.Word.WdColor)
+    name: SetBackgroundColor
+    isExternal: true
+    href: CoverageKiller2.DOM.CKRange.html#CoverageKiller2_DOM_CKRange_SetBackgroundColor_Microsoft_Office_Interop_Word_WdColor_
+  - name: (
+  - uid: Microsoft.Office.Interop.Word.WdColor
+    name: WdColor
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/microsoft.office.interop.word.wdcolor
+  - name: )
+  spec.vb:
+  - uid: CoverageKiller2.DOM.CKRange.SetBackgroundColor(Microsoft.Office.Interop.Word.WdColor)
+    name: SetBackgroundColor
+    isExternal: true
+    href: CoverageKiller2.DOM.CKRange.html#CoverageKiller2_DOM_CKRange_SetBackgroundColor_Microsoft_Office_Interop_Word_WdColor_
+  - name: (
+  - uid: Microsoft.Office.Interop.Word.WdColor
+    name: WdColor
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/microsoft.office.interop.word.wdcolor
+  - name: )
+- uid: CoverageKiller2.DOM.CKRange.Delete(CoverageKiller2.DOM.Tables.CKTables)
+  commentId: M:CoverageKiller2.DOM.CKRange.Delete(CoverageKiller2.DOM.Tables.CKTables)
+  parent: CoverageKiller2.DOM.CKRange
+  isExternal: true
+  href: CoverageKiller2.DOM.CKRange.html#CoverageKiller2_DOM_CKRange_Delete_CoverageKiller2_DOM_Tables_CKTables_
+  name: Delete(CKTables)
+  nameWithType: CKRange.Delete(CKTables)
+  fullName: CoverageKiller2.DOM.CKRange.Delete(CoverageKiller2.DOM.Tables.CKTables)
+  spec.csharp:
+  - uid: CoverageKiller2.DOM.CKRange.Delete(CoverageKiller2.DOM.Tables.CKTables)
+    name: Delete
+    isExternal: true
+    href: CoverageKiller2.DOM.CKRange.html#CoverageKiller2_DOM_CKRange_Delete_CoverageKiller2_DOM_Tables_CKTables_
+  - name: (
+  - uid: CoverageKiller2.DOM.Tables.CKTables
+    name: CKTables
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.CKTables.html
+  - name: )
+  spec.vb:
+  - uid: CoverageKiller2.DOM.CKRange.Delete(CoverageKiller2.DOM.Tables.CKTables)
+    name: Delete
+    isExternal: true
+    href: CoverageKiller2.DOM.CKRange.html#CoverageKiller2_DOM_CKRange_Delete_CoverageKiller2_DOM_Tables_CKTables_
+  - name: (
+  - uid: CoverageKiller2.DOM.Tables.CKTables
+    name: CKTables
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.CKTables.html
+  - name: )
+- uid: CoverageKiller2.DOM.CKRange.Contains(CoverageKiller2.DOM.CKRange)
+  commentId: M:CoverageKiller2.DOM.CKRange.Contains(CoverageKiller2.DOM.CKRange)
+  parent: CoverageKiller2.DOM.CKRange
+  isExternal: true
+  href: CoverageKiller2.DOM.CKRange.html#CoverageKiller2_DOM_CKRange_Contains_CoverageKiller2_DOM_CKRange_
+  name: Contains(CKRange)
+  nameWithType: CKRange.Contains(CKRange)
+  fullName: CoverageKiller2.DOM.CKRange.Contains(CoverageKiller2.DOM.CKRange)
+  spec.csharp:
+  - uid: CoverageKiller2.DOM.CKRange.Contains(CoverageKiller2.DOM.CKRange)
+    name: Contains
+    isExternal: true
+    href: CoverageKiller2.DOM.CKRange.html#CoverageKiller2_DOM_CKRange_Contains_CoverageKiller2_DOM_CKRange_
+  - name: (
+  - uid: CoverageKiller2.DOM.CKRange
+    name: CKRange
+    isExternal: true
+    href: CoverageKiller2.DOM.CKRange.html
+  - name: )
+  spec.vb:
+  - uid: CoverageKiller2.DOM.CKRange.Contains(CoverageKiller2.DOM.CKRange)
+    name: Contains
+    isExternal: true
+    href: CoverageKiller2.DOM.CKRange.html#CoverageKiller2_DOM_CKRange_Contains_CoverageKiller2_DOM_CKRange_
+  - name: (
+  - uid: CoverageKiller2.DOM.CKRange
+    name: CKRange
+    isExternal: true
+    href: CoverageKiller2.DOM.CKRange.html
+  - name: )
+- uid: CoverageKiller2.DOM.CKRange.Cells
+  commentId: P:CoverageKiller2.DOM.CKRange.Cells
+  parent: CoverageKiller2.DOM.CKRange
+  isExternal: true
+  href: CoverageKiller2.DOM.CKRange.html#CoverageKiller2_DOM_CKRange_Cells
+  name: Cells
+  nameWithType: CKRange.Cells
+  fullName: CoverageKiller2.DOM.CKRange.Cells
+- uid: CoverageKiller2.DOM.CKRange.COMRange
+  commentId: P:CoverageKiller2.DOM.CKRange.COMRange
+  parent: CoverageKiller2.DOM.CKRange
+  isExternal: true
+  href: CoverageKiller2.DOM.CKRange.html#CoverageKiller2_DOM_CKRange_COMRange
+  name: COMRange
+  nameWithType: CKRange.COMRange
+  fullName: CoverageKiller2.DOM.CKRange.COMRange
+- uid: CoverageKiller2.DOM.CKRange.Text
+  commentId: P:CoverageKiller2.DOM.CKRange.Text
+  parent: CoverageKiller2.DOM.CKRange
+  isExternal: true
+  href: CoverageKiller2.DOM.CKRange.html#CoverageKiller2_DOM_CKRange_Text
+  name: Text
+  nameWithType: CKRange.Text
+  fullName: CoverageKiller2.DOM.CKRange.Text
+- uid: CoverageKiller2.DOM.CKRange.Font
+  commentId: P:CoverageKiller2.DOM.CKRange.Font
+  parent: CoverageKiller2.DOM.CKRange
+  isExternal: true
+  href: CoverageKiller2.DOM.CKRange.html#CoverageKiller2_DOM_CKRange_Font
+  name: Font
+  nameWithType: CKRange.Font
+  fullName: CoverageKiller2.DOM.CKRange.Font
+- uid: CoverageKiller2.DOM.CKRange.PrettyText
+  commentId: P:CoverageKiller2.DOM.CKRange.PrettyText
+  parent: CoverageKiller2.DOM.CKRange
+  isExternal: true
+  href: CoverageKiller2.DOM.CKRange.html#CoverageKiller2_DOM_CKRange_PrettyText
+  name: PrettyText
+  nameWithType: CKRange.PrettyText
+  fullName: CoverageKiller2.DOM.CKRange.PrettyText
+- uid: CoverageKiller2.DOM.CKRange.IsCOMDeferred
+  commentId: P:CoverageKiller2.DOM.CKRange.IsCOMDeferred
+  parent: CoverageKiller2.DOM.CKRange
+  isExternal: true
+  href: CoverageKiller2.DOM.CKRange.html#CoverageKiller2_DOM_CKRange_IsCOMDeferred
+  name: IsCOMDeferred
+  nameWithType: CKRange.IsCOMDeferred
+  fullName: CoverageKiller2.DOM.CKRange.IsCOMDeferred
+- uid: CoverageKiller2.DOM.CKRange.ScrunchedText
+  commentId: P:CoverageKiller2.DOM.CKRange.ScrunchedText
+  parent: CoverageKiller2.DOM.CKRange
+  isExternal: true
+  href: CoverageKiller2.DOM.CKRange.html#CoverageKiller2_DOM_CKRange_ScrunchedText
+  name: ScrunchedText
+  nameWithType: CKRange.ScrunchedText
+  fullName: CoverageKiller2.DOM.CKRange.ScrunchedText
+- uid: CoverageKiller2.DOM.CKRange.Start
+  commentId: P:CoverageKiller2.DOM.CKRange.Start
+  parent: CoverageKiller2.DOM.CKRange
+  isExternal: true
+  href: CoverageKiller2.DOM.CKRange.html#CoverageKiller2_DOM_CKRange_Start
+  name: Start
+  nameWithType: CKRange.Start
+  fullName: CoverageKiller2.DOM.CKRange.Start
+- uid: CoverageKiller2.DOM.CKRange.End
+  commentId: P:CoverageKiller2.DOM.CKRange.End
+  parent: CoverageKiller2.DOM.CKRange
+  isExternal: true
+  href: CoverageKiller2.DOM.CKRange.html#CoverageKiller2_DOM_CKRange_End
+  name: End
+  nameWithType: CKRange.End
+  fullName: CoverageKiller2.DOM.CKRange.End
+- uid: CoverageKiller2.DOM.CKRange.IsDirty
+  commentId: P:CoverageKiller2.DOM.CKRange.IsDirty
+  parent: CoverageKiller2.DOM.CKRange
+  isExternal: true
+  href: CoverageKiller2.DOM.CKRange.html#CoverageKiller2_DOM_CKRange_IsDirty
+  name: IsDirty
+  nameWithType: CKRange.IsDirty
+  fullName: CoverageKiller2.DOM.CKRange.IsDirty
+- uid: CoverageKiller2.DOM.CKRange.IsOrphan
+  commentId: P:CoverageKiller2.DOM.CKRange.IsOrphan
+  parent: CoverageKiller2.DOM.CKRange
+  isExternal: true
+  href: CoverageKiller2.DOM.CKRange.html#CoverageKiller2_DOM_CKRange_IsOrphan
+  name: IsOrphan
+  nameWithType: CKRange.IsOrphan
+  fullName: CoverageKiller2.DOM.CKRange.IsOrphan
+- uid: CoverageKiller2.DOM.CKRange.Parent
+  commentId: P:CoverageKiller2.DOM.CKRange.Parent
+  parent: CoverageKiller2.DOM.CKRange
+  isExternal: true
+  href: CoverageKiller2.DOM.CKRange.html#CoverageKiller2_DOM_CKRange_Parent
+  name: Parent
+  nameWithType: CKRange.Parent
+  fullName: CoverageKiller2.DOM.CKRange.Parent
+- uid: CoverageKiller2.DOM.CKRange.Document
+  commentId: P:CoverageKiller2.DOM.CKRange.Document
+  parent: CoverageKiller2.DOM.CKRange
+  isExternal: true
+  href: CoverageKiller2.DOM.CKRange.html#CoverageKiller2_DOM_CKRange_Document
+  name: Document
+  nameWithType: CKRange.Document
+  fullName: CoverageKiller2.DOM.CKRange.Document
+- uid: CoverageKiller2.DOM.CKRange.Application
+  commentId: P:CoverageKiller2.DOM.CKRange.Application
+  parent: CoverageKiller2.DOM.CKRange
+  isExternal: true
+  href: CoverageKiller2.DOM.CKRange.html#CoverageKiller2_DOM_CKRange_Application
+  name: Application
+  nameWithType: CKRange.Application
+  fullName: CoverageKiller2.DOM.CKRange.Application
+- uid: CoverageKiller2.DOM.CKRange.Sections
+  commentId: P:CoverageKiller2.DOM.CKRange.Sections
+  parent: CoverageKiller2.DOM.CKRange
+  isExternal: true
+  href: CoverageKiller2.DOM.CKRange.html#CoverageKiller2_DOM_CKRange_Sections
+  name: Sections
+  nameWithType: CKRange.Sections
+  fullName: CoverageKiller2.DOM.CKRange.Sections
+- uid: CoverageKiller2.DOM.CKRange.Paragraphs
+  commentId: P:CoverageKiller2.DOM.CKRange.Paragraphs
+  parent: CoverageKiller2.DOM.CKRange
+  isExternal: true
+  href: CoverageKiller2.DOM.CKRange.html#CoverageKiller2_DOM_CKRange_Paragraphs
+  name: Paragraphs
+  nameWithType: CKRange.Paragraphs
+  fullName: CoverageKiller2.DOM.CKRange.Paragraphs
+- uid: CoverageKiller2.DOM.CKRange.Tables
+  commentId: P:CoverageKiller2.DOM.CKRange.Tables
+  parent: CoverageKiller2.DOM.CKRange
+  isExternal: true
+  href: CoverageKiller2.DOM.CKRange.html#CoverageKiller2_DOM_CKRange_Tables
+  name: Tables
+  nameWithType: CKRange.Tables
+  fullName: CoverageKiller2.DOM.CKRange.Tables
+- uid: CoverageKiller2.DOM.CKRange.FormattedText
+  commentId: P:CoverageKiller2.DOM.CKRange.FormattedText
+  parent: CoverageKiller2.DOM.CKRange
+  isExternal: true
+  href: CoverageKiller2.DOM.CKRange.html#CoverageKiller2_DOM_CKRange_FormattedText
+  name: FormattedText
+  nameWithType: CKRange.FormattedText
+  fullName: CoverageKiller2.DOM.CKRange.FormattedText
+- uid: CoverageKiller2.DOM.CKRange.Snapshot
+  commentId: P:CoverageKiller2.DOM.CKRange.Snapshot
+  parent: CoverageKiller2.DOM.CKRange
+  isExternal: true
+  href: CoverageKiller2.DOM.CKRange.html#CoverageKiller2_DOM_CKRange_Snapshot
+  name: Snapshot
+  nameWithType: CKRange.Snapshot
+  fullName: CoverageKiller2.DOM.CKRange.Snapshot
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: CoverageKiller2.DOM.CKParagraph.CoverageKiller2.Logging.PingService.PingPong``1(System.String)
+  commentId: M:CoverageKiller2.Logging.PingService.PingPong``1(``0,System.String)
+  parent: CoverageKiller2.Logging.PingService
+  definition: CoverageKiller2.Logging.PingService.PingPong``1(``0,System.String)
+  href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_PingPong__1___0_System_String_
+  name: PingPong<CKParagraph>(CKParagraph, string)
+  nameWithType: PingService.PingPong<CKParagraph>(CKParagraph, string)
+  fullName: CoverageKiller2.Logging.PingService.PingPong<CoverageKiller2.DOM.CKParagraph>(CoverageKiller2.DOM.CKParagraph, string)
+  nameWithType.vb: PingService.PingPong(Of CKParagraph)(CKParagraph, String)
+  fullName.vb: CoverageKiller2.Logging.PingService.PingPong(Of CoverageKiller2.DOM.CKParagraph)(CoverageKiller2.DOM.CKParagraph, String)
+  name.vb: PingPong(Of CKParagraph)(CKParagraph, String)
+  spec.csharp:
+  - uid: CoverageKiller2.Logging.PingService.PingPong``1(CoverageKiller2.DOM.CKParagraph,System.String)
+    name: PingPong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_PingPong__1___0_System_String_
+  - name: <
+  - uid: CoverageKiller2.DOM.CKParagraph
+    name: CKParagraph
+    isExternal: true
+    href: CoverageKiller2.DOM.CKParagraph.html
+  - name: '>'
+  - name: (
+  - uid: CoverageKiller2.DOM.CKParagraph
+    name: CKParagraph
+    isExternal: true
+    href: CoverageKiller2.DOM.CKParagraph.html
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: CoverageKiller2.Logging.PingService.PingPong``1(CoverageKiller2.DOM.CKParagraph,System.String)
+    name: PingPong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_PingPong__1___0_System_String_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: CoverageKiller2.DOM.CKParagraph
+    name: CKParagraph
+    isExternal: true
+    href: CoverageKiller2.DOM.CKParagraph.html
+  - name: )
+  - name: (
+  - uid: CoverageKiller2.DOM.CKParagraph
+    name: CKParagraph
+    isExternal: true
+    href: CoverageKiller2.DOM.CKParagraph.html
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: CoverageKiller2.DOM.CKParagraph.CoverageKiller2.Logging.PingService.PingPong``1(System.String,System.String)
+  commentId: M:CoverageKiller2.Logging.PingService.PingPong``1(``0,System.String,System.String)
+  parent: CoverageKiller2.Logging.PingService
+  definition: CoverageKiller2.Logging.PingService.PingPong``1(``0,System.String,System.String)
+  href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_PingPong__1___0_System_String_System_String_
+  name: PingPong<CKParagraph>(CKParagraph, string, string)
+  nameWithType: PingService.PingPong<CKParagraph>(CKParagraph, string, string)
+  fullName: CoverageKiller2.Logging.PingService.PingPong<CoverageKiller2.DOM.CKParagraph>(CoverageKiller2.DOM.CKParagraph, string, string)
+  nameWithType.vb: PingService.PingPong(Of CKParagraph)(CKParagraph, String, String)
+  fullName.vb: CoverageKiller2.Logging.PingService.PingPong(Of CoverageKiller2.DOM.CKParagraph)(CoverageKiller2.DOM.CKParagraph, String, String)
+  name.vb: PingPong(Of CKParagraph)(CKParagraph, String, String)
+  spec.csharp:
+  - uid: CoverageKiller2.Logging.PingService.PingPong``1(CoverageKiller2.DOM.CKParagraph,System.String,System.String)
+    name: PingPong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_PingPong__1___0_System_String_System_String_
+  - name: <
+  - uid: CoverageKiller2.DOM.CKParagraph
+    name: CKParagraph
+    isExternal: true
+    href: CoverageKiller2.DOM.CKParagraph.html
+  - name: '>'
+  - name: (
+  - uid: CoverageKiller2.DOM.CKParagraph
+    name: CKParagraph
+    isExternal: true
+    href: CoverageKiller2.DOM.CKParagraph.html
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: CoverageKiller2.Logging.PingService.PingPong``1(CoverageKiller2.DOM.CKParagraph,System.String,System.String)
+    name: PingPong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_PingPong__1___0_System_String_System_String_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: CoverageKiller2.DOM.CKParagraph
+    name: CKParagraph
+    isExternal: true
+    href: CoverageKiller2.DOM.CKParagraph.html
+  - name: )
+  - name: (
+  - uid: CoverageKiller2.DOM.CKParagraph
+    name: CKParagraph
+    isExternal: true
+    href: CoverageKiller2.DOM.CKParagraph.html
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: CoverageKiller2.DOM.CKParagraph.CoverageKiller2.Logging.PingService.PingPong``2(System.Func{{TResult}},System.String,System.String)
+  commentId: M:CoverageKiller2.Logging.PingService.PingPong``2(``0,System.Func{``1},System.String,System.String)
+  parent: CoverageKiller2.Logging.PingService
+  definition: CoverageKiller2.Logging.PingService.PingPong``2(``0,System.Func{``1},System.String,System.String)
+  href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_PingPong__2___0_System_Func___1__System_String_System_String_
+  name: PingPong<CKParagraph, TResult>(CKParagraph, Func<TResult>, string, string)
+  nameWithType: PingService.PingPong<CKParagraph, TResult>(CKParagraph, Func<TResult>, string, string)
+  fullName: CoverageKiller2.Logging.PingService.PingPong<CoverageKiller2.DOM.CKParagraph, TResult>(CoverageKiller2.DOM.CKParagraph, System.Func<TResult>, string, string)
+  nameWithType.vb: PingService.PingPong(Of CKParagraph, TResult)(CKParagraph, Func(Of TResult), String, String)
+  fullName.vb: CoverageKiller2.Logging.PingService.PingPong(Of CoverageKiller2.DOM.CKParagraph, TResult)(CoverageKiller2.DOM.CKParagraph, System.Func(Of TResult), String, String)
+  name.vb: PingPong(Of CKParagraph, TResult)(CKParagraph, Func(Of TResult), String, String)
+  spec.csharp:
+  - uid: CoverageKiller2.Logging.PingService.PingPong``2(CoverageKiller2.DOM.CKParagraph,System.Func{``1},System.String,System.String)
+    name: PingPong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_PingPong__2___0_System_Func___1__System_String_System_String_
+  - name: <
+  - uid: CoverageKiller2.DOM.CKParagraph
+    name: CKParagraph
+    isExternal: true
+    href: CoverageKiller2.DOM.CKParagraph.html
+  - name: ','
+  - name: " "
+  - name: TResult
+  - name: '>'
+  - name: (
+  - uid: CoverageKiller2.DOM.CKParagraph
+    name: CKParagraph
+    isExternal: true
+    href: CoverageKiller2.DOM.CKParagraph.html
+  - name: ','
+  - name: " "
+  - uid: System.Func`1
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-1
+  - name: <
+  - name: TResult
+  - name: '>'
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: CoverageKiller2.Logging.PingService.PingPong``2(CoverageKiller2.DOM.CKParagraph,System.Func{``1},System.String,System.String)
+    name: PingPong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_PingPong__2___0_System_Func___1__System_String_System_String_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: CoverageKiller2.DOM.CKParagraph
+    name: CKParagraph
+    isExternal: true
+    href: CoverageKiller2.DOM.CKParagraph.html
+  - name: ','
+  - name: " "
+  - name: TResult
+  - name: )
+  - name: (
+  - uid: CoverageKiller2.DOM.CKParagraph
+    name: CKParagraph
+    isExternal: true
+    href: CoverageKiller2.DOM.CKParagraph.html
+  - name: ','
+  - name: " "
+  - uid: System.Func`1
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TResult
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: CoverageKiller2.DOM.CKParagraph.CoverageKiller2.Logging.PingService.Ping``1(System.String)
+  commentId: M:CoverageKiller2.Logging.PingService.Ping``1(``0,System.String)
+  parent: CoverageKiller2.Logging.PingService
+  definition: CoverageKiller2.Logging.PingService.Ping``1(``0,System.String)
+  href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Ping__1___0_System_String_
+  name: Ping<CKParagraph>(CKParagraph, string)
+  nameWithType: PingService.Ping<CKParagraph>(CKParagraph, string)
+  fullName: CoverageKiller2.Logging.PingService.Ping<CoverageKiller2.DOM.CKParagraph>(CoverageKiller2.DOM.CKParagraph, string)
+  nameWithType.vb: PingService.Ping(Of CKParagraph)(CKParagraph, String)
+  fullName.vb: CoverageKiller2.Logging.PingService.Ping(Of CoverageKiller2.DOM.CKParagraph)(CoverageKiller2.DOM.CKParagraph, String)
+  name.vb: Ping(Of CKParagraph)(CKParagraph, String)
+  spec.csharp:
+  - uid: CoverageKiller2.Logging.PingService.Ping``1(CoverageKiller2.DOM.CKParagraph,System.String)
+    name: Ping
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Ping__1___0_System_String_
+  - name: <
+  - uid: CoverageKiller2.DOM.CKParagraph
+    name: CKParagraph
+    isExternal: true
+    href: CoverageKiller2.DOM.CKParagraph.html
+  - name: '>'
+  - name: (
+  - uid: CoverageKiller2.DOM.CKParagraph
+    name: CKParagraph
+    isExternal: true
+    href: CoverageKiller2.DOM.CKParagraph.html
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: CoverageKiller2.Logging.PingService.Ping``1(CoverageKiller2.DOM.CKParagraph,System.String)
+    name: Ping
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Ping__1___0_System_String_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: CoverageKiller2.DOM.CKParagraph
+    name: CKParagraph
+    isExternal: true
+    href: CoverageKiller2.DOM.CKParagraph.html
+  - name: )
+  - name: (
+  - uid: CoverageKiller2.DOM.CKParagraph
+    name: CKParagraph
+    isExternal: true
+    href: CoverageKiller2.DOM.CKParagraph.html
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: CoverageKiller2.DOM.CKParagraph.CoverageKiller2.Logging.PingService.Ping``1(System.String,System.String)
+  commentId: M:CoverageKiller2.Logging.PingService.Ping``1(``0,System.String,System.String)
+  parent: CoverageKiller2.Logging.PingService
+  definition: CoverageKiller2.Logging.PingService.Ping``1(``0,System.String,System.String)
+  href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Ping__1___0_System_String_System_String_
+  name: Ping<CKParagraph>(CKParagraph, string, string)
+  nameWithType: PingService.Ping<CKParagraph>(CKParagraph, string, string)
+  fullName: CoverageKiller2.Logging.PingService.Ping<CoverageKiller2.DOM.CKParagraph>(CoverageKiller2.DOM.CKParagraph, string, string)
+  nameWithType.vb: PingService.Ping(Of CKParagraph)(CKParagraph, String, String)
+  fullName.vb: CoverageKiller2.Logging.PingService.Ping(Of CoverageKiller2.DOM.CKParagraph)(CoverageKiller2.DOM.CKParagraph, String, String)
+  name.vb: Ping(Of CKParagraph)(CKParagraph, String, String)
+  spec.csharp:
+  - uid: CoverageKiller2.Logging.PingService.Ping``1(CoverageKiller2.DOM.CKParagraph,System.String,System.String)
+    name: Ping
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Ping__1___0_System_String_System_String_
+  - name: <
+  - uid: CoverageKiller2.DOM.CKParagraph
+    name: CKParagraph
+    isExternal: true
+    href: CoverageKiller2.DOM.CKParagraph.html
+  - name: '>'
+  - name: (
+  - uid: CoverageKiller2.DOM.CKParagraph
+    name: CKParagraph
+    isExternal: true
+    href: CoverageKiller2.DOM.CKParagraph.html
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: CoverageKiller2.Logging.PingService.Ping``1(CoverageKiller2.DOM.CKParagraph,System.String,System.String)
+    name: Ping
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Ping__1___0_System_String_System_String_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: CoverageKiller2.DOM.CKParagraph
+    name: CKParagraph
+    isExternal: true
+    href: CoverageKiller2.DOM.CKParagraph.html
+  - name: )
+  - name: (
+  - uid: CoverageKiller2.DOM.CKParagraph
+    name: CKParagraph
+    isExternal: true
+    href: CoverageKiller2.DOM.CKParagraph.html
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: CoverageKiller2.DOM.CKParagraph.CoverageKiller2.Logging.PingService.Ping``1(System.Type[],System.String)
+  commentId: M:CoverageKiller2.Logging.PingService.Ping``1(``0,System.Type[],System.String)
+  parent: CoverageKiller2.Logging.PingService
+  definition: CoverageKiller2.Logging.PingService.Ping``1(``0,System.Type[],System.String)
+  href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Ping__1___0_System_Type___System_String_
+  name: Ping<CKParagraph>(CKParagraph, Type[], string)
+  nameWithType: PingService.Ping<CKParagraph>(CKParagraph, Type[], string)
+  fullName: CoverageKiller2.Logging.PingService.Ping<CoverageKiller2.DOM.CKParagraph>(CoverageKiller2.DOM.CKParagraph, System.Type[], string)
+  nameWithType.vb: PingService.Ping(Of CKParagraph)(CKParagraph, Type(), String)
+  fullName.vb: CoverageKiller2.Logging.PingService.Ping(Of CoverageKiller2.DOM.CKParagraph)(CoverageKiller2.DOM.CKParagraph, System.Type(), String)
+  name.vb: Ping(Of CKParagraph)(CKParagraph, Type(), String)
+  spec.csharp:
+  - uid: CoverageKiller2.Logging.PingService.Ping``1(CoverageKiller2.DOM.CKParagraph,System.Type[],System.String)
+    name: Ping
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Ping__1___0_System_Type___System_String_
+  - name: <
+  - uid: CoverageKiller2.DOM.CKParagraph
+    name: CKParagraph
+    isExternal: true
+    href: CoverageKiller2.DOM.CKParagraph.html
+  - name: '>'
+  - name: (
+  - uid: CoverageKiller2.DOM.CKParagraph
+    name: CKParagraph
+    isExternal: true
+    href: CoverageKiller2.DOM.CKParagraph.html
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: '['
+  - name: ']'
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: CoverageKiller2.Logging.PingService.Ping``1(CoverageKiller2.DOM.CKParagraph,System.Type[],System.String)
+    name: Ping
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Ping__1___0_System_Type___System_String_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: CoverageKiller2.DOM.CKParagraph
+    name: CKParagraph
+    isExternal: true
+    href: CoverageKiller2.DOM.CKParagraph.html
+  - name: )
+  - name: (
+  - uid: CoverageKiller2.DOM.CKParagraph
+    name: CKParagraph
+    isExternal: true
+    href: CoverageKiller2.DOM.CKParagraph.html
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: (
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: CoverageKiller2.DOM.CKParagraph.CoverageKiller2.Logging.PingService.Pong``1(System.String)
+  commentId: M:CoverageKiller2.Logging.PingService.Pong``1(``0,System.String)
+  parent: CoverageKiller2.Logging.PingService
+  definition: CoverageKiller2.Logging.PingService.Pong``1(``0,System.String)
+  href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1___0_System_String_
+  name: Pong<CKParagraph>(CKParagraph, string)
+  nameWithType: PingService.Pong<CKParagraph>(CKParagraph, string)
+  fullName: CoverageKiller2.Logging.PingService.Pong<CoverageKiller2.DOM.CKParagraph>(CoverageKiller2.DOM.CKParagraph, string)
+  nameWithType.vb: PingService.Pong(Of CKParagraph)(CKParagraph, String)
+  fullName.vb: CoverageKiller2.Logging.PingService.Pong(Of CoverageKiller2.DOM.CKParagraph)(CoverageKiller2.DOM.CKParagraph, String)
+  name.vb: Pong(Of CKParagraph)(CKParagraph, String)
+  spec.csharp:
+  - uid: CoverageKiller2.Logging.PingService.Pong``1(CoverageKiller2.DOM.CKParagraph,System.String)
+    name: Pong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1___0_System_String_
+  - name: <
+  - uid: CoverageKiller2.DOM.CKParagraph
+    name: CKParagraph
+    isExternal: true
+    href: CoverageKiller2.DOM.CKParagraph.html
+  - name: '>'
+  - name: (
+  - uid: CoverageKiller2.DOM.CKParagraph
+    name: CKParagraph
+    isExternal: true
+    href: CoverageKiller2.DOM.CKParagraph.html
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: CoverageKiller2.Logging.PingService.Pong``1(CoverageKiller2.DOM.CKParagraph,System.String)
+    name: Pong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1___0_System_String_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: CoverageKiller2.DOM.CKParagraph
+    name: CKParagraph
+    isExternal: true
+    href: CoverageKiller2.DOM.CKParagraph.html
+  - name: )
+  - name: (
+  - uid: CoverageKiller2.DOM.CKParagraph
+    name: CKParagraph
+    isExternal: true
+    href: CoverageKiller2.DOM.CKParagraph.html
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: CoverageKiller2.DOM.CKParagraph.CoverageKiller2.Logging.PingService.Pong``1(System.String,System.String)
+  commentId: M:CoverageKiller2.Logging.PingService.Pong``1(``0,System.String,System.String)
+  parent: CoverageKiller2.Logging.PingService
+  definition: CoverageKiller2.Logging.PingService.Pong``1(``0,System.String,System.String)
+  href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1___0_System_String_System_String_
+  name: Pong<CKParagraph>(CKParagraph, string, string)
+  nameWithType: PingService.Pong<CKParagraph>(CKParagraph, string, string)
+  fullName: CoverageKiller2.Logging.PingService.Pong<CoverageKiller2.DOM.CKParagraph>(CoverageKiller2.DOM.CKParagraph, string, string)
+  nameWithType.vb: PingService.Pong(Of CKParagraph)(CKParagraph, String, String)
+  fullName.vb: CoverageKiller2.Logging.PingService.Pong(Of CoverageKiller2.DOM.CKParagraph)(CoverageKiller2.DOM.CKParagraph, String, String)
+  name.vb: Pong(Of CKParagraph)(CKParagraph, String, String)
+  spec.csharp:
+  - uid: CoverageKiller2.Logging.PingService.Pong``1(CoverageKiller2.DOM.CKParagraph,System.String,System.String)
+    name: Pong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1___0_System_String_System_String_
+  - name: <
+  - uid: CoverageKiller2.DOM.CKParagraph
+    name: CKParagraph
+    isExternal: true
+    href: CoverageKiller2.DOM.CKParagraph.html
+  - name: '>'
+  - name: (
+  - uid: CoverageKiller2.DOM.CKParagraph
+    name: CKParagraph
+    isExternal: true
+    href: CoverageKiller2.DOM.CKParagraph.html
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: CoverageKiller2.Logging.PingService.Pong``1(CoverageKiller2.DOM.CKParagraph,System.String,System.String)
+    name: Pong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1___0_System_String_System_String_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: CoverageKiller2.DOM.CKParagraph
+    name: CKParagraph
+    isExternal: true
+    href: CoverageKiller2.DOM.CKParagraph.html
+  - name: )
+  - name: (
+  - uid: CoverageKiller2.DOM.CKParagraph
+    name: CKParagraph
+    isExternal: true
+    href: CoverageKiller2.DOM.CKParagraph.html
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: CoverageKiller2.DOM.CKParagraph.CoverageKiller2.Logging.PingService.Pong``1(System.Type,System.String)
+  commentId: M:CoverageKiller2.Logging.PingService.Pong``1(``0,System.Type,System.String)
+  parent: CoverageKiller2.Logging.PingService
+  definition: CoverageKiller2.Logging.PingService.Pong``1(``0,System.Type,System.String)
+  href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1___0_System_Type_System_String_
+  name: Pong<CKParagraph>(CKParagraph, Type, string)
+  nameWithType: PingService.Pong<CKParagraph>(CKParagraph, Type, string)
+  fullName: CoverageKiller2.Logging.PingService.Pong<CoverageKiller2.DOM.CKParagraph>(CoverageKiller2.DOM.CKParagraph, System.Type, string)
+  nameWithType.vb: PingService.Pong(Of CKParagraph)(CKParagraph, Type, String)
+  fullName.vb: CoverageKiller2.Logging.PingService.Pong(Of CoverageKiller2.DOM.CKParagraph)(CoverageKiller2.DOM.CKParagraph, System.Type, String)
+  name.vb: Pong(Of CKParagraph)(CKParagraph, Type, String)
+  spec.csharp:
+  - uid: CoverageKiller2.Logging.PingService.Pong``1(CoverageKiller2.DOM.CKParagraph,System.Type,System.String)
+    name: Pong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1___0_System_Type_System_String_
+  - name: <
+  - uid: CoverageKiller2.DOM.CKParagraph
+    name: CKParagraph
+    isExternal: true
+    href: CoverageKiller2.DOM.CKParagraph.html
+  - name: '>'
+  - name: (
+  - uid: CoverageKiller2.DOM.CKParagraph
+    name: CKParagraph
+    isExternal: true
+    href: CoverageKiller2.DOM.CKParagraph.html
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: CoverageKiller2.Logging.PingService.Pong``1(CoverageKiller2.DOM.CKParagraph,System.Type,System.String)
+    name: Pong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1___0_System_Type_System_String_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: CoverageKiller2.DOM.CKParagraph
+    name: CKParagraph
+    isExternal: true
+    href: CoverageKiller2.DOM.CKParagraph.html
+  - name: )
+  - name: (
+  - uid: CoverageKiller2.DOM.CKParagraph
+    name: CKParagraph
+    isExternal: true
+    href: CoverageKiller2.DOM.CKParagraph.html
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: CoverageKiller2.DOM.CKParagraph.CoverageKiller2.Logging.PingService.Pong``1(System.Type[],System.String)
+  commentId: M:CoverageKiller2.Logging.PingService.Pong``1(``0,System.Type[],System.String)
+  parent: CoverageKiller2.Logging.PingService
+  definition: CoverageKiller2.Logging.PingService.Pong``1(``0,System.Type[],System.String)
+  href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1___0_System_Type___System_String_
+  name: Pong<CKParagraph>(CKParagraph, Type[], string)
+  nameWithType: PingService.Pong<CKParagraph>(CKParagraph, Type[], string)
+  fullName: CoverageKiller2.Logging.PingService.Pong<CoverageKiller2.DOM.CKParagraph>(CoverageKiller2.DOM.CKParagraph, System.Type[], string)
+  nameWithType.vb: PingService.Pong(Of CKParagraph)(CKParagraph, Type(), String)
+  fullName.vb: CoverageKiller2.Logging.PingService.Pong(Of CoverageKiller2.DOM.CKParagraph)(CoverageKiller2.DOM.CKParagraph, System.Type(), String)
+  name.vb: Pong(Of CKParagraph)(CKParagraph, Type(), String)
+  spec.csharp:
+  - uid: CoverageKiller2.Logging.PingService.Pong``1(CoverageKiller2.DOM.CKParagraph,System.Type[],System.String)
+    name: Pong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1___0_System_Type___System_String_
+  - name: <
+  - uid: CoverageKiller2.DOM.CKParagraph
+    name: CKParagraph
+    isExternal: true
+    href: CoverageKiller2.DOM.CKParagraph.html
+  - name: '>'
+  - name: (
+  - uid: CoverageKiller2.DOM.CKParagraph
+    name: CKParagraph
+    isExternal: true
+    href: CoverageKiller2.DOM.CKParagraph.html
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: '['
+  - name: ']'
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: CoverageKiller2.Logging.PingService.Pong``1(CoverageKiller2.DOM.CKParagraph,System.Type[],System.String)
+    name: Pong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1___0_System_Type___System_String_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: CoverageKiller2.DOM.CKParagraph
+    name: CKParagraph
+    isExternal: true
+    href: CoverageKiller2.DOM.CKParagraph.html
+  - name: )
+  - name: (
+  - uid: CoverageKiller2.DOM.CKParagraph
+    name: CKParagraph
+    isExternal: true
+    href: CoverageKiller2.DOM.CKParagraph.html
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: (
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: CoverageKiller2.DOM.CKParagraph.CoverageKiller2.Logging.PingService.Pong``2(System.Func{{TResult}},System.String,System.String)
+  commentId: M:CoverageKiller2.Logging.PingService.Pong``2(``0,System.Func{``1},System.String,System.String)
+  parent: CoverageKiller2.Logging.PingService
+  definition: CoverageKiller2.Logging.PingService.Pong``2(``0,System.Func{``1},System.String,System.String)
+  href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__2___0_System_Func___1__System_String_System_String_
+  name: Pong<CKParagraph, TResult>(CKParagraph, Func<TResult>, string, string)
+  nameWithType: PingService.Pong<CKParagraph, TResult>(CKParagraph, Func<TResult>, string, string)
+  fullName: CoverageKiller2.Logging.PingService.Pong<CoverageKiller2.DOM.CKParagraph, TResult>(CoverageKiller2.DOM.CKParagraph, System.Func<TResult>, string, string)
+  nameWithType.vb: PingService.Pong(Of CKParagraph, TResult)(CKParagraph, Func(Of TResult), String, String)
+  fullName.vb: CoverageKiller2.Logging.PingService.Pong(Of CoverageKiller2.DOM.CKParagraph, TResult)(CoverageKiller2.DOM.CKParagraph, System.Func(Of TResult), String, String)
+  name.vb: Pong(Of CKParagraph, TResult)(CKParagraph, Func(Of TResult), String, String)
+  spec.csharp:
+  - uid: CoverageKiller2.Logging.PingService.Pong``2(CoverageKiller2.DOM.CKParagraph,System.Func{``1},System.String,System.String)
+    name: Pong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__2___0_System_Func___1__System_String_System_String_
+  - name: <
+  - uid: CoverageKiller2.DOM.CKParagraph
+    name: CKParagraph
+    isExternal: true
+    href: CoverageKiller2.DOM.CKParagraph.html
+  - name: ','
+  - name: " "
+  - name: TResult
+  - name: '>'
+  - name: (
+  - uid: CoverageKiller2.DOM.CKParagraph
+    name: CKParagraph
+    isExternal: true
+    href: CoverageKiller2.DOM.CKParagraph.html
+  - name: ','
+  - name: " "
+  - uid: System.Func`1
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-1
+  - name: <
+  - name: TResult
+  - name: '>'
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: CoverageKiller2.Logging.PingService.Pong``2(CoverageKiller2.DOM.CKParagraph,System.Func{``1},System.String,System.String)
+    name: Pong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__2___0_System_Func___1__System_String_System_String_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: CoverageKiller2.DOM.CKParagraph
+    name: CKParagraph
+    isExternal: true
+    href: CoverageKiller2.DOM.CKParagraph.html
+  - name: ','
+  - name: " "
+  - name: TResult
+  - name: )
+  - name: (
+  - uid: CoverageKiller2.DOM.CKParagraph
+    name: CKParagraph
+    isExternal: true
+    href: CoverageKiller2.DOM.CKParagraph.html
+  - name: ','
+  - name: " "
+  - uid: System.Func`1
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TResult
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: CoverageKiller2.DOM.CKRange.Cache``1(``0@)
+  commentId: M:CoverageKiller2.DOM.CKRange.Cache``1(``0@)
+  isExternal: true
+  href: CoverageKiller2.DOM.CKRange.html#CoverageKiller2_DOM_CKRange_Cache__1___0__
+  name: Cache<T>(ref T)
+  nameWithType: CKRange.Cache<T>(ref T)
+  fullName: CoverageKiller2.DOM.CKRange.Cache<T>(ref T)
+  nameWithType.vb: CKRange.Cache(Of T)(T)
+  fullName.vb: CoverageKiller2.DOM.CKRange.Cache(Of T)(T)
+  name.vb: Cache(Of T)(T)
+  spec.csharp:
+  - uid: CoverageKiller2.DOM.CKRange.Cache``1(``0@)
+    name: Cache
+    isExternal: true
+    href: CoverageKiller2.DOM.CKRange.html#CoverageKiller2_DOM_CKRange_Cache__1___0__
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: ref
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: CoverageKiller2.DOM.CKRange.Cache``1(``0@)
+    name: Cache
+    isExternal: true
+    href: CoverageKiller2.DOM.CKRange.html#CoverageKiller2_DOM_CKRange_Cache__1___0__
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: )
+- uid: CoverageKiller2.DOM.CKRange.Cache``1(``0@,System.Func{``0})
+  commentId: M:CoverageKiller2.DOM.CKRange.Cache``1(``0@,System.Func{``0})
+  isExternal: true
+  href: CoverageKiller2.DOM.CKRange.html#CoverageKiller2_DOM_CKRange_Cache__1___0__System_Func___0__
+  name: Cache<T>(ref T, Func<T>)
+  nameWithType: CKRange.Cache<T>(ref T, Func<T>)
+  fullName: CoverageKiller2.DOM.CKRange.Cache<T>(ref T, System.Func<T>)
+  nameWithType.vb: CKRange.Cache(Of T)(T, Func(Of T))
+  fullName.vb: CoverageKiller2.DOM.CKRange.Cache(Of T)(T, System.Func(Of T))
+  name.vb: Cache(Of T)(T, Func(Of T))
+  spec.csharp:
+  - uid: CoverageKiller2.DOM.CKRange.Cache``1(``0@,System.Func{``0})
+    name: Cache
+    isExternal: true
+    href: CoverageKiller2.DOM.CKRange.html#CoverageKiller2_DOM_CKRange_Cache__1___0__System_Func___0__
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: ref
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Func`1
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-1
+  - name: <
+  - name: T
+  - name: '>'
+  - name: )
+  spec.vb:
+  - uid: CoverageKiller2.DOM.CKRange.Cache``1(``0@,System.Func{``0})
+    name: Cache
+    isExternal: true
+    href: CoverageKiller2.DOM.CKRange.html#CoverageKiller2_DOM_CKRange_Cache__1___0__System_Func___0__
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Func`1
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: )
+- uid: CoverageKiller2.DOM.CKRange.SetCache``1(``0@,``0,System.Action{``0})
+  commentId: M:CoverageKiller2.DOM.CKRange.SetCache``1(``0@,``0,System.Action{``0})
+  isExternal: true
+  href: CoverageKiller2.DOM.CKRange.html#CoverageKiller2_DOM_CKRange_SetCache__1___0____0_System_Action___0__
+  name: SetCache<T>(ref T, T, Action<T>)
+  nameWithType: CKRange.SetCache<T>(ref T, T, Action<T>)
+  fullName: CoverageKiller2.DOM.CKRange.SetCache<T>(ref T, T, System.Action<T>)
+  nameWithType.vb: CKRange.SetCache(Of T)(T, T, Action(Of T))
+  fullName.vb: CoverageKiller2.DOM.CKRange.SetCache(Of T)(T, T, System.Action(Of T))
+  name.vb: SetCache(Of T)(T, T, Action(Of T))
+  spec.csharp:
+  - uid: CoverageKiller2.DOM.CKRange.SetCache``1(``0@,``0,System.Action{``0})
+    name: SetCache
+    isExternal: true
+    href: CoverageKiller2.DOM.CKRange.html#CoverageKiller2_DOM_CKRange_SetCache__1___0____0_System_Action___0__
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: ref
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Action`1
+    name: Action
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.action-1
+  - name: <
+  - name: T
+  - name: '>'
+  - name: )
+  spec.vb:
+  - uid: CoverageKiller2.DOM.CKRange.SetCache``1(``0@,``0,System.Action{``0})
+    name: SetCache
+    isExternal: true
+    href: CoverageKiller2.DOM.CKRange.html#CoverageKiller2_DOM_CKRange_SetCache__1___0____0_System_Action___0__
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Action`1
+    name: Action
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.action-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: )
+- uid: CoverageKiller2.Logging.PingService.PingPong``1(``0,System.String)
+  commentId: M:CoverageKiller2.Logging.PingService.PingPong``1(``0,System.String)
+  isExternal: true
+  href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_PingPong__1___0_System_String_
+  name: PingPong<T>(T, string)
+  nameWithType: PingService.PingPong<T>(T, string)
+  fullName: CoverageKiller2.Logging.PingService.PingPong<T>(T, string)
+  nameWithType.vb: PingService.PingPong(Of T)(T, String)
+  fullName.vb: CoverageKiller2.Logging.PingService.PingPong(Of T)(T, String)
+  name.vb: PingPong(Of T)(T, String)
+  spec.csharp:
+  - uid: CoverageKiller2.Logging.PingService.PingPong``1(``0,System.String)
+    name: PingPong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_PingPong__1___0_System_String_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: CoverageKiller2.Logging.PingService.PingPong``1(``0,System.String)
+    name: PingPong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_PingPong__1___0_System_String_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: CoverageKiller2.Logging.PingService
+  commentId: T:CoverageKiller2.Logging.PingService
+  parent: CoverageKiller2.Logging
+  isExternal: true
+  href: CoverageKiller2.Logging.PingService.html
+  name: PingService
+  nameWithType: PingService
+  fullName: CoverageKiller2.Logging.PingService
+- uid: CoverageKiller2.Logging.PingService.PingPong``1(``0,System.String,System.String)
+  commentId: M:CoverageKiller2.Logging.PingService.PingPong``1(``0,System.String,System.String)
+  isExternal: true
+  href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_PingPong__1___0_System_String_System_String_
+  name: PingPong<T>(T, string, string)
+  nameWithType: PingService.PingPong<T>(T, string, string)
+  fullName: CoverageKiller2.Logging.PingService.PingPong<T>(T, string, string)
+  nameWithType.vb: PingService.PingPong(Of T)(T, String, String)
+  fullName.vb: CoverageKiller2.Logging.PingService.PingPong(Of T)(T, String, String)
+  name.vb: PingPong(Of T)(T, String, String)
+  spec.csharp:
+  - uid: CoverageKiller2.Logging.PingService.PingPong``1(``0,System.String,System.String)
+    name: PingPong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_PingPong__1___0_System_String_System_String_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: CoverageKiller2.Logging.PingService.PingPong``1(``0,System.String,System.String)
+    name: PingPong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_PingPong__1___0_System_String_System_String_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: CoverageKiller2.Logging.PingService.PingPong``2(``0,System.Func{``1},System.String,System.String)
+  commentId: M:CoverageKiller2.Logging.PingService.PingPong``2(``0,System.Func{``1},System.String,System.String)
+  isExternal: true
+  href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_PingPong__2___0_System_Func___1__System_String_System_String_
+  name: PingPong<T, TResult>(T, Func<TResult>, string, string)
+  nameWithType: PingService.PingPong<T, TResult>(T, Func<TResult>, string, string)
+  fullName: CoverageKiller2.Logging.PingService.PingPong<T, TResult>(T, System.Func<TResult>, string, string)
+  nameWithType.vb: PingService.PingPong(Of T, TResult)(T, Func(Of TResult), String, String)
+  fullName.vb: CoverageKiller2.Logging.PingService.PingPong(Of T, TResult)(T, System.Func(Of TResult), String, String)
+  name.vb: PingPong(Of T, TResult)(T, Func(Of TResult), String, String)
+  spec.csharp:
+  - uid: CoverageKiller2.Logging.PingService.PingPong``2(``0,System.Func{``1},System.String,System.String)
+    name: PingPong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_PingPong__2___0_System_Func___1__System_String_System_String_
+  - name: <
+  - name: T
+  - name: ','
+  - name: " "
+  - name: TResult
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Func`1
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-1
+  - name: <
+  - name: TResult
+  - name: '>'
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: CoverageKiller2.Logging.PingService.PingPong``2(``0,System.Func{``1},System.String,System.String)
+    name: PingPong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_PingPong__2___0_System_Func___1__System_String_System_String_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - name: TResult
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Func`1
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TResult
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: CoverageKiller2.Logging.PingService.Ping``1(``0,System.String)
+  commentId: M:CoverageKiller2.Logging.PingService.Ping``1(``0,System.String)
+  isExternal: true
+  href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Ping__1___0_System_String_
+  name: Ping<T>(T, string)
+  nameWithType: PingService.Ping<T>(T, string)
+  fullName: CoverageKiller2.Logging.PingService.Ping<T>(T, string)
+  nameWithType.vb: PingService.Ping(Of T)(T, String)
+  fullName.vb: CoverageKiller2.Logging.PingService.Ping(Of T)(T, String)
+  name.vb: Ping(Of T)(T, String)
+  spec.csharp:
+  - uid: CoverageKiller2.Logging.PingService.Ping``1(``0,System.String)
+    name: Ping
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Ping__1___0_System_String_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: CoverageKiller2.Logging.PingService.Ping``1(``0,System.String)
+    name: Ping
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Ping__1___0_System_String_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: CoverageKiller2.Logging.PingService.Ping``1(``0,System.String,System.String)
+  commentId: M:CoverageKiller2.Logging.PingService.Ping``1(``0,System.String,System.String)
+  isExternal: true
+  href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Ping__1___0_System_String_System_String_
+  name: Ping<T>(T, string, string)
+  nameWithType: PingService.Ping<T>(T, string, string)
+  fullName: CoverageKiller2.Logging.PingService.Ping<T>(T, string, string)
+  nameWithType.vb: PingService.Ping(Of T)(T, String, String)
+  fullName.vb: CoverageKiller2.Logging.PingService.Ping(Of T)(T, String, String)
+  name.vb: Ping(Of T)(T, String, String)
+  spec.csharp:
+  - uid: CoverageKiller2.Logging.PingService.Ping``1(``0,System.String,System.String)
+    name: Ping
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Ping__1___0_System_String_System_String_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: CoverageKiller2.Logging.PingService.Ping``1(``0,System.String,System.String)
+    name: Ping
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Ping__1___0_System_String_System_String_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: CoverageKiller2.Logging.PingService.Ping``1(``0,System.Type[],System.String)
+  commentId: M:CoverageKiller2.Logging.PingService.Ping``1(``0,System.Type[],System.String)
+  isExternal: true
+  href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Ping__1___0_System_Type___System_String_
+  name: Ping<T>(T, Type[], string)
+  nameWithType: PingService.Ping<T>(T, Type[], string)
+  fullName: CoverageKiller2.Logging.PingService.Ping<T>(T, System.Type[], string)
+  nameWithType.vb: PingService.Ping(Of T)(T, Type(), String)
+  fullName.vb: CoverageKiller2.Logging.PingService.Ping(Of T)(T, System.Type(), String)
+  name.vb: Ping(Of T)(T, Type(), String)
+  spec.csharp:
+  - uid: CoverageKiller2.Logging.PingService.Ping``1(``0,System.Type[],System.String)
+    name: Ping
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Ping__1___0_System_Type___System_String_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: '['
+  - name: ']'
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: CoverageKiller2.Logging.PingService.Ping``1(``0,System.Type[],System.String)
+    name: Ping
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Ping__1___0_System_Type___System_String_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: (
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: CoverageKiller2.Logging.PingService.Pong``1(``0,System.String)
+  commentId: M:CoverageKiller2.Logging.PingService.Pong``1(``0,System.String)
+  isExternal: true
+  href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1___0_System_String_
+  name: Pong<T>(T, string)
+  nameWithType: PingService.Pong<T>(T, string)
+  fullName: CoverageKiller2.Logging.PingService.Pong<T>(T, string)
+  nameWithType.vb: PingService.Pong(Of T)(T, String)
+  fullName.vb: CoverageKiller2.Logging.PingService.Pong(Of T)(T, String)
+  name.vb: Pong(Of T)(T, String)
+  spec.csharp:
+  - uid: CoverageKiller2.Logging.PingService.Pong``1(``0,System.String)
+    name: Pong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1___0_System_String_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: CoverageKiller2.Logging.PingService.Pong``1(``0,System.String)
+    name: Pong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1___0_System_String_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: CoverageKiller2.Logging.PingService.Pong``1(``0,System.String,System.String)
+  commentId: M:CoverageKiller2.Logging.PingService.Pong``1(``0,System.String,System.String)
+  isExternal: true
+  href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1___0_System_String_System_String_
+  name: Pong<T>(T, string, string)
+  nameWithType: PingService.Pong<T>(T, string, string)
+  fullName: CoverageKiller2.Logging.PingService.Pong<T>(T, string, string)
+  nameWithType.vb: PingService.Pong(Of T)(T, String, String)
+  fullName.vb: CoverageKiller2.Logging.PingService.Pong(Of T)(T, String, String)
+  name.vb: Pong(Of T)(T, String, String)
+  spec.csharp:
+  - uid: CoverageKiller2.Logging.PingService.Pong``1(``0,System.String,System.String)
+    name: Pong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1___0_System_String_System_String_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: CoverageKiller2.Logging.PingService.Pong``1(``0,System.String,System.String)
+    name: Pong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1___0_System_String_System_String_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: CoverageKiller2.Logging.PingService.Pong``1(``0,System.Type,System.String)
+  commentId: M:CoverageKiller2.Logging.PingService.Pong``1(``0,System.Type,System.String)
+  isExternal: true
+  href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1___0_System_Type_System_String_
+  name: Pong<T>(T, Type, string)
+  nameWithType: PingService.Pong<T>(T, Type, string)
+  fullName: CoverageKiller2.Logging.PingService.Pong<T>(T, System.Type, string)
+  nameWithType.vb: PingService.Pong(Of T)(T, Type, String)
+  fullName.vb: CoverageKiller2.Logging.PingService.Pong(Of T)(T, System.Type, String)
+  name.vb: Pong(Of T)(T, Type, String)
+  spec.csharp:
+  - uid: CoverageKiller2.Logging.PingService.Pong``1(``0,System.Type,System.String)
+    name: Pong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1___0_System_Type_System_String_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: CoverageKiller2.Logging.PingService.Pong``1(``0,System.Type,System.String)
+    name: Pong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1___0_System_Type_System_String_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: CoverageKiller2.Logging.PingService.Pong``1(``0,System.Type[],System.String)
+  commentId: M:CoverageKiller2.Logging.PingService.Pong``1(``0,System.Type[],System.String)
+  isExternal: true
+  href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1___0_System_Type___System_String_
+  name: Pong<T>(T, Type[], string)
+  nameWithType: PingService.Pong<T>(T, Type[], string)
+  fullName: CoverageKiller2.Logging.PingService.Pong<T>(T, System.Type[], string)
+  nameWithType.vb: PingService.Pong(Of T)(T, Type(), String)
+  fullName.vb: CoverageKiller2.Logging.PingService.Pong(Of T)(T, System.Type(), String)
+  name.vb: Pong(Of T)(T, Type(), String)
+  spec.csharp:
+  - uid: CoverageKiller2.Logging.PingService.Pong``1(``0,System.Type[],System.String)
+    name: Pong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1___0_System_Type___System_String_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: '['
+  - name: ']'
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: CoverageKiller2.Logging.PingService.Pong``1(``0,System.Type[],System.String)
+    name: Pong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1___0_System_Type___System_String_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: (
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: CoverageKiller2.Logging.PingService.Pong``2(``0,System.Func{``1},System.String,System.String)
+  commentId: M:CoverageKiller2.Logging.PingService.Pong``2(``0,System.Func{``1},System.String,System.String)
+  isExternal: true
+  href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__2___0_System_Func___1__System_String_System_String_
+  name: Pong<T, TResult>(T, Func<TResult>, string, string)
+  nameWithType: PingService.Pong<T, TResult>(T, Func<TResult>, string, string)
+  fullName: CoverageKiller2.Logging.PingService.Pong<T, TResult>(T, System.Func<TResult>, string, string)
+  nameWithType.vb: PingService.Pong(Of T, TResult)(T, Func(Of TResult), String, String)
+  fullName.vb: CoverageKiller2.Logging.PingService.Pong(Of T, TResult)(T, System.Func(Of TResult), String, String)
+  name.vb: Pong(Of T, TResult)(T, Func(Of TResult), String, String)
+  spec.csharp:
+  - uid: CoverageKiller2.Logging.PingService.Pong``2(``0,System.Func{``1},System.String,System.String)
+    name: Pong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__2___0_System_Func___1__System_String_System_String_
+  - name: <
+  - name: T
+  - name: ','
+  - name: " "
+  - name: TResult
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Func`1
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-1
+  - name: <
+  - name: TResult
+  - name: '>'
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: CoverageKiller2.Logging.PingService.Pong``2(``0,System.Func{``1},System.String,System.String)
+    name: Pong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__2___0_System_Func___1__System_String_System_String_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - name: TResult
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Func`1
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TResult
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: CoverageKiller2.Logging
+  commentId: N:CoverageKiller2.Logging
+  isExternal: true
+  href: CoverageKiller2.html
+  name: CoverageKiller2.Logging
+  nameWithType: CoverageKiller2.Logging
+  fullName: CoverageKiller2.Logging
+  spec.csharp:
+  - uid: CoverageKiller2
+    name: CoverageKiller2
+    isExternal: true
+    href: CoverageKiller2.html
+  - name: .
+  - uid: CoverageKiller2.Logging
+    name: Logging
+    isExternal: true
+    href: CoverageKiller2.Logging.html
+  spec.vb:
+  - uid: CoverageKiller2
+    name: CoverageKiller2
+    isExternal: true
+    href: CoverageKiller2.html
+  - name: .
+  - uid: CoverageKiller2.Logging
+    name: Logging
+    isExternal: true
+    href: CoverageKiller2.Logging.html
+- uid: CoverageKiller2.DOM.CKParagraph.#ctor*
+  commentId: Overload:CoverageKiller2.DOM.CKParagraph.#ctor
+  isExternal: true
+  href: CoverageKiller2.DOM.CKParagraph.html#CoverageKiller2_DOM_CKParagraph__ctor_Microsoft_Office_Interop_Word_Paragraph_CoverageKiller2_DOM_IDOMObject_System_Int32_
+  name: CKParagraph
+  nameWithType: CKParagraph.CKParagraph
+  fullName: CoverageKiller2.DOM.CKParagraph.CKParagraph
+  nameWithType.vb: CKParagraph.New
+  fullName.vb: CoverageKiller2.DOM.CKParagraph.New
+  name.vb: New
+- uid: Microsoft.Office.Interop.Word.Paragraph
+  commentId: T:Microsoft.Office.Interop.Word.Paragraph
+  parent: Microsoft.Office.Interop.Word
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/microsoft.office.interop.word.paragraph
+  name: Paragraph
+  nameWithType: Paragraph
+  fullName: Microsoft.Office.Interop.Word.Paragraph
+- uid: System.Int32
+  commentId: T:System.Int32
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.int32
+  name: int
+  nameWithType: int
+  fullName: int
+  nameWithType.vb: Integer
+  fullName.vb: Integer
+  name.vb: Integer
+- uid: Microsoft.Office.Interop.Word
+  commentId: N:Microsoft.Office.Interop.Word
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/microsoft
+  name: Microsoft.Office.Interop.Word
+  nameWithType: Microsoft.Office.Interop.Word
+  fullName: Microsoft.Office.Interop.Word
+  spec.csharp:
+  - uid: Microsoft
+    name: Microsoft
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/microsoft
+  - name: .
+  - uid: Microsoft.Office
+    name: Office
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/microsoft.office
+  - name: .
+  - uid: Microsoft.Office.Interop
+    name: Interop
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/microsoft.office.interop
+  - name: .
+  - uid: Microsoft.Office.Interop.Word
+    name: Word
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/microsoft.office.interop.word
+  spec.vb:
+  - uid: Microsoft
+    name: Microsoft
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/microsoft
+  - name: .
+  - uid: Microsoft.Office
+    name: Office
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/microsoft.office
+  - name: .
+  - uid: Microsoft.Office.Interop
+    name: Interop
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/microsoft.office.interop
+  - name: .
+  - uid: Microsoft.Office.Interop.Word
+    name: Word
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/microsoft.office.interop.word
+- uid: CoverageKiller2.DOM.CKParagraph
+  commentId: T:CoverageKiller2.DOM.CKParagraph
+  parent: CoverageKiller2.DOM
+  isExternal: true
+  href: CoverageKiller2.DOM.CKParagraph.html
+  name: CKParagraph
+  nameWithType: CKParagraph
+  fullName: CoverageKiller2.DOM.CKParagraph
+- uid: CoverageKiller2.DOM.CKRange.DoRefreshThings
+  commentId: M:CoverageKiller2.DOM.CKRange.DoRefreshThings
+  parent: CoverageKiller2.DOM.CKRange
+  isExternal: true
+  href: CoverageKiller2.DOM.CKRange.html#CoverageKiller2_DOM_CKRange_DoRefreshThings
+  name: DoRefreshThings()
+  nameWithType: CKRange.DoRefreshThings()
+  fullName: CoverageKiller2.DOM.CKRange.DoRefreshThings()
+  spec.csharp:
+  - uid: CoverageKiller2.DOM.CKRange.DoRefreshThings
+    name: DoRefreshThings
+    isExternal: true
+    href: CoverageKiller2.DOM.CKRange.html#CoverageKiller2_DOM_CKRange_DoRefreshThings
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: CoverageKiller2.DOM.CKRange.DoRefreshThings
+    name: DoRefreshThings
+    isExternal: true
+    href: CoverageKiller2.DOM.CKRange.html#CoverageKiller2_DOM_CKRange_DoRefreshThings
+  - name: (
+  - name: )
+- uid: CoverageKiller2.DOM.CKParagraph.DoRefreshThings*
+  commentId: Overload:CoverageKiller2.DOM.CKParagraph.DoRefreshThings
+  isExternal: true
+  href: CoverageKiller2.DOM.CKParagraph.html#CoverageKiller2_DOM_CKParagraph_DoRefreshThings
+  name: DoRefreshThings
+  nameWithType: CKParagraph.DoRefreshThings
+  fullName: CoverageKiller2.DOM.CKParagraph.DoRefreshThings
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: CoverageKiller2.DOM.CKParagraph.ToString*
+  commentId: Overload:CoverageKiller2.DOM.CKParagraph.ToString
+  isExternal: true
+  href: CoverageKiller2.DOM.CKParagraph.html#CoverageKiller2_DOM_CKParagraph_ToString
+  name: ToString
+  nameWithType: CKParagraph.ToString
+  fullName: CoverageKiller2.DOM.CKParagraph.ToString
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: CoverageKiller2.DOM.CKParagraph.COMParagraph*
+  commentId: Overload:CoverageKiller2.DOM.CKParagraph.COMParagraph
+  isExternal: true
+  href: CoverageKiller2.DOM.CKParagraph.html#CoverageKiller2_DOM_CKParagraph_COMParagraph
+  name: COMParagraph
+  nameWithType: CKParagraph.COMParagraph
+  fullName: CoverageKiller2.DOM.CKParagraph.COMParagraph
+- uid: CoverageKiller2.DOM.CKParagraph.Index*
+  commentId: Overload:CoverageKiller2.DOM.CKParagraph.Index
+  isExternal: true
+  href: CoverageKiller2.DOM.CKParagraph.html#CoverageKiller2_DOM_CKParagraph_Index
+  name: Index
+  nameWithType: CKParagraph.Index
+  fullName: CoverageKiller2.DOM.CKParagraph.Index

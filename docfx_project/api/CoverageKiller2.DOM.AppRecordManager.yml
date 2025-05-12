@@ -1,0 +1,560 @@
+### YamlMime:ManagedReference
+items:
+- uid: CoverageKiller2.DOM.AppRecordManager
+  commentId: T:CoverageKiller2.DOM.AppRecordManager
+  id: AppRecordManager
+  parent: CoverageKiller2.DOM
+  children:
+  - CoverageKiller2.DOM.AppRecordManager.Add(System.String,System.String)
+  - CoverageKiller2.DOM.AppRecordManager.CleanupOrphanedProcesses
+  - CoverageKiller2.DOM.AppRecordManager.Load
+  - CoverageKiller2.DOM.AppRecordManager.Records
+  - CoverageKiller2.DOM.AppRecordManager.Save
+  langs:
+  - csharp
+  - vb
+  name: AppRecordManager
+  nameWithType: AppRecordManager
+  fullName: CoverageKiller2.DOM.AppRecordManager
+  type: Class
+  assemblies:
+  - CoverageKiller2
+  namespace: CoverageKiller2.DOM
+  summary: Tracks known Word application process records for crash recovery.
+  remarks: 'Version: CK2.00.00.0010'
+  example: []
+  syntax:
+    content: public static class AppRecordManager
+    content.vb: Public Module AppRecordManager
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.ToString
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+- uid: CoverageKiller2.DOM.AppRecordManager.Add(System.String,System.String)
+  commentId: M:CoverageKiller2.DOM.AppRecordManager.Add(System.String,System.String)
+  id: Add(System.String,System.String)
+  parent: CoverageKiller2.DOM.AppRecordManager
+  langs:
+  - csharp
+  - vb
+  name: Add(string, string)
+  nameWithType: AppRecordManager.Add(string, string)
+  fullName: CoverageKiller2.DOM.AppRecordManager.Add(string, string)
+  type: Method
+  assemblies:
+  - CoverageKiller2
+  namespace: CoverageKiller2.DOM
+  summary: Adds a new AppRecord to the list.
+  example: []
+  syntax:
+    content: public static void Add(string pid, string tag = null)
+    parameters:
+    - id: pid
+      type: System.String
+    - id: tag
+      type: System.String
+    content.vb: Public Shared Sub Add(pid As String, tag As String = Nothing)
+  overload: CoverageKiller2.DOM.AppRecordManager.Add*
+  nameWithType.vb: AppRecordManager.Add(String, String)
+  fullName.vb: CoverageKiller2.DOM.AppRecordManager.Add(String, String)
+  name.vb: Add(String, String)
+- uid: CoverageKiller2.DOM.AppRecordManager.Save
+  commentId: M:CoverageKiller2.DOM.AppRecordManager.Save
+  id: Save
+  parent: CoverageKiller2.DOM.AppRecordManager
+  langs:
+  - csharp
+  - vb
+  name: Save()
+  nameWithType: AppRecordManager.Save()
+  fullName: CoverageKiller2.DOM.AppRecordManager.Save()
+  type: Method
+  assemblies:
+  - CoverageKiller2
+  namespace: CoverageKiller2.DOM
+  summary: Saves the current list to Properties.Settings.Default as JSON.
+  example: []
+  syntax:
+    content: public static void Save()
+    content.vb: Public Shared Sub Save()
+  overload: CoverageKiller2.DOM.AppRecordManager.Save*
+- uid: CoverageKiller2.DOM.AppRecordManager.Load
+  commentId: M:CoverageKiller2.DOM.AppRecordManager.Load
+  id: Load
+  parent: CoverageKiller2.DOM.AppRecordManager
+  langs:
+  - csharp
+  - vb
+  name: Load()
+  nameWithType: AppRecordManager.Load()
+  fullName: CoverageKiller2.DOM.AppRecordManager.Load()
+  type: Method
+  assemblies:
+  - CoverageKiller2
+  namespace: CoverageKiller2.DOM
+  summary: Loads AppRecords from Properties.Settings.Default.
+  example: []
+  syntax:
+    content: public static void Load()
+    content.vb: Public Shared Sub Load()
+  overload: CoverageKiller2.DOM.AppRecordManager.Load*
+- uid: CoverageKiller2.DOM.AppRecordManager.CleanupOrphanedProcesses
+  commentId: M:CoverageKiller2.DOM.AppRecordManager.CleanupOrphanedProcesses
+  id: CleanupOrphanedProcesses
+  parent: CoverageKiller2.DOM.AppRecordManager
+  langs:
+  - csharp
+  - vb
+  name: CleanupOrphanedProcesses()
+  nameWithType: AppRecordManager.CleanupOrphanedProcesses()
+  fullName: CoverageKiller2.DOM.AppRecordManager.CleanupOrphanedProcesses()
+  type: Method
+  assemblies:
+  - CoverageKiller2
+  namespace: CoverageKiller2.DOM
+  summary: Kills orphaned WINWORD processes based on AppRecords.
+  example: []
+  syntax:
+    content: public static void CleanupOrphanedProcesses()
+    content.vb: Public Shared Sub CleanupOrphanedProcesses()
+  overload: CoverageKiller2.DOM.AppRecordManager.CleanupOrphanedProcesses*
+- uid: CoverageKiller2.DOM.AppRecordManager.Records
+  commentId: P:CoverageKiller2.DOM.AppRecordManager.Records
+  id: Records
+  parent: CoverageKiller2.DOM.AppRecordManager
+  langs:
+  - csharp
+  - vb
+  name: Records
+  nameWithType: AppRecordManager.Records
+  fullName: CoverageKiller2.DOM.AppRecordManager.Records
+  type: Property
+  assemblies:
+  - CoverageKiller2
+  namespace: CoverageKiller2.DOM
+  summary: Gets the current list of tracked AppRecords.
+  example: []
+  syntax:
+    content: public static IReadOnlyList<AppRecord> Records { get; }
+    parameters: []
+    return:
+      type: System.Collections.Generic.IReadOnlyList{CoverageKiller2.DOM.AppRecord}
+    content.vb: Public Shared ReadOnly Property Records As IReadOnlyList(Of AppRecord)
+  overload: CoverageKiller2.DOM.AppRecordManager.Records*
+references:
+- uid: CoverageKiller2.DOM
+  commentId: N:CoverageKiller2.DOM
+  isExternal: true
+  href: CoverageKiller2.html
+  name: CoverageKiller2.DOM
+  nameWithType: CoverageKiller2.DOM
+  fullName: CoverageKiller2.DOM
+  spec.csharp:
+  - uid: CoverageKiller2
+    name: CoverageKiller2
+    isExternal: true
+    href: CoverageKiller2.html
+  - name: .
+  - uid: CoverageKiller2.DOM
+    name: DOM
+    isExternal: true
+    href: CoverageKiller2.DOM.html
+  spec.vb:
+  - uid: CoverageKiller2
+    name: CoverageKiller2
+    isExternal: true
+    href: CoverageKiller2.html
+  - name: .
+  - uid: CoverageKiller2.DOM
+    name: DOM
+    isExternal: true
+    href: CoverageKiller2.DOM.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: CoverageKiller2.DOM.AppRecordManager.Add*
+  commentId: Overload:CoverageKiller2.DOM.AppRecordManager.Add
+  isExternal: true
+  href: CoverageKiller2.DOM.AppRecordManager.html#CoverageKiller2_DOM_AppRecordManager_Add_System_String_System_String_
+  name: Add
+  nameWithType: AppRecordManager.Add
+  fullName: CoverageKiller2.DOM.AppRecordManager.Add
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: CoverageKiller2.DOM.AppRecordManager.Save*
+  commentId: Overload:CoverageKiller2.DOM.AppRecordManager.Save
+  isExternal: true
+  href: CoverageKiller2.DOM.AppRecordManager.html#CoverageKiller2_DOM_AppRecordManager_Save
+  name: Save
+  nameWithType: AppRecordManager.Save
+  fullName: CoverageKiller2.DOM.AppRecordManager.Save
+- uid: CoverageKiller2.DOM.AppRecordManager.Load*
+  commentId: Overload:CoverageKiller2.DOM.AppRecordManager.Load
+  isExternal: true
+  href: CoverageKiller2.DOM.AppRecordManager.html#CoverageKiller2_DOM_AppRecordManager_Load
+  name: Load
+  nameWithType: AppRecordManager.Load
+  fullName: CoverageKiller2.DOM.AppRecordManager.Load
+- uid: CoverageKiller2.DOM.AppRecordManager.CleanupOrphanedProcesses*
+  commentId: Overload:CoverageKiller2.DOM.AppRecordManager.CleanupOrphanedProcesses
+  isExternal: true
+  href: CoverageKiller2.DOM.AppRecordManager.html#CoverageKiller2_DOM_AppRecordManager_CleanupOrphanedProcesses
+  name: CleanupOrphanedProcesses
+  nameWithType: AppRecordManager.CleanupOrphanedProcesses
+  fullName: CoverageKiller2.DOM.AppRecordManager.CleanupOrphanedProcesses
+- uid: CoverageKiller2.DOM.AppRecordManager.Records*
+  commentId: Overload:CoverageKiller2.DOM.AppRecordManager.Records
+  isExternal: true
+  href: CoverageKiller2.DOM.AppRecordManager.html#CoverageKiller2_DOM_AppRecordManager_Records
+  name: Records
+  nameWithType: AppRecordManager.Records
+  fullName: CoverageKiller2.DOM.AppRecordManager.Records
+- uid: System.Collections.Generic.IReadOnlyList{CoverageKiller2.DOM.AppRecord}
+  commentId: T:System.Collections.Generic.IReadOnlyList{CoverageKiller2.DOM.AppRecord}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.IReadOnlyList`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
+  name: IReadOnlyList<AppRecord>
+  nameWithType: IReadOnlyList<AppRecord>
+  fullName: System.Collections.Generic.IReadOnlyList<CoverageKiller2.DOM.AppRecord>
+  nameWithType.vb: IReadOnlyList(Of AppRecord)
+  fullName.vb: System.Collections.Generic.IReadOnlyList(Of CoverageKiller2.DOM.AppRecord)
+  name.vb: IReadOnlyList(Of AppRecord)
+  spec.csharp:
+  - uid: System.Collections.Generic.IReadOnlyList`1
+    name: IReadOnlyList
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
+  - name: <
+  - uid: CoverageKiller2.DOM.AppRecord
+    name: AppRecord
+    isExternal: true
+    href: CoverageKiller2.DOM.AppRecord.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IReadOnlyList`1
+    name: IReadOnlyList
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: CoverageKiller2.DOM.AppRecord
+    name: AppRecord
+    isExternal: true
+    href: CoverageKiller2.DOM.AppRecord.html
+  - name: )
+- uid: System.Collections.Generic.IReadOnlyList`1
+  commentId: T:System.Collections.Generic.IReadOnlyList`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
+  name: IReadOnlyList<T>
+  nameWithType: IReadOnlyList<T>
+  fullName: System.Collections.Generic.IReadOnlyList<T>
+  nameWithType.vb: IReadOnlyList(Of T)
+  fullName.vb: System.Collections.Generic.IReadOnlyList(Of T)
+  name.vb: IReadOnlyList(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.IReadOnlyList`1
+    name: IReadOnlyList
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IReadOnlyList`1
+    name: IReadOnlyList
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: System.Collections.Generic
+  commentId: N:System.Collections.Generic
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Collections.Generic
+  nameWithType: System.Collections.Generic
+  fullName: System.Collections.Generic
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic

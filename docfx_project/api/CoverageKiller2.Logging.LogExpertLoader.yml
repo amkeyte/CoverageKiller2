@@ -1,0 +1,2025 @@
+### YamlMime:ManagedReference
+items:
+- uid: CoverageKiller2.Logging.LogExpertLoader
+  commentId: T:CoverageKiller2.Logging.LogExpertLoader
+  id: LogExpertLoader
+  parent: CoverageKiller2.Logging
+  children:
+  - CoverageKiller2.Logging.LogExpertLoader.#ctor
+  - CoverageKiller2.Logging.LogExpertLoader.Cleanup
+  - CoverageKiller2.Logging.LogExpertLoader.GetLogFile
+  - CoverageKiller2.Logging.LogExpertLoader.LogFileName
+  - CoverageKiller2.Logging.LogExpertLoader.LogOpen
+  - CoverageKiller2.Logging.LogExpertLoader.StartLogExpert(System.String,System.Boolean)
+  - CoverageKiller2.Logging.LogExpertLoader.StopLogExpert
+  langs:
+  - csharp
+  - vb
+  name: LogExpertLoader
+  nameWithType: LogExpertLoader
+  fullName: CoverageKiller2.Logging.LogExpertLoader
+  type: Class
+  assemblies:
+  - CoverageKiller2
+  namespace: CoverageKiller2.Logging
+  summary: Handles loading and managing LogExpert log files.
+  remarks: 'Version: CK2.00.00.0000'
+  example: []
+  syntax:
+    content: public class LogExpertLoader
+    content.vb: Public Class LogExpertLoader
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.ToString
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  extensionMethods:
+  - CoverageKiller2.Logging.LogExpertLoader.CoverageKiller2.Logging.PingService.PingPong``1(System.String)
+  - CoverageKiller2.Logging.LogExpertLoader.CoverageKiller2.Logging.PingService.PingPong``1(System.String,System.String)
+  - CoverageKiller2.Logging.LogExpertLoader.CoverageKiller2.Logging.PingService.PingPong``2(System.Func{{TResult}},System.String,System.String)
+  - CoverageKiller2.Logging.LogExpertLoader.CoverageKiller2.Logging.PingService.Ping``1(System.String)
+  - CoverageKiller2.Logging.LogExpertLoader.CoverageKiller2.Logging.PingService.Ping``1(System.String,System.String)
+  - CoverageKiller2.Logging.LogExpertLoader.CoverageKiller2.Logging.PingService.Ping``1(System.Type[],System.String)
+  - CoverageKiller2.Logging.LogExpertLoader.CoverageKiller2.Logging.PingService.Pong``1(System.String)
+  - CoverageKiller2.Logging.LogExpertLoader.CoverageKiller2.Logging.PingService.Pong``1(System.String,System.String)
+  - CoverageKiller2.Logging.LogExpertLoader.CoverageKiller2.Logging.PingService.Pong``1(System.Type,System.String)
+  - CoverageKiller2.Logging.LogExpertLoader.CoverageKiller2.Logging.PingService.Pong``1(System.Type[],System.String)
+  - CoverageKiller2.Logging.LogExpertLoader.CoverageKiller2.Logging.PingService.Pong``2(System.Func{{TResult}},System.String,System.String)
+- uid: CoverageKiller2.Logging.LogExpertLoader.GetLogFile
+  commentId: M:CoverageKiller2.Logging.LogExpertLoader.GetLogFile
+  id: GetLogFile
+  parent: CoverageKiller2.Logging.LogExpertLoader
+  langs:
+  - csharp
+  - vb
+  name: GetLogFile()
+  nameWithType: LogExpertLoader.GetLogFile()
+  fullName: CoverageKiller2.Logging.LogExpertLoader.GetLogFile()
+  type: Method
+  assemblies:
+  - CoverageKiller2
+  namespace: CoverageKiller2.Logging
+  summary: Creates a temporary log file and records the location in settings for reuse.
+  example: []
+  syntax:
+    content: public static string GetLogFile()
+    return:
+      type: System.String
+      description: The full file path of the created log file.
+    content.vb: Public Shared Function GetLogFile() As String
+  overload: CoverageKiller2.Logging.LogExpertLoader.GetLogFile*
+- uid: CoverageKiller2.Logging.LogExpertLoader.StartLogExpert(System.String,System.Boolean)
+  commentId: M:CoverageKiller2.Logging.LogExpertLoader.StartLogExpert(System.String,System.Boolean)
+  id: StartLogExpert(System.String,System.Boolean)
+  parent: CoverageKiller2.Logging.LogExpertLoader
+  langs:
+  - csharp
+  - vb
+  name: StartLogExpert(string, bool)
+  nameWithType: LogExpertLoader.StartLogExpert(string, bool)
+  fullName: CoverageKiller2.Logging.LogExpertLoader.StartLogExpert(string, bool)
+  type: Method
+  assemblies:
+  - CoverageKiller2
+  namespace: CoverageKiller2.Logging
+  summary: Starts LogExpert and opens the given log file, if it isn't already running.
+  example: []
+  syntax:
+    content: public static void StartLogExpert(string filePath, bool restartIfOpen)
+    parameters:
+    - id: filePath
+      type: System.String
+      description: The file to open in LogExpert.
+    - id: restartIfOpen
+      type: System.Boolean
+    content.vb: Public Shared Sub StartLogExpert(filePath As String, restartIfOpen As Boolean)
+  overload: CoverageKiller2.Logging.LogExpertLoader.StartLogExpert*
+  nameWithType.vb: LogExpertLoader.StartLogExpert(String, Boolean)
+  fullName.vb: CoverageKiller2.Logging.LogExpertLoader.StartLogExpert(String, Boolean)
+  name.vb: StartLogExpert(String, Boolean)
+- uid: CoverageKiller2.Logging.LogExpertLoader.StopLogExpert
+  commentId: M:CoverageKiller2.Logging.LogExpertLoader.StopLogExpert
+  id: StopLogExpert
+  parent: CoverageKiller2.Logging.LogExpertLoader
+  langs:
+  - csharp
+  - vb
+  name: StopLogExpert()
+  nameWithType: LogExpertLoader.StopLogExpert()
+  fullName: CoverageKiller2.Logging.LogExpertLoader.StopLogExpert()
+  type: Method
+  assemblies:
+  - CoverageKiller2
+  namespace: CoverageKiller2.Logging
+  summary: Attempts to close any running LogExpert process gracefully, falling back to force-kill if necessary.
+  example: []
+  syntax:
+    content: public static void StopLogExpert()
+    content.vb: Public Shared Sub StopLogExpert()
+  overload: CoverageKiller2.Logging.LogExpertLoader.StopLogExpert*
+- uid: CoverageKiller2.Logging.LogExpertLoader.Cleanup
+  commentId: M:CoverageKiller2.Logging.LogExpertLoader.Cleanup
+  id: Cleanup
+  parent: CoverageKiller2.Logging.LogExpertLoader
+  langs:
+  - csharp
+  - vb
+  name: Cleanup()
+  nameWithType: LogExpertLoader.Cleanup()
+  fullName: CoverageKiller2.Logging.LogExpertLoader.Cleanup()
+  type: Method
+  assemblies:
+  - CoverageKiller2
+  namespace: CoverageKiller2.Logging
+  summary: Prompts the user to close LogExpert, and shuts it down if confirmed.
+  example: []
+  syntax:
+    content: public static void Cleanup()
+    content.vb: Public Shared Sub Cleanup()
+  overload: CoverageKiller2.Logging.LogExpertLoader.Cleanup*
+- uid: CoverageKiller2.Logging.LogExpertLoader.#ctor
+  commentId: M:CoverageKiller2.Logging.LogExpertLoader.#ctor
+  id: '#ctor'
+  parent: CoverageKiller2.Logging.LogExpertLoader
+  langs:
+  - csharp
+  - vb
+  name: LogExpertLoader()
+  nameWithType: LogExpertLoader.LogExpertLoader()
+  fullName: CoverageKiller2.Logging.LogExpertLoader.LogExpertLoader()
+  type: Constructor
+  assemblies:
+  - CoverageKiller2
+  namespace: CoverageKiller2.Logging
+  syntax:
+    content: public LogExpertLoader()
+    content.vb: Public Sub New()
+  overload: CoverageKiller2.Logging.LogExpertLoader.#ctor*
+  nameWithType.vb: LogExpertLoader.New()
+  fullName.vb: CoverageKiller2.Logging.LogExpertLoader.New()
+  name.vb: New()
+- uid: CoverageKiller2.Logging.LogExpertLoader.LogOpen
+  commentId: P:CoverageKiller2.Logging.LogExpertLoader.LogOpen
+  id: LogOpen
+  parent: CoverageKiller2.Logging.LogExpertLoader
+  langs:
+  - csharp
+  - vb
+  name: LogOpen
+  nameWithType: LogExpertLoader.LogOpen
+  fullName: CoverageKiller2.Logging.LogExpertLoader.LogOpen
+  type: Property
+  assemblies:
+  - CoverageKiller2
+  namespace: CoverageKiller2.Logging
+  summary: Gets a value indicating whether the log viewer is currently open.
+  example: []
+  syntax:
+    content: public static bool LogOpen { get; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Public Shared ReadOnly Property LogOpen As Boolean
+  overload: CoverageKiller2.Logging.LogExpertLoader.LogOpen*
+- uid: CoverageKiller2.Logging.LogExpertLoader.LogFileName
+  commentId: P:CoverageKiller2.Logging.LogExpertLoader.LogFileName
+  id: LogFileName
+  parent: CoverageKiller2.Logging.LogExpertLoader
+  langs:
+  - csharp
+  - vb
+  name: LogFileName
+  nameWithType: LogExpertLoader.LogFileName
+  fullName: CoverageKiller2.Logging.LogExpertLoader.LogFileName
+  type: Property
+  assemblies:
+  - CoverageKiller2
+  namespace: CoverageKiller2.Logging
+  summary: Gets the name of the log file currently in use.
+  example: []
+  syntax:
+    content: public static string LogFileName { get; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Shared ReadOnly Property LogFileName As String
+  overload: CoverageKiller2.Logging.LogExpertLoader.LogFileName*
+references:
+- uid: CoverageKiller2.Logging
+  commentId: N:CoverageKiller2.Logging
+  isExternal: true
+  href: CoverageKiller2.html
+  name: CoverageKiller2.Logging
+  nameWithType: CoverageKiller2.Logging
+  fullName: CoverageKiller2.Logging
+  spec.csharp:
+  - uid: CoverageKiller2
+    name: CoverageKiller2
+    isExternal: true
+    href: CoverageKiller2.html
+  - name: .
+  - uid: CoverageKiller2.Logging
+    name: Logging
+    isExternal: true
+    href: CoverageKiller2.Logging.html
+  spec.vb:
+  - uid: CoverageKiller2
+    name: CoverageKiller2
+    isExternal: true
+    href: CoverageKiller2.html
+  - name: .
+  - uid: CoverageKiller2.Logging
+    name: Logging
+    isExternal: true
+    href: CoverageKiller2.Logging.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: CoverageKiller2.Logging.LogExpertLoader.CoverageKiller2.Logging.PingService.PingPong``1(System.String)
+  commentId: M:CoverageKiller2.Logging.PingService.PingPong``1(``0,System.String)
+  parent: CoverageKiller2.Logging.PingService
+  definition: CoverageKiller2.Logging.PingService.PingPong``1(``0,System.String)
+  href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_PingPong__1___0_System_String_
+  name: PingPong<LogExpertLoader>(LogExpertLoader, string)
+  nameWithType: PingService.PingPong<LogExpertLoader>(LogExpertLoader, string)
+  fullName: CoverageKiller2.Logging.PingService.PingPong<CoverageKiller2.Logging.LogExpertLoader>(CoverageKiller2.Logging.LogExpertLoader, string)
+  nameWithType.vb: PingService.PingPong(Of LogExpertLoader)(LogExpertLoader, String)
+  fullName.vb: CoverageKiller2.Logging.PingService.PingPong(Of CoverageKiller2.Logging.LogExpertLoader)(CoverageKiller2.Logging.LogExpertLoader, String)
+  name.vb: PingPong(Of LogExpertLoader)(LogExpertLoader, String)
+  spec.csharp:
+  - uid: CoverageKiller2.Logging.PingService.PingPong``1(CoverageKiller2.Logging.LogExpertLoader,System.String)
+    name: PingPong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_PingPong__1___0_System_String_
+  - name: <
+  - uid: CoverageKiller2.Logging.LogExpertLoader
+    name: LogExpertLoader
+    isExternal: true
+    href: CoverageKiller2.Logging.LogExpertLoader.html
+  - name: '>'
+  - name: (
+  - uid: CoverageKiller2.Logging.LogExpertLoader
+    name: LogExpertLoader
+    isExternal: true
+    href: CoverageKiller2.Logging.LogExpertLoader.html
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: CoverageKiller2.Logging.PingService.PingPong``1(CoverageKiller2.Logging.LogExpertLoader,System.String)
+    name: PingPong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_PingPong__1___0_System_String_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: CoverageKiller2.Logging.LogExpertLoader
+    name: LogExpertLoader
+    isExternal: true
+    href: CoverageKiller2.Logging.LogExpertLoader.html
+  - name: )
+  - name: (
+  - uid: CoverageKiller2.Logging.LogExpertLoader
+    name: LogExpertLoader
+    isExternal: true
+    href: CoverageKiller2.Logging.LogExpertLoader.html
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: CoverageKiller2.Logging.LogExpertLoader.CoverageKiller2.Logging.PingService.PingPong``1(System.String,System.String)
+  commentId: M:CoverageKiller2.Logging.PingService.PingPong``1(``0,System.String,System.String)
+  parent: CoverageKiller2.Logging.PingService
+  definition: CoverageKiller2.Logging.PingService.PingPong``1(``0,System.String,System.String)
+  href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_PingPong__1___0_System_String_System_String_
+  name: PingPong<LogExpertLoader>(LogExpertLoader, string, string)
+  nameWithType: PingService.PingPong<LogExpertLoader>(LogExpertLoader, string, string)
+  fullName: CoverageKiller2.Logging.PingService.PingPong<CoverageKiller2.Logging.LogExpertLoader>(CoverageKiller2.Logging.LogExpertLoader, string, string)
+  nameWithType.vb: PingService.PingPong(Of LogExpertLoader)(LogExpertLoader, String, String)
+  fullName.vb: CoverageKiller2.Logging.PingService.PingPong(Of CoverageKiller2.Logging.LogExpertLoader)(CoverageKiller2.Logging.LogExpertLoader, String, String)
+  name.vb: PingPong(Of LogExpertLoader)(LogExpertLoader, String, String)
+  spec.csharp:
+  - uid: CoverageKiller2.Logging.PingService.PingPong``1(CoverageKiller2.Logging.LogExpertLoader,System.String,System.String)
+    name: PingPong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_PingPong__1___0_System_String_System_String_
+  - name: <
+  - uid: CoverageKiller2.Logging.LogExpertLoader
+    name: LogExpertLoader
+    isExternal: true
+    href: CoverageKiller2.Logging.LogExpertLoader.html
+  - name: '>'
+  - name: (
+  - uid: CoverageKiller2.Logging.LogExpertLoader
+    name: LogExpertLoader
+    isExternal: true
+    href: CoverageKiller2.Logging.LogExpertLoader.html
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: CoverageKiller2.Logging.PingService.PingPong``1(CoverageKiller2.Logging.LogExpertLoader,System.String,System.String)
+    name: PingPong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_PingPong__1___0_System_String_System_String_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: CoverageKiller2.Logging.LogExpertLoader
+    name: LogExpertLoader
+    isExternal: true
+    href: CoverageKiller2.Logging.LogExpertLoader.html
+  - name: )
+  - name: (
+  - uid: CoverageKiller2.Logging.LogExpertLoader
+    name: LogExpertLoader
+    isExternal: true
+    href: CoverageKiller2.Logging.LogExpertLoader.html
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: CoverageKiller2.Logging.LogExpertLoader.CoverageKiller2.Logging.PingService.PingPong``2(System.Func{{TResult}},System.String,System.String)
+  commentId: M:CoverageKiller2.Logging.PingService.PingPong``2(``0,System.Func{``1},System.String,System.String)
+  parent: CoverageKiller2.Logging.PingService
+  definition: CoverageKiller2.Logging.PingService.PingPong``2(``0,System.Func{``1},System.String,System.String)
+  href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_PingPong__2___0_System_Func___1__System_String_System_String_
+  name: PingPong<LogExpertLoader, TResult>(LogExpertLoader, Func<TResult>, string, string)
+  nameWithType: PingService.PingPong<LogExpertLoader, TResult>(LogExpertLoader, Func<TResult>, string, string)
+  fullName: CoverageKiller2.Logging.PingService.PingPong<CoverageKiller2.Logging.LogExpertLoader, TResult>(CoverageKiller2.Logging.LogExpertLoader, System.Func<TResult>, string, string)
+  nameWithType.vb: PingService.PingPong(Of LogExpertLoader, TResult)(LogExpertLoader, Func(Of TResult), String, String)
+  fullName.vb: CoverageKiller2.Logging.PingService.PingPong(Of CoverageKiller2.Logging.LogExpertLoader, TResult)(CoverageKiller2.Logging.LogExpertLoader, System.Func(Of TResult), String, String)
+  name.vb: PingPong(Of LogExpertLoader, TResult)(LogExpertLoader, Func(Of TResult), String, String)
+  spec.csharp:
+  - uid: CoverageKiller2.Logging.PingService.PingPong``2(CoverageKiller2.Logging.LogExpertLoader,System.Func{``1},System.String,System.String)
+    name: PingPong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_PingPong__2___0_System_Func___1__System_String_System_String_
+  - name: <
+  - uid: CoverageKiller2.Logging.LogExpertLoader
+    name: LogExpertLoader
+    isExternal: true
+    href: CoverageKiller2.Logging.LogExpertLoader.html
+  - name: ','
+  - name: " "
+  - name: TResult
+  - name: '>'
+  - name: (
+  - uid: CoverageKiller2.Logging.LogExpertLoader
+    name: LogExpertLoader
+    isExternal: true
+    href: CoverageKiller2.Logging.LogExpertLoader.html
+  - name: ','
+  - name: " "
+  - uid: System.Func`1
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-1
+  - name: <
+  - name: TResult
+  - name: '>'
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: CoverageKiller2.Logging.PingService.PingPong``2(CoverageKiller2.Logging.LogExpertLoader,System.Func{``1},System.String,System.String)
+    name: PingPong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_PingPong__2___0_System_Func___1__System_String_System_String_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: CoverageKiller2.Logging.LogExpertLoader
+    name: LogExpertLoader
+    isExternal: true
+    href: CoverageKiller2.Logging.LogExpertLoader.html
+  - name: ','
+  - name: " "
+  - name: TResult
+  - name: )
+  - name: (
+  - uid: CoverageKiller2.Logging.LogExpertLoader
+    name: LogExpertLoader
+    isExternal: true
+    href: CoverageKiller2.Logging.LogExpertLoader.html
+  - name: ','
+  - name: " "
+  - uid: System.Func`1
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TResult
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: CoverageKiller2.Logging.LogExpertLoader.CoverageKiller2.Logging.PingService.Ping``1(System.String)
+  commentId: M:CoverageKiller2.Logging.PingService.Ping``1(``0,System.String)
+  parent: CoverageKiller2.Logging.PingService
+  definition: CoverageKiller2.Logging.PingService.Ping``1(``0,System.String)
+  href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Ping__1___0_System_String_
+  name: Ping<LogExpertLoader>(LogExpertLoader, string)
+  nameWithType: PingService.Ping<LogExpertLoader>(LogExpertLoader, string)
+  fullName: CoverageKiller2.Logging.PingService.Ping<CoverageKiller2.Logging.LogExpertLoader>(CoverageKiller2.Logging.LogExpertLoader, string)
+  nameWithType.vb: PingService.Ping(Of LogExpertLoader)(LogExpertLoader, String)
+  fullName.vb: CoverageKiller2.Logging.PingService.Ping(Of CoverageKiller2.Logging.LogExpertLoader)(CoverageKiller2.Logging.LogExpertLoader, String)
+  name.vb: Ping(Of LogExpertLoader)(LogExpertLoader, String)
+  spec.csharp:
+  - uid: CoverageKiller2.Logging.PingService.Ping``1(CoverageKiller2.Logging.LogExpertLoader,System.String)
+    name: Ping
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Ping__1___0_System_String_
+  - name: <
+  - uid: CoverageKiller2.Logging.LogExpertLoader
+    name: LogExpertLoader
+    isExternal: true
+    href: CoverageKiller2.Logging.LogExpertLoader.html
+  - name: '>'
+  - name: (
+  - uid: CoverageKiller2.Logging.LogExpertLoader
+    name: LogExpertLoader
+    isExternal: true
+    href: CoverageKiller2.Logging.LogExpertLoader.html
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: CoverageKiller2.Logging.PingService.Ping``1(CoverageKiller2.Logging.LogExpertLoader,System.String)
+    name: Ping
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Ping__1___0_System_String_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: CoverageKiller2.Logging.LogExpertLoader
+    name: LogExpertLoader
+    isExternal: true
+    href: CoverageKiller2.Logging.LogExpertLoader.html
+  - name: )
+  - name: (
+  - uid: CoverageKiller2.Logging.LogExpertLoader
+    name: LogExpertLoader
+    isExternal: true
+    href: CoverageKiller2.Logging.LogExpertLoader.html
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: CoverageKiller2.Logging.LogExpertLoader.CoverageKiller2.Logging.PingService.Ping``1(System.String,System.String)
+  commentId: M:CoverageKiller2.Logging.PingService.Ping``1(``0,System.String,System.String)
+  parent: CoverageKiller2.Logging.PingService
+  definition: CoverageKiller2.Logging.PingService.Ping``1(``0,System.String,System.String)
+  href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Ping__1___0_System_String_System_String_
+  name: Ping<LogExpertLoader>(LogExpertLoader, string, string)
+  nameWithType: PingService.Ping<LogExpertLoader>(LogExpertLoader, string, string)
+  fullName: CoverageKiller2.Logging.PingService.Ping<CoverageKiller2.Logging.LogExpertLoader>(CoverageKiller2.Logging.LogExpertLoader, string, string)
+  nameWithType.vb: PingService.Ping(Of LogExpertLoader)(LogExpertLoader, String, String)
+  fullName.vb: CoverageKiller2.Logging.PingService.Ping(Of CoverageKiller2.Logging.LogExpertLoader)(CoverageKiller2.Logging.LogExpertLoader, String, String)
+  name.vb: Ping(Of LogExpertLoader)(LogExpertLoader, String, String)
+  spec.csharp:
+  - uid: CoverageKiller2.Logging.PingService.Ping``1(CoverageKiller2.Logging.LogExpertLoader,System.String,System.String)
+    name: Ping
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Ping__1___0_System_String_System_String_
+  - name: <
+  - uid: CoverageKiller2.Logging.LogExpertLoader
+    name: LogExpertLoader
+    isExternal: true
+    href: CoverageKiller2.Logging.LogExpertLoader.html
+  - name: '>'
+  - name: (
+  - uid: CoverageKiller2.Logging.LogExpertLoader
+    name: LogExpertLoader
+    isExternal: true
+    href: CoverageKiller2.Logging.LogExpertLoader.html
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: CoverageKiller2.Logging.PingService.Ping``1(CoverageKiller2.Logging.LogExpertLoader,System.String,System.String)
+    name: Ping
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Ping__1___0_System_String_System_String_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: CoverageKiller2.Logging.LogExpertLoader
+    name: LogExpertLoader
+    isExternal: true
+    href: CoverageKiller2.Logging.LogExpertLoader.html
+  - name: )
+  - name: (
+  - uid: CoverageKiller2.Logging.LogExpertLoader
+    name: LogExpertLoader
+    isExternal: true
+    href: CoverageKiller2.Logging.LogExpertLoader.html
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: CoverageKiller2.Logging.LogExpertLoader.CoverageKiller2.Logging.PingService.Ping``1(System.Type[],System.String)
+  commentId: M:CoverageKiller2.Logging.PingService.Ping``1(``0,System.Type[],System.String)
+  parent: CoverageKiller2.Logging.PingService
+  definition: CoverageKiller2.Logging.PingService.Ping``1(``0,System.Type[],System.String)
+  href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Ping__1___0_System_Type___System_String_
+  name: Ping<LogExpertLoader>(LogExpertLoader, Type[], string)
+  nameWithType: PingService.Ping<LogExpertLoader>(LogExpertLoader, Type[], string)
+  fullName: CoverageKiller2.Logging.PingService.Ping<CoverageKiller2.Logging.LogExpertLoader>(CoverageKiller2.Logging.LogExpertLoader, System.Type[], string)
+  nameWithType.vb: PingService.Ping(Of LogExpertLoader)(LogExpertLoader, Type(), String)
+  fullName.vb: CoverageKiller2.Logging.PingService.Ping(Of CoverageKiller2.Logging.LogExpertLoader)(CoverageKiller2.Logging.LogExpertLoader, System.Type(), String)
+  name.vb: Ping(Of LogExpertLoader)(LogExpertLoader, Type(), String)
+  spec.csharp:
+  - uid: CoverageKiller2.Logging.PingService.Ping``1(CoverageKiller2.Logging.LogExpertLoader,System.Type[],System.String)
+    name: Ping
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Ping__1___0_System_Type___System_String_
+  - name: <
+  - uid: CoverageKiller2.Logging.LogExpertLoader
+    name: LogExpertLoader
+    isExternal: true
+    href: CoverageKiller2.Logging.LogExpertLoader.html
+  - name: '>'
+  - name: (
+  - uid: CoverageKiller2.Logging.LogExpertLoader
+    name: LogExpertLoader
+    isExternal: true
+    href: CoverageKiller2.Logging.LogExpertLoader.html
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: '['
+  - name: ']'
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: CoverageKiller2.Logging.PingService.Ping``1(CoverageKiller2.Logging.LogExpertLoader,System.Type[],System.String)
+    name: Ping
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Ping__1___0_System_Type___System_String_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: CoverageKiller2.Logging.LogExpertLoader
+    name: LogExpertLoader
+    isExternal: true
+    href: CoverageKiller2.Logging.LogExpertLoader.html
+  - name: )
+  - name: (
+  - uid: CoverageKiller2.Logging.LogExpertLoader
+    name: LogExpertLoader
+    isExternal: true
+    href: CoverageKiller2.Logging.LogExpertLoader.html
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: (
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: CoverageKiller2.Logging.LogExpertLoader.CoverageKiller2.Logging.PingService.Pong``1(System.String)
+  commentId: M:CoverageKiller2.Logging.PingService.Pong``1(``0,System.String)
+  parent: CoverageKiller2.Logging.PingService
+  definition: CoverageKiller2.Logging.PingService.Pong``1(``0,System.String)
+  href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1___0_System_String_
+  name: Pong<LogExpertLoader>(LogExpertLoader, string)
+  nameWithType: PingService.Pong<LogExpertLoader>(LogExpertLoader, string)
+  fullName: CoverageKiller2.Logging.PingService.Pong<CoverageKiller2.Logging.LogExpertLoader>(CoverageKiller2.Logging.LogExpertLoader, string)
+  nameWithType.vb: PingService.Pong(Of LogExpertLoader)(LogExpertLoader, String)
+  fullName.vb: CoverageKiller2.Logging.PingService.Pong(Of CoverageKiller2.Logging.LogExpertLoader)(CoverageKiller2.Logging.LogExpertLoader, String)
+  name.vb: Pong(Of LogExpertLoader)(LogExpertLoader, String)
+  spec.csharp:
+  - uid: CoverageKiller2.Logging.PingService.Pong``1(CoverageKiller2.Logging.LogExpertLoader,System.String)
+    name: Pong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1___0_System_String_
+  - name: <
+  - uid: CoverageKiller2.Logging.LogExpertLoader
+    name: LogExpertLoader
+    isExternal: true
+    href: CoverageKiller2.Logging.LogExpertLoader.html
+  - name: '>'
+  - name: (
+  - uid: CoverageKiller2.Logging.LogExpertLoader
+    name: LogExpertLoader
+    isExternal: true
+    href: CoverageKiller2.Logging.LogExpertLoader.html
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: CoverageKiller2.Logging.PingService.Pong``1(CoverageKiller2.Logging.LogExpertLoader,System.String)
+    name: Pong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1___0_System_String_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: CoverageKiller2.Logging.LogExpertLoader
+    name: LogExpertLoader
+    isExternal: true
+    href: CoverageKiller2.Logging.LogExpertLoader.html
+  - name: )
+  - name: (
+  - uid: CoverageKiller2.Logging.LogExpertLoader
+    name: LogExpertLoader
+    isExternal: true
+    href: CoverageKiller2.Logging.LogExpertLoader.html
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: CoverageKiller2.Logging.LogExpertLoader.CoverageKiller2.Logging.PingService.Pong``1(System.String,System.String)
+  commentId: M:CoverageKiller2.Logging.PingService.Pong``1(``0,System.String,System.String)
+  parent: CoverageKiller2.Logging.PingService
+  definition: CoverageKiller2.Logging.PingService.Pong``1(``0,System.String,System.String)
+  href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1___0_System_String_System_String_
+  name: Pong<LogExpertLoader>(LogExpertLoader, string, string)
+  nameWithType: PingService.Pong<LogExpertLoader>(LogExpertLoader, string, string)
+  fullName: CoverageKiller2.Logging.PingService.Pong<CoverageKiller2.Logging.LogExpertLoader>(CoverageKiller2.Logging.LogExpertLoader, string, string)
+  nameWithType.vb: PingService.Pong(Of LogExpertLoader)(LogExpertLoader, String, String)
+  fullName.vb: CoverageKiller2.Logging.PingService.Pong(Of CoverageKiller2.Logging.LogExpertLoader)(CoverageKiller2.Logging.LogExpertLoader, String, String)
+  name.vb: Pong(Of LogExpertLoader)(LogExpertLoader, String, String)
+  spec.csharp:
+  - uid: CoverageKiller2.Logging.PingService.Pong``1(CoverageKiller2.Logging.LogExpertLoader,System.String,System.String)
+    name: Pong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1___0_System_String_System_String_
+  - name: <
+  - uid: CoverageKiller2.Logging.LogExpertLoader
+    name: LogExpertLoader
+    isExternal: true
+    href: CoverageKiller2.Logging.LogExpertLoader.html
+  - name: '>'
+  - name: (
+  - uid: CoverageKiller2.Logging.LogExpertLoader
+    name: LogExpertLoader
+    isExternal: true
+    href: CoverageKiller2.Logging.LogExpertLoader.html
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: CoverageKiller2.Logging.PingService.Pong``1(CoverageKiller2.Logging.LogExpertLoader,System.String,System.String)
+    name: Pong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1___0_System_String_System_String_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: CoverageKiller2.Logging.LogExpertLoader
+    name: LogExpertLoader
+    isExternal: true
+    href: CoverageKiller2.Logging.LogExpertLoader.html
+  - name: )
+  - name: (
+  - uid: CoverageKiller2.Logging.LogExpertLoader
+    name: LogExpertLoader
+    isExternal: true
+    href: CoverageKiller2.Logging.LogExpertLoader.html
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: CoverageKiller2.Logging.LogExpertLoader.CoverageKiller2.Logging.PingService.Pong``1(System.Type,System.String)
+  commentId: M:CoverageKiller2.Logging.PingService.Pong``1(``0,System.Type,System.String)
+  parent: CoverageKiller2.Logging.PingService
+  definition: CoverageKiller2.Logging.PingService.Pong``1(``0,System.Type,System.String)
+  href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1___0_System_Type_System_String_
+  name: Pong<LogExpertLoader>(LogExpertLoader, Type, string)
+  nameWithType: PingService.Pong<LogExpertLoader>(LogExpertLoader, Type, string)
+  fullName: CoverageKiller2.Logging.PingService.Pong<CoverageKiller2.Logging.LogExpertLoader>(CoverageKiller2.Logging.LogExpertLoader, System.Type, string)
+  nameWithType.vb: PingService.Pong(Of LogExpertLoader)(LogExpertLoader, Type, String)
+  fullName.vb: CoverageKiller2.Logging.PingService.Pong(Of CoverageKiller2.Logging.LogExpertLoader)(CoverageKiller2.Logging.LogExpertLoader, System.Type, String)
+  name.vb: Pong(Of LogExpertLoader)(LogExpertLoader, Type, String)
+  spec.csharp:
+  - uid: CoverageKiller2.Logging.PingService.Pong``1(CoverageKiller2.Logging.LogExpertLoader,System.Type,System.String)
+    name: Pong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1___0_System_Type_System_String_
+  - name: <
+  - uid: CoverageKiller2.Logging.LogExpertLoader
+    name: LogExpertLoader
+    isExternal: true
+    href: CoverageKiller2.Logging.LogExpertLoader.html
+  - name: '>'
+  - name: (
+  - uid: CoverageKiller2.Logging.LogExpertLoader
+    name: LogExpertLoader
+    isExternal: true
+    href: CoverageKiller2.Logging.LogExpertLoader.html
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: CoverageKiller2.Logging.PingService.Pong``1(CoverageKiller2.Logging.LogExpertLoader,System.Type,System.String)
+    name: Pong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1___0_System_Type_System_String_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: CoverageKiller2.Logging.LogExpertLoader
+    name: LogExpertLoader
+    isExternal: true
+    href: CoverageKiller2.Logging.LogExpertLoader.html
+  - name: )
+  - name: (
+  - uid: CoverageKiller2.Logging.LogExpertLoader
+    name: LogExpertLoader
+    isExternal: true
+    href: CoverageKiller2.Logging.LogExpertLoader.html
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: CoverageKiller2.Logging.LogExpertLoader.CoverageKiller2.Logging.PingService.Pong``1(System.Type[],System.String)
+  commentId: M:CoverageKiller2.Logging.PingService.Pong``1(``0,System.Type[],System.String)
+  parent: CoverageKiller2.Logging.PingService
+  definition: CoverageKiller2.Logging.PingService.Pong``1(``0,System.Type[],System.String)
+  href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1___0_System_Type___System_String_
+  name: Pong<LogExpertLoader>(LogExpertLoader, Type[], string)
+  nameWithType: PingService.Pong<LogExpertLoader>(LogExpertLoader, Type[], string)
+  fullName: CoverageKiller2.Logging.PingService.Pong<CoverageKiller2.Logging.LogExpertLoader>(CoverageKiller2.Logging.LogExpertLoader, System.Type[], string)
+  nameWithType.vb: PingService.Pong(Of LogExpertLoader)(LogExpertLoader, Type(), String)
+  fullName.vb: CoverageKiller2.Logging.PingService.Pong(Of CoverageKiller2.Logging.LogExpertLoader)(CoverageKiller2.Logging.LogExpertLoader, System.Type(), String)
+  name.vb: Pong(Of LogExpertLoader)(LogExpertLoader, Type(), String)
+  spec.csharp:
+  - uid: CoverageKiller2.Logging.PingService.Pong``1(CoverageKiller2.Logging.LogExpertLoader,System.Type[],System.String)
+    name: Pong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1___0_System_Type___System_String_
+  - name: <
+  - uid: CoverageKiller2.Logging.LogExpertLoader
+    name: LogExpertLoader
+    isExternal: true
+    href: CoverageKiller2.Logging.LogExpertLoader.html
+  - name: '>'
+  - name: (
+  - uid: CoverageKiller2.Logging.LogExpertLoader
+    name: LogExpertLoader
+    isExternal: true
+    href: CoverageKiller2.Logging.LogExpertLoader.html
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: '['
+  - name: ']'
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: CoverageKiller2.Logging.PingService.Pong``1(CoverageKiller2.Logging.LogExpertLoader,System.Type[],System.String)
+    name: Pong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1___0_System_Type___System_String_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: CoverageKiller2.Logging.LogExpertLoader
+    name: LogExpertLoader
+    isExternal: true
+    href: CoverageKiller2.Logging.LogExpertLoader.html
+  - name: )
+  - name: (
+  - uid: CoverageKiller2.Logging.LogExpertLoader
+    name: LogExpertLoader
+    isExternal: true
+    href: CoverageKiller2.Logging.LogExpertLoader.html
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: (
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: CoverageKiller2.Logging.LogExpertLoader.CoverageKiller2.Logging.PingService.Pong``2(System.Func{{TResult}},System.String,System.String)
+  commentId: M:CoverageKiller2.Logging.PingService.Pong``2(``0,System.Func{``1},System.String,System.String)
+  parent: CoverageKiller2.Logging.PingService
+  definition: CoverageKiller2.Logging.PingService.Pong``2(``0,System.Func{``1},System.String,System.String)
+  href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__2___0_System_Func___1__System_String_System_String_
+  name: Pong<LogExpertLoader, TResult>(LogExpertLoader, Func<TResult>, string, string)
+  nameWithType: PingService.Pong<LogExpertLoader, TResult>(LogExpertLoader, Func<TResult>, string, string)
+  fullName: CoverageKiller2.Logging.PingService.Pong<CoverageKiller2.Logging.LogExpertLoader, TResult>(CoverageKiller2.Logging.LogExpertLoader, System.Func<TResult>, string, string)
+  nameWithType.vb: PingService.Pong(Of LogExpertLoader, TResult)(LogExpertLoader, Func(Of TResult), String, String)
+  fullName.vb: CoverageKiller2.Logging.PingService.Pong(Of CoverageKiller2.Logging.LogExpertLoader, TResult)(CoverageKiller2.Logging.LogExpertLoader, System.Func(Of TResult), String, String)
+  name.vb: Pong(Of LogExpertLoader, TResult)(LogExpertLoader, Func(Of TResult), String, String)
+  spec.csharp:
+  - uid: CoverageKiller2.Logging.PingService.Pong``2(CoverageKiller2.Logging.LogExpertLoader,System.Func{``1},System.String,System.String)
+    name: Pong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__2___0_System_Func___1__System_String_System_String_
+  - name: <
+  - uid: CoverageKiller2.Logging.LogExpertLoader
+    name: LogExpertLoader
+    isExternal: true
+    href: CoverageKiller2.Logging.LogExpertLoader.html
+  - name: ','
+  - name: " "
+  - name: TResult
+  - name: '>'
+  - name: (
+  - uid: CoverageKiller2.Logging.LogExpertLoader
+    name: LogExpertLoader
+    isExternal: true
+    href: CoverageKiller2.Logging.LogExpertLoader.html
+  - name: ','
+  - name: " "
+  - uid: System.Func`1
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-1
+  - name: <
+  - name: TResult
+  - name: '>'
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: CoverageKiller2.Logging.PingService.Pong``2(CoverageKiller2.Logging.LogExpertLoader,System.Func{``1},System.String,System.String)
+    name: Pong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__2___0_System_Func___1__System_String_System_String_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: CoverageKiller2.Logging.LogExpertLoader
+    name: LogExpertLoader
+    isExternal: true
+    href: CoverageKiller2.Logging.LogExpertLoader.html
+  - name: ','
+  - name: " "
+  - name: TResult
+  - name: )
+  - name: (
+  - uid: CoverageKiller2.Logging.LogExpertLoader
+    name: LogExpertLoader
+    isExternal: true
+    href: CoverageKiller2.Logging.LogExpertLoader.html
+  - name: ','
+  - name: " "
+  - uid: System.Func`1
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TResult
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: CoverageKiller2.Logging.PingService.PingPong``1(``0,System.String)
+  commentId: M:CoverageKiller2.Logging.PingService.PingPong``1(``0,System.String)
+  isExternal: true
+  href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_PingPong__1___0_System_String_
+  name: PingPong<T>(T, string)
+  nameWithType: PingService.PingPong<T>(T, string)
+  fullName: CoverageKiller2.Logging.PingService.PingPong<T>(T, string)
+  nameWithType.vb: PingService.PingPong(Of T)(T, String)
+  fullName.vb: CoverageKiller2.Logging.PingService.PingPong(Of T)(T, String)
+  name.vb: PingPong(Of T)(T, String)
+  spec.csharp:
+  - uid: CoverageKiller2.Logging.PingService.PingPong``1(``0,System.String)
+    name: PingPong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_PingPong__1___0_System_String_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: CoverageKiller2.Logging.PingService.PingPong``1(``0,System.String)
+    name: PingPong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_PingPong__1___0_System_String_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: CoverageKiller2.Logging.PingService
+  commentId: T:CoverageKiller2.Logging.PingService
+  parent: CoverageKiller2.Logging
+  isExternal: true
+  href: CoverageKiller2.Logging.PingService.html
+  name: PingService
+  nameWithType: PingService
+  fullName: CoverageKiller2.Logging.PingService
+- uid: CoverageKiller2.Logging.PingService.PingPong``1(``0,System.String,System.String)
+  commentId: M:CoverageKiller2.Logging.PingService.PingPong``1(``0,System.String,System.String)
+  isExternal: true
+  href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_PingPong__1___0_System_String_System_String_
+  name: PingPong<T>(T, string, string)
+  nameWithType: PingService.PingPong<T>(T, string, string)
+  fullName: CoverageKiller2.Logging.PingService.PingPong<T>(T, string, string)
+  nameWithType.vb: PingService.PingPong(Of T)(T, String, String)
+  fullName.vb: CoverageKiller2.Logging.PingService.PingPong(Of T)(T, String, String)
+  name.vb: PingPong(Of T)(T, String, String)
+  spec.csharp:
+  - uid: CoverageKiller2.Logging.PingService.PingPong``1(``0,System.String,System.String)
+    name: PingPong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_PingPong__1___0_System_String_System_String_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: CoverageKiller2.Logging.PingService.PingPong``1(``0,System.String,System.String)
+    name: PingPong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_PingPong__1___0_System_String_System_String_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: CoverageKiller2.Logging.PingService.PingPong``2(``0,System.Func{``1},System.String,System.String)
+  commentId: M:CoverageKiller2.Logging.PingService.PingPong``2(``0,System.Func{``1},System.String,System.String)
+  isExternal: true
+  href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_PingPong__2___0_System_Func___1__System_String_System_String_
+  name: PingPong<T, TResult>(T, Func<TResult>, string, string)
+  nameWithType: PingService.PingPong<T, TResult>(T, Func<TResult>, string, string)
+  fullName: CoverageKiller2.Logging.PingService.PingPong<T, TResult>(T, System.Func<TResult>, string, string)
+  nameWithType.vb: PingService.PingPong(Of T, TResult)(T, Func(Of TResult), String, String)
+  fullName.vb: CoverageKiller2.Logging.PingService.PingPong(Of T, TResult)(T, System.Func(Of TResult), String, String)
+  name.vb: PingPong(Of T, TResult)(T, Func(Of TResult), String, String)
+  spec.csharp:
+  - uid: CoverageKiller2.Logging.PingService.PingPong``2(``0,System.Func{``1},System.String,System.String)
+    name: PingPong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_PingPong__2___0_System_Func___1__System_String_System_String_
+  - name: <
+  - name: T
+  - name: ','
+  - name: " "
+  - name: TResult
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Func`1
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-1
+  - name: <
+  - name: TResult
+  - name: '>'
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: CoverageKiller2.Logging.PingService.PingPong``2(``0,System.Func{``1},System.String,System.String)
+    name: PingPong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_PingPong__2___0_System_Func___1__System_String_System_String_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - name: TResult
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Func`1
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TResult
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: CoverageKiller2.Logging.PingService.Ping``1(``0,System.String)
+  commentId: M:CoverageKiller2.Logging.PingService.Ping``1(``0,System.String)
+  isExternal: true
+  href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Ping__1___0_System_String_
+  name: Ping<T>(T, string)
+  nameWithType: PingService.Ping<T>(T, string)
+  fullName: CoverageKiller2.Logging.PingService.Ping<T>(T, string)
+  nameWithType.vb: PingService.Ping(Of T)(T, String)
+  fullName.vb: CoverageKiller2.Logging.PingService.Ping(Of T)(T, String)
+  name.vb: Ping(Of T)(T, String)
+  spec.csharp:
+  - uid: CoverageKiller2.Logging.PingService.Ping``1(``0,System.String)
+    name: Ping
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Ping__1___0_System_String_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: CoverageKiller2.Logging.PingService.Ping``1(``0,System.String)
+    name: Ping
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Ping__1___0_System_String_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: CoverageKiller2.Logging.PingService.Ping``1(``0,System.String,System.String)
+  commentId: M:CoverageKiller2.Logging.PingService.Ping``1(``0,System.String,System.String)
+  isExternal: true
+  href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Ping__1___0_System_String_System_String_
+  name: Ping<T>(T, string, string)
+  nameWithType: PingService.Ping<T>(T, string, string)
+  fullName: CoverageKiller2.Logging.PingService.Ping<T>(T, string, string)
+  nameWithType.vb: PingService.Ping(Of T)(T, String, String)
+  fullName.vb: CoverageKiller2.Logging.PingService.Ping(Of T)(T, String, String)
+  name.vb: Ping(Of T)(T, String, String)
+  spec.csharp:
+  - uid: CoverageKiller2.Logging.PingService.Ping``1(``0,System.String,System.String)
+    name: Ping
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Ping__1___0_System_String_System_String_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: CoverageKiller2.Logging.PingService.Ping``1(``0,System.String,System.String)
+    name: Ping
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Ping__1___0_System_String_System_String_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: CoverageKiller2.Logging.PingService.Ping``1(``0,System.Type[],System.String)
+  commentId: M:CoverageKiller2.Logging.PingService.Ping``1(``0,System.Type[],System.String)
+  isExternal: true
+  href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Ping__1___0_System_Type___System_String_
+  name: Ping<T>(T, Type[], string)
+  nameWithType: PingService.Ping<T>(T, Type[], string)
+  fullName: CoverageKiller2.Logging.PingService.Ping<T>(T, System.Type[], string)
+  nameWithType.vb: PingService.Ping(Of T)(T, Type(), String)
+  fullName.vb: CoverageKiller2.Logging.PingService.Ping(Of T)(T, System.Type(), String)
+  name.vb: Ping(Of T)(T, Type(), String)
+  spec.csharp:
+  - uid: CoverageKiller2.Logging.PingService.Ping``1(``0,System.Type[],System.String)
+    name: Ping
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Ping__1___0_System_Type___System_String_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: '['
+  - name: ']'
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: CoverageKiller2.Logging.PingService.Ping``1(``0,System.Type[],System.String)
+    name: Ping
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Ping__1___0_System_Type___System_String_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: (
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: CoverageKiller2.Logging.PingService.Pong``1(``0,System.String)
+  commentId: M:CoverageKiller2.Logging.PingService.Pong``1(``0,System.String)
+  isExternal: true
+  href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1___0_System_String_
+  name: Pong<T>(T, string)
+  nameWithType: PingService.Pong<T>(T, string)
+  fullName: CoverageKiller2.Logging.PingService.Pong<T>(T, string)
+  nameWithType.vb: PingService.Pong(Of T)(T, String)
+  fullName.vb: CoverageKiller2.Logging.PingService.Pong(Of T)(T, String)
+  name.vb: Pong(Of T)(T, String)
+  spec.csharp:
+  - uid: CoverageKiller2.Logging.PingService.Pong``1(``0,System.String)
+    name: Pong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1___0_System_String_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: CoverageKiller2.Logging.PingService.Pong``1(``0,System.String)
+    name: Pong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1___0_System_String_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: CoverageKiller2.Logging.PingService.Pong``1(``0,System.String,System.String)
+  commentId: M:CoverageKiller2.Logging.PingService.Pong``1(``0,System.String,System.String)
+  isExternal: true
+  href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1___0_System_String_System_String_
+  name: Pong<T>(T, string, string)
+  nameWithType: PingService.Pong<T>(T, string, string)
+  fullName: CoverageKiller2.Logging.PingService.Pong<T>(T, string, string)
+  nameWithType.vb: PingService.Pong(Of T)(T, String, String)
+  fullName.vb: CoverageKiller2.Logging.PingService.Pong(Of T)(T, String, String)
+  name.vb: Pong(Of T)(T, String, String)
+  spec.csharp:
+  - uid: CoverageKiller2.Logging.PingService.Pong``1(``0,System.String,System.String)
+    name: Pong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1___0_System_String_System_String_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: CoverageKiller2.Logging.PingService.Pong``1(``0,System.String,System.String)
+    name: Pong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1___0_System_String_System_String_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: CoverageKiller2.Logging.PingService.Pong``1(``0,System.Type,System.String)
+  commentId: M:CoverageKiller2.Logging.PingService.Pong``1(``0,System.Type,System.String)
+  isExternal: true
+  href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1___0_System_Type_System_String_
+  name: Pong<T>(T, Type, string)
+  nameWithType: PingService.Pong<T>(T, Type, string)
+  fullName: CoverageKiller2.Logging.PingService.Pong<T>(T, System.Type, string)
+  nameWithType.vb: PingService.Pong(Of T)(T, Type, String)
+  fullName.vb: CoverageKiller2.Logging.PingService.Pong(Of T)(T, System.Type, String)
+  name.vb: Pong(Of T)(T, Type, String)
+  spec.csharp:
+  - uid: CoverageKiller2.Logging.PingService.Pong``1(``0,System.Type,System.String)
+    name: Pong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1___0_System_Type_System_String_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: CoverageKiller2.Logging.PingService.Pong``1(``0,System.Type,System.String)
+    name: Pong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1___0_System_Type_System_String_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: CoverageKiller2.Logging.PingService.Pong``1(``0,System.Type[],System.String)
+  commentId: M:CoverageKiller2.Logging.PingService.Pong``1(``0,System.Type[],System.String)
+  isExternal: true
+  href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1___0_System_Type___System_String_
+  name: Pong<T>(T, Type[], string)
+  nameWithType: PingService.Pong<T>(T, Type[], string)
+  fullName: CoverageKiller2.Logging.PingService.Pong<T>(T, System.Type[], string)
+  nameWithType.vb: PingService.Pong(Of T)(T, Type(), String)
+  fullName.vb: CoverageKiller2.Logging.PingService.Pong(Of T)(T, System.Type(), String)
+  name.vb: Pong(Of T)(T, Type(), String)
+  spec.csharp:
+  - uid: CoverageKiller2.Logging.PingService.Pong``1(``0,System.Type[],System.String)
+    name: Pong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1___0_System_Type___System_String_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: '['
+  - name: ']'
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: CoverageKiller2.Logging.PingService.Pong``1(``0,System.Type[],System.String)
+    name: Pong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1___0_System_Type___System_String_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: (
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: CoverageKiller2.Logging.PingService.Pong``2(``0,System.Func{``1},System.String,System.String)
+  commentId: M:CoverageKiller2.Logging.PingService.Pong``2(``0,System.Func{``1},System.String,System.String)
+  isExternal: true
+  href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__2___0_System_Func___1__System_String_System_String_
+  name: Pong<T, TResult>(T, Func<TResult>, string, string)
+  nameWithType: PingService.Pong<T, TResult>(T, Func<TResult>, string, string)
+  fullName: CoverageKiller2.Logging.PingService.Pong<T, TResult>(T, System.Func<TResult>, string, string)
+  nameWithType.vb: PingService.Pong(Of T, TResult)(T, Func(Of TResult), String, String)
+  fullName.vb: CoverageKiller2.Logging.PingService.Pong(Of T, TResult)(T, System.Func(Of TResult), String, String)
+  name.vb: Pong(Of T, TResult)(T, Func(Of TResult), String, String)
+  spec.csharp:
+  - uid: CoverageKiller2.Logging.PingService.Pong``2(``0,System.Func{``1},System.String,System.String)
+    name: Pong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__2___0_System_Func___1__System_String_System_String_
+  - name: <
+  - name: T
+  - name: ','
+  - name: " "
+  - name: TResult
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Func`1
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-1
+  - name: <
+  - name: TResult
+  - name: '>'
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: CoverageKiller2.Logging.PingService.Pong``2(``0,System.Func{``1},System.String,System.String)
+    name: Pong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__2___0_System_Func___1__System_String_System_String_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - name: TResult
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Func`1
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TResult
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: CoverageKiller2.Logging.LogExpertLoader.GetLogFile*
+  commentId: Overload:CoverageKiller2.Logging.LogExpertLoader.GetLogFile
+  isExternal: true
+  href: CoverageKiller2.Logging.LogExpertLoader.html#CoverageKiller2_Logging_LogExpertLoader_GetLogFile
+  name: GetLogFile
+  nameWithType: LogExpertLoader.GetLogFile
+  fullName: CoverageKiller2.Logging.LogExpertLoader.GetLogFile
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: CoverageKiller2.Logging.LogExpertLoader.StartLogExpert*
+  commentId: Overload:CoverageKiller2.Logging.LogExpertLoader.StartLogExpert
+  isExternal: true
+  href: CoverageKiller2.Logging.LogExpertLoader.html#CoverageKiller2_Logging_LogExpertLoader_StartLogExpert_System_String_System_Boolean_
+  name: StartLogExpert
+  nameWithType: LogExpertLoader.StartLogExpert
+  fullName: CoverageKiller2.Logging.LogExpertLoader.StartLogExpert
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean
+- uid: CoverageKiller2.Logging.LogExpertLoader.StopLogExpert*
+  commentId: Overload:CoverageKiller2.Logging.LogExpertLoader.StopLogExpert
+  isExternal: true
+  href: CoverageKiller2.Logging.LogExpertLoader.html#CoverageKiller2_Logging_LogExpertLoader_StopLogExpert
+  name: StopLogExpert
+  nameWithType: LogExpertLoader.StopLogExpert
+  fullName: CoverageKiller2.Logging.LogExpertLoader.StopLogExpert
+- uid: CoverageKiller2.Logging.LogExpertLoader.Cleanup*
+  commentId: Overload:CoverageKiller2.Logging.LogExpertLoader.Cleanup
+  isExternal: true
+  href: CoverageKiller2.Logging.LogExpertLoader.html#CoverageKiller2_Logging_LogExpertLoader_Cleanup
+  name: Cleanup
+  nameWithType: LogExpertLoader.Cleanup
+  fullName: CoverageKiller2.Logging.LogExpertLoader.Cleanup
+- uid: CoverageKiller2.Logging.LogExpertLoader.#ctor*
+  commentId: Overload:CoverageKiller2.Logging.LogExpertLoader.#ctor
+  isExternal: true
+  href: CoverageKiller2.Logging.LogExpertLoader.html#CoverageKiller2_Logging_LogExpertLoader__ctor
+  name: LogExpertLoader
+  nameWithType: LogExpertLoader.LogExpertLoader
+  fullName: CoverageKiller2.Logging.LogExpertLoader.LogExpertLoader
+  nameWithType.vb: LogExpertLoader.New
+  fullName.vb: CoverageKiller2.Logging.LogExpertLoader.New
+  name.vb: New
+- uid: CoverageKiller2.Logging.LogExpertLoader.LogOpen*
+  commentId: Overload:CoverageKiller2.Logging.LogExpertLoader.LogOpen
+  isExternal: true
+  href: CoverageKiller2.Logging.LogExpertLoader.html#CoverageKiller2_Logging_LogExpertLoader_LogOpen
+  name: LogOpen
+  nameWithType: LogExpertLoader.LogOpen
+  fullName: CoverageKiller2.Logging.LogExpertLoader.LogOpen
+- uid: CoverageKiller2.Logging.LogExpertLoader.LogFileName*
+  commentId: Overload:CoverageKiller2.Logging.LogExpertLoader.LogFileName
+  isExternal: true
+  href: CoverageKiller2.Logging.LogExpertLoader.html#CoverageKiller2_Logging_LogExpertLoader_LogFileName
+  name: LogFileName
+  nameWithType: LogExpertLoader.LogFileName
+  fullName: CoverageKiller2.Logging.LogExpertLoader.LogFileName

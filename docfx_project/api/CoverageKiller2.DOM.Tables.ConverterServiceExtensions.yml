@@ -1,0 +1,612 @@
+### YamlMime:ManagedReference
+items:
+- uid: CoverageKiller2.DOM.Tables.ConverterServiceExtensions
+  commentId: T:CoverageKiller2.DOM.Tables.ConverterServiceExtensions
+  id: ConverterServiceExtensions
+  parent: CoverageKiller2.DOM.Tables
+  children:
+  - CoverageKiller2.DOM.Tables.ConverterServiceExtensions.GetCellRef(CoverageKiller2.DOM.Tables.CKTable.CKCellRefConverterService,CoverageKiller2.DOM.Tables.CKGridCellRef,CoverageKiller2.DOM.IDOMObject)
+  - CoverageKiller2.DOM.Tables.ConverterServiceExtensions.GetGridCellRef(CoverageKiller2.DOM.Tables.CKTable.CKCellRefConverterService,CoverageKiller2.DOM.Tables.CKCellRef)
+  - CoverageKiller2.DOM.Tables.ConverterServiceExtensions.GetGridCellRef(CoverageKiller2.DOM.Tables.CKTable.CKCellRefConverterService,CoverageKiller2.DOM.Tables.CKRowCellRef)
+  - CoverageKiller2.DOM.Tables.ConverterServiceExtensions.GetGridCellRef(CoverageKiller2.DOM.Tables.CKTable.CKCellRefConverterService,Microsoft.Office.Interop.Word.Cell)
+  - CoverageKiller2.DOM.Tables.ConverterServiceExtensions.GetGridCellRef(CoverageKiller2.DOM.Tables.CKTable.CKCellRefConverterService,System.Int32)
+  langs:
+  - csharp
+  - vb
+  name: ConverterServiceExtensions
+  nameWithType: ConverterServiceExtensions
+  fullName: CoverageKiller2.DOM.Tables.ConverterServiceExtensions
+  type: Class
+  assemblies:
+  - CoverageKiller2
+  namespace: CoverageKiller2.DOM.Tables
+  syntax:
+    content: public static class ConverterServiceExtensions
+    content.vb: Public Module ConverterServiceExtensions
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.ToString
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+- uid: CoverageKiller2.DOM.Tables.ConverterServiceExtensions.GetCellRef(CoverageKiller2.DOM.Tables.CKTable.CKCellRefConverterService,CoverageKiller2.DOM.Tables.CKGridCellRef,CoverageKiller2.DOM.IDOMObject)
+  commentId: M:CoverageKiller2.DOM.Tables.ConverterServiceExtensions.GetCellRef(CoverageKiller2.DOM.Tables.CKTable.CKCellRefConverterService,CoverageKiller2.DOM.Tables.CKGridCellRef,CoverageKiller2.DOM.IDOMObject)
+  id: GetCellRef(CoverageKiller2.DOM.Tables.CKTable.CKCellRefConverterService,CoverageKiller2.DOM.Tables.CKGridCellRef,CoverageKiller2.DOM.IDOMObject)
+  isExtensionMethod: true
+  parent: CoverageKiller2.DOM.Tables.ConverterServiceExtensions
+  langs:
+  - csharp
+  - vb
+  name: GetCellRef(CKCellRefConverterService, CKGridCellRef, IDOMObject)
+  nameWithType: ConverterServiceExtensions.GetCellRef(CKTable.CKCellRefConverterService, CKGridCellRef, IDOMObject)
+  fullName: CoverageKiller2.DOM.Tables.ConverterServiceExtensions.GetCellRef(CoverageKiller2.DOM.Tables.CKTable.CKCellRefConverterService, CoverageKiller2.DOM.Tables.CKGridCellRef, CoverageKiller2.DOM.IDOMObject)
+  type: Method
+  assemblies:
+  - CoverageKiller2
+  namespace: CoverageKiller2.DOM.Tables
+  syntax:
+    content: public static CKCellRef GetCellRef(this CKTable.CKCellRefConverterService service, CKGridCellRef gridRef, IDOMObject parent)
+    parameters:
+    - id: service
+      type: CoverageKiller2.DOM.Tables.CKTable.CKCellRefConverterService
+    - id: gridRef
+      type: CoverageKiller2.DOM.Tables.CKGridCellRef
+    - id: parent
+      type: CoverageKiller2.DOM.IDOMObject
+    return:
+      type: CoverageKiller2.DOM.Tables.CKCellRef
+    content.vb: Public Shared Function GetCellRef(service As CKTable.CKCellRefConverterService, gridRef As CKGridCellRef, parent As IDOMObject) As CKCellRef
+  overload: CoverageKiller2.DOM.Tables.ConverterServiceExtensions.GetCellRef*
+- uid: CoverageKiller2.DOM.Tables.ConverterServiceExtensions.GetGridCellRef(CoverageKiller2.DOM.Tables.CKTable.CKCellRefConverterService,System.Int32)
+  commentId: M:CoverageKiller2.DOM.Tables.ConverterServiceExtensions.GetGridCellRef(CoverageKiller2.DOM.Tables.CKTable.CKCellRefConverterService,System.Int32)
+  id: GetGridCellRef(CoverageKiller2.DOM.Tables.CKTable.CKCellRefConverterService,System.Int32)
+  isExtensionMethod: true
+  parent: CoverageKiller2.DOM.Tables.ConverterServiceExtensions
+  langs:
+  - csharp
+  - vb
+  name: GetGridCellRef(CKCellRefConverterService, int)
+  nameWithType: ConverterServiceExtensions.GetGridCellRef(CKTable.CKCellRefConverterService, int)
+  fullName: CoverageKiller2.DOM.Tables.ConverterServiceExtensions.GetGridCellRef(CoverageKiller2.DOM.Tables.CKTable.CKCellRefConverterService, int)
+  type: Method
+  assemblies:
+  - CoverageKiller2
+  namespace: CoverageKiller2.DOM.Tables
+  syntax:
+    content: public static CKGridCellRef GetGridCellRef(this CKTable.CKCellRefConverterService service, int index)
+    parameters:
+    - id: service
+      type: CoverageKiller2.DOM.Tables.CKTable.CKCellRefConverterService
+    - id: index
+      type: System.Int32
+    return:
+      type: CoverageKiller2.DOM.Tables.CKGridCellRef
+    content.vb: Public Shared Function GetGridCellRef(service As CKTable.CKCellRefConverterService, index As Integer) As CKGridCellRef
+  overload: CoverageKiller2.DOM.Tables.ConverterServiceExtensions.GetGridCellRef*
+  nameWithType.vb: ConverterServiceExtensions.GetGridCellRef(CKTable.CKCellRefConverterService, Integer)
+  fullName.vb: CoverageKiller2.DOM.Tables.ConverterServiceExtensions.GetGridCellRef(CoverageKiller2.DOM.Tables.CKTable.CKCellRefConverterService, Integer)
+  name.vb: GetGridCellRef(CKCellRefConverterService, Integer)
+- uid: CoverageKiller2.DOM.Tables.ConverterServiceExtensions.GetGridCellRef(CoverageKiller2.DOM.Tables.CKTable.CKCellRefConverterService,CoverageKiller2.DOM.Tables.CKCellRef)
+  commentId: M:CoverageKiller2.DOM.Tables.ConverterServiceExtensions.GetGridCellRef(CoverageKiller2.DOM.Tables.CKTable.CKCellRefConverterService,CoverageKiller2.DOM.Tables.CKCellRef)
+  id: GetGridCellRef(CoverageKiller2.DOM.Tables.CKTable.CKCellRefConverterService,CoverageKiller2.DOM.Tables.CKCellRef)
+  isExtensionMethod: true
+  parent: CoverageKiller2.DOM.Tables.ConverterServiceExtensions
+  langs:
+  - csharp
+  - vb
+  name: GetGridCellRef(CKCellRefConverterService, CKCellRef)
+  nameWithType: ConverterServiceExtensions.GetGridCellRef(CKTable.CKCellRefConverterService, CKCellRef)
+  fullName: CoverageKiller2.DOM.Tables.ConverterServiceExtensions.GetGridCellRef(CoverageKiller2.DOM.Tables.CKTable.CKCellRefConverterService, CoverageKiller2.DOM.Tables.CKCellRef)
+  type: Method
+  assemblies:
+  - CoverageKiller2
+  namespace: CoverageKiller2.DOM.Tables
+  syntax:
+    content: public static CKGridCellRef GetGridCellRef(this CKTable.CKCellRefConverterService service, CKCellRef cellRef)
+    parameters:
+    - id: service
+      type: CoverageKiller2.DOM.Tables.CKTable.CKCellRefConverterService
+    - id: cellRef
+      type: CoverageKiller2.DOM.Tables.CKCellRef
+    return:
+      type: CoverageKiller2.DOM.Tables.CKGridCellRef
+    content.vb: Public Shared Function GetGridCellRef(service As CKTable.CKCellRefConverterService, cellRef As CKCellRef) As CKGridCellRef
+  overload: CoverageKiller2.DOM.Tables.ConverterServiceExtensions.GetGridCellRef*
+- uid: CoverageKiller2.DOM.Tables.ConverterServiceExtensions.GetGridCellRef(CoverageKiller2.DOM.Tables.CKTable.CKCellRefConverterService,CoverageKiller2.DOM.Tables.CKRowCellRef)
+  commentId: M:CoverageKiller2.DOM.Tables.ConverterServiceExtensions.GetGridCellRef(CoverageKiller2.DOM.Tables.CKTable.CKCellRefConverterService,CoverageKiller2.DOM.Tables.CKRowCellRef)
+  id: GetGridCellRef(CoverageKiller2.DOM.Tables.CKTable.CKCellRefConverterService,CoverageKiller2.DOM.Tables.CKRowCellRef)
+  isExtensionMethod: true
+  parent: CoverageKiller2.DOM.Tables.ConverterServiceExtensions
+  langs:
+  - csharp
+  - vb
+  name: GetGridCellRef(CKCellRefConverterService, CKRowCellRef)
+  nameWithType: ConverterServiceExtensions.GetGridCellRef(CKTable.CKCellRefConverterService, CKRowCellRef)
+  fullName: CoverageKiller2.DOM.Tables.ConverterServiceExtensions.GetGridCellRef(CoverageKiller2.DOM.Tables.CKTable.CKCellRefConverterService, CoverageKiller2.DOM.Tables.CKRowCellRef)
+  type: Method
+  assemblies:
+  - CoverageKiller2
+  namespace: CoverageKiller2.DOM.Tables
+  syntax:
+    content: public static CKGridCellRef GetGridCellRef(this CKTable.CKCellRefConverterService service, CKRowCellRef rowRef)
+    parameters:
+    - id: service
+      type: CoverageKiller2.DOM.Tables.CKTable.CKCellRefConverterService
+    - id: rowRef
+      type: CoverageKiller2.DOM.Tables.CKRowCellRef
+    return:
+      type: CoverageKiller2.DOM.Tables.CKGridCellRef
+    content.vb: Public Shared Function GetGridCellRef(service As CKTable.CKCellRefConverterService, rowRef As CKRowCellRef) As CKGridCellRef
+  overload: CoverageKiller2.DOM.Tables.ConverterServiceExtensions.GetGridCellRef*
+- uid: CoverageKiller2.DOM.Tables.ConverterServiceExtensions.GetGridCellRef(CoverageKiller2.DOM.Tables.CKTable.CKCellRefConverterService,Microsoft.Office.Interop.Word.Cell)
+  commentId: M:CoverageKiller2.DOM.Tables.ConverterServiceExtensions.GetGridCellRef(CoverageKiller2.DOM.Tables.CKTable.CKCellRefConverterService,Microsoft.Office.Interop.Word.Cell)
+  id: GetGridCellRef(CoverageKiller2.DOM.Tables.CKTable.CKCellRefConverterService,Microsoft.Office.Interop.Word.Cell)
+  isExtensionMethod: true
+  parent: CoverageKiller2.DOM.Tables.ConverterServiceExtensions
+  langs:
+  - csharp
+  - vb
+  name: GetGridCellRef(CKCellRefConverterService, Cell)
+  nameWithType: ConverterServiceExtensions.GetGridCellRef(CKTable.CKCellRefConverterService, Cell)
+  fullName: CoverageKiller2.DOM.Tables.ConverterServiceExtensions.GetGridCellRef(CoverageKiller2.DOM.Tables.CKTable.CKCellRefConverterService, Microsoft.Office.Interop.Word.Cell)
+  type: Method
+  assemblies:
+  - CoverageKiller2
+  namespace: CoverageKiller2.DOM.Tables
+  syntax:
+    content: public static CKGridCellRef GetGridCellRef(this CKTable.CKCellRefConverterService service, Cell wordCell)
+    parameters:
+    - id: service
+      type: CoverageKiller2.DOM.Tables.CKTable.CKCellRefConverterService
+    - id: wordCell
+      type: Microsoft.Office.Interop.Word.Cell
+    return:
+      type: CoverageKiller2.DOM.Tables.CKGridCellRef
+    content.vb: Public Shared Function GetGridCellRef(service As CKTable.CKCellRefConverterService, wordCell As Cell) As CKGridCellRef
+  overload: CoverageKiller2.DOM.Tables.ConverterServiceExtensions.GetGridCellRef*
+references:
+- uid: CoverageKiller2.DOM.Tables
+  commentId: N:CoverageKiller2.DOM.Tables
+  isExternal: true
+  href: CoverageKiller2.html
+  name: CoverageKiller2.DOM.Tables
+  nameWithType: CoverageKiller2.DOM.Tables
+  fullName: CoverageKiller2.DOM.Tables
+  spec.csharp:
+  - uid: CoverageKiller2
+    name: CoverageKiller2
+    isExternal: true
+    href: CoverageKiller2.html
+  - name: .
+  - uid: CoverageKiller2.DOM
+    name: DOM
+    isExternal: true
+    href: CoverageKiller2.DOM.html
+  - name: .
+  - uid: CoverageKiller2.DOM.Tables
+    name: Tables
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.html
+  spec.vb:
+  - uid: CoverageKiller2
+    name: CoverageKiller2
+    isExternal: true
+    href: CoverageKiller2.html
+  - name: .
+  - uid: CoverageKiller2.DOM
+    name: DOM
+    isExternal: true
+    href: CoverageKiller2.DOM.html
+  - name: .
+  - uid: CoverageKiller2.DOM.Tables
+    name: Tables
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: CoverageKiller2.DOM.Tables.ConverterServiceExtensions.GetCellRef*
+  commentId: Overload:CoverageKiller2.DOM.Tables.ConverterServiceExtensions.GetCellRef
+  isExternal: true
+  href: CoverageKiller2.DOM.Tables.ConverterServiceExtensions.html#CoverageKiller2_DOM_Tables_ConverterServiceExtensions_GetCellRef_CoverageKiller2_DOM_Tables_CKTable_CKCellRefConverterService_CoverageKiller2_DOM_Tables_CKGridCellRef_CoverageKiller2_DOM_IDOMObject_
+  name: GetCellRef
+  nameWithType: ConverterServiceExtensions.GetCellRef
+  fullName: CoverageKiller2.DOM.Tables.ConverterServiceExtensions.GetCellRef
+- uid: CoverageKiller2.DOM.Tables.CKTable.CKCellRefConverterService
+  commentId: T:CoverageKiller2.DOM.Tables.CKTable.CKCellRefConverterService
+  parent: CoverageKiller2.DOM.Tables
+  isExternal: true
+  href: CoverageKiller2.DOM.Tables.CKTable.html
+  name: CKTable.CKCellRefConverterService
+  nameWithType: CKTable.CKCellRefConverterService
+  fullName: CoverageKiller2.DOM.Tables.CKTable.CKCellRefConverterService
+  spec.csharp:
+  - uid: CoverageKiller2.DOM.Tables.CKTable
+    name: CKTable
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.CKTable.html
+  - name: .
+  - uid: CoverageKiller2.DOM.Tables.CKTable.CKCellRefConverterService
+    name: CKCellRefConverterService
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.CKTable.CKCellRefConverterService.html
+  spec.vb:
+  - uid: CoverageKiller2.DOM.Tables.CKTable
+    name: CKTable
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.CKTable.html
+  - name: .
+  - uid: CoverageKiller2.DOM.Tables.CKTable.CKCellRefConverterService
+    name: CKCellRefConverterService
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.CKTable.CKCellRefConverterService.html
+- uid: CoverageKiller2.DOM.Tables.CKGridCellRef
+  commentId: T:CoverageKiller2.DOM.Tables.CKGridCellRef
+  parent: CoverageKiller2.DOM.Tables
+  isExternal: true
+  href: CoverageKiller2.DOM.Tables.CKGridCellRef.html
+  name: CKGridCellRef
+  nameWithType: CKGridCellRef
+  fullName: CoverageKiller2.DOM.Tables.CKGridCellRef
+- uid: CoverageKiller2.DOM.IDOMObject
+  commentId: T:CoverageKiller2.DOM.IDOMObject
+  parent: CoverageKiller2.DOM
+  isExternal: true
+  href: CoverageKiller2.DOM.IDOMObject.html
+  name: IDOMObject
+  nameWithType: IDOMObject
+  fullName: CoverageKiller2.DOM.IDOMObject
+- uid: CoverageKiller2.DOM.Tables.CKCellRef
+  commentId: T:CoverageKiller2.DOM.Tables.CKCellRef
+  parent: CoverageKiller2.DOM.Tables
+  isExternal: true
+  href: CoverageKiller2.DOM.Tables.CKCellRef.html
+  name: CKCellRef
+  nameWithType: CKCellRef
+  fullName: CoverageKiller2.DOM.Tables.CKCellRef
+- uid: CoverageKiller2.DOM
+  commentId: N:CoverageKiller2.DOM
+  isExternal: true
+  href: CoverageKiller2.html
+  name: CoverageKiller2.DOM
+  nameWithType: CoverageKiller2.DOM
+  fullName: CoverageKiller2.DOM
+  spec.csharp:
+  - uid: CoverageKiller2
+    name: CoverageKiller2
+    isExternal: true
+    href: CoverageKiller2.html
+  - name: .
+  - uid: CoverageKiller2.DOM
+    name: DOM
+    isExternal: true
+    href: CoverageKiller2.DOM.html
+  spec.vb:
+  - uid: CoverageKiller2
+    name: CoverageKiller2
+    isExternal: true
+    href: CoverageKiller2.html
+  - name: .
+  - uid: CoverageKiller2.DOM
+    name: DOM
+    isExternal: true
+    href: CoverageKiller2.DOM.html
+- uid: CoverageKiller2.DOM.Tables.ConverterServiceExtensions.GetGridCellRef*
+  commentId: Overload:CoverageKiller2.DOM.Tables.ConverterServiceExtensions.GetGridCellRef
+  isExternal: true
+  href: CoverageKiller2.DOM.Tables.ConverterServiceExtensions.html#CoverageKiller2_DOM_Tables_ConverterServiceExtensions_GetGridCellRef_CoverageKiller2_DOM_Tables_CKTable_CKCellRefConverterService_System_Int32_
+  name: GetGridCellRef
+  nameWithType: ConverterServiceExtensions.GetGridCellRef
+  fullName: CoverageKiller2.DOM.Tables.ConverterServiceExtensions.GetGridCellRef
+- uid: System.Int32
+  commentId: T:System.Int32
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.int32
+  name: int
+  nameWithType: int
+  fullName: int
+  nameWithType.vb: Integer
+  fullName.vb: Integer
+  name.vb: Integer
+- uid: CoverageKiller2.DOM.Tables.CKRowCellRef
+  commentId: T:CoverageKiller2.DOM.Tables.CKRowCellRef
+  parent: CoverageKiller2.DOM.Tables
+  isExternal: true
+  href: CoverageKiller2.DOM.Tables.CKRowCellRef.html
+  name: CKRowCellRef
+  nameWithType: CKRowCellRef
+  fullName: CoverageKiller2.DOM.Tables.CKRowCellRef
+- uid: Microsoft.Office.Interop.Word.Cell
+  commentId: T:Microsoft.Office.Interop.Word.Cell
+  parent: Microsoft.Office.Interop.Word
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/microsoft.office.interop.word.cell
+  name: Cell
+  nameWithType: Cell
+  fullName: Microsoft.Office.Interop.Word.Cell
+- uid: Microsoft.Office.Interop.Word
+  commentId: N:Microsoft.Office.Interop.Word
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/microsoft
+  name: Microsoft.Office.Interop.Word
+  nameWithType: Microsoft.Office.Interop.Word
+  fullName: Microsoft.Office.Interop.Word
+  spec.csharp:
+  - uid: Microsoft
+    name: Microsoft
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/microsoft
+  - name: .
+  - uid: Microsoft.Office
+    name: Office
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/microsoft.office
+  - name: .
+  - uid: Microsoft.Office.Interop
+    name: Interop
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/microsoft.office.interop
+  - name: .
+  - uid: Microsoft.Office.Interop.Word
+    name: Word
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/microsoft.office.interop.word
+  spec.vb:
+  - uid: Microsoft
+    name: Microsoft
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/microsoft
+  - name: .
+  - uid: Microsoft.Office
+    name: Office
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/microsoft.office
+  - name: .
+  - uid: Microsoft.Office.Interop
+    name: Interop
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/microsoft.office.interop
+  - name: .
+  - uid: Microsoft.Office.Interop.Word
+    name: Word
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/microsoft.office.interop.word

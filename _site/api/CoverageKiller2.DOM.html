@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Namespace CoverageKiller2.DOM </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Namespace CoverageKiller2.DOM ">
+    
+    
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="CoverageKiller2.DOM">
+
+  <h1 id="CoverageKiller2_DOM" data-uid="CoverageKiller2.DOM" class="text-break">Namespace CoverageKiller2.DOM</h1>
+  <div class="markdown level0 summary"></div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="markdown level0 remarks"></div>
+    <h3 id="classes">
+Classes
+</h3>
+      <h4><a class="xref" href="CoverageKiller2.DOM.ACKRangeCollection.html">ACKRangeCollection</a></h4>
+      <section><p>Abstract base class for all collection types based on a Word range.
+Provides IsDirty tracking, deferCOM lazy activation, and cache helpers.</p>
+</section>
+      <h4><a class="xref" href="CoverageKiller2.DOM.AppRecord.html">AppRecord</a></h4>
+      <section><p>Represents a record of a previously created Word application process.
+Used for crash recovery and cleanup of orphaned instances.</p>
+</section>
+      <h4><a class="xref" href="CoverageKiller2.DOM.AppRecordManager.html">AppRecordManager</a></h4>
+      <section><p>Tracks known Word application process records for crash recovery.</p>
+</section>
+      <h4><a class="xref" href="CoverageKiller2.DOM.CKApplication.html">CKApplication</a></h4>
+      <section><p>Represents a Word application instance responsible for creating, managing,
+and closing documents in a controlled environment.</p>
+</section>
+      <h4><a class="xref" href="CoverageKiller2.DOM.CKDOMObject.html">CKDOMObject</a></h4>
+      <section></section>
+      <h4><a class="xref" href="CoverageKiller2.DOM.CKDocument.html">CKDocument</a></h4>
+      <section><p>Represents a wrapper around a Word document, providing DOM access to tables, sections,
+headers, footers, and other editable regions of the document.</p>
+</section>
+      <h4><a class="xref" href="CoverageKiller2.DOM.CKOffice_Word.html">CKOffice_Word</a></h4>
+      <section><p>Central manager for all Word application instances in the CoverageKiller2 system.
+Handles lifecycle and cleanup, including the special VSTO ThisAddIn instance.</p>
+</section>
+      <h4><a class="xref" href="CoverageKiller2.DOM.CKParagraph.html">CKParagraph</a></h4>
+      <section><p>Represents a basic wrapper for a Word.Paragraph object.
+Inherits from CKRange since a paragraph is fundamentally a range.</p>
+</section>
+      <h4><a class="xref" href="CoverageKiller2.DOM.CKParagraphs.html">CKParagraphs</a></h4>
+      <section><p>Represents a collection of <a class="xref" href="CoverageKiller2.DOM.CKParagraph.html">CKParagraph</a> objects associated with a <a class="xref" href="CoverageKiller2.DOM.CKRange.html">CKRange</a>.</p>
+</section>
+      <h4><a class="xref" href="CoverageKiller2.DOM.CKRange.html">CKRange</a></h4>
+      <section><p>Represents a simple wrapper for the Word.Range object.
+Provides caching of text and boundary values for robust equality and hash code calculations,
+even if the underlying COM object becomes orphaned.</p>
+</section>
+      <h4><a class="xref" href="CoverageKiller2.DOM.CKSection.html">CKSection</a></h4>
+      <section><p>Represents a wrapper for the Word.Section object, exposing common functionality for a section in a Word document.</p>
+</section>
+      <h4><a class="xref" href="CoverageKiller2.DOM.CKSections.html">CKSections</a></h4>
+      <section><p>Represents a collection of <a class="xref" href="CoverageKiller2.DOM.CKSection.html">CKSection</a> objects associated with a <a class="xref" href="CoverageKiller2.DOM.CKRange.html">CKRange</a>.</p>
+</section>
+      <h4><a class="xref" href="CoverageKiller2.DOM.CKTextHelper.html">CKTextHelper</a></h4>
+      <section></section>
+      <h4><a class="xref" href="CoverageKiller2.DOM.IDOMCaster.html">IDOMCaster</a></h4>
+      <section><p>Provides a registry for converting one IDOMObject into a specific derived type.</p>
+</section>
+      <h4><a class="xref" href="CoverageKiller2.DOM.RangeSnapshot.html">RangeSnapshot</a></h4>
+      <section><p>Represents a cached, COM-free fingerprint of a Word.Range.
+Supports fast hash comparisons and optional slow fallbacks.</p>
+</section>
+      <h4><a class="xref" href="CoverageKiller2.DOM.SafeCOM.html">SafeCOM</a></h4>
+      <section><p>Provides a helper to safely execute COM actions that may fail, marking the owning table dirty if needed.
+Supports optional retries and retry delay.</p>
+</section>
+      <h4><a class="xref" href="CoverageKiller2.DOM.WordInteropExtensions.html">WordInteropExtensions</a></h4>
+      <section></section>
+    <h3 id="interfaces">
+Interfaces
+</h3>
+      <h4><a class="xref" href="CoverageKiller2.DOM.IDOMObject.html">IDOMObject</a></h4>
+      <section><p>Represents a DOM object in the CoverageKiller2 system.
+Provides references to parent structures and document/application context.</p>
+</section>
+
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

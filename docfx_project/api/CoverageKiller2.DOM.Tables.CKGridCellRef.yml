@@ -1,0 +1,2032 @@
+### YamlMime:ManagedReference
+items:
+- uid: CoverageKiller2.DOM.Tables.CKGridCellRef
+  commentId: T:CoverageKiller2.DOM.Tables.CKGridCellRef
+  id: CKGridCellRef
+  parent: CoverageKiller2.DOM.Tables
+  children:
+  - CoverageKiller2.DOM.Tables.CKGridCellRef.#ctor(System.Int32,System.Int32,System.Int32,System.Int32)
+  - CoverageKiller2.DOM.Tables.CKGridCellRef.ColMax
+  - CoverageKiller2.DOM.Tables.CKGridCellRef.ColMin
+  - CoverageKiller2.DOM.Tables.CKGridCellRef.RowMax
+  - CoverageKiller2.DOM.Tables.CKGridCellRef.RowMin
+  - CoverageKiller2.DOM.Tables.CKGridCellRef.ToString
+  langs:
+  - csharp
+  - vb
+  name: CKGridCellRef
+  nameWithType: CKGridCellRef
+  fullName: CoverageKiller2.DOM.Tables.CKGridCellRef
+  type: Struct
+  assemblies:
+  - CoverageKiller2
+  namespace: CoverageKiller2.DOM.Tables
+  summary: >-
+    Represents a rectangular cell reference within a CKTableGrid.
+
+    Coordinates are 1 based and inclusive.
+  example: []
+  syntax:
+    content: public readonly struct CKGridCellRef
+    content.vb: Public Structure CKGridCellRef
+  inheritedMembers:
+  - System.ValueType.Equals(System.Object)
+  - System.ValueType.GetHashCode
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.GetType
+  extensionMethods:
+  - CoverageKiller2.DOM.Tables.CKGridCellRef.CoverageKiller2.Logging.PingService.PingPong``1(System.String)
+  - CoverageKiller2.DOM.Tables.CKGridCellRef.CoverageKiller2.Logging.PingService.PingPong``1(System.String,System.String)
+  - CoverageKiller2.DOM.Tables.CKGridCellRef.CoverageKiller2.Logging.PingService.PingPong``2(System.Func{{TResult}},System.String,System.String)
+  - CoverageKiller2.DOM.Tables.CKGridCellRef.CoverageKiller2.Logging.PingService.Ping``1(System.String)
+  - CoverageKiller2.DOM.Tables.CKGridCellRef.CoverageKiller2.Logging.PingService.Ping``1(System.String,System.String)
+  - CoverageKiller2.DOM.Tables.CKGridCellRef.CoverageKiller2.Logging.PingService.Ping``1(System.Type[],System.String)
+  - CoverageKiller2.DOM.Tables.CKGridCellRef.CoverageKiller2.Logging.PingService.Pong``1(System.String)
+  - CoverageKiller2.DOM.Tables.CKGridCellRef.CoverageKiller2.Logging.PingService.Pong``1(System.String,System.String)
+  - CoverageKiller2.DOM.Tables.CKGridCellRef.CoverageKiller2.Logging.PingService.Pong``1(System.Type,System.String)
+  - CoverageKiller2.DOM.Tables.CKGridCellRef.CoverageKiller2.Logging.PingService.Pong``1(System.Type[],System.String)
+  - CoverageKiller2.DOM.Tables.CKGridCellRef.CoverageKiller2.Logging.PingService.Pong``2(System.Func{{TResult}},System.String,System.String)
+- uid: CoverageKiller2.DOM.Tables.CKGridCellRef.#ctor(System.Int32,System.Int32,System.Int32,System.Int32)
+  commentId: M:CoverageKiller2.DOM.Tables.CKGridCellRef.#ctor(System.Int32,System.Int32,System.Int32,System.Int32)
+  id: '#ctor(System.Int32,System.Int32,System.Int32,System.Int32)'
+  parent: CoverageKiller2.DOM.Tables.CKGridCellRef
+  langs:
+  - csharp
+  - vb
+  name: CKGridCellRef(int, int, int, int)
+  nameWithType: CKGridCellRef.CKGridCellRef(int, int, int, int)
+  fullName: CoverageKiller2.DOM.Tables.CKGridCellRef.CKGridCellRef(int, int, int, int)
+  type: Constructor
+  assemblies:
+  - CoverageKiller2
+  namespace: CoverageKiller2.DOM.Tables
+  summary: Initializes a new instance of the <xref href="CoverageKiller2.DOM.Tables.CKGridCellRef" data-throw-if-not-resolved="false"></xref> struct.
+  example: []
+  syntax:
+    content: public CKGridCellRef(int rMin, int cMin, int rMax, int cMax)
+    parameters:
+    - id: rMin
+      type: System.Int32
+      description: Start row (inclusive, zero-based).
+    - id: cMin
+      type: System.Int32
+      description: Start column (inclusive, zero-based).
+    - id: rMax
+      type: System.Int32
+      description: End row (inclusive, zero-based).
+    - id: cMax
+      type: System.Int32
+      description: End column (inclusive, zero-based).
+    content.vb: Public Sub New(rMin As Integer, cMin As Integer, rMax As Integer, cMax As Integer)
+  overload: CoverageKiller2.DOM.Tables.CKGridCellRef.#ctor*
+  nameWithType.vb: CKGridCellRef.New(Integer, Integer, Integer, Integer)
+  fullName.vb: CoverageKiller2.DOM.Tables.CKGridCellRef.New(Integer, Integer, Integer, Integer)
+  name.vb: New(Integer, Integer, Integer, Integer)
+- uid: CoverageKiller2.DOM.Tables.CKGridCellRef.ToString
+  commentId: M:CoverageKiller2.DOM.Tables.CKGridCellRef.ToString
+  id: ToString
+  parent: CoverageKiller2.DOM.Tables.CKGridCellRef
+  langs:
+  - csharp
+  - vb
+  name: ToString()
+  nameWithType: CKGridCellRef.ToString()
+  fullName: CoverageKiller2.DOM.Tables.CKGridCellRef.ToString()
+  type: Method
+  assemblies:
+  - CoverageKiller2
+  namespace: CoverageKiller2.DOM.Tables
+  summary: Returns a string representation of the grid cell reference.
+  example: []
+  syntax:
+    content: public override string ToString()
+    return:
+      type: System.String
+    content.vb: Public Overrides Function ToString() As String
+  overridden: System.ValueType.ToString
+  overload: CoverageKiller2.DOM.Tables.CKGridCellRef.ToString*
+- uid: CoverageKiller2.DOM.Tables.CKGridCellRef.ColMin
+  commentId: P:CoverageKiller2.DOM.Tables.CKGridCellRef.ColMin
+  id: ColMin
+  parent: CoverageKiller2.DOM.Tables.CKGridCellRef
+  langs:
+  - csharp
+  - vb
+  name: ColMin
+  nameWithType: CKGridCellRef.ColMin
+  fullName: CoverageKiller2.DOM.Tables.CKGridCellRef.ColMin
+  type: Property
+  assemblies:
+  - CoverageKiller2
+  namespace: CoverageKiller2.DOM.Tables
+  summary: The starting column
+  example: []
+  syntax:
+    content: public int ColMin { get; }
+    parameters: []
+    return:
+      type: System.Int32
+    content.vb: Public ReadOnly Property ColMin As Integer
+  overload: CoverageKiller2.DOM.Tables.CKGridCellRef.ColMin*
+- uid: CoverageKiller2.DOM.Tables.CKGridCellRef.RowMin
+  commentId: P:CoverageKiller2.DOM.Tables.CKGridCellRef.RowMin
+  id: RowMin
+  parent: CoverageKiller2.DOM.Tables.CKGridCellRef
+  langs:
+  - csharp
+  - vb
+  name: RowMin
+  nameWithType: CKGridCellRef.RowMin
+  fullName: CoverageKiller2.DOM.Tables.CKGridCellRef.RowMin
+  type: Property
+  assemblies:
+  - CoverageKiller2
+  namespace: CoverageKiller2.DOM.Tables
+  summary: The starting row
+  example: []
+  syntax:
+    content: public int RowMin { get; }
+    parameters: []
+    return:
+      type: System.Int32
+    content.vb: Public ReadOnly Property RowMin As Integer
+  overload: CoverageKiller2.DOM.Tables.CKGridCellRef.RowMin*
+- uid: CoverageKiller2.DOM.Tables.CKGridCellRef.ColMax
+  commentId: P:CoverageKiller2.DOM.Tables.CKGridCellRef.ColMax
+  id: ColMax
+  parent: CoverageKiller2.DOM.Tables.CKGridCellRef
+  langs:
+  - csharp
+  - vb
+  name: ColMax
+  nameWithType: CKGridCellRef.ColMax
+  fullName: CoverageKiller2.DOM.Tables.CKGridCellRef.ColMax
+  type: Property
+  assemblies:
+  - CoverageKiller2
+  namespace: CoverageKiller2.DOM.Tables
+  summary: The ending column
+  example: []
+  syntax:
+    content: public int ColMax { get; }
+    parameters: []
+    return:
+      type: System.Int32
+    content.vb: Public ReadOnly Property ColMax As Integer
+  overload: CoverageKiller2.DOM.Tables.CKGridCellRef.ColMax*
+- uid: CoverageKiller2.DOM.Tables.CKGridCellRef.RowMax
+  commentId: P:CoverageKiller2.DOM.Tables.CKGridCellRef.RowMax
+  id: RowMax
+  parent: CoverageKiller2.DOM.Tables.CKGridCellRef
+  langs:
+  - csharp
+  - vb
+  name: RowMax
+  nameWithType: CKGridCellRef.RowMax
+  fullName: CoverageKiller2.DOM.Tables.CKGridCellRef.RowMax
+  type: Property
+  assemblies:
+  - CoverageKiller2
+  namespace: CoverageKiller2.DOM.Tables
+  summary: The ending row
+  example: []
+  syntax:
+    content: public int RowMax { get; }
+    parameters: []
+    return:
+      type: System.Int32
+    content.vb: Public ReadOnly Property RowMax As Integer
+  overload: CoverageKiller2.DOM.Tables.CKGridCellRef.RowMax*
+references:
+- uid: CoverageKiller2.DOM.Tables
+  commentId: N:CoverageKiller2.DOM.Tables
+  isExternal: true
+  href: CoverageKiller2.html
+  name: CoverageKiller2.DOM.Tables
+  nameWithType: CoverageKiller2.DOM.Tables
+  fullName: CoverageKiller2.DOM.Tables
+  spec.csharp:
+  - uid: CoverageKiller2
+    name: CoverageKiller2
+    isExternal: true
+    href: CoverageKiller2.html
+  - name: .
+  - uid: CoverageKiller2.DOM
+    name: DOM
+    isExternal: true
+    href: CoverageKiller2.DOM.html
+  - name: .
+  - uid: CoverageKiller2.DOM.Tables
+    name: Tables
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.html
+  spec.vb:
+  - uid: CoverageKiller2
+    name: CoverageKiller2
+    isExternal: true
+    href: CoverageKiller2.html
+  - name: .
+  - uid: CoverageKiller2.DOM
+    name: DOM
+    isExternal: true
+    href: CoverageKiller2.DOM.html
+  - name: .
+  - uid: CoverageKiller2.DOM.Tables
+    name: Tables
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.html
+- uid: System.ValueType.Equals(System.Object)
+  commentId: M:System.ValueType.Equals(System.Object)
+  parent: System.ValueType
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.valuetype.equals
+  name: Equals(object)
+  nameWithType: ValueType.Equals(object)
+  fullName: System.ValueType.Equals(object)
+  nameWithType.vb: ValueType.Equals(Object)
+  fullName.vb: System.ValueType.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.ValueType.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.valuetype.equals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.ValueType.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.valuetype.equals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.ValueType.GetHashCode
+  commentId: M:System.ValueType.GetHashCode
+  parent: System.ValueType
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.valuetype.gethashcode
+  name: GetHashCode()
+  nameWithType: ValueType.GetHashCode()
+  fullName: System.ValueType.GetHashCode()
+  spec.csharp:
+  - uid: System.ValueType.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.valuetype.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.ValueType.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.valuetype.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: CoverageKiller2.DOM.Tables.CKGridCellRef.CoverageKiller2.Logging.PingService.PingPong``1(System.String)
+  commentId: M:CoverageKiller2.Logging.PingService.PingPong``1(``0,System.String)
+  parent: CoverageKiller2.Logging.PingService
+  definition: CoverageKiller2.Logging.PingService.PingPong``1(``0,System.String)
+  href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_PingPong__1___0_System_String_
+  name: PingPong<CKGridCellRef>(CKGridCellRef, string)
+  nameWithType: PingService.PingPong<CKGridCellRef>(CKGridCellRef, string)
+  fullName: CoverageKiller2.Logging.PingService.PingPong<CoverageKiller2.DOM.Tables.CKGridCellRef>(CoverageKiller2.DOM.Tables.CKGridCellRef, string)
+  nameWithType.vb: PingService.PingPong(Of CKGridCellRef)(CKGridCellRef, String)
+  fullName.vb: CoverageKiller2.Logging.PingService.PingPong(Of CoverageKiller2.DOM.Tables.CKGridCellRef)(CoverageKiller2.DOM.Tables.CKGridCellRef, String)
+  name.vb: PingPong(Of CKGridCellRef)(CKGridCellRef, String)
+  spec.csharp:
+  - uid: CoverageKiller2.Logging.PingService.PingPong``1(CoverageKiller2.DOM.Tables.CKGridCellRef,System.String)
+    name: PingPong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_PingPong__1___0_System_String_
+  - name: <
+  - uid: CoverageKiller2.DOM.Tables.CKGridCellRef
+    name: CKGridCellRef
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.CKGridCellRef.html
+  - name: '>'
+  - name: (
+  - uid: CoverageKiller2.DOM.Tables.CKGridCellRef
+    name: CKGridCellRef
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.CKGridCellRef.html
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: CoverageKiller2.Logging.PingService.PingPong``1(CoverageKiller2.DOM.Tables.CKGridCellRef,System.String)
+    name: PingPong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_PingPong__1___0_System_String_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: CoverageKiller2.DOM.Tables.CKGridCellRef
+    name: CKGridCellRef
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.CKGridCellRef.html
+  - name: )
+  - name: (
+  - uid: CoverageKiller2.DOM.Tables.CKGridCellRef
+    name: CKGridCellRef
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.CKGridCellRef.html
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: CoverageKiller2.DOM.Tables.CKGridCellRef.CoverageKiller2.Logging.PingService.PingPong``1(System.String,System.String)
+  commentId: M:CoverageKiller2.Logging.PingService.PingPong``1(``0,System.String,System.String)
+  parent: CoverageKiller2.Logging.PingService
+  definition: CoverageKiller2.Logging.PingService.PingPong``1(``0,System.String,System.String)
+  href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_PingPong__1___0_System_String_System_String_
+  name: PingPong<CKGridCellRef>(CKGridCellRef, string, string)
+  nameWithType: PingService.PingPong<CKGridCellRef>(CKGridCellRef, string, string)
+  fullName: CoverageKiller2.Logging.PingService.PingPong<CoverageKiller2.DOM.Tables.CKGridCellRef>(CoverageKiller2.DOM.Tables.CKGridCellRef, string, string)
+  nameWithType.vb: PingService.PingPong(Of CKGridCellRef)(CKGridCellRef, String, String)
+  fullName.vb: CoverageKiller2.Logging.PingService.PingPong(Of CoverageKiller2.DOM.Tables.CKGridCellRef)(CoverageKiller2.DOM.Tables.CKGridCellRef, String, String)
+  name.vb: PingPong(Of CKGridCellRef)(CKGridCellRef, String, String)
+  spec.csharp:
+  - uid: CoverageKiller2.Logging.PingService.PingPong``1(CoverageKiller2.DOM.Tables.CKGridCellRef,System.String,System.String)
+    name: PingPong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_PingPong__1___0_System_String_System_String_
+  - name: <
+  - uid: CoverageKiller2.DOM.Tables.CKGridCellRef
+    name: CKGridCellRef
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.CKGridCellRef.html
+  - name: '>'
+  - name: (
+  - uid: CoverageKiller2.DOM.Tables.CKGridCellRef
+    name: CKGridCellRef
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.CKGridCellRef.html
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: CoverageKiller2.Logging.PingService.PingPong``1(CoverageKiller2.DOM.Tables.CKGridCellRef,System.String,System.String)
+    name: PingPong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_PingPong__1___0_System_String_System_String_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: CoverageKiller2.DOM.Tables.CKGridCellRef
+    name: CKGridCellRef
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.CKGridCellRef.html
+  - name: )
+  - name: (
+  - uid: CoverageKiller2.DOM.Tables.CKGridCellRef
+    name: CKGridCellRef
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.CKGridCellRef.html
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: CoverageKiller2.DOM.Tables.CKGridCellRef.CoverageKiller2.Logging.PingService.PingPong``2(System.Func{{TResult}},System.String,System.String)
+  commentId: M:CoverageKiller2.Logging.PingService.PingPong``2(``0,System.Func{``1},System.String,System.String)
+  parent: CoverageKiller2.Logging.PingService
+  definition: CoverageKiller2.Logging.PingService.PingPong``2(``0,System.Func{``1},System.String,System.String)
+  href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_PingPong__2___0_System_Func___1__System_String_System_String_
+  name: PingPong<CKGridCellRef, TResult>(CKGridCellRef, Func<TResult>, string, string)
+  nameWithType: PingService.PingPong<CKGridCellRef, TResult>(CKGridCellRef, Func<TResult>, string, string)
+  fullName: CoverageKiller2.Logging.PingService.PingPong<CoverageKiller2.DOM.Tables.CKGridCellRef, TResult>(CoverageKiller2.DOM.Tables.CKGridCellRef, System.Func<TResult>, string, string)
+  nameWithType.vb: PingService.PingPong(Of CKGridCellRef, TResult)(CKGridCellRef, Func(Of TResult), String, String)
+  fullName.vb: CoverageKiller2.Logging.PingService.PingPong(Of CoverageKiller2.DOM.Tables.CKGridCellRef, TResult)(CoverageKiller2.DOM.Tables.CKGridCellRef, System.Func(Of TResult), String, String)
+  name.vb: PingPong(Of CKGridCellRef, TResult)(CKGridCellRef, Func(Of TResult), String, String)
+  spec.csharp:
+  - uid: CoverageKiller2.Logging.PingService.PingPong``2(CoverageKiller2.DOM.Tables.CKGridCellRef,System.Func{``1},System.String,System.String)
+    name: PingPong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_PingPong__2___0_System_Func___1__System_String_System_String_
+  - name: <
+  - uid: CoverageKiller2.DOM.Tables.CKGridCellRef
+    name: CKGridCellRef
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.CKGridCellRef.html
+  - name: ','
+  - name: " "
+  - name: TResult
+  - name: '>'
+  - name: (
+  - uid: CoverageKiller2.DOM.Tables.CKGridCellRef
+    name: CKGridCellRef
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.CKGridCellRef.html
+  - name: ','
+  - name: " "
+  - uid: System.Func`1
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-1
+  - name: <
+  - name: TResult
+  - name: '>'
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: CoverageKiller2.Logging.PingService.PingPong``2(CoverageKiller2.DOM.Tables.CKGridCellRef,System.Func{``1},System.String,System.String)
+    name: PingPong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_PingPong__2___0_System_Func___1__System_String_System_String_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: CoverageKiller2.DOM.Tables.CKGridCellRef
+    name: CKGridCellRef
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.CKGridCellRef.html
+  - name: ','
+  - name: " "
+  - name: TResult
+  - name: )
+  - name: (
+  - uid: CoverageKiller2.DOM.Tables.CKGridCellRef
+    name: CKGridCellRef
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.CKGridCellRef.html
+  - name: ','
+  - name: " "
+  - uid: System.Func`1
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TResult
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: CoverageKiller2.DOM.Tables.CKGridCellRef.CoverageKiller2.Logging.PingService.Ping``1(System.String)
+  commentId: M:CoverageKiller2.Logging.PingService.Ping``1(``0,System.String)
+  parent: CoverageKiller2.Logging.PingService
+  definition: CoverageKiller2.Logging.PingService.Ping``1(``0,System.String)
+  href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Ping__1___0_System_String_
+  name: Ping<CKGridCellRef>(CKGridCellRef, string)
+  nameWithType: PingService.Ping<CKGridCellRef>(CKGridCellRef, string)
+  fullName: CoverageKiller2.Logging.PingService.Ping<CoverageKiller2.DOM.Tables.CKGridCellRef>(CoverageKiller2.DOM.Tables.CKGridCellRef, string)
+  nameWithType.vb: PingService.Ping(Of CKGridCellRef)(CKGridCellRef, String)
+  fullName.vb: CoverageKiller2.Logging.PingService.Ping(Of CoverageKiller2.DOM.Tables.CKGridCellRef)(CoverageKiller2.DOM.Tables.CKGridCellRef, String)
+  name.vb: Ping(Of CKGridCellRef)(CKGridCellRef, String)
+  spec.csharp:
+  - uid: CoverageKiller2.Logging.PingService.Ping``1(CoverageKiller2.DOM.Tables.CKGridCellRef,System.String)
+    name: Ping
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Ping__1___0_System_String_
+  - name: <
+  - uid: CoverageKiller2.DOM.Tables.CKGridCellRef
+    name: CKGridCellRef
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.CKGridCellRef.html
+  - name: '>'
+  - name: (
+  - uid: CoverageKiller2.DOM.Tables.CKGridCellRef
+    name: CKGridCellRef
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.CKGridCellRef.html
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: CoverageKiller2.Logging.PingService.Ping``1(CoverageKiller2.DOM.Tables.CKGridCellRef,System.String)
+    name: Ping
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Ping__1___0_System_String_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: CoverageKiller2.DOM.Tables.CKGridCellRef
+    name: CKGridCellRef
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.CKGridCellRef.html
+  - name: )
+  - name: (
+  - uid: CoverageKiller2.DOM.Tables.CKGridCellRef
+    name: CKGridCellRef
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.CKGridCellRef.html
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: CoverageKiller2.DOM.Tables.CKGridCellRef.CoverageKiller2.Logging.PingService.Ping``1(System.String,System.String)
+  commentId: M:CoverageKiller2.Logging.PingService.Ping``1(``0,System.String,System.String)
+  parent: CoverageKiller2.Logging.PingService
+  definition: CoverageKiller2.Logging.PingService.Ping``1(``0,System.String,System.String)
+  href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Ping__1___0_System_String_System_String_
+  name: Ping<CKGridCellRef>(CKGridCellRef, string, string)
+  nameWithType: PingService.Ping<CKGridCellRef>(CKGridCellRef, string, string)
+  fullName: CoverageKiller2.Logging.PingService.Ping<CoverageKiller2.DOM.Tables.CKGridCellRef>(CoverageKiller2.DOM.Tables.CKGridCellRef, string, string)
+  nameWithType.vb: PingService.Ping(Of CKGridCellRef)(CKGridCellRef, String, String)
+  fullName.vb: CoverageKiller2.Logging.PingService.Ping(Of CoverageKiller2.DOM.Tables.CKGridCellRef)(CoverageKiller2.DOM.Tables.CKGridCellRef, String, String)
+  name.vb: Ping(Of CKGridCellRef)(CKGridCellRef, String, String)
+  spec.csharp:
+  - uid: CoverageKiller2.Logging.PingService.Ping``1(CoverageKiller2.DOM.Tables.CKGridCellRef,System.String,System.String)
+    name: Ping
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Ping__1___0_System_String_System_String_
+  - name: <
+  - uid: CoverageKiller2.DOM.Tables.CKGridCellRef
+    name: CKGridCellRef
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.CKGridCellRef.html
+  - name: '>'
+  - name: (
+  - uid: CoverageKiller2.DOM.Tables.CKGridCellRef
+    name: CKGridCellRef
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.CKGridCellRef.html
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: CoverageKiller2.Logging.PingService.Ping``1(CoverageKiller2.DOM.Tables.CKGridCellRef,System.String,System.String)
+    name: Ping
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Ping__1___0_System_String_System_String_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: CoverageKiller2.DOM.Tables.CKGridCellRef
+    name: CKGridCellRef
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.CKGridCellRef.html
+  - name: )
+  - name: (
+  - uid: CoverageKiller2.DOM.Tables.CKGridCellRef
+    name: CKGridCellRef
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.CKGridCellRef.html
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: CoverageKiller2.DOM.Tables.CKGridCellRef.CoverageKiller2.Logging.PingService.Ping``1(System.Type[],System.String)
+  commentId: M:CoverageKiller2.Logging.PingService.Ping``1(``0,System.Type[],System.String)
+  parent: CoverageKiller2.Logging.PingService
+  definition: CoverageKiller2.Logging.PingService.Ping``1(``0,System.Type[],System.String)
+  href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Ping__1___0_System_Type___System_String_
+  name: Ping<CKGridCellRef>(CKGridCellRef, Type[], string)
+  nameWithType: PingService.Ping<CKGridCellRef>(CKGridCellRef, Type[], string)
+  fullName: CoverageKiller2.Logging.PingService.Ping<CoverageKiller2.DOM.Tables.CKGridCellRef>(CoverageKiller2.DOM.Tables.CKGridCellRef, System.Type[], string)
+  nameWithType.vb: PingService.Ping(Of CKGridCellRef)(CKGridCellRef, Type(), String)
+  fullName.vb: CoverageKiller2.Logging.PingService.Ping(Of CoverageKiller2.DOM.Tables.CKGridCellRef)(CoverageKiller2.DOM.Tables.CKGridCellRef, System.Type(), String)
+  name.vb: Ping(Of CKGridCellRef)(CKGridCellRef, Type(), String)
+  spec.csharp:
+  - uid: CoverageKiller2.Logging.PingService.Ping``1(CoverageKiller2.DOM.Tables.CKGridCellRef,System.Type[],System.String)
+    name: Ping
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Ping__1___0_System_Type___System_String_
+  - name: <
+  - uid: CoverageKiller2.DOM.Tables.CKGridCellRef
+    name: CKGridCellRef
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.CKGridCellRef.html
+  - name: '>'
+  - name: (
+  - uid: CoverageKiller2.DOM.Tables.CKGridCellRef
+    name: CKGridCellRef
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.CKGridCellRef.html
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: '['
+  - name: ']'
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: CoverageKiller2.Logging.PingService.Ping``1(CoverageKiller2.DOM.Tables.CKGridCellRef,System.Type[],System.String)
+    name: Ping
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Ping__1___0_System_Type___System_String_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: CoverageKiller2.DOM.Tables.CKGridCellRef
+    name: CKGridCellRef
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.CKGridCellRef.html
+  - name: )
+  - name: (
+  - uid: CoverageKiller2.DOM.Tables.CKGridCellRef
+    name: CKGridCellRef
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.CKGridCellRef.html
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: (
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: CoverageKiller2.DOM.Tables.CKGridCellRef.CoverageKiller2.Logging.PingService.Pong``1(System.String)
+  commentId: M:CoverageKiller2.Logging.PingService.Pong``1(``0,System.String)
+  parent: CoverageKiller2.Logging.PingService
+  definition: CoverageKiller2.Logging.PingService.Pong``1(``0,System.String)
+  href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1___0_System_String_
+  name: Pong<CKGridCellRef>(CKGridCellRef, string)
+  nameWithType: PingService.Pong<CKGridCellRef>(CKGridCellRef, string)
+  fullName: CoverageKiller2.Logging.PingService.Pong<CoverageKiller2.DOM.Tables.CKGridCellRef>(CoverageKiller2.DOM.Tables.CKGridCellRef, string)
+  nameWithType.vb: PingService.Pong(Of CKGridCellRef)(CKGridCellRef, String)
+  fullName.vb: CoverageKiller2.Logging.PingService.Pong(Of CoverageKiller2.DOM.Tables.CKGridCellRef)(CoverageKiller2.DOM.Tables.CKGridCellRef, String)
+  name.vb: Pong(Of CKGridCellRef)(CKGridCellRef, String)
+  spec.csharp:
+  - uid: CoverageKiller2.Logging.PingService.Pong``1(CoverageKiller2.DOM.Tables.CKGridCellRef,System.String)
+    name: Pong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1___0_System_String_
+  - name: <
+  - uid: CoverageKiller2.DOM.Tables.CKGridCellRef
+    name: CKGridCellRef
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.CKGridCellRef.html
+  - name: '>'
+  - name: (
+  - uid: CoverageKiller2.DOM.Tables.CKGridCellRef
+    name: CKGridCellRef
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.CKGridCellRef.html
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: CoverageKiller2.Logging.PingService.Pong``1(CoverageKiller2.DOM.Tables.CKGridCellRef,System.String)
+    name: Pong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1___0_System_String_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: CoverageKiller2.DOM.Tables.CKGridCellRef
+    name: CKGridCellRef
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.CKGridCellRef.html
+  - name: )
+  - name: (
+  - uid: CoverageKiller2.DOM.Tables.CKGridCellRef
+    name: CKGridCellRef
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.CKGridCellRef.html
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: CoverageKiller2.DOM.Tables.CKGridCellRef.CoverageKiller2.Logging.PingService.Pong``1(System.String,System.String)
+  commentId: M:CoverageKiller2.Logging.PingService.Pong``1(``0,System.String,System.String)
+  parent: CoverageKiller2.Logging.PingService
+  definition: CoverageKiller2.Logging.PingService.Pong``1(``0,System.String,System.String)
+  href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1___0_System_String_System_String_
+  name: Pong<CKGridCellRef>(CKGridCellRef, string, string)
+  nameWithType: PingService.Pong<CKGridCellRef>(CKGridCellRef, string, string)
+  fullName: CoverageKiller2.Logging.PingService.Pong<CoverageKiller2.DOM.Tables.CKGridCellRef>(CoverageKiller2.DOM.Tables.CKGridCellRef, string, string)
+  nameWithType.vb: PingService.Pong(Of CKGridCellRef)(CKGridCellRef, String, String)
+  fullName.vb: CoverageKiller2.Logging.PingService.Pong(Of CoverageKiller2.DOM.Tables.CKGridCellRef)(CoverageKiller2.DOM.Tables.CKGridCellRef, String, String)
+  name.vb: Pong(Of CKGridCellRef)(CKGridCellRef, String, String)
+  spec.csharp:
+  - uid: CoverageKiller2.Logging.PingService.Pong``1(CoverageKiller2.DOM.Tables.CKGridCellRef,System.String,System.String)
+    name: Pong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1___0_System_String_System_String_
+  - name: <
+  - uid: CoverageKiller2.DOM.Tables.CKGridCellRef
+    name: CKGridCellRef
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.CKGridCellRef.html
+  - name: '>'
+  - name: (
+  - uid: CoverageKiller2.DOM.Tables.CKGridCellRef
+    name: CKGridCellRef
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.CKGridCellRef.html
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: CoverageKiller2.Logging.PingService.Pong``1(CoverageKiller2.DOM.Tables.CKGridCellRef,System.String,System.String)
+    name: Pong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1___0_System_String_System_String_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: CoverageKiller2.DOM.Tables.CKGridCellRef
+    name: CKGridCellRef
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.CKGridCellRef.html
+  - name: )
+  - name: (
+  - uid: CoverageKiller2.DOM.Tables.CKGridCellRef
+    name: CKGridCellRef
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.CKGridCellRef.html
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: CoverageKiller2.DOM.Tables.CKGridCellRef.CoverageKiller2.Logging.PingService.Pong``1(System.Type,System.String)
+  commentId: M:CoverageKiller2.Logging.PingService.Pong``1(``0,System.Type,System.String)
+  parent: CoverageKiller2.Logging.PingService
+  definition: CoverageKiller2.Logging.PingService.Pong``1(``0,System.Type,System.String)
+  href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1___0_System_Type_System_String_
+  name: Pong<CKGridCellRef>(CKGridCellRef, Type, string)
+  nameWithType: PingService.Pong<CKGridCellRef>(CKGridCellRef, Type, string)
+  fullName: CoverageKiller2.Logging.PingService.Pong<CoverageKiller2.DOM.Tables.CKGridCellRef>(CoverageKiller2.DOM.Tables.CKGridCellRef, System.Type, string)
+  nameWithType.vb: PingService.Pong(Of CKGridCellRef)(CKGridCellRef, Type, String)
+  fullName.vb: CoverageKiller2.Logging.PingService.Pong(Of CoverageKiller2.DOM.Tables.CKGridCellRef)(CoverageKiller2.DOM.Tables.CKGridCellRef, System.Type, String)
+  name.vb: Pong(Of CKGridCellRef)(CKGridCellRef, Type, String)
+  spec.csharp:
+  - uid: CoverageKiller2.Logging.PingService.Pong``1(CoverageKiller2.DOM.Tables.CKGridCellRef,System.Type,System.String)
+    name: Pong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1___0_System_Type_System_String_
+  - name: <
+  - uid: CoverageKiller2.DOM.Tables.CKGridCellRef
+    name: CKGridCellRef
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.CKGridCellRef.html
+  - name: '>'
+  - name: (
+  - uid: CoverageKiller2.DOM.Tables.CKGridCellRef
+    name: CKGridCellRef
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.CKGridCellRef.html
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: CoverageKiller2.Logging.PingService.Pong``1(CoverageKiller2.DOM.Tables.CKGridCellRef,System.Type,System.String)
+    name: Pong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1___0_System_Type_System_String_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: CoverageKiller2.DOM.Tables.CKGridCellRef
+    name: CKGridCellRef
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.CKGridCellRef.html
+  - name: )
+  - name: (
+  - uid: CoverageKiller2.DOM.Tables.CKGridCellRef
+    name: CKGridCellRef
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.CKGridCellRef.html
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: CoverageKiller2.DOM.Tables.CKGridCellRef.CoverageKiller2.Logging.PingService.Pong``1(System.Type[],System.String)
+  commentId: M:CoverageKiller2.Logging.PingService.Pong``1(``0,System.Type[],System.String)
+  parent: CoverageKiller2.Logging.PingService
+  definition: CoverageKiller2.Logging.PingService.Pong``1(``0,System.Type[],System.String)
+  href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1___0_System_Type___System_String_
+  name: Pong<CKGridCellRef>(CKGridCellRef, Type[], string)
+  nameWithType: PingService.Pong<CKGridCellRef>(CKGridCellRef, Type[], string)
+  fullName: CoverageKiller2.Logging.PingService.Pong<CoverageKiller2.DOM.Tables.CKGridCellRef>(CoverageKiller2.DOM.Tables.CKGridCellRef, System.Type[], string)
+  nameWithType.vb: PingService.Pong(Of CKGridCellRef)(CKGridCellRef, Type(), String)
+  fullName.vb: CoverageKiller2.Logging.PingService.Pong(Of CoverageKiller2.DOM.Tables.CKGridCellRef)(CoverageKiller2.DOM.Tables.CKGridCellRef, System.Type(), String)
+  name.vb: Pong(Of CKGridCellRef)(CKGridCellRef, Type(), String)
+  spec.csharp:
+  - uid: CoverageKiller2.Logging.PingService.Pong``1(CoverageKiller2.DOM.Tables.CKGridCellRef,System.Type[],System.String)
+    name: Pong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1___0_System_Type___System_String_
+  - name: <
+  - uid: CoverageKiller2.DOM.Tables.CKGridCellRef
+    name: CKGridCellRef
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.CKGridCellRef.html
+  - name: '>'
+  - name: (
+  - uid: CoverageKiller2.DOM.Tables.CKGridCellRef
+    name: CKGridCellRef
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.CKGridCellRef.html
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: '['
+  - name: ']'
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: CoverageKiller2.Logging.PingService.Pong``1(CoverageKiller2.DOM.Tables.CKGridCellRef,System.Type[],System.String)
+    name: Pong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1___0_System_Type___System_String_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: CoverageKiller2.DOM.Tables.CKGridCellRef
+    name: CKGridCellRef
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.CKGridCellRef.html
+  - name: )
+  - name: (
+  - uid: CoverageKiller2.DOM.Tables.CKGridCellRef
+    name: CKGridCellRef
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.CKGridCellRef.html
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: (
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: CoverageKiller2.DOM.Tables.CKGridCellRef.CoverageKiller2.Logging.PingService.Pong``2(System.Func{{TResult}},System.String,System.String)
+  commentId: M:CoverageKiller2.Logging.PingService.Pong``2(``0,System.Func{``1},System.String,System.String)
+  parent: CoverageKiller2.Logging.PingService
+  definition: CoverageKiller2.Logging.PingService.Pong``2(``0,System.Func{``1},System.String,System.String)
+  href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__2___0_System_Func___1__System_String_System_String_
+  name: Pong<CKGridCellRef, TResult>(CKGridCellRef, Func<TResult>, string, string)
+  nameWithType: PingService.Pong<CKGridCellRef, TResult>(CKGridCellRef, Func<TResult>, string, string)
+  fullName: CoverageKiller2.Logging.PingService.Pong<CoverageKiller2.DOM.Tables.CKGridCellRef, TResult>(CoverageKiller2.DOM.Tables.CKGridCellRef, System.Func<TResult>, string, string)
+  nameWithType.vb: PingService.Pong(Of CKGridCellRef, TResult)(CKGridCellRef, Func(Of TResult), String, String)
+  fullName.vb: CoverageKiller2.Logging.PingService.Pong(Of CoverageKiller2.DOM.Tables.CKGridCellRef, TResult)(CoverageKiller2.DOM.Tables.CKGridCellRef, System.Func(Of TResult), String, String)
+  name.vb: Pong(Of CKGridCellRef, TResult)(CKGridCellRef, Func(Of TResult), String, String)
+  spec.csharp:
+  - uid: CoverageKiller2.Logging.PingService.Pong``2(CoverageKiller2.DOM.Tables.CKGridCellRef,System.Func{``1},System.String,System.String)
+    name: Pong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__2___0_System_Func___1__System_String_System_String_
+  - name: <
+  - uid: CoverageKiller2.DOM.Tables.CKGridCellRef
+    name: CKGridCellRef
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.CKGridCellRef.html
+  - name: ','
+  - name: " "
+  - name: TResult
+  - name: '>'
+  - name: (
+  - uid: CoverageKiller2.DOM.Tables.CKGridCellRef
+    name: CKGridCellRef
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.CKGridCellRef.html
+  - name: ','
+  - name: " "
+  - uid: System.Func`1
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-1
+  - name: <
+  - name: TResult
+  - name: '>'
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: CoverageKiller2.Logging.PingService.Pong``2(CoverageKiller2.DOM.Tables.CKGridCellRef,System.Func{``1},System.String,System.String)
+    name: Pong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__2___0_System_Func___1__System_String_System_String_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: CoverageKiller2.DOM.Tables.CKGridCellRef
+    name: CKGridCellRef
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.CKGridCellRef.html
+  - name: ','
+  - name: " "
+  - name: TResult
+  - name: )
+  - name: (
+  - uid: CoverageKiller2.DOM.Tables.CKGridCellRef
+    name: CKGridCellRef
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.CKGridCellRef.html
+  - name: ','
+  - name: " "
+  - uid: System.Func`1
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TResult
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: System.ValueType
+  commentId: T:System.ValueType
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.valuetype
+  name: ValueType
+  nameWithType: ValueType
+  fullName: System.ValueType
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: CoverageKiller2.Logging.PingService.PingPong``1(``0,System.String)
+  commentId: M:CoverageKiller2.Logging.PingService.PingPong``1(``0,System.String)
+  isExternal: true
+  href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_PingPong__1___0_System_String_
+  name: PingPong<T>(T, string)
+  nameWithType: PingService.PingPong<T>(T, string)
+  fullName: CoverageKiller2.Logging.PingService.PingPong<T>(T, string)
+  nameWithType.vb: PingService.PingPong(Of T)(T, String)
+  fullName.vb: CoverageKiller2.Logging.PingService.PingPong(Of T)(T, String)
+  name.vb: PingPong(Of T)(T, String)
+  spec.csharp:
+  - uid: CoverageKiller2.Logging.PingService.PingPong``1(``0,System.String)
+    name: PingPong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_PingPong__1___0_System_String_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: CoverageKiller2.Logging.PingService.PingPong``1(``0,System.String)
+    name: PingPong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_PingPong__1___0_System_String_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: CoverageKiller2.Logging.PingService
+  commentId: T:CoverageKiller2.Logging.PingService
+  parent: CoverageKiller2.Logging
+  isExternal: true
+  href: CoverageKiller2.Logging.PingService.html
+  name: PingService
+  nameWithType: PingService
+  fullName: CoverageKiller2.Logging.PingService
+- uid: CoverageKiller2.Logging.PingService.PingPong``1(``0,System.String,System.String)
+  commentId: M:CoverageKiller2.Logging.PingService.PingPong``1(``0,System.String,System.String)
+  isExternal: true
+  href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_PingPong__1___0_System_String_System_String_
+  name: PingPong<T>(T, string, string)
+  nameWithType: PingService.PingPong<T>(T, string, string)
+  fullName: CoverageKiller2.Logging.PingService.PingPong<T>(T, string, string)
+  nameWithType.vb: PingService.PingPong(Of T)(T, String, String)
+  fullName.vb: CoverageKiller2.Logging.PingService.PingPong(Of T)(T, String, String)
+  name.vb: PingPong(Of T)(T, String, String)
+  spec.csharp:
+  - uid: CoverageKiller2.Logging.PingService.PingPong``1(``0,System.String,System.String)
+    name: PingPong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_PingPong__1___0_System_String_System_String_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: CoverageKiller2.Logging.PingService.PingPong``1(``0,System.String,System.String)
+    name: PingPong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_PingPong__1___0_System_String_System_String_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: CoverageKiller2.Logging.PingService.PingPong``2(``0,System.Func{``1},System.String,System.String)
+  commentId: M:CoverageKiller2.Logging.PingService.PingPong``2(``0,System.Func{``1},System.String,System.String)
+  isExternal: true
+  href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_PingPong__2___0_System_Func___1__System_String_System_String_
+  name: PingPong<T, TResult>(T, Func<TResult>, string, string)
+  nameWithType: PingService.PingPong<T, TResult>(T, Func<TResult>, string, string)
+  fullName: CoverageKiller2.Logging.PingService.PingPong<T, TResult>(T, System.Func<TResult>, string, string)
+  nameWithType.vb: PingService.PingPong(Of T, TResult)(T, Func(Of TResult), String, String)
+  fullName.vb: CoverageKiller2.Logging.PingService.PingPong(Of T, TResult)(T, System.Func(Of TResult), String, String)
+  name.vb: PingPong(Of T, TResult)(T, Func(Of TResult), String, String)
+  spec.csharp:
+  - uid: CoverageKiller2.Logging.PingService.PingPong``2(``0,System.Func{``1},System.String,System.String)
+    name: PingPong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_PingPong__2___0_System_Func___1__System_String_System_String_
+  - name: <
+  - name: T
+  - name: ','
+  - name: " "
+  - name: TResult
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Func`1
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-1
+  - name: <
+  - name: TResult
+  - name: '>'
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: CoverageKiller2.Logging.PingService.PingPong``2(``0,System.Func{``1},System.String,System.String)
+    name: PingPong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_PingPong__2___0_System_Func___1__System_String_System_String_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - name: TResult
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Func`1
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TResult
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: CoverageKiller2.Logging.PingService.Ping``1(``0,System.String)
+  commentId: M:CoverageKiller2.Logging.PingService.Ping``1(``0,System.String)
+  isExternal: true
+  href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Ping__1___0_System_String_
+  name: Ping<T>(T, string)
+  nameWithType: PingService.Ping<T>(T, string)
+  fullName: CoverageKiller2.Logging.PingService.Ping<T>(T, string)
+  nameWithType.vb: PingService.Ping(Of T)(T, String)
+  fullName.vb: CoverageKiller2.Logging.PingService.Ping(Of T)(T, String)
+  name.vb: Ping(Of T)(T, String)
+  spec.csharp:
+  - uid: CoverageKiller2.Logging.PingService.Ping``1(``0,System.String)
+    name: Ping
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Ping__1___0_System_String_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: CoverageKiller2.Logging.PingService.Ping``1(``0,System.String)
+    name: Ping
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Ping__1___0_System_String_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: CoverageKiller2.Logging.PingService.Ping``1(``0,System.String,System.String)
+  commentId: M:CoverageKiller2.Logging.PingService.Ping``1(``0,System.String,System.String)
+  isExternal: true
+  href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Ping__1___0_System_String_System_String_
+  name: Ping<T>(T, string, string)
+  nameWithType: PingService.Ping<T>(T, string, string)
+  fullName: CoverageKiller2.Logging.PingService.Ping<T>(T, string, string)
+  nameWithType.vb: PingService.Ping(Of T)(T, String, String)
+  fullName.vb: CoverageKiller2.Logging.PingService.Ping(Of T)(T, String, String)
+  name.vb: Ping(Of T)(T, String, String)
+  spec.csharp:
+  - uid: CoverageKiller2.Logging.PingService.Ping``1(``0,System.String,System.String)
+    name: Ping
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Ping__1___0_System_String_System_String_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: CoverageKiller2.Logging.PingService.Ping``1(``0,System.String,System.String)
+    name: Ping
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Ping__1___0_System_String_System_String_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: CoverageKiller2.Logging.PingService.Ping``1(``0,System.Type[],System.String)
+  commentId: M:CoverageKiller2.Logging.PingService.Ping``1(``0,System.Type[],System.String)
+  isExternal: true
+  href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Ping__1___0_System_Type___System_String_
+  name: Ping<T>(T, Type[], string)
+  nameWithType: PingService.Ping<T>(T, Type[], string)
+  fullName: CoverageKiller2.Logging.PingService.Ping<T>(T, System.Type[], string)
+  nameWithType.vb: PingService.Ping(Of T)(T, Type(), String)
+  fullName.vb: CoverageKiller2.Logging.PingService.Ping(Of T)(T, System.Type(), String)
+  name.vb: Ping(Of T)(T, Type(), String)
+  spec.csharp:
+  - uid: CoverageKiller2.Logging.PingService.Ping``1(``0,System.Type[],System.String)
+    name: Ping
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Ping__1___0_System_Type___System_String_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: '['
+  - name: ']'
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: CoverageKiller2.Logging.PingService.Ping``1(``0,System.Type[],System.String)
+    name: Ping
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Ping__1___0_System_Type___System_String_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: (
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: CoverageKiller2.Logging.PingService.Pong``1(``0,System.String)
+  commentId: M:CoverageKiller2.Logging.PingService.Pong``1(``0,System.String)
+  isExternal: true
+  href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1___0_System_String_
+  name: Pong<T>(T, string)
+  nameWithType: PingService.Pong<T>(T, string)
+  fullName: CoverageKiller2.Logging.PingService.Pong<T>(T, string)
+  nameWithType.vb: PingService.Pong(Of T)(T, String)
+  fullName.vb: CoverageKiller2.Logging.PingService.Pong(Of T)(T, String)
+  name.vb: Pong(Of T)(T, String)
+  spec.csharp:
+  - uid: CoverageKiller2.Logging.PingService.Pong``1(``0,System.String)
+    name: Pong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1___0_System_String_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: CoverageKiller2.Logging.PingService.Pong``1(``0,System.String)
+    name: Pong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1___0_System_String_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: CoverageKiller2.Logging.PingService.Pong``1(``0,System.String,System.String)
+  commentId: M:CoverageKiller2.Logging.PingService.Pong``1(``0,System.String,System.String)
+  isExternal: true
+  href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1___0_System_String_System_String_
+  name: Pong<T>(T, string, string)
+  nameWithType: PingService.Pong<T>(T, string, string)
+  fullName: CoverageKiller2.Logging.PingService.Pong<T>(T, string, string)
+  nameWithType.vb: PingService.Pong(Of T)(T, String, String)
+  fullName.vb: CoverageKiller2.Logging.PingService.Pong(Of T)(T, String, String)
+  name.vb: Pong(Of T)(T, String, String)
+  spec.csharp:
+  - uid: CoverageKiller2.Logging.PingService.Pong``1(``0,System.String,System.String)
+    name: Pong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1___0_System_String_System_String_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: CoverageKiller2.Logging.PingService.Pong``1(``0,System.String,System.String)
+    name: Pong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1___0_System_String_System_String_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: CoverageKiller2.Logging.PingService.Pong``1(``0,System.Type,System.String)
+  commentId: M:CoverageKiller2.Logging.PingService.Pong``1(``0,System.Type,System.String)
+  isExternal: true
+  href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1___0_System_Type_System_String_
+  name: Pong<T>(T, Type, string)
+  nameWithType: PingService.Pong<T>(T, Type, string)
+  fullName: CoverageKiller2.Logging.PingService.Pong<T>(T, System.Type, string)
+  nameWithType.vb: PingService.Pong(Of T)(T, Type, String)
+  fullName.vb: CoverageKiller2.Logging.PingService.Pong(Of T)(T, System.Type, String)
+  name.vb: Pong(Of T)(T, Type, String)
+  spec.csharp:
+  - uid: CoverageKiller2.Logging.PingService.Pong``1(``0,System.Type,System.String)
+    name: Pong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1___0_System_Type_System_String_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: CoverageKiller2.Logging.PingService.Pong``1(``0,System.Type,System.String)
+    name: Pong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1___0_System_Type_System_String_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: CoverageKiller2.Logging.PingService.Pong``1(``0,System.Type[],System.String)
+  commentId: M:CoverageKiller2.Logging.PingService.Pong``1(``0,System.Type[],System.String)
+  isExternal: true
+  href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1___0_System_Type___System_String_
+  name: Pong<T>(T, Type[], string)
+  nameWithType: PingService.Pong<T>(T, Type[], string)
+  fullName: CoverageKiller2.Logging.PingService.Pong<T>(T, System.Type[], string)
+  nameWithType.vb: PingService.Pong(Of T)(T, Type(), String)
+  fullName.vb: CoverageKiller2.Logging.PingService.Pong(Of T)(T, System.Type(), String)
+  name.vb: Pong(Of T)(T, Type(), String)
+  spec.csharp:
+  - uid: CoverageKiller2.Logging.PingService.Pong``1(``0,System.Type[],System.String)
+    name: Pong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1___0_System_Type___System_String_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: '['
+  - name: ']'
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: CoverageKiller2.Logging.PingService.Pong``1(``0,System.Type[],System.String)
+    name: Pong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1___0_System_Type___System_String_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: (
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: CoverageKiller2.Logging.PingService.Pong``2(``0,System.Func{``1},System.String,System.String)
+  commentId: M:CoverageKiller2.Logging.PingService.Pong``2(``0,System.Func{``1},System.String,System.String)
+  isExternal: true
+  href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__2___0_System_Func___1__System_String_System_String_
+  name: Pong<T, TResult>(T, Func<TResult>, string, string)
+  nameWithType: PingService.Pong<T, TResult>(T, Func<TResult>, string, string)
+  fullName: CoverageKiller2.Logging.PingService.Pong<T, TResult>(T, System.Func<TResult>, string, string)
+  nameWithType.vb: PingService.Pong(Of T, TResult)(T, Func(Of TResult), String, String)
+  fullName.vb: CoverageKiller2.Logging.PingService.Pong(Of T, TResult)(T, System.Func(Of TResult), String, String)
+  name.vb: Pong(Of T, TResult)(T, Func(Of TResult), String, String)
+  spec.csharp:
+  - uid: CoverageKiller2.Logging.PingService.Pong``2(``0,System.Func{``1},System.String,System.String)
+    name: Pong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__2___0_System_Func___1__System_String_System_String_
+  - name: <
+  - name: T
+  - name: ','
+  - name: " "
+  - name: TResult
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Func`1
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-1
+  - name: <
+  - name: TResult
+  - name: '>'
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: CoverageKiller2.Logging.PingService.Pong``2(``0,System.Func{``1},System.String,System.String)
+    name: Pong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__2___0_System_Func___1__System_String_System_String_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - name: TResult
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Func`1
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TResult
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: CoverageKiller2.Logging
+  commentId: N:CoverageKiller2.Logging
+  isExternal: true
+  href: CoverageKiller2.html
+  name: CoverageKiller2.Logging
+  nameWithType: CoverageKiller2.Logging
+  fullName: CoverageKiller2.Logging
+  spec.csharp:
+  - uid: CoverageKiller2
+    name: CoverageKiller2
+    isExternal: true
+    href: CoverageKiller2.html
+  - name: .
+  - uid: CoverageKiller2.Logging
+    name: Logging
+    isExternal: true
+    href: CoverageKiller2.Logging.html
+  spec.vb:
+  - uid: CoverageKiller2
+    name: CoverageKiller2
+    isExternal: true
+    href: CoverageKiller2.html
+  - name: .
+  - uid: CoverageKiller2.Logging
+    name: Logging
+    isExternal: true
+    href: CoverageKiller2.Logging.html
+- uid: CoverageKiller2.DOM.Tables.CKGridCellRef
+  commentId: T:CoverageKiller2.DOM.Tables.CKGridCellRef
+  parent: CoverageKiller2.DOM.Tables
+  isExternal: true
+  href: CoverageKiller2.DOM.Tables.CKGridCellRef.html
+  name: CKGridCellRef
+  nameWithType: CKGridCellRef
+  fullName: CoverageKiller2.DOM.Tables.CKGridCellRef
+- uid: CoverageKiller2.DOM.Tables.CKGridCellRef.#ctor*
+  commentId: Overload:CoverageKiller2.DOM.Tables.CKGridCellRef.#ctor
+  isExternal: true
+  href: CoverageKiller2.DOM.Tables.CKGridCellRef.html#CoverageKiller2_DOM_Tables_CKGridCellRef__ctor_System_Int32_System_Int32_System_Int32_System_Int32_
+  name: CKGridCellRef
+  nameWithType: CKGridCellRef.CKGridCellRef
+  fullName: CoverageKiller2.DOM.Tables.CKGridCellRef.CKGridCellRef
+  nameWithType.vb: CKGridCellRef.New
+  fullName.vb: CoverageKiller2.DOM.Tables.CKGridCellRef.New
+  name.vb: New
+- uid: System.Int32
+  commentId: T:System.Int32
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.int32
+  name: int
+  nameWithType: int
+  fullName: int
+  nameWithType.vb: Integer
+  fullName.vb: Integer
+  name.vb: Integer
+- uid: System.ValueType.ToString
+  commentId: M:System.ValueType.ToString
+  parent: System.ValueType
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.valuetype.tostring
+  name: ToString()
+  nameWithType: ValueType.ToString()
+  fullName: System.ValueType.ToString()
+  spec.csharp:
+  - uid: System.ValueType.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.valuetype.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.ValueType.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.valuetype.tostring
+  - name: (
+  - name: )
+- uid: CoverageKiller2.DOM.Tables.CKGridCellRef.ToString*
+  commentId: Overload:CoverageKiller2.DOM.Tables.CKGridCellRef.ToString
+  isExternal: true
+  href: CoverageKiller2.DOM.Tables.CKGridCellRef.html#CoverageKiller2_DOM_Tables_CKGridCellRef_ToString
+  name: ToString
+  nameWithType: CKGridCellRef.ToString
+  fullName: CoverageKiller2.DOM.Tables.CKGridCellRef.ToString
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: CoverageKiller2.DOM.Tables.CKGridCellRef.ColMin*
+  commentId: Overload:CoverageKiller2.DOM.Tables.CKGridCellRef.ColMin
+  isExternal: true
+  href: CoverageKiller2.DOM.Tables.CKGridCellRef.html#CoverageKiller2_DOM_Tables_CKGridCellRef_ColMin
+  name: ColMin
+  nameWithType: CKGridCellRef.ColMin
+  fullName: CoverageKiller2.DOM.Tables.CKGridCellRef.ColMin
+- uid: CoverageKiller2.DOM.Tables.CKGridCellRef.RowMin*
+  commentId: Overload:CoverageKiller2.DOM.Tables.CKGridCellRef.RowMin
+  isExternal: true
+  href: CoverageKiller2.DOM.Tables.CKGridCellRef.html#CoverageKiller2_DOM_Tables_CKGridCellRef_RowMin
+  name: RowMin
+  nameWithType: CKGridCellRef.RowMin
+  fullName: CoverageKiller2.DOM.Tables.CKGridCellRef.RowMin
+- uid: CoverageKiller2.DOM.Tables.CKGridCellRef.ColMax*
+  commentId: Overload:CoverageKiller2.DOM.Tables.CKGridCellRef.ColMax
+  isExternal: true
+  href: CoverageKiller2.DOM.Tables.CKGridCellRef.html#CoverageKiller2_DOM_Tables_CKGridCellRef_ColMax
+  name: ColMax
+  nameWithType: CKGridCellRef.ColMax
+  fullName: CoverageKiller2.DOM.Tables.CKGridCellRef.ColMax
+- uid: CoverageKiller2.DOM.Tables.CKGridCellRef.RowMax*
+  commentId: Overload:CoverageKiller2.DOM.Tables.CKGridCellRef.RowMax
+  isExternal: true
+  href: CoverageKiller2.DOM.Tables.CKGridCellRef.html#CoverageKiller2_DOM_Tables_CKGridCellRef_RowMax
+  name: RowMax
+  nameWithType: CKGridCellRef.RowMax
+  fullName: CoverageKiller2.DOM.Tables.CKGridCellRef.RowMax

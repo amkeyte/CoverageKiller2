@@ -370,4 +370,11 @@
   <PropertyGroup>
     <PreBuildEvent>call "C:\Users\akeyte.PCM\source\repos\CoverageKiller2\src\CoverageKiller2\AutorecoverClean.bat"</PreBuildEvent>
   </PropertyGroup>
+  <PropertyGroup>
+	<GenerateDocumentationFile>true</GenerateDocumentationFile>
+	<NoWarn>1591</NoWarn> <!-- optional: suppress missing doc warnings -->
+   </PropertyGroup>
+	<Target Name="GenerateDocs" AfterTargets="Build">
+		<Exec Command="docfx &quot;$(SolutionDir)docfx_project\docfx.json&quot;" />
+	</Target>
 </Project>

@@ -1,0 +1,96 @@
+### YamlMime:ManagedReference
+items:
+- uid: CoverageKiller2.Pipeline.Config
+  commentId: N:CoverageKiller2.Pipeline.Config
+  id: CoverageKiller2.Pipeline.Config
+  children:
+  - CoverageKiller2.Pipeline.Config.Pipeline
+  - CoverageKiller2.Pipeline.Config.ProcessorConfig
+  - CoverageKiller2.Pipeline.Config.ProcessorConfigLoader
+  - CoverageKiller2.Pipeline.Config.Step
+  - CoverageKiller2.Pipeline.Config.Steps
+  langs:
+  - csharp
+  - vb
+  name: CoverageKiller2.Pipeline.Config
+  nameWithType: CoverageKiller2.Pipeline.Config
+  fullName: CoverageKiller2.Pipeline.Config
+  type: Namespace
+  assemblies:
+  - CoverageKiller2
+references:
+- uid: CoverageKiller2.Pipeline.Config.ProcessorConfigLoader
+  commentId: T:CoverageKiller2.Pipeline.Config.ProcessorConfigLoader
+  isExternal: true
+  href: CoverageKiller2.Pipeline.Config.ProcessorConfigLoader.html
+  name: ProcessorConfigLoader
+  nameWithType: ProcessorConfigLoader
+  fullName: CoverageKiller2.Pipeline.Config.ProcessorConfigLoader
+- uid: CoverageKiller2.Pipeline.Config.ProcessorConfig
+  commentId: T:CoverageKiller2.Pipeline.Config.ProcessorConfig
+  parent: CoverageKiller2.Pipeline.Config
+  isExternal: true
+  href: CoverageKiller2.Pipeline.Config.ProcessorConfig.html
+  name: ProcessorConfig
+  nameWithType: ProcessorConfig
+  fullName: CoverageKiller2.Pipeline.Config.ProcessorConfig
+- uid: CoverageKiller2.Pipeline.Config.Pipeline
+  commentId: T:CoverageKiller2.Pipeline.Config.Pipeline
+  parent: CoverageKiller2.Pipeline.Config
+  isExternal: true
+  href: CoverageKiller2.Pipeline.Config.Pipeline.html
+  name: Pipeline
+  nameWithType: Pipeline
+  fullName: CoverageKiller2.Pipeline.Config.Pipeline
+- uid: CoverageKiller2.Pipeline.Config.Steps
+  commentId: T:CoverageKiller2.Pipeline.Config.Steps
+  parent: CoverageKiller2.Pipeline.Config
+  isExternal: true
+  href: CoverageKiller2.Pipeline.Config.Steps.html
+  name: Steps
+  nameWithType: Steps
+  fullName: CoverageKiller2.Pipeline.Config.Steps
+- uid: CoverageKiller2.Pipeline.Config.Step
+  commentId: T:CoverageKiller2.Pipeline.Config.Step
+  isExternal: true
+  href: CoverageKiller2.Pipeline.Config.Step.html
+  name: Step
+  nameWithType: Step
+  fullName: CoverageKiller2.Pipeline.Config.Step
+- uid: CoverageKiller2.Pipeline.Config
+  commentId: N:CoverageKiller2.Pipeline.Config
+  isExternal: true
+  href: CoverageKiller2.html
+  name: CoverageKiller2.Pipeline.Config
+  nameWithType: CoverageKiller2.Pipeline.Config
+  fullName: CoverageKiller2.Pipeline.Config
+  spec.csharp:
+  - uid: CoverageKiller2
+    name: CoverageKiller2
+    isExternal: true
+    href: CoverageKiller2.html
+  - name: .
+  - uid: CoverageKiller2.Pipeline
+    name: Pipeline
+    isExternal: true
+    href: CoverageKiller2.Pipeline.html
+  - name: .
+  - uid: CoverageKiller2.Pipeline.Config
+    name: Config
+    isExternal: true
+    href: CoverageKiller2.Pipeline.Config.html
+  spec.vb:
+  - uid: CoverageKiller2
+    name: CoverageKiller2
+    isExternal: true
+    href: CoverageKiller2.html
+  - name: .
+  - uid: CoverageKiller2.Pipeline
+    name: Pipeline
+    isExternal: true
+    href: CoverageKiller2.Pipeline.html
+  - name: .
+  - uid: CoverageKiller2.Pipeline.Config
+    name: Config
+    isExternal: true
+    href: CoverageKiller2.Pipeline.Config.html

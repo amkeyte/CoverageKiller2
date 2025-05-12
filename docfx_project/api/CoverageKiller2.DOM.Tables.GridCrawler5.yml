@@ -1,0 +1,2752 @@
+### YamlMime:ManagedReference
+items:
+- uid: CoverageKiller2.DOM.Tables.GridCrawler5
+  commentId: T:CoverageKiller2.DOM.Tables.GridCrawler5
+  id: GridCrawler5
+  parent: CoverageKiller2.DOM.Tables
+  children:
+  - CoverageKiller2.DOM.Tables.GridCrawler5.AnalyzeTableRecursively(Microsoft.Office.Interop.Word.Table,System.Int32)
+  - CoverageKiller2.DOM.Tables.GridCrawler5.BuildFastGridFromTable(Microsoft.Office.Interop.Word.Table,System.Int32)
+  - CoverageKiller2.DOM.Tables.GridCrawler5.BuildSlowGridFromTable(Microsoft.Office.Interop.Word.Table,System.Int32)
+  - CoverageKiller2.DOM.Tables.GridCrawler5.ColumnCount
+  - CoverageKiller2.DOM.Tables.GridCrawler5.DumpGrid(CoverageKiller2.DOM.Tables.Base1JaggedList{CoverageKiller2.DOM.Tables.GridCell5},System.String)
+  - CoverageKiller2.DOM.Tables.GridCrawler5.DumpGrid(CoverageKiller2.DOM.Tables.Base1JaggedList{Microsoft.Office.Interop.Word.Cell},System.String)
+  - CoverageKiller2.DOM.Tables.GridCrawler5.DumpGrid``1(CoverageKiller2.DOM.Tables.Base1JaggedList{``0},System.String)
+  - CoverageKiller2.DOM.Tables.GridCrawler5.DumpList(CoverageKiller2.DOM.Tables.Base1List{System.String},System.String)
+  - CoverageKiller2.DOM.Tables.GridCrawler5.FlattenTableText(System.String)
+  - CoverageKiller2.DOM.Tables.GridCrawler5.GetMasterGrid(Microsoft.Office.Interop.Word.Table)
+  - CoverageKiller2.DOM.Tables.GridCrawler5.Grid
+  - CoverageKiller2.DOM.Tables.GridCrawler5.MergeGrids(CoverageKiller2.DOM.Tables.Base1JaggedList{CoverageKiller2.DOM.Tables.GridCell5},CoverageKiller2.DOM.Tables.Base1JaggedList{CoverageKiller2.DOM.Tables.GridCell5})
+  - CoverageKiller2.DOM.Tables.GridCrawler5.PrepareTable(Microsoft.Office.Interop.Word.Table)
+  - CoverageKiller2.DOM.Tables.GridCrawler5.RowCount
+  - CoverageKiller2.DOM.Tables.GridCrawler5.SplitTableAtRow(Microsoft.Office.Interop.Word.Table)
+  - CoverageKiller2.DOM.Tables.GridCrawler5.SplitWordTableTextIntoRows(System.String)
+  langs:
+  - csharp
+  - vb
+  name: GridCrawler5
+  nameWithType: GridCrawler5
+  fullName: CoverageKiller2.DOM.Tables.GridCrawler5
+  type: Class
+  assemblies:
+  - CoverageKiller2
+  namespace: CoverageKiller2.DOM.Tables
+  summary: Builds a reusable layout grid from a Word table using both visual and textual merge inference.
+  remarks: 'THIS CLASS IS NOT TO INCLUDE ANY CK.DOM references. Version: CK2.00.01.0034'
+  example: []
+  syntax:
+    content: public class GridCrawler5
+    content.vb: Public Class GridCrawler5
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.ToString
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  extensionMethods:
+  - CoverageKiller2.DOM.Tables.GridCrawler5.CoverageKiller2.Logging.PingService.PingPong``1(System.String)
+  - CoverageKiller2.DOM.Tables.GridCrawler5.CoverageKiller2.Logging.PingService.PingPong``1(System.String,System.String)
+  - CoverageKiller2.DOM.Tables.GridCrawler5.CoverageKiller2.Logging.PingService.PingPong``2(System.Func{{TResult}},System.String,System.String)
+  - CoverageKiller2.DOM.Tables.GridCrawler5.CoverageKiller2.Logging.PingService.Ping``1(System.String)
+  - CoverageKiller2.DOM.Tables.GridCrawler5.CoverageKiller2.Logging.PingService.Ping``1(System.String,System.String)
+  - CoverageKiller2.DOM.Tables.GridCrawler5.CoverageKiller2.Logging.PingService.Ping``1(System.Type[],System.String)
+  - CoverageKiller2.DOM.Tables.GridCrawler5.CoverageKiller2.Logging.PingService.Pong``1(System.String)
+  - CoverageKiller2.DOM.Tables.GridCrawler5.CoverageKiller2.Logging.PingService.Pong``1(System.String,System.String)
+  - CoverageKiller2.DOM.Tables.GridCrawler5.CoverageKiller2.Logging.PingService.Pong``1(System.Type,System.String)
+  - CoverageKiller2.DOM.Tables.GridCrawler5.CoverageKiller2.Logging.PingService.Pong``1(System.Type[],System.String)
+  - CoverageKiller2.DOM.Tables.GridCrawler5.CoverageKiller2.Logging.PingService.Pong``2(System.Func{{TResult}},System.String,System.String)
+- uid: CoverageKiller2.DOM.Tables.GridCrawler5.DumpGrid(CoverageKiller2.DOM.Tables.Base1JaggedList{CoverageKiller2.DOM.Tables.GridCell5},System.String)
+  commentId: M:CoverageKiller2.DOM.Tables.GridCrawler5.DumpGrid(CoverageKiller2.DOM.Tables.Base1JaggedList{CoverageKiller2.DOM.Tables.GridCell5},System.String)
+  id: DumpGrid(CoverageKiller2.DOM.Tables.Base1JaggedList{CoverageKiller2.DOM.Tables.GridCell5},System.String)
+  parent: CoverageKiller2.DOM.Tables.GridCrawler5
+  langs:
+  - csharp
+  - vb
+  name: DumpGrid(Base1JaggedList<GridCell5>, string)
+  nameWithType: GridCrawler5.DumpGrid(Base1JaggedList<GridCell5>, string)
+  fullName: CoverageKiller2.DOM.Tables.GridCrawler5.DumpGrid(CoverageKiller2.DOM.Tables.Base1JaggedList<CoverageKiller2.DOM.Tables.GridCell5>, string)
+  type: Method
+  assemblies:
+  - CoverageKiller2
+  namespace: CoverageKiller2.DOM.Tables
+  summary: Returns a labeled text representation of the grid.
+  example: []
+  syntax:
+    content: public static string DumpGrid(Base1JaggedList<GridCell5> grid, string message = null)
+    parameters:
+    - id: grid
+      type: CoverageKiller2.DOM.Tables.Base1JaggedList{CoverageKiller2.DOM.Tables.GridCell5}
+    - id: message
+      type: System.String
+    return:
+      type: System.String
+    content.vb: Public Shared Function DumpGrid(grid As Base1JaggedList(Of GridCell5), message As String = Nothing) As String
+  overload: CoverageKiller2.DOM.Tables.GridCrawler5.DumpGrid*
+  nameWithType.vb: GridCrawler5.DumpGrid(Base1JaggedList(Of GridCell5), String)
+  fullName.vb: CoverageKiller2.DOM.Tables.GridCrawler5.DumpGrid(CoverageKiller2.DOM.Tables.Base1JaggedList(Of CoverageKiller2.DOM.Tables.GridCell5), String)
+  name.vb: DumpGrid(Base1JaggedList(Of GridCell5), String)
+- uid: CoverageKiller2.DOM.Tables.GridCrawler5.DumpGrid``1(CoverageKiller2.DOM.Tables.Base1JaggedList{``0},System.String)
+  commentId: M:CoverageKiller2.DOM.Tables.GridCrawler5.DumpGrid``1(CoverageKiller2.DOM.Tables.Base1JaggedList{``0},System.String)
+  id: DumpGrid``1(CoverageKiller2.DOM.Tables.Base1JaggedList{``0},System.String)
+  parent: CoverageKiller2.DOM.Tables.GridCrawler5
+  langs:
+  - csharp
+  - vb
+  name: DumpGrid<T>(Base1JaggedList<T>, string)
+  nameWithType: GridCrawler5.DumpGrid<T>(Base1JaggedList<T>, string)
+  fullName: CoverageKiller2.DOM.Tables.GridCrawler5.DumpGrid<T>(CoverageKiller2.DOM.Tables.Base1JaggedList<T>, string)
+  type: Method
+  assemblies:
+  - CoverageKiller2
+  namespace: CoverageKiller2.DOM.Tables
+  summary: Returns a labeled text representation of a Base1JaggedList of any type.
+  example: []
+  syntax:
+    content: public static string DumpGrid<T>(Base1JaggedList<T> grid, string message = null)
+    parameters:
+    - id: grid
+      type: CoverageKiller2.DOM.Tables.Base1JaggedList{{T}}
+      description: The grid to dump.
+    - id: message
+      type: System.String
+      description: Optional label message.
+    typeParameters:
+    - id: T
+      description: The element type of the grid.
+    return:
+      type: System.String
+      description: A formatted string representation of the grid.
+    content.vb: Public Shared Function DumpGrid(Of T)(grid As Base1JaggedList(Of T), message As String = Nothing) As String
+  overload: CoverageKiller2.DOM.Tables.GridCrawler5.DumpGrid*
+  nameWithType.vb: GridCrawler5.DumpGrid(Of T)(Base1JaggedList(Of T), String)
+  fullName.vb: CoverageKiller2.DOM.Tables.GridCrawler5.DumpGrid(Of T)(CoverageKiller2.DOM.Tables.Base1JaggedList(Of T), String)
+  name.vb: DumpGrid(Of T)(Base1JaggedList(Of T), String)
+- uid: CoverageKiller2.DOM.Tables.GridCrawler5.DumpGrid(CoverageKiller2.DOM.Tables.Base1JaggedList{Microsoft.Office.Interop.Word.Cell},System.String)
+  commentId: M:CoverageKiller2.DOM.Tables.GridCrawler5.DumpGrid(CoverageKiller2.DOM.Tables.Base1JaggedList{Microsoft.Office.Interop.Word.Cell},System.String)
+  id: DumpGrid(CoverageKiller2.DOM.Tables.Base1JaggedList{Microsoft.Office.Interop.Word.Cell},System.String)
+  parent: CoverageKiller2.DOM.Tables.GridCrawler5
+  langs:
+  - csharp
+  - vb
+  name: DumpGrid(Base1JaggedList<Cell>, string)
+  nameWithType: GridCrawler5.DumpGrid(Base1JaggedList<Cell>, string)
+  fullName: CoverageKiller2.DOM.Tables.GridCrawler5.DumpGrid(CoverageKiller2.DOM.Tables.Base1JaggedList<Microsoft.Office.Interop.Word.Cell>, string)
+  type: Method
+  assemblies:
+  - CoverageKiller2
+  namespace: CoverageKiller2.DOM.Tables
+  summary: Dumps a string representation of the grid for debugging or visualization.
+  example: []
+  syntax:
+    content: public static string DumpGrid(Base1JaggedList<Cell> grid, string message = null)
+    parameters:
+    - id: grid
+      type: CoverageKiller2.DOM.Tables.Base1JaggedList{Microsoft.Office.Interop.Word.Cell}
+      description: The jagged grid structure of GridCell2 instances.
+    - id: message
+      type: System.String
+    return:
+      type: System.String
+      description: A formatted string showing grid positions and cell types.
+    content.vb: Public Shared Function DumpGrid(grid As Base1JaggedList(Of Cell), message As String = Nothing) As String
+  overload: CoverageKiller2.DOM.Tables.GridCrawler5.DumpGrid*
+  nameWithType.vb: GridCrawler5.DumpGrid(Base1JaggedList(Of Cell), String)
+  fullName.vb: CoverageKiller2.DOM.Tables.GridCrawler5.DumpGrid(CoverageKiller2.DOM.Tables.Base1JaggedList(Of Microsoft.Office.Interop.Word.Cell), String)
+  name.vb: DumpGrid(Base1JaggedList(Of Cell), String)
+- uid: CoverageKiller2.DOM.Tables.GridCrawler5.SplitWordTableTextIntoRows(System.String)
+  commentId: M:CoverageKiller2.DOM.Tables.GridCrawler5.SplitWordTableTextIntoRows(System.String)
+  id: SplitWordTableTextIntoRows(System.String)
+  parent: CoverageKiller2.DOM.Tables.GridCrawler5
+  langs:
+  - csharp
+  - vb
+  name: SplitWordTableTextIntoRows(string)
+  nameWithType: GridCrawler5.SplitWordTableTextIntoRows(string)
+  fullName: CoverageKiller2.DOM.Tables.GridCrawler5.SplitWordTableTextIntoRows(string)
+  type: Method
+  assemblies:
+  - CoverageKiller2
+  namespace: CoverageKiller2.DOM.Tables
+  syntax:
+    content: public static Base1List<string> SplitWordTableTextIntoRows(string rawText)
+    parameters:
+    - id: rawText
+      type: System.String
+    return:
+      type: CoverageKiller2.DOM.Tables.Base1List{System.String}
+    content.vb: Public Shared Function SplitWordTableTextIntoRows(rawText As String) As Base1List(Of String)
+  overload: CoverageKiller2.DOM.Tables.GridCrawler5.SplitWordTableTextIntoRows*
+  nameWithType.vb: GridCrawler5.SplitWordTableTextIntoRows(String)
+  fullName.vb: CoverageKiller2.DOM.Tables.GridCrawler5.SplitWordTableTextIntoRows(String)
+  name.vb: SplitWordTableTextIntoRows(String)
+- uid: CoverageKiller2.DOM.Tables.GridCrawler5.DumpList(CoverageKiller2.DOM.Tables.Base1List{System.String},System.String)
+  commentId: M:CoverageKiller2.DOM.Tables.GridCrawler5.DumpList(CoverageKiller2.DOM.Tables.Base1List{System.String},System.String)
+  id: DumpList(CoverageKiller2.DOM.Tables.Base1List{System.String},System.String)
+  parent: CoverageKiller2.DOM.Tables.GridCrawler5
+  langs:
+  - csharp
+  - vb
+  name: DumpList(Base1List<string>, string)
+  nameWithType: GridCrawler5.DumpList(Base1List<string>, string)
+  fullName: CoverageKiller2.DOM.Tables.GridCrawler5.DumpList(CoverageKiller2.DOM.Tables.Base1List<string>, string)
+  type: Method
+  assemblies:
+  - CoverageKiller2
+  namespace: CoverageKiller2.DOM.Tables
+  summary: Dumps the raw contents of a Base1List&lt;string&gt;, each entry as-is, separated by newlines.
+  remarks: 'Version: CK2.00.01.0036'
+  example: []
+  syntax:
+    content: public static string DumpList(Base1List<string> textList, string message)
+    parameters:
+    - id: textList
+      type: CoverageKiller2.DOM.Tables.Base1List{System.String}
+    - id: message
+      type: System.String
+    return:
+      type: System.String
+      description: The concatenated raw text of the list.
+    content.vb: Public Shared Function DumpList(textList As Base1List(Of String), message As String) As String
+  overload: CoverageKiller2.DOM.Tables.GridCrawler5.DumpList*
+  nameWithType.vb: GridCrawler5.DumpList(Base1List(Of String), String)
+  fullName.vb: CoverageKiller2.DOM.Tables.GridCrawler5.DumpList(CoverageKiller2.DOM.Tables.Base1List(Of String), String)
+  name.vb: DumpList(Base1List(Of String), String)
+- uid: CoverageKiller2.DOM.Tables.GridCrawler5.FlattenTableText(System.String)
+  commentId: M:CoverageKiller2.DOM.Tables.GridCrawler5.FlattenTableText(System.String)
+  id: FlattenTableText(System.String)
+  parent: CoverageKiller2.DOM.Tables.GridCrawler5
+  langs:
+  - csharp
+  - vb
+  name: FlattenTableText(string)
+  nameWithType: GridCrawler5.FlattenTableText(string)
+  fullName: CoverageKiller2.DOM.Tables.GridCrawler5.FlattenTableText(string)
+  type: Method
+  assemblies:
+  - CoverageKiller2
+  namespace: CoverageKiller2.DOM.Tables
+  syntax:
+    content: public static string FlattenTableText(string tableText)
+    parameters:
+    - id: tableText
+      type: System.String
+    return:
+      type: System.String
+    content.vb: Public Shared Function FlattenTableText(tableText As String) As String
+  overload: CoverageKiller2.DOM.Tables.GridCrawler5.FlattenTableText*
+  nameWithType.vb: GridCrawler5.FlattenTableText(String)
+  fullName.vb: CoverageKiller2.DOM.Tables.GridCrawler5.FlattenTableText(String)
+  name.vb: FlattenTableText(String)
+- uid: CoverageKiller2.DOM.Tables.GridCrawler5.PrepareTable(Microsoft.Office.Interop.Word.Table)
+  commentId: M:CoverageKiller2.DOM.Tables.GridCrawler5.PrepareTable(Microsoft.Office.Interop.Word.Table)
+  id: PrepareTable(Microsoft.Office.Interop.Word.Table)
+  parent: CoverageKiller2.DOM.Tables.GridCrawler5
+  langs:
+  - csharp
+  - vb
+  name: PrepareTable(Table)
+  nameWithType: GridCrawler5.PrepareTable(Table)
+  fullName: CoverageKiller2.DOM.Tables.GridCrawler5.PrepareTable(Microsoft.Office.Interop.Word.Table)
+  type: Method
+  assemblies:
+  - CoverageKiller2
+  namespace: CoverageKiller2.DOM.Tables
+  summary: Clones the given Word table into a shadow workspace and formats it for grid-based layout visualization.
+  remarks: 'Version: CK2.00.01.0015'
+  example: []
+  syntax:
+    content: public Table PrepareTable(Table COMTable = null)
+    parameters:
+    - id: COMTable
+      type: Microsoft.Office.Interop.Word.Table
+    return:
+      type: Microsoft.Office.Interop.Word.Table
+      description: A ShadowWorkspace containing the formatted cloned table and master cell grid.
+    content.vb: Public Function PrepareTable(COMTable As Table = Nothing) As Table
+  overload: CoverageKiller2.DOM.Tables.GridCrawler5.PrepareTable*
+- uid: CoverageKiller2.DOM.Tables.GridCrawler5.GetMasterGrid(Microsoft.Office.Interop.Word.Table)
+  commentId: M:CoverageKiller2.DOM.Tables.GridCrawler5.GetMasterGrid(Microsoft.Office.Interop.Word.Table)
+  id: GetMasterGrid(Microsoft.Office.Interop.Word.Table)
+  parent: CoverageKiller2.DOM.Tables.GridCrawler5
+  langs:
+  - csharp
+  - vb
+  name: GetMasterGrid(Table)
+  nameWithType: GridCrawler5.GetMasterGrid(Table)
+  fullName: CoverageKiller2.DOM.Tables.GridCrawler5.GetMasterGrid(Microsoft.Office.Interop.Word.Table)
+  type: Method
+  assemblies:
+  - CoverageKiller2
+  namespace: CoverageKiller2.DOM.Tables
+  summary: Retrieves a grid of master GridCell5s from the CKTable.
+  example: []
+  syntax:
+    content: public Base1JaggedList<Cell> GetMasterGrid(Table COMTable = null)
+    parameters:
+    - id: COMTable
+      type: Microsoft.Office.Interop.Word.Table
+    return:
+      type: CoverageKiller2.DOM.Tables.Base1JaggedList{Microsoft.Office.Interop.Word.Cell}
+    content.vb: Public Function GetMasterGrid(COMTable As Table = Nothing) As Base1JaggedList(Of Cell)
+  overload: CoverageKiller2.DOM.Tables.GridCrawler5.GetMasterGrid*
+- uid: CoverageKiller2.DOM.Tables.GridCrawler5.SplitTableAtRow(Microsoft.Office.Interop.Word.Table)
+  commentId: M:CoverageKiller2.DOM.Tables.GridCrawler5.SplitTableAtRow(Microsoft.Office.Interop.Word.Table)
+  id: SplitTableAtRow(Microsoft.Office.Interop.Word.Table)
+  parent: CoverageKiller2.DOM.Tables.GridCrawler5
+  langs:
+  - csharp
+  - vb
+  name: SplitTableAtRow(Table)
+  nameWithType: GridCrawler5.SplitTableAtRow(Table)
+  fullName: CoverageKiller2.DOM.Tables.GridCrawler5.SplitTableAtRow(Microsoft.Office.Interop.Word.Table)
+  type: Method
+  assemblies:
+  - CoverageKiller2
+  namespace: CoverageKiller2.DOM.Tables
+  syntax:
+    content: public static (Table first, Table second, int splitRow) SplitTableAtRow(Table original)
+    parameters:
+    - id: original
+      type: Microsoft.Office.Interop.Word.Table
+    return:
+      type: System.ValueTuple{Microsoft.Office.Interop.Word.Table,Microsoft.Office.Interop.Word.Table,System.Int32}
+    content.vb: Public Shared Function SplitTableAtRow(original As Table) As (first As Table, second As Table, splitRow As Integer)
+  overload: CoverageKiller2.DOM.Tables.GridCrawler5.SplitTableAtRow*
+- uid: CoverageKiller2.DOM.Tables.GridCrawler5.AnalyzeTableRecursively(Microsoft.Office.Interop.Word.Table,System.Int32)
+  commentId: M:CoverageKiller2.DOM.Tables.GridCrawler5.AnalyzeTableRecursively(Microsoft.Office.Interop.Word.Table,System.Int32)
+  id: AnalyzeTableRecursively(Microsoft.Office.Interop.Word.Table,System.Int32)
+  parent: CoverageKiller2.DOM.Tables.GridCrawler5
+  langs:
+  - csharp
+  - vb
+  name: AnalyzeTableRecursively(Table, int)
+  nameWithType: GridCrawler5.AnalyzeTableRecursively(Table, int)
+  fullName: CoverageKiller2.DOM.Tables.GridCrawler5.AnalyzeTableRecursively(Microsoft.Office.Interop.Word.Table, int)
+  type: Method
+  assemblies:
+  - CoverageKiller2
+  namespace: CoverageKiller2.DOM.Tables
+  syntax:
+    content: public Base1JaggedList<GridCell5> AnalyzeTableRecursively(Table table = null, int rowOffset = 0)
+    parameters:
+    - id: table
+      type: Microsoft.Office.Interop.Word.Table
+    - id: rowOffset
+      type: System.Int32
+    return:
+      type: CoverageKiller2.DOM.Tables.Base1JaggedList{CoverageKiller2.DOM.Tables.GridCell5}
+    content.vb: Public Function AnalyzeTableRecursively(table As Table = Nothing, rowOffset As Integer = 0) As Base1JaggedList(Of GridCell5)
+  overload: CoverageKiller2.DOM.Tables.GridCrawler5.AnalyzeTableRecursively*
+  nameWithType.vb: GridCrawler5.AnalyzeTableRecursively(Table, Integer)
+  fullName.vb: CoverageKiller2.DOM.Tables.GridCrawler5.AnalyzeTableRecursively(Microsoft.Office.Interop.Word.Table, Integer)
+  name.vb: AnalyzeTableRecursively(Table, Integer)
+- uid: CoverageKiller2.DOM.Tables.GridCrawler5.MergeGrids(CoverageKiller2.DOM.Tables.Base1JaggedList{CoverageKiller2.DOM.Tables.GridCell5},CoverageKiller2.DOM.Tables.Base1JaggedList{CoverageKiller2.DOM.Tables.GridCell5})
+  commentId: M:CoverageKiller2.DOM.Tables.GridCrawler5.MergeGrids(CoverageKiller2.DOM.Tables.Base1JaggedList{CoverageKiller2.DOM.Tables.GridCell5},CoverageKiller2.DOM.Tables.Base1JaggedList{CoverageKiller2.DOM.Tables.GridCell5})
+  id: MergeGrids(CoverageKiller2.DOM.Tables.Base1JaggedList{CoverageKiller2.DOM.Tables.GridCell5},CoverageKiller2.DOM.Tables.Base1JaggedList{CoverageKiller2.DOM.Tables.GridCell5})
+  parent: CoverageKiller2.DOM.Tables.GridCrawler5
+  langs:
+  - csharp
+  - vb
+  name: MergeGrids(Base1JaggedList<GridCell5>, Base1JaggedList<GridCell5>)
+  nameWithType: GridCrawler5.MergeGrids(Base1JaggedList<GridCell5>, Base1JaggedList<GridCell5>)
+  fullName: CoverageKiller2.DOM.Tables.GridCrawler5.MergeGrids(CoverageKiller2.DOM.Tables.Base1JaggedList<CoverageKiller2.DOM.Tables.GridCell5>, CoverageKiller2.DOM.Tables.Base1JaggedList<CoverageKiller2.DOM.Tables.GridCell5>)
+  type: Method
+  assemblies:
+  - CoverageKiller2
+  namespace: CoverageKiller2.DOM.Tables
+  syntax:
+    content: public Base1JaggedList<GridCell5> MergeGrids(Base1JaggedList<GridCell5> g1, Base1JaggedList<GridCell5> g2)
+    parameters:
+    - id: g1
+      type: CoverageKiller2.DOM.Tables.Base1JaggedList{CoverageKiller2.DOM.Tables.GridCell5}
+    - id: g2
+      type: CoverageKiller2.DOM.Tables.Base1JaggedList{CoverageKiller2.DOM.Tables.GridCell5}
+    return:
+      type: CoverageKiller2.DOM.Tables.Base1JaggedList{CoverageKiller2.DOM.Tables.GridCell5}
+    content.vb: Public Function MergeGrids(g1 As Base1JaggedList(Of GridCell5), g2 As Base1JaggedList(Of GridCell5)) As Base1JaggedList(Of GridCell5)
+  overload: CoverageKiller2.DOM.Tables.GridCrawler5.MergeGrids*
+  nameWithType.vb: GridCrawler5.MergeGrids(Base1JaggedList(Of GridCell5), Base1JaggedList(Of GridCell5))
+  fullName.vb: CoverageKiller2.DOM.Tables.GridCrawler5.MergeGrids(CoverageKiller2.DOM.Tables.Base1JaggedList(Of CoverageKiller2.DOM.Tables.GridCell5), CoverageKiller2.DOM.Tables.Base1JaggedList(Of CoverageKiller2.DOM.Tables.GridCell5))
+  name.vb: MergeGrids(Base1JaggedList(Of GridCell5), Base1JaggedList(Of GridCell5))
+- uid: CoverageKiller2.DOM.Tables.GridCrawler5.BuildFastGridFromTable(Microsoft.Office.Interop.Word.Table,System.Int32)
+  commentId: M:CoverageKiller2.DOM.Tables.GridCrawler5.BuildFastGridFromTable(Microsoft.Office.Interop.Word.Table,System.Int32)
+  id: BuildFastGridFromTable(Microsoft.Office.Interop.Word.Table,System.Int32)
+  parent: CoverageKiller2.DOM.Tables.GridCrawler5
+  langs:
+  - csharp
+  - vb
+  name: BuildFastGridFromTable(Table, int)
+  nameWithType: GridCrawler5.BuildFastGridFromTable(Table, int)
+  fullName: CoverageKiller2.DOM.Tables.GridCrawler5.BuildFastGridFromTable(Microsoft.Office.Interop.Word.Table, int)
+  type: Method
+  assemblies:
+  - CoverageKiller2
+  namespace: CoverageKiller2.DOM.Tables
+  syntax:
+    content: public Base1JaggedList<GridCell5> BuildFastGridFromTable(Table table, int rowOffset = 0)
+    parameters:
+    - id: table
+      type: Microsoft.Office.Interop.Word.Table
+    - id: rowOffset
+      type: System.Int32
+    return:
+      type: CoverageKiller2.DOM.Tables.Base1JaggedList{CoverageKiller2.DOM.Tables.GridCell5}
+    content.vb: Public Function BuildFastGridFromTable(table As Table, rowOffset As Integer = 0) As Base1JaggedList(Of GridCell5)
+  overload: CoverageKiller2.DOM.Tables.GridCrawler5.BuildFastGridFromTable*
+  nameWithType.vb: GridCrawler5.BuildFastGridFromTable(Table, Integer)
+  fullName.vb: CoverageKiller2.DOM.Tables.GridCrawler5.BuildFastGridFromTable(Microsoft.Office.Interop.Word.Table, Integer)
+  name.vb: BuildFastGridFromTable(Table, Integer)
+- uid: CoverageKiller2.DOM.Tables.GridCrawler5.BuildSlowGridFromTable(Microsoft.Office.Interop.Word.Table,System.Int32)
+  commentId: M:CoverageKiller2.DOM.Tables.GridCrawler5.BuildSlowGridFromTable(Microsoft.Office.Interop.Word.Table,System.Int32)
+  id: BuildSlowGridFromTable(Microsoft.Office.Interop.Word.Table,System.Int32)
+  parent: CoverageKiller2.DOM.Tables.GridCrawler5
+  langs:
+  - csharp
+  - vb
+  name: BuildSlowGridFromTable(Table, int)
+  nameWithType: GridCrawler5.BuildSlowGridFromTable(Table, int)
+  fullName: CoverageKiller2.DOM.Tables.GridCrawler5.BuildSlowGridFromTable(Microsoft.Office.Interop.Word.Table, int)
+  type: Method
+  assemblies:
+  - CoverageKiller2
+  namespace: CoverageKiller2.DOM.Tables
+  syntax:
+    content: public Base1JaggedList<GridCell5> BuildSlowGridFromTable(Table table, int rowOffset = 0)
+    parameters:
+    - id: table
+      type: Microsoft.Office.Interop.Word.Table
+    - id: rowOffset
+      type: System.Int32
+    return:
+      type: CoverageKiller2.DOM.Tables.Base1JaggedList{CoverageKiller2.DOM.Tables.GridCell5}
+    content.vb: Public Function BuildSlowGridFromTable(table As Table, rowOffset As Integer = 0) As Base1JaggedList(Of GridCell5)
+  overload: CoverageKiller2.DOM.Tables.GridCrawler5.BuildSlowGridFromTable*
+  nameWithType.vb: GridCrawler5.BuildSlowGridFromTable(Table, Integer)
+  fullName.vb: CoverageKiller2.DOM.Tables.GridCrawler5.BuildSlowGridFromTable(Microsoft.Office.Interop.Word.Table, Integer)
+  name.vb: BuildSlowGridFromTable(Table, Integer)
+- uid: CoverageKiller2.DOM.Tables.GridCrawler5.RowCount
+  commentId: P:CoverageKiller2.DOM.Tables.GridCrawler5.RowCount
+  id: RowCount
+  parent: CoverageKiller2.DOM.Tables.GridCrawler5
+  langs:
+  - csharp
+  - vb
+  name: RowCount
+  nameWithType: GridCrawler5.RowCount
+  fullName: CoverageKiller2.DOM.Tables.GridCrawler5.RowCount
+  type: Property
+  assemblies:
+  - CoverageKiller2
+  namespace: CoverageKiller2.DOM.Tables
+  summary: Gets the number of visual rows in the final layout grid.
+  example: []
+  syntax:
+    content: public int RowCount { get; }
+    parameters: []
+    return:
+      type: System.Int32
+    content.vb: Public ReadOnly Property RowCount As Integer
+  overload: CoverageKiller2.DOM.Tables.GridCrawler5.RowCount*
+- uid: CoverageKiller2.DOM.Tables.GridCrawler5.ColumnCount
+  commentId: P:CoverageKiller2.DOM.Tables.GridCrawler5.ColumnCount
+  id: ColumnCount
+  parent: CoverageKiller2.DOM.Tables.GridCrawler5
+  langs:
+  - csharp
+  - vb
+  name: ColumnCount
+  nameWithType: GridCrawler5.ColumnCount
+  fullName: CoverageKiller2.DOM.Tables.GridCrawler5.ColumnCount
+  type: Property
+  assemblies:
+  - CoverageKiller2
+  namespace: CoverageKiller2.DOM.Tables
+  summary: Gets the number of visual columns in the final layout grid.
+  example: []
+  syntax:
+    content: public int ColumnCount { get; }
+    parameters: []
+    return:
+      type: System.Int32
+    content.vb: Public ReadOnly Property ColumnCount As Integer
+  overload: CoverageKiller2.DOM.Tables.GridCrawler5.ColumnCount*
+- uid: CoverageKiller2.DOM.Tables.GridCrawler5.Grid
+  commentId: P:CoverageKiller2.DOM.Tables.GridCrawler5.Grid
+  id: Grid
+  parent: CoverageKiller2.DOM.Tables.GridCrawler5
+  langs:
+  - csharp
+  - vb
+  name: Grid
+  nameWithType: GridCrawler5.Grid
+  fullName: CoverageKiller2.DOM.Tables.GridCrawler5.Grid
+  type: Property
+  assemblies:
+  - CoverageKiller2
+  namespace: CoverageKiller2.DOM.Tables
+  summary: Gets the completed visual layout grid.
+  example: []
+  syntax:
+    content: public Base1JaggedList<GridCell5> Grid { get; }
+    parameters: []
+    return:
+      type: CoverageKiller2.DOM.Tables.Base1JaggedList{CoverageKiller2.DOM.Tables.GridCell5}
+    content.vb: Public ReadOnly Property Grid As Base1JaggedList(Of GridCell5)
+  overload: CoverageKiller2.DOM.Tables.GridCrawler5.Grid*
+references:
+- uid: CoverageKiller2.DOM.Tables
+  commentId: N:CoverageKiller2.DOM.Tables
+  isExternal: true
+  href: CoverageKiller2.html
+  name: CoverageKiller2.DOM.Tables
+  nameWithType: CoverageKiller2.DOM.Tables
+  fullName: CoverageKiller2.DOM.Tables
+  spec.csharp:
+  - uid: CoverageKiller2
+    name: CoverageKiller2
+    isExternal: true
+    href: CoverageKiller2.html
+  - name: .
+  - uid: CoverageKiller2.DOM
+    name: DOM
+    isExternal: true
+    href: CoverageKiller2.DOM.html
+  - name: .
+  - uid: CoverageKiller2.DOM.Tables
+    name: Tables
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.html
+  spec.vb:
+  - uid: CoverageKiller2
+    name: CoverageKiller2
+    isExternal: true
+    href: CoverageKiller2.html
+  - name: .
+  - uid: CoverageKiller2.DOM
+    name: DOM
+    isExternal: true
+    href: CoverageKiller2.DOM.html
+  - name: .
+  - uid: CoverageKiller2.DOM.Tables
+    name: Tables
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: CoverageKiller2.DOM.Tables.GridCrawler5.CoverageKiller2.Logging.PingService.PingPong``1(System.String)
+  commentId: M:CoverageKiller2.Logging.PingService.PingPong``1(``0,System.String)
+  parent: CoverageKiller2.Logging.PingService
+  definition: CoverageKiller2.Logging.PingService.PingPong``1(``0,System.String)
+  href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_PingPong__1___0_System_String_
+  name: PingPong<GridCrawler5>(GridCrawler5, string)
+  nameWithType: PingService.PingPong<GridCrawler5>(GridCrawler5, string)
+  fullName: CoverageKiller2.Logging.PingService.PingPong<CoverageKiller2.DOM.Tables.GridCrawler5>(CoverageKiller2.DOM.Tables.GridCrawler5, string)
+  nameWithType.vb: PingService.PingPong(Of GridCrawler5)(GridCrawler5, String)
+  fullName.vb: CoverageKiller2.Logging.PingService.PingPong(Of CoverageKiller2.DOM.Tables.GridCrawler5)(CoverageKiller2.DOM.Tables.GridCrawler5, String)
+  name.vb: PingPong(Of GridCrawler5)(GridCrawler5, String)
+  spec.csharp:
+  - uid: CoverageKiller2.Logging.PingService.PingPong``1(CoverageKiller2.DOM.Tables.GridCrawler5,System.String)
+    name: PingPong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_PingPong__1___0_System_String_
+  - name: <
+  - uid: CoverageKiller2.DOM.Tables.GridCrawler5
+    name: GridCrawler5
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.GridCrawler5.html
+  - name: '>'
+  - name: (
+  - uid: CoverageKiller2.DOM.Tables.GridCrawler5
+    name: GridCrawler5
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.GridCrawler5.html
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: CoverageKiller2.Logging.PingService.PingPong``1(CoverageKiller2.DOM.Tables.GridCrawler5,System.String)
+    name: PingPong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_PingPong__1___0_System_String_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: CoverageKiller2.DOM.Tables.GridCrawler5
+    name: GridCrawler5
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.GridCrawler5.html
+  - name: )
+  - name: (
+  - uid: CoverageKiller2.DOM.Tables.GridCrawler5
+    name: GridCrawler5
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.GridCrawler5.html
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: CoverageKiller2.DOM.Tables.GridCrawler5.CoverageKiller2.Logging.PingService.PingPong``1(System.String,System.String)
+  commentId: M:CoverageKiller2.Logging.PingService.PingPong``1(``0,System.String,System.String)
+  parent: CoverageKiller2.Logging.PingService
+  definition: CoverageKiller2.Logging.PingService.PingPong``1(``0,System.String,System.String)
+  href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_PingPong__1___0_System_String_System_String_
+  name: PingPong<GridCrawler5>(GridCrawler5, string, string)
+  nameWithType: PingService.PingPong<GridCrawler5>(GridCrawler5, string, string)
+  fullName: CoverageKiller2.Logging.PingService.PingPong<CoverageKiller2.DOM.Tables.GridCrawler5>(CoverageKiller2.DOM.Tables.GridCrawler5, string, string)
+  nameWithType.vb: PingService.PingPong(Of GridCrawler5)(GridCrawler5, String, String)
+  fullName.vb: CoverageKiller2.Logging.PingService.PingPong(Of CoverageKiller2.DOM.Tables.GridCrawler5)(CoverageKiller2.DOM.Tables.GridCrawler5, String, String)
+  name.vb: PingPong(Of GridCrawler5)(GridCrawler5, String, String)
+  spec.csharp:
+  - uid: CoverageKiller2.Logging.PingService.PingPong``1(CoverageKiller2.DOM.Tables.GridCrawler5,System.String,System.String)
+    name: PingPong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_PingPong__1___0_System_String_System_String_
+  - name: <
+  - uid: CoverageKiller2.DOM.Tables.GridCrawler5
+    name: GridCrawler5
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.GridCrawler5.html
+  - name: '>'
+  - name: (
+  - uid: CoverageKiller2.DOM.Tables.GridCrawler5
+    name: GridCrawler5
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.GridCrawler5.html
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: CoverageKiller2.Logging.PingService.PingPong``1(CoverageKiller2.DOM.Tables.GridCrawler5,System.String,System.String)
+    name: PingPong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_PingPong__1___0_System_String_System_String_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: CoverageKiller2.DOM.Tables.GridCrawler5
+    name: GridCrawler5
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.GridCrawler5.html
+  - name: )
+  - name: (
+  - uid: CoverageKiller2.DOM.Tables.GridCrawler5
+    name: GridCrawler5
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.GridCrawler5.html
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: CoverageKiller2.DOM.Tables.GridCrawler5.CoverageKiller2.Logging.PingService.PingPong``2(System.Func{{TResult}},System.String,System.String)
+  commentId: M:CoverageKiller2.Logging.PingService.PingPong``2(``0,System.Func{``1},System.String,System.String)
+  parent: CoverageKiller2.Logging.PingService
+  definition: CoverageKiller2.Logging.PingService.PingPong``2(``0,System.Func{``1},System.String,System.String)
+  href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_PingPong__2___0_System_Func___1__System_String_System_String_
+  name: PingPong<GridCrawler5, TResult>(GridCrawler5, Func<TResult>, string, string)
+  nameWithType: PingService.PingPong<GridCrawler5, TResult>(GridCrawler5, Func<TResult>, string, string)
+  fullName: CoverageKiller2.Logging.PingService.PingPong<CoverageKiller2.DOM.Tables.GridCrawler5, TResult>(CoverageKiller2.DOM.Tables.GridCrawler5, System.Func<TResult>, string, string)
+  nameWithType.vb: PingService.PingPong(Of GridCrawler5, TResult)(GridCrawler5, Func(Of TResult), String, String)
+  fullName.vb: CoverageKiller2.Logging.PingService.PingPong(Of CoverageKiller2.DOM.Tables.GridCrawler5, TResult)(CoverageKiller2.DOM.Tables.GridCrawler5, System.Func(Of TResult), String, String)
+  name.vb: PingPong(Of GridCrawler5, TResult)(GridCrawler5, Func(Of TResult), String, String)
+  spec.csharp:
+  - uid: CoverageKiller2.Logging.PingService.PingPong``2(CoverageKiller2.DOM.Tables.GridCrawler5,System.Func{``1},System.String,System.String)
+    name: PingPong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_PingPong__2___0_System_Func___1__System_String_System_String_
+  - name: <
+  - uid: CoverageKiller2.DOM.Tables.GridCrawler5
+    name: GridCrawler5
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.GridCrawler5.html
+  - name: ','
+  - name: " "
+  - name: TResult
+  - name: '>'
+  - name: (
+  - uid: CoverageKiller2.DOM.Tables.GridCrawler5
+    name: GridCrawler5
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.GridCrawler5.html
+  - name: ','
+  - name: " "
+  - uid: System.Func`1
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-1
+  - name: <
+  - name: TResult
+  - name: '>'
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: CoverageKiller2.Logging.PingService.PingPong``2(CoverageKiller2.DOM.Tables.GridCrawler5,System.Func{``1},System.String,System.String)
+    name: PingPong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_PingPong__2___0_System_Func___1__System_String_System_String_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: CoverageKiller2.DOM.Tables.GridCrawler5
+    name: GridCrawler5
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.GridCrawler5.html
+  - name: ','
+  - name: " "
+  - name: TResult
+  - name: )
+  - name: (
+  - uid: CoverageKiller2.DOM.Tables.GridCrawler5
+    name: GridCrawler5
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.GridCrawler5.html
+  - name: ','
+  - name: " "
+  - uid: System.Func`1
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TResult
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: CoverageKiller2.DOM.Tables.GridCrawler5.CoverageKiller2.Logging.PingService.Ping``1(System.String)
+  commentId: M:CoverageKiller2.Logging.PingService.Ping``1(``0,System.String)
+  parent: CoverageKiller2.Logging.PingService
+  definition: CoverageKiller2.Logging.PingService.Ping``1(``0,System.String)
+  href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Ping__1___0_System_String_
+  name: Ping<GridCrawler5>(GridCrawler5, string)
+  nameWithType: PingService.Ping<GridCrawler5>(GridCrawler5, string)
+  fullName: CoverageKiller2.Logging.PingService.Ping<CoverageKiller2.DOM.Tables.GridCrawler5>(CoverageKiller2.DOM.Tables.GridCrawler5, string)
+  nameWithType.vb: PingService.Ping(Of GridCrawler5)(GridCrawler5, String)
+  fullName.vb: CoverageKiller2.Logging.PingService.Ping(Of CoverageKiller2.DOM.Tables.GridCrawler5)(CoverageKiller2.DOM.Tables.GridCrawler5, String)
+  name.vb: Ping(Of GridCrawler5)(GridCrawler5, String)
+  spec.csharp:
+  - uid: CoverageKiller2.Logging.PingService.Ping``1(CoverageKiller2.DOM.Tables.GridCrawler5,System.String)
+    name: Ping
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Ping__1___0_System_String_
+  - name: <
+  - uid: CoverageKiller2.DOM.Tables.GridCrawler5
+    name: GridCrawler5
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.GridCrawler5.html
+  - name: '>'
+  - name: (
+  - uid: CoverageKiller2.DOM.Tables.GridCrawler5
+    name: GridCrawler5
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.GridCrawler5.html
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: CoverageKiller2.Logging.PingService.Ping``1(CoverageKiller2.DOM.Tables.GridCrawler5,System.String)
+    name: Ping
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Ping__1___0_System_String_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: CoverageKiller2.DOM.Tables.GridCrawler5
+    name: GridCrawler5
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.GridCrawler5.html
+  - name: )
+  - name: (
+  - uid: CoverageKiller2.DOM.Tables.GridCrawler5
+    name: GridCrawler5
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.GridCrawler5.html
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: CoverageKiller2.DOM.Tables.GridCrawler5.CoverageKiller2.Logging.PingService.Ping``1(System.String,System.String)
+  commentId: M:CoverageKiller2.Logging.PingService.Ping``1(``0,System.String,System.String)
+  parent: CoverageKiller2.Logging.PingService
+  definition: CoverageKiller2.Logging.PingService.Ping``1(``0,System.String,System.String)
+  href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Ping__1___0_System_String_System_String_
+  name: Ping<GridCrawler5>(GridCrawler5, string, string)
+  nameWithType: PingService.Ping<GridCrawler5>(GridCrawler5, string, string)
+  fullName: CoverageKiller2.Logging.PingService.Ping<CoverageKiller2.DOM.Tables.GridCrawler5>(CoverageKiller2.DOM.Tables.GridCrawler5, string, string)
+  nameWithType.vb: PingService.Ping(Of GridCrawler5)(GridCrawler5, String, String)
+  fullName.vb: CoverageKiller2.Logging.PingService.Ping(Of CoverageKiller2.DOM.Tables.GridCrawler5)(CoverageKiller2.DOM.Tables.GridCrawler5, String, String)
+  name.vb: Ping(Of GridCrawler5)(GridCrawler5, String, String)
+  spec.csharp:
+  - uid: CoverageKiller2.Logging.PingService.Ping``1(CoverageKiller2.DOM.Tables.GridCrawler5,System.String,System.String)
+    name: Ping
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Ping__1___0_System_String_System_String_
+  - name: <
+  - uid: CoverageKiller2.DOM.Tables.GridCrawler5
+    name: GridCrawler5
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.GridCrawler5.html
+  - name: '>'
+  - name: (
+  - uid: CoverageKiller2.DOM.Tables.GridCrawler5
+    name: GridCrawler5
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.GridCrawler5.html
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: CoverageKiller2.Logging.PingService.Ping``1(CoverageKiller2.DOM.Tables.GridCrawler5,System.String,System.String)
+    name: Ping
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Ping__1___0_System_String_System_String_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: CoverageKiller2.DOM.Tables.GridCrawler5
+    name: GridCrawler5
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.GridCrawler5.html
+  - name: )
+  - name: (
+  - uid: CoverageKiller2.DOM.Tables.GridCrawler5
+    name: GridCrawler5
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.GridCrawler5.html
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: CoverageKiller2.DOM.Tables.GridCrawler5.CoverageKiller2.Logging.PingService.Ping``1(System.Type[],System.String)
+  commentId: M:CoverageKiller2.Logging.PingService.Ping``1(``0,System.Type[],System.String)
+  parent: CoverageKiller2.Logging.PingService
+  definition: CoverageKiller2.Logging.PingService.Ping``1(``0,System.Type[],System.String)
+  href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Ping__1___0_System_Type___System_String_
+  name: Ping<GridCrawler5>(GridCrawler5, Type[], string)
+  nameWithType: PingService.Ping<GridCrawler5>(GridCrawler5, Type[], string)
+  fullName: CoverageKiller2.Logging.PingService.Ping<CoverageKiller2.DOM.Tables.GridCrawler5>(CoverageKiller2.DOM.Tables.GridCrawler5, System.Type[], string)
+  nameWithType.vb: PingService.Ping(Of GridCrawler5)(GridCrawler5, Type(), String)
+  fullName.vb: CoverageKiller2.Logging.PingService.Ping(Of CoverageKiller2.DOM.Tables.GridCrawler5)(CoverageKiller2.DOM.Tables.GridCrawler5, System.Type(), String)
+  name.vb: Ping(Of GridCrawler5)(GridCrawler5, Type(), String)
+  spec.csharp:
+  - uid: CoverageKiller2.Logging.PingService.Ping``1(CoverageKiller2.DOM.Tables.GridCrawler5,System.Type[],System.String)
+    name: Ping
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Ping__1___0_System_Type___System_String_
+  - name: <
+  - uid: CoverageKiller2.DOM.Tables.GridCrawler5
+    name: GridCrawler5
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.GridCrawler5.html
+  - name: '>'
+  - name: (
+  - uid: CoverageKiller2.DOM.Tables.GridCrawler5
+    name: GridCrawler5
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.GridCrawler5.html
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: '['
+  - name: ']'
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: CoverageKiller2.Logging.PingService.Ping``1(CoverageKiller2.DOM.Tables.GridCrawler5,System.Type[],System.String)
+    name: Ping
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Ping__1___0_System_Type___System_String_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: CoverageKiller2.DOM.Tables.GridCrawler5
+    name: GridCrawler5
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.GridCrawler5.html
+  - name: )
+  - name: (
+  - uid: CoverageKiller2.DOM.Tables.GridCrawler5
+    name: GridCrawler5
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.GridCrawler5.html
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: (
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: CoverageKiller2.DOM.Tables.GridCrawler5.CoverageKiller2.Logging.PingService.Pong``1(System.String)
+  commentId: M:CoverageKiller2.Logging.PingService.Pong``1(``0,System.String)
+  parent: CoverageKiller2.Logging.PingService
+  definition: CoverageKiller2.Logging.PingService.Pong``1(``0,System.String)
+  href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1___0_System_String_
+  name: Pong<GridCrawler5>(GridCrawler5, string)
+  nameWithType: PingService.Pong<GridCrawler5>(GridCrawler5, string)
+  fullName: CoverageKiller2.Logging.PingService.Pong<CoverageKiller2.DOM.Tables.GridCrawler5>(CoverageKiller2.DOM.Tables.GridCrawler5, string)
+  nameWithType.vb: PingService.Pong(Of GridCrawler5)(GridCrawler5, String)
+  fullName.vb: CoverageKiller2.Logging.PingService.Pong(Of CoverageKiller2.DOM.Tables.GridCrawler5)(CoverageKiller2.DOM.Tables.GridCrawler5, String)
+  name.vb: Pong(Of GridCrawler5)(GridCrawler5, String)
+  spec.csharp:
+  - uid: CoverageKiller2.Logging.PingService.Pong``1(CoverageKiller2.DOM.Tables.GridCrawler5,System.String)
+    name: Pong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1___0_System_String_
+  - name: <
+  - uid: CoverageKiller2.DOM.Tables.GridCrawler5
+    name: GridCrawler5
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.GridCrawler5.html
+  - name: '>'
+  - name: (
+  - uid: CoverageKiller2.DOM.Tables.GridCrawler5
+    name: GridCrawler5
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.GridCrawler5.html
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: CoverageKiller2.Logging.PingService.Pong``1(CoverageKiller2.DOM.Tables.GridCrawler5,System.String)
+    name: Pong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1___0_System_String_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: CoverageKiller2.DOM.Tables.GridCrawler5
+    name: GridCrawler5
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.GridCrawler5.html
+  - name: )
+  - name: (
+  - uid: CoverageKiller2.DOM.Tables.GridCrawler5
+    name: GridCrawler5
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.GridCrawler5.html
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: CoverageKiller2.DOM.Tables.GridCrawler5.CoverageKiller2.Logging.PingService.Pong``1(System.String,System.String)
+  commentId: M:CoverageKiller2.Logging.PingService.Pong``1(``0,System.String,System.String)
+  parent: CoverageKiller2.Logging.PingService
+  definition: CoverageKiller2.Logging.PingService.Pong``1(``0,System.String,System.String)
+  href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1___0_System_String_System_String_
+  name: Pong<GridCrawler5>(GridCrawler5, string, string)
+  nameWithType: PingService.Pong<GridCrawler5>(GridCrawler5, string, string)
+  fullName: CoverageKiller2.Logging.PingService.Pong<CoverageKiller2.DOM.Tables.GridCrawler5>(CoverageKiller2.DOM.Tables.GridCrawler5, string, string)
+  nameWithType.vb: PingService.Pong(Of GridCrawler5)(GridCrawler5, String, String)
+  fullName.vb: CoverageKiller2.Logging.PingService.Pong(Of CoverageKiller2.DOM.Tables.GridCrawler5)(CoverageKiller2.DOM.Tables.GridCrawler5, String, String)
+  name.vb: Pong(Of GridCrawler5)(GridCrawler5, String, String)
+  spec.csharp:
+  - uid: CoverageKiller2.Logging.PingService.Pong``1(CoverageKiller2.DOM.Tables.GridCrawler5,System.String,System.String)
+    name: Pong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1___0_System_String_System_String_
+  - name: <
+  - uid: CoverageKiller2.DOM.Tables.GridCrawler5
+    name: GridCrawler5
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.GridCrawler5.html
+  - name: '>'
+  - name: (
+  - uid: CoverageKiller2.DOM.Tables.GridCrawler5
+    name: GridCrawler5
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.GridCrawler5.html
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: CoverageKiller2.Logging.PingService.Pong``1(CoverageKiller2.DOM.Tables.GridCrawler5,System.String,System.String)
+    name: Pong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1___0_System_String_System_String_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: CoverageKiller2.DOM.Tables.GridCrawler5
+    name: GridCrawler5
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.GridCrawler5.html
+  - name: )
+  - name: (
+  - uid: CoverageKiller2.DOM.Tables.GridCrawler5
+    name: GridCrawler5
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.GridCrawler5.html
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: CoverageKiller2.DOM.Tables.GridCrawler5.CoverageKiller2.Logging.PingService.Pong``1(System.Type,System.String)
+  commentId: M:CoverageKiller2.Logging.PingService.Pong``1(``0,System.Type,System.String)
+  parent: CoverageKiller2.Logging.PingService
+  definition: CoverageKiller2.Logging.PingService.Pong``1(``0,System.Type,System.String)
+  href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1___0_System_Type_System_String_
+  name: Pong<GridCrawler5>(GridCrawler5, Type, string)
+  nameWithType: PingService.Pong<GridCrawler5>(GridCrawler5, Type, string)
+  fullName: CoverageKiller2.Logging.PingService.Pong<CoverageKiller2.DOM.Tables.GridCrawler5>(CoverageKiller2.DOM.Tables.GridCrawler5, System.Type, string)
+  nameWithType.vb: PingService.Pong(Of GridCrawler5)(GridCrawler5, Type, String)
+  fullName.vb: CoverageKiller2.Logging.PingService.Pong(Of CoverageKiller2.DOM.Tables.GridCrawler5)(CoverageKiller2.DOM.Tables.GridCrawler5, System.Type, String)
+  name.vb: Pong(Of GridCrawler5)(GridCrawler5, Type, String)
+  spec.csharp:
+  - uid: CoverageKiller2.Logging.PingService.Pong``1(CoverageKiller2.DOM.Tables.GridCrawler5,System.Type,System.String)
+    name: Pong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1___0_System_Type_System_String_
+  - name: <
+  - uid: CoverageKiller2.DOM.Tables.GridCrawler5
+    name: GridCrawler5
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.GridCrawler5.html
+  - name: '>'
+  - name: (
+  - uid: CoverageKiller2.DOM.Tables.GridCrawler5
+    name: GridCrawler5
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.GridCrawler5.html
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: CoverageKiller2.Logging.PingService.Pong``1(CoverageKiller2.DOM.Tables.GridCrawler5,System.Type,System.String)
+    name: Pong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1___0_System_Type_System_String_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: CoverageKiller2.DOM.Tables.GridCrawler5
+    name: GridCrawler5
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.GridCrawler5.html
+  - name: )
+  - name: (
+  - uid: CoverageKiller2.DOM.Tables.GridCrawler5
+    name: GridCrawler5
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.GridCrawler5.html
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: CoverageKiller2.DOM.Tables.GridCrawler5.CoverageKiller2.Logging.PingService.Pong``1(System.Type[],System.String)
+  commentId: M:CoverageKiller2.Logging.PingService.Pong``1(``0,System.Type[],System.String)
+  parent: CoverageKiller2.Logging.PingService
+  definition: CoverageKiller2.Logging.PingService.Pong``1(``0,System.Type[],System.String)
+  href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1___0_System_Type___System_String_
+  name: Pong<GridCrawler5>(GridCrawler5, Type[], string)
+  nameWithType: PingService.Pong<GridCrawler5>(GridCrawler5, Type[], string)
+  fullName: CoverageKiller2.Logging.PingService.Pong<CoverageKiller2.DOM.Tables.GridCrawler5>(CoverageKiller2.DOM.Tables.GridCrawler5, System.Type[], string)
+  nameWithType.vb: PingService.Pong(Of GridCrawler5)(GridCrawler5, Type(), String)
+  fullName.vb: CoverageKiller2.Logging.PingService.Pong(Of CoverageKiller2.DOM.Tables.GridCrawler5)(CoverageKiller2.DOM.Tables.GridCrawler5, System.Type(), String)
+  name.vb: Pong(Of GridCrawler5)(GridCrawler5, Type(), String)
+  spec.csharp:
+  - uid: CoverageKiller2.Logging.PingService.Pong``1(CoverageKiller2.DOM.Tables.GridCrawler5,System.Type[],System.String)
+    name: Pong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1___0_System_Type___System_String_
+  - name: <
+  - uid: CoverageKiller2.DOM.Tables.GridCrawler5
+    name: GridCrawler5
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.GridCrawler5.html
+  - name: '>'
+  - name: (
+  - uid: CoverageKiller2.DOM.Tables.GridCrawler5
+    name: GridCrawler5
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.GridCrawler5.html
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: '['
+  - name: ']'
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: CoverageKiller2.Logging.PingService.Pong``1(CoverageKiller2.DOM.Tables.GridCrawler5,System.Type[],System.String)
+    name: Pong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1___0_System_Type___System_String_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: CoverageKiller2.DOM.Tables.GridCrawler5
+    name: GridCrawler5
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.GridCrawler5.html
+  - name: )
+  - name: (
+  - uid: CoverageKiller2.DOM.Tables.GridCrawler5
+    name: GridCrawler5
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.GridCrawler5.html
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: (
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: CoverageKiller2.DOM.Tables.GridCrawler5.CoverageKiller2.Logging.PingService.Pong``2(System.Func{{TResult}},System.String,System.String)
+  commentId: M:CoverageKiller2.Logging.PingService.Pong``2(``0,System.Func{``1},System.String,System.String)
+  parent: CoverageKiller2.Logging.PingService
+  definition: CoverageKiller2.Logging.PingService.Pong``2(``0,System.Func{``1},System.String,System.String)
+  href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__2___0_System_Func___1__System_String_System_String_
+  name: Pong<GridCrawler5, TResult>(GridCrawler5, Func<TResult>, string, string)
+  nameWithType: PingService.Pong<GridCrawler5, TResult>(GridCrawler5, Func<TResult>, string, string)
+  fullName: CoverageKiller2.Logging.PingService.Pong<CoverageKiller2.DOM.Tables.GridCrawler5, TResult>(CoverageKiller2.DOM.Tables.GridCrawler5, System.Func<TResult>, string, string)
+  nameWithType.vb: PingService.Pong(Of GridCrawler5, TResult)(GridCrawler5, Func(Of TResult), String, String)
+  fullName.vb: CoverageKiller2.Logging.PingService.Pong(Of CoverageKiller2.DOM.Tables.GridCrawler5, TResult)(CoverageKiller2.DOM.Tables.GridCrawler5, System.Func(Of TResult), String, String)
+  name.vb: Pong(Of GridCrawler5, TResult)(GridCrawler5, Func(Of TResult), String, String)
+  spec.csharp:
+  - uid: CoverageKiller2.Logging.PingService.Pong``2(CoverageKiller2.DOM.Tables.GridCrawler5,System.Func{``1},System.String,System.String)
+    name: Pong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__2___0_System_Func___1__System_String_System_String_
+  - name: <
+  - uid: CoverageKiller2.DOM.Tables.GridCrawler5
+    name: GridCrawler5
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.GridCrawler5.html
+  - name: ','
+  - name: " "
+  - name: TResult
+  - name: '>'
+  - name: (
+  - uid: CoverageKiller2.DOM.Tables.GridCrawler5
+    name: GridCrawler5
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.GridCrawler5.html
+  - name: ','
+  - name: " "
+  - uid: System.Func`1
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-1
+  - name: <
+  - name: TResult
+  - name: '>'
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: CoverageKiller2.Logging.PingService.Pong``2(CoverageKiller2.DOM.Tables.GridCrawler5,System.Func{``1},System.String,System.String)
+    name: Pong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__2___0_System_Func___1__System_String_System_String_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: CoverageKiller2.DOM.Tables.GridCrawler5
+    name: GridCrawler5
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.GridCrawler5.html
+  - name: ','
+  - name: " "
+  - name: TResult
+  - name: )
+  - name: (
+  - uid: CoverageKiller2.DOM.Tables.GridCrawler5
+    name: GridCrawler5
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.GridCrawler5.html
+  - name: ','
+  - name: " "
+  - uid: System.Func`1
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TResult
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: CoverageKiller2.Logging.PingService.PingPong``1(``0,System.String)
+  commentId: M:CoverageKiller2.Logging.PingService.PingPong``1(``0,System.String)
+  isExternal: true
+  href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_PingPong__1___0_System_String_
+  name: PingPong<T>(T, string)
+  nameWithType: PingService.PingPong<T>(T, string)
+  fullName: CoverageKiller2.Logging.PingService.PingPong<T>(T, string)
+  nameWithType.vb: PingService.PingPong(Of T)(T, String)
+  fullName.vb: CoverageKiller2.Logging.PingService.PingPong(Of T)(T, String)
+  name.vb: PingPong(Of T)(T, String)
+  spec.csharp:
+  - uid: CoverageKiller2.Logging.PingService.PingPong``1(``0,System.String)
+    name: PingPong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_PingPong__1___0_System_String_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: CoverageKiller2.Logging.PingService.PingPong``1(``0,System.String)
+    name: PingPong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_PingPong__1___0_System_String_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: CoverageKiller2.Logging.PingService
+  commentId: T:CoverageKiller2.Logging.PingService
+  parent: CoverageKiller2.Logging
+  isExternal: true
+  href: CoverageKiller2.Logging.PingService.html
+  name: PingService
+  nameWithType: PingService
+  fullName: CoverageKiller2.Logging.PingService
+- uid: CoverageKiller2.Logging.PingService.PingPong``1(``0,System.String,System.String)
+  commentId: M:CoverageKiller2.Logging.PingService.PingPong``1(``0,System.String,System.String)
+  isExternal: true
+  href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_PingPong__1___0_System_String_System_String_
+  name: PingPong<T>(T, string, string)
+  nameWithType: PingService.PingPong<T>(T, string, string)
+  fullName: CoverageKiller2.Logging.PingService.PingPong<T>(T, string, string)
+  nameWithType.vb: PingService.PingPong(Of T)(T, String, String)
+  fullName.vb: CoverageKiller2.Logging.PingService.PingPong(Of T)(T, String, String)
+  name.vb: PingPong(Of T)(T, String, String)
+  spec.csharp:
+  - uid: CoverageKiller2.Logging.PingService.PingPong``1(``0,System.String,System.String)
+    name: PingPong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_PingPong__1___0_System_String_System_String_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: CoverageKiller2.Logging.PingService.PingPong``1(``0,System.String,System.String)
+    name: PingPong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_PingPong__1___0_System_String_System_String_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: CoverageKiller2.Logging.PingService.PingPong``2(``0,System.Func{``1},System.String,System.String)
+  commentId: M:CoverageKiller2.Logging.PingService.PingPong``2(``0,System.Func{``1},System.String,System.String)
+  isExternal: true
+  href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_PingPong__2___0_System_Func___1__System_String_System_String_
+  name: PingPong<T, TResult>(T, Func<TResult>, string, string)
+  nameWithType: PingService.PingPong<T, TResult>(T, Func<TResult>, string, string)
+  fullName: CoverageKiller2.Logging.PingService.PingPong<T, TResult>(T, System.Func<TResult>, string, string)
+  nameWithType.vb: PingService.PingPong(Of T, TResult)(T, Func(Of TResult), String, String)
+  fullName.vb: CoverageKiller2.Logging.PingService.PingPong(Of T, TResult)(T, System.Func(Of TResult), String, String)
+  name.vb: PingPong(Of T, TResult)(T, Func(Of TResult), String, String)
+  spec.csharp:
+  - uid: CoverageKiller2.Logging.PingService.PingPong``2(``0,System.Func{``1},System.String,System.String)
+    name: PingPong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_PingPong__2___0_System_Func___1__System_String_System_String_
+  - name: <
+  - name: T
+  - name: ','
+  - name: " "
+  - name: TResult
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Func`1
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-1
+  - name: <
+  - name: TResult
+  - name: '>'
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: CoverageKiller2.Logging.PingService.PingPong``2(``0,System.Func{``1},System.String,System.String)
+    name: PingPong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_PingPong__2___0_System_Func___1__System_String_System_String_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - name: TResult
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Func`1
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TResult
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: CoverageKiller2.Logging.PingService.Ping``1(``0,System.String)
+  commentId: M:CoverageKiller2.Logging.PingService.Ping``1(``0,System.String)
+  isExternal: true
+  href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Ping__1___0_System_String_
+  name: Ping<T>(T, string)
+  nameWithType: PingService.Ping<T>(T, string)
+  fullName: CoverageKiller2.Logging.PingService.Ping<T>(T, string)
+  nameWithType.vb: PingService.Ping(Of T)(T, String)
+  fullName.vb: CoverageKiller2.Logging.PingService.Ping(Of T)(T, String)
+  name.vb: Ping(Of T)(T, String)
+  spec.csharp:
+  - uid: CoverageKiller2.Logging.PingService.Ping``1(``0,System.String)
+    name: Ping
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Ping__1___0_System_String_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: CoverageKiller2.Logging.PingService.Ping``1(``0,System.String)
+    name: Ping
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Ping__1___0_System_String_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: CoverageKiller2.Logging.PingService.Ping``1(``0,System.String,System.String)
+  commentId: M:CoverageKiller2.Logging.PingService.Ping``1(``0,System.String,System.String)
+  isExternal: true
+  href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Ping__1___0_System_String_System_String_
+  name: Ping<T>(T, string, string)
+  nameWithType: PingService.Ping<T>(T, string, string)
+  fullName: CoverageKiller2.Logging.PingService.Ping<T>(T, string, string)
+  nameWithType.vb: PingService.Ping(Of T)(T, String, String)
+  fullName.vb: CoverageKiller2.Logging.PingService.Ping(Of T)(T, String, String)
+  name.vb: Ping(Of T)(T, String, String)
+  spec.csharp:
+  - uid: CoverageKiller2.Logging.PingService.Ping``1(``0,System.String,System.String)
+    name: Ping
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Ping__1___0_System_String_System_String_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: CoverageKiller2.Logging.PingService.Ping``1(``0,System.String,System.String)
+    name: Ping
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Ping__1___0_System_String_System_String_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: CoverageKiller2.Logging.PingService.Ping``1(``0,System.Type[],System.String)
+  commentId: M:CoverageKiller2.Logging.PingService.Ping``1(``0,System.Type[],System.String)
+  isExternal: true
+  href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Ping__1___0_System_Type___System_String_
+  name: Ping<T>(T, Type[], string)
+  nameWithType: PingService.Ping<T>(T, Type[], string)
+  fullName: CoverageKiller2.Logging.PingService.Ping<T>(T, System.Type[], string)
+  nameWithType.vb: PingService.Ping(Of T)(T, Type(), String)
+  fullName.vb: CoverageKiller2.Logging.PingService.Ping(Of T)(T, System.Type(), String)
+  name.vb: Ping(Of T)(T, Type(), String)
+  spec.csharp:
+  - uid: CoverageKiller2.Logging.PingService.Ping``1(``0,System.Type[],System.String)
+    name: Ping
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Ping__1___0_System_Type___System_String_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: '['
+  - name: ']'
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: CoverageKiller2.Logging.PingService.Ping``1(``0,System.Type[],System.String)
+    name: Ping
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Ping__1___0_System_Type___System_String_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: (
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: CoverageKiller2.Logging.PingService.Pong``1(``0,System.String)
+  commentId: M:CoverageKiller2.Logging.PingService.Pong``1(``0,System.String)
+  isExternal: true
+  href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1___0_System_String_
+  name: Pong<T>(T, string)
+  nameWithType: PingService.Pong<T>(T, string)
+  fullName: CoverageKiller2.Logging.PingService.Pong<T>(T, string)
+  nameWithType.vb: PingService.Pong(Of T)(T, String)
+  fullName.vb: CoverageKiller2.Logging.PingService.Pong(Of T)(T, String)
+  name.vb: Pong(Of T)(T, String)
+  spec.csharp:
+  - uid: CoverageKiller2.Logging.PingService.Pong``1(``0,System.String)
+    name: Pong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1___0_System_String_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: CoverageKiller2.Logging.PingService.Pong``1(``0,System.String)
+    name: Pong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1___0_System_String_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: CoverageKiller2.Logging.PingService.Pong``1(``0,System.String,System.String)
+  commentId: M:CoverageKiller2.Logging.PingService.Pong``1(``0,System.String,System.String)
+  isExternal: true
+  href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1___0_System_String_System_String_
+  name: Pong<T>(T, string, string)
+  nameWithType: PingService.Pong<T>(T, string, string)
+  fullName: CoverageKiller2.Logging.PingService.Pong<T>(T, string, string)
+  nameWithType.vb: PingService.Pong(Of T)(T, String, String)
+  fullName.vb: CoverageKiller2.Logging.PingService.Pong(Of T)(T, String, String)
+  name.vb: Pong(Of T)(T, String, String)
+  spec.csharp:
+  - uid: CoverageKiller2.Logging.PingService.Pong``1(``0,System.String,System.String)
+    name: Pong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1___0_System_String_System_String_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: CoverageKiller2.Logging.PingService.Pong``1(``0,System.String,System.String)
+    name: Pong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1___0_System_String_System_String_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: CoverageKiller2.Logging.PingService.Pong``1(``0,System.Type,System.String)
+  commentId: M:CoverageKiller2.Logging.PingService.Pong``1(``0,System.Type,System.String)
+  isExternal: true
+  href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1___0_System_Type_System_String_
+  name: Pong<T>(T, Type, string)
+  nameWithType: PingService.Pong<T>(T, Type, string)
+  fullName: CoverageKiller2.Logging.PingService.Pong<T>(T, System.Type, string)
+  nameWithType.vb: PingService.Pong(Of T)(T, Type, String)
+  fullName.vb: CoverageKiller2.Logging.PingService.Pong(Of T)(T, System.Type, String)
+  name.vb: Pong(Of T)(T, Type, String)
+  spec.csharp:
+  - uid: CoverageKiller2.Logging.PingService.Pong``1(``0,System.Type,System.String)
+    name: Pong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1___0_System_Type_System_String_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: CoverageKiller2.Logging.PingService.Pong``1(``0,System.Type,System.String)
+    name: Pong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1___0_System_Type_System_String_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: CoverageKiller2.Logging.PingService.Pong``1(``0,System.Type[],System.String)
+  commentId: M:CoverageKiller2.Logging.PingService.Pong``1(``0,System.Type[],System.String)
+  isExternal: true
+  href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1___0_System_Type___System_String_
+  name: Pong<T>(T, Type[], string)
+  nameWithType: PingService.Pong<T>(T, Type[], string)
+  fullName: CoverageKiller2.Logging.PingService.Pong<T>(T, System.Type[], string)
+  nameWithType.vb: PingService.Pong(Of T)(T, Type(), String)
+  fullName.vb: CoverageKiller2.Logging.PingService.Pong(Of T)(T, System.Type(), String)
+  name.vb: Pong(Of T)(T, Type(), String)
+  spec.csharp:
+  - uid: CoverageKiller2.Logging.PingService.Pong``1(``0,System.Type[],System.String)
+    name: Pong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1___0_System_Type___System_String_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: '['
+  - name: ']'
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: CoverageKiller2.Logging.PingService.Pong``1(``0,System.Type[],System.String)
+    name: Pong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1___0_System_Type___System_String_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: (
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: CoverageKiller2.Logging.PingService.Pong``2(``0,System.Func{``1},System.String,System.String)
+  commentId: M:CoverageKiller2.Logging.PingService.Pong``2(``0,System.Func{``1},System.String,System.String)
+  isExternal: true
+  href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__2___0_System_Func___1__System_String_System_String_
+  name: Pong<T, TResult>(T, Func<TResult>, string, string)
+  nameWithType: PingService.Pong<T, TResult>(T, Func<TResult>, string, string)
+  fullName: CoverageKiller2.Logging.PingService.Pong<T, TResult>(T, System.Func<TResult>, string, string)
+  nameWithType.vb: PingService.Pong(Of T, TResult)(T, Func(Of TResult), String, String)
+  fullName.vb: CoverageKiller2.Logging.PingService.Pong(Of T, TResult)(T, System.Func(Of TResult), String, String)
+  name.vb: Pong(Of T, TResult)(T, Func(Of TResult), String, String)
+  spec.csharp:
+  - uid: CoverageKiller2.Logging.PingService.Pong``2(``0,System.Func{``1},System.String,System.String)
+    name: Pong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__2___0_System_Func___1__System_String_System_String_
+  - name: <
+  - name: T
+  - name: ','
+  - name: " "
+  - name: TResult
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Func`1
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-1
+  - name: <
+  - name: TResult
+  - name: '>'
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: CoverageKiller2.Logging.PingService.Pong``2(``0,System.Func{``1},System.String,System.String)
+    name: Pong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__2___0_System_Func___1__System_String_System_String_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - name: TResult
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Func`1
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TResult
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: CoverageKiller2.Logging
+  commentId: N:CoverageKiller2.Logging
+  isExternal: true
+  href: CoverageKiller2.html
+  name: CoverageKiller2.Logging
+  nameWithType: CoverageKiller2.Logging
+  fullName: CoverageKiller2.Logging
+  spec.csharp:
+  - uid: CoverageKiller2
+    name: CoverageKiller2
+    isExternal: true
+    href: CoverageKiller2.html
+  - name: .
+  - uid: CoverageKiller2.Logging
+    name: Logging
+    isExternal: true
+    href: CoverageKiller2.Logging.html
+  spec.vb:
+  - uid: CoverageKiller2
+    name: CoverageKiller2
+    isExternal: true
+    href: CoverageKiller2.html
+  - name: .
+  - uid: CoverageKiller2.Logging
+    name: Logging
+    isExternal: true
+    href: CoverageKiller2.Logging.html
+- uid: CoverageKiller2.DOM.Tables.GridCrawler5.DumpGrid*
+  commentId: Overload:CoverageKiller2.DOM.Tables.GridCrawler5.DumpGrid
+  isExternal: true
+  href: CoverageKiller2.DOM.Tables.GridCrawler5.html#CoverageKiller2_DOM_Tables_GridCrawler5_DumpGrid_CoverageKiller2_DOM_Tables_Base1JaggedList_CoverageKiller2_DOM_Tables_GridCell5__System_String_
+  name: DumpGrid
+  nameWithType: GridCrawler5.DumpGrid
+  fullName: CoverageKiller2.DOM.Tables.GridCrawler5.DumpGrid
+- uid: CoverageKiller2.DOM.Tables.Base1JaggedList{CoverageKiller2.DOM.Tables.GridCell5}
+  commentId: T:CoverageKiller2.DOM.Tables.Base1JaggedList{CoverageKiller2.DOM.Tables.GridCell5}
+  parent: CoverageKiller2.DOM.Tables
+  definition: CoverageKiller2.DOM.Tables.Base1JaggedList`1
+  href: CoverageKiller2.DOM.Tables.Base1JaggedList-1.html
+  name: Base1JaggedList<GridCell5>
+  nameWithType: Base1JaggedList<GridCell5>
+  fullName: CoverageKiller2.DOM.Tables.Base1JaggedList<CoverageKiller2.DOM.Tables.GridCell5>
+  nameWithType.vb: Base1JaggedList(Of GridCell5)
+  fullName.vb: CoverageKiller2.DOM.Tables.Base1JaggedList(Of CoverageKiller2.DOM.Tables.GridCell5)
+  name.vb: Base1JaggedList(Of GridCell5)
+  spec.csharp:
+  - uid: CoverageKiller2.DOM.Tables.Base1JaggedList`1
+    name: Base1JaggedList
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.Base1JaggedList-1.html
+  - name: <
+  - uid: CoverageKiller2.DOM.Tables.GridCell5
+    name: GridCell5
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.GridCell5.html
+  - name: '>'
+  spec.vb:
+  - uid: CoverageKiller2.DOM.Tables.Base1JaggedList`1
+    name: Base1JaggedList
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.Base1JaggedList-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: CoverageKiller2.DOM.Tables.GridCell5
+    name: GridCell5
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.GridCell5.html
+  - name: )
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: CoverageKiller2.DOM.Tables.Base1JaggedList`1
+  commentId: T:CoverageKiller2.DOM.Tables.Base1JaggedList`1
+  isExternal: true
+  href: CoverageKiller2.DOM.Tables.Base1JaggedList-1.html
+  name: Base1JaggedList<T>
+  nameWithType: Base1JaggedList<T>
+  fullName: CoverageKiller2.DOM.Tables.Base1JaggedList<T>
+  nameWithType.vb: Base1JaggedList(Of T)
+  fullName.vb: CoverageKiller2.DOM.Tables.Base1JaggedList(Of T)
+  name.vb: Base1JaggedList(Of T)
+  spec.csharp:
+  - uid: CoverageKiller2.DOM.Tables.Base1JaggedList`1
+    name: Base1JaggedList
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.Base1JaggedList-1.html
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: CoverageKiller2.DOM.Tables.Base1JaggedList`1
+    name: Base1JaggedList
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.Base1JaggedList-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: CoverageKiller2.DOM.Tables.Base1JaggedList{{T}}
+  commentId: T:CoverageKiller2.DOM.Tables.Base1JaggedList{``0}
+  parent: CoverageKiller2.DOM.Tables
+  definition: CoverageKiller2.DOM.Tables.Base1JaggedList`1
+  href: CoverageKiller2.DOM.Tables.Base1JaggedList-1.html
+  name: Base1JaggedList<T>
+  nameWithType: Base1JaggedList<T>
+  fullName: CoverageKiller2.DOM.Tables.Base1JaggedList<T>
+  nameWithType.vb: Base1JaggedList(Of T)
+  fullName.vb: CoverageKiller2.DOM.Tables.Base1JaggedList(Of T)
+  name.vb: Base1JaggedList(Of T)
+  spec.csharp:
+  - uid: CoverageKiller2.DOM.Tables.Base1JaggedList`1
+    name: Base1JaggedList
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.Base1JaggedList-1.html
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: CoverageKiller2.DOM.Tables.Base1JaggedList`1
+    name: Base1JaggedList
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.Base1JaggedList-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: CoverageKiller2.DOM.Tables.Base1JaggedList{Microsoft.Office.Interop.Word.Cell}
+  commentId: T:CoverageKiller2.DOM.Tables.Base1JaggedList{Microsoft.Office.Interop.Word.Cell}
+  parent: CoverageKiller2.DOM.Tables
+  definition: CoverageKiller2.DOM.Tables.Base1JaggedList`1
+  href: CoverageKiller2.DOM.Tables.Base1JaggedList-1.html
+  name: Base1JaggedList<Cell>
+  nameWithType: Base1JaggedList<Cell>
+  fullName: CoverageKiller2.DOM.Tables.Base1JaggedList<Microsoft.Office.Interop.Word.Cell>
+  nameWithType.vb: Base1JaggedList(Of Cell)
+  fullName.vb: CoverageKiller2.DOM.Tables.Base1JaggedList(Of Microsoft.Office.Interop.Word.Cell)
+  name.vb: Base1JaggedList(Of Cell)
+  spec.csharp:
+  - uid: CoverageKiller2.DOM.Tables.Base1JaggedList`1
+    name: Base1JaggedList
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.Base1JaggedList-1.html
+  - name: <
+  - uid: Microsoft.Office.Interop.Word.Cell
+    name: Cell
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/microsoft.office.interop.word.cell
+  - name: '>'
+  spec.vb:
+  - uid: CoverageKiller2.DOM.Tables.Base1JaggedList`1
+    name: Base1JaggedList
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.Base1JaggedList-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Microsoft.Office.Interop.Word.Cell
+    name: Cell
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/microsoft.office.interop.word.cell
+  - name: )
+- uid: CoverageKiller2.DOM.Tables.GridCrawler5.SplitWordTableTextIntoRows*
+  commentId: Overload:CoverageKiller2.DOM.Tables.GridCrawler5.SplitWordTableTextIntoRows
+  isExternal: true
+  href: CoverageKiller2.DOM.Tables.GridCrawler5.html#CoverageKiller2_DOM_Tables_GridCrawler5_SplitWordTableTextIntoRows_System_String_
+  name: SplitWordTableTextIntoRows
+  nameWithType: GridCrawler5.SplitWordTableTextIntoRows
+  fullName: CoverageKiller2.DOM.Tables.GridCrawler5.SplitWordTableTextIntoRows
+- uid: CoverageKiller2.DOM.Tables.Base1List{System.String}
+  commentId: T:CoverageKiller2.DOM.Tables.Base1List{System.String}
+  parent: CoverageKiller2.DOM.Tables
+  definition: CoverageKiller2.DOM.Tables.Base1List`1
+  href: CoverageKiller2.DOM.Tables.Base1List-1.html
+  name: Base1List<string>
+  nameWithType: Base1List<string>
+  fullName: CoverageKiller2.DOM.Tables.Base1List<string>
+  nameWithType.vb: Base1List(Of String)
+  fullName.vb: CoverageKiller2.DOM.Tables.Base1List(Of String)
+  name.vb: Base1List(Of String)
+  spec.csharp:
+  - uid: CoverageKiller2.DOM.Tables.Base1List`1
+    name: Base1List
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.Base1List-1.html
+  - name: <
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: '>'
+  spec.vb:
+  - uid: CoverageKiller2.DOM.Tables.Base1List`1
+    name: Base1List
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.Base1List-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: CoverageKiller2.DOM.Tables.Base1List`1
+  commentId: T:CoverageKiller2.DOM.Tables.Base1List`1
+  parent: CoverageKiller2.DOM.Tables
+  isExternal: true
+  href: CoverageKiller2.DOM.Tables.Base1List-1.html
+  name: Base1List<T>
+  nameWithType: Base1List<T>
+  fullName: CoverageKiller2.DOM.Tables.Base1List<T>
+  nameWithType.vb: Base1List(Of T)
+  fullName.vb: CoverageKiller2.DOM.Tables.Base1List(Of T)
+  name.vb: Base1List(Of T)
+  spec.csharp:
+  - uid: CoverageKiller2.DOM.Tables.Base1List`1
+    name: Base1List
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.Base1List-1.html
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: CoverageKiller2.DOM.Tables.Base1List`1
+    name: Base1List
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.Base1List-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: CoverageKiller2.DOM.Tables.GridCrawler5.DumpList*
+  commentId: Overload:CoverageKiller2.DOM.Tables.GridCrawler5.DumpList
+  isExternal: true
+  href: CoverageKiller2.DOM.Tables.GridCrawler5.html#CoverageKiller2_DOM_Tables_GridCrawler5_DumpList_CoverageKiller2_DOM_Tables_Base1List_System_String__System_String_
+  name: DumpList
+  nameWithType: GridCrawler5.DumpList
+  fullName: CoverageKiller2.DOM.Tables.GridCrawler5.DumpList
+- uid: CoverageKiller2.DOM.Tables.GridCrawler5.FlattenTableText*
+  commentId: Overload:CoverageKiller2.DOM.Tables.GridCrawler5.FlattenTableText
+  isExternal: true
+  href: CoverageKiller2.DOM.Tables.GridCrawler5.html#CoverageKiller2_DOM_Tables_GridCrawler5_FlattenTableText_System_String_
+  name: FlattenTableText
+  nameWithType: GridCrawler5.FlattenTableText
+  fullName: CoverageKiller2.DOM.Tables.GridCrawler5.FlattenTableText
+- uid: CoverageKiller2.DOM.Tables.GridCrawler5.PrepareTable*
+  commentId: Overload:CoverageKiller2.DOM.Tables.GridCrawler5.PrepareTable
+  isExternal: true
+  href: CoverageKiller2.DOM.Tables.GridCrawler5.html#CoverageKiller2_DOM_Tables_GridCrawler5_PrepareTable_Microsoft_Office_Interop_Word_Table_
+  name: PrepareTable
+  nameWithType: GridCrawler5.PrepareTable
+  fullName: CoverageKiller2.DOM.Tables.GridCrawler5.PrepareTable
+- uid: Microsoft.Office.Interop.Word.Table
+  commentId: T:Microsoft.Office.Interop.Word.Table
+  parent: Microsoft.Office.Interop.Word
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/microsoft.office.interop.word.table
+  name: Table
+  nameWithType: Table
+  fullName: Microsoft.Office.Interop.Word.Table
+- uid: Microsoft.Office.Interop.Word
+  commentId: N:Microsoft.Office.Interop.Word
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/microsoft
+  name: Microsoft.Office.Interop.Word
+  nameWithType: Microsoft.Office.Interop.Word
+  fullName: Microsoft.Office.Interop.Word
+  spec.csharp:
+  - uid: Microsoft
+    name: Microsoft
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/microsoft
+  - name: .
+  - uid: Microsoft.Office
+    name: Office
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/microsoft.office
+  - name: .
+  - uid: Microsoft.Office.Interop
+    name: Interop
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/microsoft.office.interop
+  - name: .
+  - uid: Microsoft.Office.Interop.Word
+    name: Word
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/microsoft.office.interop.word
+  spec.vb:
+  - uid: Microsoft
+    name: Microsoft
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/microsoft
+  - name: .
+  - uid: Microsoft.Office
+    name: Office
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/microsoft.office
+  - name: .
+  - uid: Microsoft.Office.Interop
+    name: Interop
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/microsoft.office.interop
+  - name: .
+  - uid: Microsoft.Office.Interop.Word
+    name: Word
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/microsoft.office.interop.word
+- uid: CoverageKiller2.DOM.Tables.GridCrawler5.GetMasterGrid*
+  commentId: Overload:CoverageKiller2.DOM.Tables.GridCrawler5.GetMasterGrid
+  isExternal: true
+  href: CoverageKiller2.DOM.Tables.GridCrawler5.html#CoverageKiller2_DOM_Tables_GridCrawler5_GetMasterGrid_Microsoft_Office_Interop_Word_Table_
+  name: GetMasterGrid
+  nameWithType: GridCrawler5.GetMasterGrid
+  fullName: CoverageKiller2.DOM.Tables.GridCrawler5.GetMasterGrid
+- uid: CoverageKiller2.DOM.Tables.GridCrawler5.SplitTableAtRow*
+  commentId: Overload:CoverageKiller2.DOM.Tables.GridCrawler5.SplitTableAtRow
+  isExternal: true
+  href: CoverageKiller2.DOM.Tables.GridCrawler5.html#CoverageKiller2_DOM_Tables_GridCrawler5_SplitTableAtRow_Microsoft_Office_Interop_Word_Table_
+  name: SplitTableAtRow
+  nameWithType: GridCrawler5.SplitTableAtRow
+  fullName: CoverageKiller2.DOM.Tables.GridCrawler5.SplitTableAtRow
+- uid: System.ValueTuple{Microsoft.Office.Interop.Word.Table,Microsoft.Office.Interop.Word.Table,System.Int32}
+  commentId: T:System.ValueTuple{Microsoft.Office.Interop.Word.Table,Microsoft.Office.Interop.Word.Table,System.Int32}
+  parent: System
+  definition: System.ValueTuple`3
+  href: https://learn.microsoft.com/dotnet/api/microsoft.office.interop.word.table
+  name: (Table first, Table second, int splitRow)
+  nameWithType: (Table first, Table second, int splitRow)
+  fullName: (Microsoft.Office.Interop.Word.Table first, Microsoft.Office.Interop.Word.Table second, int splitRow)
+  nameWithType.vb: (first As Table, second As Table, splitRow As Integer)
+  fullName.vb: (first As Microsoft.Office.Interop.Word.Table, second As Microsoft.Office.Interop.Word.Table, splitRow As Integer)
+  name.vb: (first As Table, second As Table, splitRow As Integer)
+  spec.csharp:
+  - name: (
+  - uid: Microsoft.Office.Interop.Word.Table
+    name: Table
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/microsoft.office.interop.word.table
+  - name: " "
+  - uid: System.ValueTuple{Microsoft.Office.Interop.Word.Table,Microsoft.Office.Interop.Word.Table,System.Int32}.first
+    name: first
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.valuetuple-microsoft.office.interop.word.table,microsoft.office.interop.word.table,system.int32-.first
+  - name: ','
+  - name: " "
+  - uid: Microsoft.Office.Interop.Word.Table
+    name: Table
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/microsoft.office.interop.word.table
+  - name: " "
+  - uid: System.ValueTuple{Microsoft.Office.Interop.Word.Table,Microsoft.Office.Interop.Word.Table,System.Int32}.second
+    name: second
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.valuetuple-microsoft.office.interop.word.table,microsoft.office.interop.word.table,system.int32-.second
+  - name: ','
+  - name: " "
+  - uid: System.Int32
+    name: int
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: " "
+  - uid: System.ValueTuple{Microsoft.Office.Interop.Word.Table,Microsoft.Office.Interop.Word.Table,System.Int32}.splitRow
+    name: splitRow
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.valuetuple-microsoft.office.interop.word.table,microsoft.office.interop.word.table,system.int32-.splitrow
+  - name: )
+  spec.vb:
+  - name: (
+  - uid: System.ValueTuple{Microsoft.Office.Interop.Word.Table,Microsoft.Office.Interop.Word.Table,System.Int32}.first
+    name: first
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.valuetuple-microsoft.office.interop.word.table,microsoft.office.interop.word.table,system.int32-.first
+  - name: " "
+  - name: As
+  - name: " "
+  - uid: Microsoft.Office.Interop.Word.Table
+    name: Table
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/microsoft.office.interop.word.table
+  - name: ','
+  - name: " "
+  - uid: System.ValueTuple{Microsoft.Office.Interop.Word.Table,Microsoft.Office.Interop.Word.Table,System.Int32}.second
+    name: second
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.valuetuple-microsoft.office.interop.word.table,microsoft.office.interop.word.table,system.int32-.second
+  - name: " "
+  - name: As
+  - name: " "
+  - uid: Microsoft.Office.Interop.Word.Table
+    name: Table
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/microsoft.office.interop.word.table
+  - name: ','
+  - name: " "
+  - uid: System.ValueTuple{Microsoft.Office.Interop.Word.Table,Microsoft.Office.Interop.Word.Table,System.Int32}.splitRow
+    name: splitRow
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.valuetuple-microsoft.office.interop.word.table,microsoft.office.interop.word.table,system.int32-.splitrow
+  - name: " "
+  - name: As
+  - name: " "
+  - uid: System.Int32
+    name: Integer
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: )
+- uid: System.ValueTuple`3
+  commentId: T:System.ValueTuple`3
+  name: (T1, T2, T3)
+  nameWithType: (T1, T2, T3)
+  fullName: (T1, T2, T3)
+  spec.csharp:
+  - name: (
+  - name: T1
+  - name: ','
+  - name: " "
+  - name: T2
+  - name: ','
+  - name: " "
+  - name: T3
+  - name: )
+  spec.vb:
+  - name: (
+  - name: T1
+  - name: ','
+  - name: " "
+  - name: T2
+  - name: ','
+  - name: " "
+  - name: T3
+  - name: )
+- uid: CoverageKiller2.DOM.Tables.GridCrawler5.AnalyzeTableRecursively*
+  commentId: Overload:CoverageKiller2.DOM.Tables.GridCrawler5.AnalyzeTableRecursively
+  isExternal: true
+  href: CoverageKiller2.DOM.Tables.GridCrawler5.html#CoverageKiller2_DOM_Tables_GridCrawler5_AnalyzeTableRecursively_Microsoft_Office_Interop_Word_Table_System_Int32_
+  name: AnalyzeTableRecursively
+  nameWithType: GridCrawler5.AnalyzeTableRecursively
+  fullName: CoverageKiller2.DOM.Tables.GridCrawler5.AnalyzeTableRecursively
+- uid: System.Int32
+  commentId: T:System.Int32
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.int32
+  name: int
+  nameWithType: int
+  fullName: int
+  nameWithType.vb: Integer
+  fullName.vb: Integer
+  name.vb: Integer
+- uid: CoverageKiller2.DOM.Tables.GridCrawler5.MergeGrids*
+  commentId: Overload:CoverageKiller2.DOM.Tables.GridCrawler5.MergeGrids
+  isExternal: true
+  href: CoverageKiller2.DOM.Tables.GridCrawler5.html#CoverageKiller2_DOM_Tables_GridCrawler5_MergeGrids_CoverageKiller2_DOM_Tables_Base1JaggedList_CoverageKiller2_DOM_Tables_GridCell5__CoverageKiller2_DOM_Tables_Base1JaggedList_CoverageKiller2_DOM_Tables_GridCell5__
+  name: MergeGrids
+  nameWithType: GridCrawler5.MergeGrids
+  fullName: CoverageKiller2.DOM.Tables.GridCrawler5.MergeGrids
+- uid: CoverageKiller2.DOM.Tables.GridCrawler5.BuildFastGridFromTable*
+  commentId: Overload:CoverageKiller2.DOM.Tables.GridCrawler5.BuildFastGridFromTable
+  isExternal: true
+  href: CoverageKiller2.DOM.Tables.GridCrawler5.html#CoverageKiller2_DOM_Tables_GridCrawler5_BuildFastGridFromTable_Microsoft_Office_Interop_Word_Table_System_Int32_
+  name: BuildFastGridFromTable
+  nameWithType: GridCrawler5.BuildFastGridFromTable
+  fullName: CoverageKiller2.DOM.Tables.GridCrawler5.BuildFastGridFromTable
+- uid: CoverageKiller2.DOM.Tables.GridCrawler5.BuildSlowGridFromTable*
+  commentId: Overload:CoverageKiller2.DOM.Tables.GridCrawler5.BuildSlowGridFromTable
+  isExternal: true
+  href: CoverageKiller2.DOM.Tables.GridCrawler5.html#CoverageKiller2_DOM_Tables_GridCrawler5_BuildSlowGridFromTable_Microsoft_Office_Interop_Word_Table_System_Int32_
+  name: BuildSlowGridFromTable
+  nameWithType: GridCrawler5.BuildSlowGridFromTable
+  fullName: CoverageKiller2.DOM.Tables.GridCrawler5.BuildSlowGridFromTable
+- uid: CoverageKiller2.DOM.Tables.GridCrawler5.RowCount*
+  commentId: Overload:CoverageKiller2.DOM.Tables.GridCrawler5.RowCount
+  isExternal: true
+  href: CoverageKiller2.DOM.Tables.GridCrawler5.html#CoverageKiller2_DOM_Tables_GridCrawler5_RowCount
+  name: RowCount
+  nameWithType: GridCrawler5.RowCount
+  fullName: CoverageKiller2.DOM.Tables.GridCrawler5.RowCount
+- uid: CoverageKiller2.DOM.Tables.GridCrawler5.ColumnCount*
+  commentId: Overload:CoverageKiller2.DOM.Tables.GridCrawler5.ColumnCount
+  isExternal: true
+  href: CoverageKiller2.DOM.Tables.GridCrawler5.html#CoverageKiller2_DOM_Tables_GridCrawler5_ColumnCount
+  name: ColumnCount
+  nameWithType: GridCrawler5.ColumnCount
+  fullName: CoverageKiller2.DOM.Tables.GridCrawler5.ColumnCount
+- uid: CoverageKiller2.DOM.Tables.GridCrawler5.Grid*
+  commentId: Overload:CoverageKiller2.DOM.Tables.GridCrawler5.Grid
+  isExternal: true
+  href: CoverageKiller2.DOM.Tables.GridCrawler5.html#CoverageKiller2_DOM_Tables_GridCrawler5_Grid
+  name: Grid
+  nameWithType: GridCrawler5.Grid
+  fullName: CoverageKiller2.DOM.Tables.GridCrawler5.Grid

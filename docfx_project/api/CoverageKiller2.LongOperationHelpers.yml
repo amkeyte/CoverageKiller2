@@ -1,0 +1,448 @@
+### YamlMime:ManagedReference
+items:
+- uid: CoverageKiller2.LongOperationHelpers
+  commentId: T:CoverageKiller2.LongOperationHelpers
+  id: LongOperationHelpers
+  parent: CoverageKiller2
+  children:
+  - CoverageKiller2.LongOperationHelpers.DoStandardPause
+  - CoverageKiller2.LongOperationHelpers.PauseWithCountdown(System.String,System.Int32,System.Boolean)
+  - CoverageKiller2.LongOperationHelpers.TrySilentSave(CoverageKiller2.DOM.CKDocument,System.String)
+  langs:
+  - csharp
+  - vb
+  name: LongOperationHelpers
+  nameWithType: LongOperationHelpers
+  fullName: CoverageKiller2.LongOperationHelpers
+  type: Class
+  assemblies:
+  - CoverageKiller2
+  namespace: CoverageKiller2
+  summary: Provides utilities for managing long-running document operations.
+  remarks: 'Version: CK2.00.03.0003'
+  example: []
+  syntax:
+    content: public static class LongOperationHelpers
+    content.vb: Public Module LongOperationHelpers
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.ToString
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+- uid: CoverageKiller2.LongOperationHelpers.PauseWithCountdown(System.String,System.Int32,System.Boolean)
+  commentId: M:CoverageKiller2.LongOperationHelpers.PauseWithCountdown(System.String,System.Int32,System.Boolean)
+  id: PauseWithCountdown(System.String,System.Int32,System.Boolean)
+  parent: CoverageKiller2.LongOperationHelpers
+  langs:
+  - csharp
+  - vb
+  name: PauseWithCountdown(string, int, bool)
+  nameWithType: LongOperationHelpers.PauseWithCountdown(string, int, bool)
+  fullName: CoverageKiller2.LongOperationHelpers.PauseWithCountdown(string, int, bool)
+  type: Method
+  assemblies:
+  - CoverageKiller2
+  namespace: CoverageKiller2
+  syntax:
+    content: public static bool PauseWithCountdown(string message = "Paused", int seconds = 30, bool allowCancel = false)
+    parameters:
+    - id: message
+      type: System.String
+    - id: seconds
+      type: System.Int32
+    - id: allowCancel
+      type: System.Boolean
+    return:
+      type: System.Boolean
+    content.vb: Public Shared Function PauseWithCountdown(message As String = "Paused", seconds As Integer = 30, allowCancel As Boolean = False) As Boolean
+  overload: CoverageKiller2.LongOperationHelpers.PauseWithCountdown*
+  nameWithType.vb: LongOperationHelpers.PauseWithCountdown(String, Integer, Boolean)
+  fullName.vb: CoverageKiller2.LongOperationHelpers.PauseWithCountdown(String, Integer, Boolean)
+  name.vb: PauseWithCountdown(String, Integer, Boolean)
+- uid: CoverageKiller2.LongOperationHelpers.DoStandardPause
+  commentId: M:CoverageKiller2.LongOperationHelpers.DoStandardPause
+  id: DoStandardPause
+  parent: CoverageKiller2.LongOperationHelpers
+  langs:
+  - csharp
+  - vb
+  name: DoStandardPause()
+  nameWithType: LongOperationHelpers.DoStandardPause()
+  fullName: CoverageKiller2.LongOperationHelpers.DoStandardPause()
+  type: Method
+  assemblies:
+  - CoverageKiller2
+  namespace: CoverageKiller2
+  syntax:
+    content: public static void DoStandardPause()
+    content.vb: Public Shared Sub DoStandardPause()
+  overload: CoverageKiller2.LongOperationHelpers.DoStandardPause*
+- uid: CoverageKiller2.LongOperationHelpers.TrySilentSave(CoverageKiller2.DOM.CKDocument,System.String)
+  commentId: M:CoverageKiller2.LongOperationHelpers.TrySilentSave(CoverageKiller2.DOM.CKDocument,System.String)
+  id: TrySilentSave(CoverageKiller2.DOM.CKDocument,System.String)
+  parent: CoverageKiller2.LongOperationHelpers
+  langs:
+  - csharp
+  - vb
+  name: TrySilentSave(CKDocument, string)
+  nameWithType: LongOperationHelpers.TrySilentSave(CKDocument, string)
+  fullName: CoverageKiller2.LongOperationHelpers.TrySilentSave(CoverageKiller2.DOM.CKDocument, string)
+  type: Method
+  assemblies:
+  - CoverageKiller2
+  namespace: CoverageKiller2
+  summary: Attempts to save the document without prompting the user. Logs and suppresses errors.
+  example: []
+  syntax:
+    content: public static void TrySilentSave(CKDocument doc, string context = "")
+    parameters:
+    - id: doc
+      type: CoverageKiller2.DOM.CKDocument
+      description: The document to save.
+    - id: context
+      type: System.String
+      description: Optional string describing the current operation for logging.
+    content.vb: Public Shared Sub TrySilentSave(doc As CKDocument, context As String = "")
+  overload: CoverageKiller2.LongOperationHelpers.TrySilentSave*
+  nameWithType.vb: LongOperationHelpers.TrySilentSave(CKDocument, String)
+  fullName.vb: CoverageKiller2.LongOperationHelpers.TrySilentSave(CoverageKiller2.DOM.CKDocument, String)
+  name.vb: TrySilentSave(CKDocument, String)
+references:
+- uid: CoverageKiller2
+  commentId: N:CoverageKiller2
+  isExternal: true
+  href: CoverageKiller2.html
+  name: CoverageKiller2
+  nameWithType: CoverageKiller2
+  fullName: CoverageKiller2
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: CoverageKiller2.LongOperationHelpers.PauseWithCountdown*
+  commentId: Overload:CoverageKiller2.LongOperationHelpers.PauseWithCountdown
+  isExternal: true
+  href: CoverageKiller2.LongOperationHelpers.html#CoverageKiller2_LongOperationHelpers_PauseWithCountdown_System_String_System_Int32_System_Boolean_
+  name: PauseWithCountdown
+  nameWithType: LongOperationHelpers.PauseWithCountdown
+  fullName: CoverageKiller2.LongOperationHelpers.PauseWithCountdown
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: System.Int32
+  commentId: T:System.Int32
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.int32
+  name: int
+  nameWithType: int
+  fullName: int
+  nameWithType.vb: Integer
+  fullName.vb: Integer
+  name.vb: Integer
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean
+- uid: CoverageKiller2.LongOperationHelpers.DoStandardPause*
+  commentId: Overload:CoverageKiller2.LongOperationHelpers.DoStandardPause
+  isExternal: true
+  href: CoverageKiller2.LongOperationHelpers.html#CoverageKiller2_LongOperationHelpers_DoStandardPause
+  name: DoStandardPause
+  nameWithType: LongOperationHelpers.DoStandardPause
+  fullName: CoverageKiller2.LongOperationHelpers.DoStandardPause
+- uid: CoverageKiller2.LongOperationHelpers.TrySilentSave*
+  commentId: Overload:CoverageKiller2.LongOperationHelpers.TrySilentSave
+  isExternal: true
+  href: CoverageKiller2.LongOperationHelpers.html#CoverageKiller2_LongOperationHelpers_TrySilentSave_CoverageKiller2_DOM_CKDocument_System_String_
+  name: TrySilentSave
+  nameWithType: LongOperationHelpers.TrySilentSave
+  fullName: CoverageKiller2.LongOperationHelpers.TrySilentSave
+- uid: CoverageKiller2.DOM.CKDocument
+  commentId: T:CoverageKiller2.DOM.CKDocument
+  parent: CoverageKiller2.DOM
+  isExternal: true
+  href: CoverageKiller2.DOM.CKDocument.html
+  name: CKDocument
+  nameWithType: CKDocument
+  fullName: CoverageKiller2.DOM.CKDocument
+- uid: CoverageKiller2.DOM
+  commentId: N:CoverageKiller2.DOM
+  isExternal: true
+  href: CoverageKiller2.html
+  name: CoverageKiller2.DOM
+  nameWithType: CoverageKiller2.DOM
+  fullName: CoverageKiller2.DOM
+  spec.csharp:
+  - uid: CoverageKiller2
+    name: CoverageKiller2
+    isExternal: true
+    href: CoverageKiller2.html
+  - name: .
+  - uid: CoverageKiller2.DOM
+    name: DOM
+    isExternal: true
+    href: CoverageKiller2.DOM.html
+  spec.vb:
+  - uid: CoverageKiller2
+    name: CoverageKiller2
+    isExternal: true
+    href: CoverageKiller2.html
+  - name: .
+  - uid: CoverageKiller2.DOM
+    name: DOM
+    isExternal: true
+    href: CoverageKiller2.DOM.html

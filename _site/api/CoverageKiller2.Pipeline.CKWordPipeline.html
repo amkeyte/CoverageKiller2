@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Class CKWordPipeline </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Class CKWordPipeline ">
+    
+    <meta name="description" content="Represents a pipeline for processing Word documents using a collection of pipeline processes.">
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="CoverageKiller2.Pipeline.CKWordPipeline">
+
+
+
+  <h1 id="CoverageKiller2_Pipeline_CKWordPipeline" data-uid="CoverageKiller2.Pipeline.CKWordPipeline" class="text-break">Class CKWordPipeline</h1>
+  <div class="markdown level0 summary"><p>Represents a pipeline for processing Word documents using a collection of pipeline processes.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><span class="xref">CKWordPipeline</span></div>
+  </div>
+  <div class="implements">
+    <h5>Implements</h5>
+    <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.icollection-1">ICollection</a>&lt;<a class="xref" href="CoverageKiller2.Pipeline.CKWordPipelineProcess.html">CKWordPipelineProcess</a>&gt;</div>
+    <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="CoverageKiller2.Pipeline.CKWordPipelineProcess.html">CKWordPipelineProcess</a>&gt;</div>
+    <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.ienumerable">IEnumerable</a></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="CoverageKiller2.html">CoverageKiller2</a>.<a class="xref" href="CoverageKiller2.Pipeline.html">Pipeline</a></h6>
+  <h6><strong>Assembly</strong>: CoverageKiller2.dll</h6>
+  <h5 id="CoverageKiller2_Pipeline_CKWordPipeline_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class CKWordPipeline : ICollection&lt;CKWordPipelineProcess&gt;, IEnumerable&lt;CKWordPipelineProcess&gt;, IEnumerable</code></pre>
+  </div>
+  <h3 id="constructors">Constructors
+</h3>
+
+
+  <a id="CoverageKiller2_Pipeline_CKWordPipeline__ctor_" data-uid="CoverageKiller2.Pipeline.CKWordPipeline.#ctor*"></a>
+  <h4 id="CoverageKiller2_Pipeline_CKWordPipeline__ctor_CoverageKiller2_DOM_CKDocument_" data-uid="CoverageKiller2.Pipeline.CKWordPipeline.#ctor(CoverageKiller2.DOM.CKDocument)">CKWordPipeline(CKDocument)</h4>
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="CoverageKiller2.Pipeline.CKWordPipeline.html">CKWordPipeline</a> class with the specified document.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public CKWordPipeline(CKDocument ckDoc)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="CoverageKiller2.DOM.CKDocument.html">CKDocument</a></td>
+        <td><span class="parametername">ckDoc</span></td>
+        <td><p>The CKDocument to be processed.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+
+  <a id="CoverageKiller2_Pipeline_CKWordPipeline__ctor_" data-uid="CoverageKiller2.Pipeline.CKWordPipeline.#ctor*"></a>
+  <h4 id="CoverageKiller2_Pipeline_CKWordPipeline__ctor_System_Collections_Generic_Dictionary_System_String_System_Object__" data-uid="CoverageKiller2.Pipeline.CKWordPipeline.#ctor(System.Collections.Generic.Dictionary{System.String,System.Object})">CKWordPipeline(Dictionary&lt;string, object&gt;)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public CKWordPipeline(Dictionary&lt;string, object&gt; initVars)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2">Dictionary</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a>&gt;</td>
+        <td><span class="parametername">initVars</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="properties">Properties
+</h3>
+
+
+  <a id="CoverageKiller2_Pipeline_CKWordPipeline_Count_" data-uid="CoverageKiller2.Pipeline.CKWordPipeline.Count*"></a>
+  <h4 id="CoverageKiller2_Pipeline_CKWordPipeline_Count" data-uid="CoverageKiller2.Pipeline.CKWordPipeline.Count">Count</h4>
+  <div class="markdown level1 summary"><p>Gets the number of items in the pipeline.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int Count { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+
+
+  <a id="CoverageKiller2_Pipeline_CKWordPipeline_Document_" data-uid="CoverageKiller2.Pipeline.CKWordPipeline.Document*"></a>
+  <h4 id="CoverageKiller2_Pipeline_CKWordPipeline_Document" data-uid="CoverageKiller2.Pipeline.CKWordPipeline.Document">Document</h4>
+  <div class="markdown level1 summary"><p>Gets the document associated with the pipeline.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public CKDocument Document { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="CoverageKiller2.DOM.CKDocument.html">CKDocument</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+
+
+  <a id="CoverageKiller2_Pipeline_CKWordPipeline_IsReadOnly_" data-uid="CoverageKiller2.Pipeline.CKWordPipeline.IsReadOnly*"></a>
+  <h4 id="CoverageKiller2_Pipeline_CKWordPipeline_IsReadOnly" data-uid="CoverageKiller2.Pipeline.CKWordPipeline.IsReadOnly">IsReadOnly</h4>
+  <div class="markdown level1 summary"><p>Gets a value indicating whether the pipeline is read-only.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsReadOnly { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+
+
+  <a id="CoverageKiller2_Pipeline_CKWordPipeline_ProcessorConfig_" data-uid="CoverageKiller2.Pipeline.CKWordPipeline.ProcessorConfig*"></a>
+  <h4 id="CoverageKiller2_Pipeline_CKWordPipeline_ProcessorConfig" data-uid="CoverageKiller2.Pipeline.CKWordPipeline.ProcessorConfig">ProcessorConfig</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ProcessorConfig ProcessorConfig { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="CoverageKiller2.Pipeline.Config.ProcessorConfig.html">ProcessorConfig</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+
+
+  <a id="CoverageKiller2_Pipeline_CKWordPipeline_Template_" data-uid="CoverageKiller2.Pipeline.CKWordPipeline.Template*"></a>
+  <h4 id="CoverageKiller2_Pipeline_CKWordPipeline_Template" data-uid="CoverageKiller2.Pipeline.CKWordPipeline.Template">Template</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public CKDocument Template { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="CoverageKiller2.DOM.CKDocument.html">CKDocument</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+</h3>
+
+
+  <a id="CoverageKiller2_Pipeline_CKWordPipeline_Add_" data-uid="CoverageKiller2.Pipeline.CKWordPipeline.Add*"></a>
+  <h4 id="CoverageKiller2_Pipeline_CKWordPipeline_Add_CoverageKiller2_Pipeline_CKWordPipelineProcess_" data-uid="CoverageKiller2.Pipeline.CKWordPipeline.Add(CoverageKiller2.Pipeline.CKWordPipelineProcess)">Add(CKWordPipelineProcess)</h4>
+  <div class="markdown level1 summary"><p>Adds a process to the pipeline and assigns the document to the process.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Add(CKWordPipelineProcess item)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="CoverageKiller2.Pipeline.CKWordPipelineProcess.html">CKWordPipelineProcess</a></td>
+        <td><span class="parametername">item</span></td>
+        <td><p>The pipeline process to add.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+
+  <a id="CoverageKiller2_Pipeline_CKWordPipeline_Clear_" data-uid="CoverageKiller2.Pipeline.CKWordPipeline.Clear*"></a>
+  <h4 id="CoverageKiller2_Pipeline_CKWordPipeline_Clear" data-uid="CoverageKiller2.Pipeline.CKWordPipeline.Clear">Clear()</h4>
+  <div class="markdown level1 summary"><p>Clears all processes from the pipeline.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Clear()</code></pre>
+  </div>
+
+
+  <a id="CoverageKiller2_Pipeline_CKWordPipeline_Contains_" data-uid="CoverageKiller2.Pipeline.CKWordPipeline.Contains*"></a>
+  <h4 id="CoverageKiller2_Pipeline_CKWordPipeline_Contains_CoverageKiller2_Pipeline_CKWordPipelineProcess_" data-uid="CoverageKiller2.Pipeline.CKWordPipeline.Contains(CoverageKiller2.Pipeline.CKWordPipelineProcess)">Contains(CKWordPipelineProcess)</h4>
+  <div class="markdown level1 summary"><p>Determines whether the pipeline contains a specific process.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool Contains(CKWordPipelineProcess item)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="CoverageKiller2.Pipeline.CKWordPipelineProcess.html">CKWordPipelineProcess</a></td>
+        <td><span class="parametername">item</span></td>
+        <td><p>The process to locate in the pipeline.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><p><code>true</code> if the process is found; otherwise, <code>false</code>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+
+  <a id="CoverageKiller2_Pipeline_CKWordPipeline_CopyTo_" data-uid="CoverageKiller2.Pipeline.CKWordPipeline.CopyTo*"></a>
+  <h4 id="CoverageKiller2_Pipeline_CKWordPipeline_CopyTo_CoverageKiller2_Pipeline_CKWordPipelineProcess___System_Int32_" data-uid="CoverageKiller2.Pipeline.CKWordPipeline.CopyTo(CoverageKiller2.Pipeline.CKWordPipelineProcess[],System.Int32)">CopyTo(CKWordPipelineProcess[], int)</h4>
+  <div class="markdown level1 summary"><p>Copies the elements of the pipeline to an array, starting at the specified index.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void CopyTo(CKWordPipelineProcess[] array, int arrayIndex)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="CoverageKiller2.Pipeline.CKWordPipelineProcess.html">CKWordPipelineProcess</a>[]</td>
+        <td><span class="parametername">array</span></td>
+        <td><p>The array to copy the pipeline elements into.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">arrayIndex</span></td>
+        <td><p>The zero-based index in the array where copying begins.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+
+  <a id="CoverageKiller2_Pipeline_CKWordPipeline_GetEnumerator_" data-uid="CoverageKiller2.Pipeline.CKWordPipeline.GetEnumerator*"></a>
+  <h4 id="CoverageKiller2_Pipeline_CKWordPipeline_GetEnumerator" data-uid="CoverageKiller2.Pipeline.CKWordPipeline.GetEnumerator">GetEnumerator()</h4>
+  <div class="markdown level1 summary"><p>Returns an enumerator that iterates through the pipeline processes.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IEnumerator&lt;CKWordPipelineProcess&gt; GetEnumerator()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerator-1">IEnumerator</a>&lt;<a class="xref" href="CoverageKiller2.Pipeline.CKWordPipelineProcess.html">CKWordPipelineProcess</a>&gt;</td>
+        <td><p>An enumerator for the pipeline processes.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+
+  <a id="CoverageKiller2_Pipeline_CKWordPipeline_Remove_" data-uid="CoverageKiller2.Pipeline.CKWordPipeline.Remove*"></a>
+  <h4 id="CoverageKiller2_Pipeline_CKWordPipeline_Remove_CoverageKiller2_Pipeline_CKWordPipelineProcess_" data-uid="CoverageKiller2.Pipeline.CKWordPipeline.Remove(CoverageKiller2.Pipeline.CKWordPipelineProcess)">Remove(CKWordPipelineProcess)</h4>
+  <div class="markdown level1 summary"><p>Removes a specific process from the pipeline.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool Remove(CKWordPipelineProcess item)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="CoverageKiller2.Pipeline.CKWordPipelineProcess.html">CKWordPipelineProcess</a></td>
+        <td><span class="parametername">item</span></td>
+        <td><p>The process to remove.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><p><code>true</code> if the process was successfully removed; otherwise, <code>false</code>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="implements">Implements</h3>
+  <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.icollection-1">ICollection&lt;T&gt;</a>
+  </div>
+  <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable&lt;T&gt;</a>
+  </div>
+  <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.ienumerable">IEnumerable</a>
+  </div>
+  <h3 id="extensionmethods">Extension Methods</h3>
+  <div>
+      <a class="xref" href="CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_PingPong__1___0_System_String_">PingService.PingPong&lt;T&gt;(T, string)</a>
+  </div>
+  <div>
+      <a class="xref" href="CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_PingPong__1___0_System_String_System_String_">PingService.PingPong&lt;T&gt;(T, string, string)</a>
+  </div>
+  <div>
+      <a class="xref" href="CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_PingPong__2___0_System_Func___1__System_String_System_String_">PingService.PingPong&lt;T, TResult&gt;(T, Func&lt;TResult&gt;, string, string)</a>
+  </div>
+  <div>
+      <a class="xref" href="CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Ping__1___0_System_String_">PingService.Ping&lt;T&gt;(T, string)</a>
+  </div>
+  <div>
+      <a class="xref" href="CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Ping__1___0_System_String_System_String_">PingService.Ping&lt;T&gt;(T, string, string)</a>
+  </div>
+  <div>
+      <a class="xref" href="CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Ping__1___0_System_Type___System_String_">PingService.Ping&lt;T&gt;(T, Type[], string)</a>
+  </div>
+  <div>
+      <a class="xref" href="CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1___0_System_String_">PingService.Pong&lt;T&gt;(T, string)</a>
+  </div>
+  <div>
+      <a class="xref" href="CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1___0_System_String_System_String_">PingService.Pong&lt;T&gt;(T, string, string)</a>
+  </div>
+  <div>
+      <a class="xref" href="CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1___0_System_Type_System_String_">PingService.Pong&lt;T&gt;(T, Type, string)</a>
+  </div>
+  <div>
+      <a class="xref" href="CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1___0_System_Type___System_String_">PingService.Pong&lt;T&gt;(T, Type[], string)</a>
+  </div>
+  <div>
+      <a class="xref" href="CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__2___0_System_Func___1__System_String_System_String_">PingService.Pong&lt;T, TResult&gt;(T, Func&lt;TResult&gt;, string, string)</a>
+  </div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

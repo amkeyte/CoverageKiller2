@@ -1,0 +1,24 @@
+### YamlMime:ManagedReference
+items:
+- uid: CoverageKiller2.Properties
+  commentId: N:CoverageKiller2.Properties
+  id: CoverageKiller2.Properties
+  children:
+  - CoverageKiller2.Properties.Resources
+  langs:
+  - csharp
+  - vb
+  name: CoverageKiller2.Properties
+  nameWithType: CoverageKiller2.Properties
+  fullName: CoverageKiller2.Properties
+  type: Namespace
+  assemblies:
+  - CoverageKiller2
+references:
+- uid: CoverageKiller2.Properties.Resources
+  commentId: T:CoverageKiller2.Properties.Resources
+  isExternal: true
+  href: CoverageKiller2.Properties.Resources.html
+  name: Resources
+  nameWithType: Resources
+  fullName: CoverageKiller2.Properties.Resources

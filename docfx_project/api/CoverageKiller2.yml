@@ -1,0 +1,210 @@
+### YamlMime:ManagedReference
+items:
+- uid: CoverageKiller2
+  commentId: N:CoverageKiller2
+  id: CoverageKiller2
+  children:
+  - CoverageKiller2.CKRibbon
+  - CoverageKiller2.CkDocHelpers
+  - CoverageKiller2.ExceptionDetail
+  - CoverageKiller2.ExceptionRegistry
+  - CoverageKiller2.IndoorReportTemplate
+  - CoverageKiller2.KnownExceptionType
+  - CoverageKiller2.KnownExceptions
+  - CoverageKiller2.KnownExceptions.ExcelInterop
+  - CoverageKiller2.KnownExceptions.PowerPointInterop
+  - CoverageKiller2.KnownExceptions.VSTO
+  - CoverageKiller2.LongOperationHelpers
+  - CoverageKiller2.LongOperationHelpers.ProgressLogger
+  - CoverageKiller2.ThisAddIn
+  langs:
+  - csharp
+  - vb
+  name: CoverageKiller2
+  nameWithType: CoverageKiller2
+  fullName: CoverageKiller2
+  type: Namespace
+  assemblies:
+  - CoverageKiller2
+references:
+- uid: CoverageKiller2.CkDocHelpers
+  commentId: T:CoverageKiller2.CkDocHelpers
+  isExternal: true
+  href: CoverageKiller2.CkDocHelpers.html
+  name: CkDocHelpers
+  nameWithType: CkDocHelpers
+  fullName: CoverageKiller2.CkDocHelpers
+- uid: CoverageKiller2.CKRibbon
+  commentId: T:CoverageKiller2.CKRibbon
+  isExternal: true
+  href: CoverageKiller2.CKRibbon.html
+  name: CKRibbon
+  nameWithType: CKRibbon
+  fullName: CoverageKiller2.CKRibbon
+- uid: CoverageKiller2.KnownExceptionType
+  commentId: T:CoverageKiller2.KnownExceptionType
+  parent: CoverageKiller2
+  isExternal: true
+  href: CoverageKiller2.KnownExceptionType.html
+  name: KnownExceptionType
+  nameWithType: KnownExceptionType
+  fullName: CoverageKiller2.KnownExceptionType
+- uid: CoverageKiller2.ExceptionDetail
+  commentId: T:CoverageKiller2.ExceptionDetail
+  parent: CoverageKiller2
+  isExternal: true
+  href: CoverageKiller2.ExceptionDetail.html
+  name: ExceptionDetail
+  nameWithType: ExceptionDetail
+  fullName: CoverageKiller2.ExceptionDetail
+- uid: CoverageKiller2.KnownExceptions
+  commentId: T:CoverageKiller2.KnownExceptions
+  isExternal: true
+  href: CoverageKiller2.KnownExceptions.html
+  name: KnownExceptions
+  nameWithType: KnownExceptions
+  fullName: CoverageKiller2.KnownExceptions
+- uid: CoverageKiller2.KnownExceptions.VSTO
+  commentId: T:CoverageKiller2.KnownExceptions.VSTO
+  isExternal: true
+  href: CoverageKiller2.KnownExceptions.html
+  name: KnownExceptions.VSTO
+  nameWithType: KnownExceptions.VSTO
+  fullName: CoverageKiller2.KnownExceptions.VSTO
+  spec.csharp:
+  - uid: CoverageKiller2.KnownExceptions
+    name: KnownExceptions
+    isExternal: true
+    href: CoverageKiller2.KnownExceptions.html
+  - name: .
+  - uid: CoverageKiller2.KnownExceptions.VSTO
+    name: VSTO
+    isExternal: true
+    href: CoverageKiller2.KnownExceptions.VSTO.html
+  spec.vb:
+  - uid: CoverageKiller2.KnownExceptions
+    name: KnownExceptions
+    isExternal: true
+    href: CoverageKiller2.KnownExceptions.html
+  - name: .
+  - uid: CoverageKiller2.KnownExceptions.VSTO
+    name: VSTO
+    isExternal: true
+    href: CoverageKiller2.KnownExceptions.VSTO.html
+- uid: CoverageKiller2.KnownExceptions.ExcelInterop
+  commentId: T:CoverageKiller2.KnownExceptions.ExcelInterop
+  isExternal: true
+  href: CoverageKiller2.KnownExceptions.html
+  name: KnownExceptions.ExcelInterop
+  nameWithType: KnownExceptions.ExcelInterop
+  fullName: CoverageKiller2.KnownExceptions.ExcelInterop
+  spec.csharp:
+  - uid: CoverageKiller2.KnownExceptions
+    name: KnownExceptions
+    isExternal: true
+    href: CoverageKiller2.KnownExceptions.html
+  - name: .
+  - uid: CoverageKiller2.KnownExceptions.ExcelInterop
+    name: ExcelInterop
+    isExternal: true
+    href: CoverageKiller2.KnownExceptions.ExcelInterop.html
+  spec.vb:
+  - uid: CoverageKiller2.KnownExceptions
+    name: KnownExceptions
+    isExternal: true
+    href: CoverageKiller2.KnownExceptions.html
+  - name: .
+  - uid: CoverageKiller2.KnownExceptions.ExcelInterop
+    name: ExcelInterop
+    isExternal: true
+    href: CoverageKiller2.KnownExceptions.ExcelInterop.html
+- uid: CoverageKiller2.KnownExceptions.PowerPointInterop
+  commentId: T:CoverageKiller2.KnownExceptions.PowerPointInterop
+  isExternal: true
+  href: CoverageKiller2.KnownExceptions.html
+  name: KnownExceptions.PowerPointInterop
+  nameWithType: KnownExceptions.PowerPointInterop
+  fullName: CoverageKiller2.KnownExceptions.PowerPointInterop
+  spec.csharp:
+  - uid: CoverageKiller2.KnownExceptions
+    name: KnownExceptions
+    isExternal: true
+    href: CoverageKiller2.KnownExceptions.html
+  - name: .
+  - uid: CoverageKiller2.KnownExceptions.PowerPointInterop
+    name: PowerPointInterop
+    isExternal: true
+    href: CoverageKiller2.KnownExceptions.PowerPointInterop.html
+  spec.vb:
+  - uid: CoverageKiller2.KnownExceptions
+    name: KnownExceptions
+    isExternal: true
+    href: CoverageKiller2.KnownExceptions.html
+  - name: .
+  - uid: CoverageKiller2.KnownExceptions.PowerPointInterop
+    name: PowerPointInterop
+    isExternal: true
+    href: CoverageKiller2.KnownExceptions.PowerPointInterop.html
+- uid: CoverageKiller2.ExceptionRegistry
+  commentId: T:CoverageKiller2.ExceptionRegistry
+  isExternal: true
+  href: CoverageKiller2.ExceptionRegistry.html
+  name: ExceptionRegistry
+  nameWithType: ExceptionRegistry
+  fullName: CoverageKiller2.ExceptionRegistry
+- uid: CoverageKiller2.IndoorReportTemplate
+  commentId: T:CoverageKiller2.IndoorReportTemplate
+  isExternal: true
+  href: CoverageKiller2.IndoorReportTemplate.html
+  name: IndoorReportTemplate
+  nameWithType: IndoorReportTemplate
+  fullName: CoverageKiller2.IndoorReportTemplate
+- uid: CoverageKiller2.LongOperationHelpers
+  commentId: T:CoverageKiller2.LongOperationHelpers
+  isExternal: true
+  href: CoverageKiller2.LongOperationHelpers.html
+  name: LongOperationHelpers
+  nameWithType: LongOperationHelpers
+  fullName: CoverageKiller2.LongOperationHelpers
+- uid: CoverageKiller2.LongOperationHelpers.ProgressLogger
+  commentId: T:CoverageKiller2.LongOperationHelpers.ProgressLogger
+  isExternal: true
+  href: CoverageKiller2.LongOperationHelpers.html
+  name: LongOperationHelpers.ProgressLogger
+  nameWithType: LongOperationHelpers.ProgressLogger
+  fullName: CoverageKiller2.LongOperationHelpers.ProgressLogger
+  spec.csharp:
+  - uid: CoverageKiller2.LongOperationHelpers
+    name: LongOperationHelpers
+    isExternal: true
+    href: CoverageKiller2.LongOperationHelpers.html
+  - name: .
+  - uid: CoverageKiller2.LongOperationHelpers.ProgressLogger
+    name: ProgressLogger
+    isExternal: true
+    href: CoverageKiller2.LongOperationHelpers.ProgressLogger.html
+  spec.vb:
+  - uid: CoverageKiller2.LongOperationHelpers
+    name: LongOperationHelpers
+    isExternal: true
+    href: CoverageKiller2.LongOperationHelpers.html
+  - name: .
+  - uid: CoverageKiller2.LongOperationHelpers.ProgressLogger
+    name: ProgressLogger
+    isExternal: true
+    href: CoverageKiller2.LongOperationHelpers.ProgressLogger.html
+- uid: CoverageKiller2.ThisAddIn
+  commentId: T:CoverageKiller2.ThisAddIn
+  parent: CoverageKiller2
+  isExternal: true
+  href: CoverageKiller2.ThisAddIn.html
+  name: ThisAddIn
+  nameWithType: ThisAddIn
+  fullName: CoverageKiller2.ThisAddIn
+- uid: CoverageKiller2
+  commentId: N:CoverageKiller2
+  isExternal: true
+  href: CoverageKiller2.html
+  name: CoverageKiller2
+  nameWithType: CoverageKiller2
+  fullName: CoverageKiller2

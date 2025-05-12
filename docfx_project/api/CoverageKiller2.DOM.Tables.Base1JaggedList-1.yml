@@ -1,0 +1,3366 @@
+### YamlMime:ManagedReference
+items:
+- uid: CoverageKiller2.DOM.Tables.Base1JaggedList`1
+  commentId: T:CoverageKiller2.DOM.Tables.Base1JaggedList`1
+  id: Base1JaggedList`1
+  parent: CoverageKiller2.DOM.Tables
+  children:
+  - CoverageKiller2.DOM.Tables.Base1JaggedList`1.#ctor
+  - CoverageKiller2.DOM.Tables.Base1JaggedList`1.#ctor(System.Collections.Generic.List{System.Collections.Generic.List{`0}})
+  - CoverageKiller2.DOM.Tables.Base1JaggedList`1.Add(CoverageKiller2.DOM.Tables.Base1List{`0})
+  - CoverageKiller2.DOM.Tables.Base1JaggedList`1.Count
+  - CoverageKiller2.DOM.Tables.Base1JaggedList`1.DumpGrid(System.Func{`0,System.String},System.String)
+  - CoverageKiller2.DOM.Tables.Base1JaggedList`1.Flatten
+  - CoverageKiller2.DOM.Tables.Base1JaggedList`1.GetEnumerator
+  - CoverageKiller2.DOM.Tables.Base1JaggedList`1.IndexOf(CoverageKiller2.DOM.Tables.Base1List{`0})
+  - CoverageKiller2.DOM.Tables.Base1JaggedList`1.Insert(System.Int32,CoverageKiller2.DOM.Tables.Base1List{`0})
+  - CoverageKiller2.DOM.Tables.Base1JaggedList`1.Item(System.Int32)
+  - CoverageKiller2.DOM.Tables.Base1JaggedList`1.LargestRow
+  - CoverageKiller2.DOM.Tables.Base1JaggedList`1.LargestRowCount
+  - CoverageKiller2.DOM.Tables.Base1JaggedList`1.RemoveAt(System.Int32)
+  - CoverageKiller2.DOM.Tables.Base1JaggedList`1.SafeGet(System.Int32,System.Int32)
+  - CoverageKiller2.DOM.Tables.Base1JaggedList`1.SelectMany``1(System.Func{`0,System.Collections.Generic.IEnumerable{``0}})
+  langs:
+  - csharp
+  - vb
+  name: Base1JaggedList<T>
+  nameWithType: Base1JaggedList<T>
+  fullName: CoverageKiller2.DOM.Tables.Base1JaggedList<T>
+  type: Class
+  assemblies:
+  - CoverageKiller2
+  namespace: CoverageKiller2.DOM.Tables
+  summary: Represents a jagged 1-based collection of Base1List&lt;T&gt;, useful for table-like structures.
+  remarks: 'Version: CK2.00.01.0037'
+  example: []
+  syntax:
+    content: 'public class Base1JaggedList<T> : IReadOnlyList<Base1List<T>>, IReadOnlyCollection<Base1List<T>>, IEnumerable<Base1List<T>>, IEnumerable'
+    typeParameters:
+    - id: T
+      description: The element type of the inner lists.
+    content.vb: Public Class Base1JaggedList(Of T) Implements IReadOnlyList(Of Base1List(Of T)), IReadOnlyCollection(Of Base1List(Of T)), IEnumerable(Of Base1List(Of T)), IEnumerable
+  inheritance:
+  - System.Object
+  implements:
+  - System.Collections.Generic.IReadOnlyList{CoverageKiller2.DOM.Tables.Base1List{{T}}}
+  - System.Collections.Generic.IReadOnlyCollection{CoverageKiller2.DOM.Tables.Base1List{{T}}}
+  - System.Collections.Generic.IEnumerable{CoverageKiller2.DOM.Tables.Base1List{{T}}}
+  - System.Collections.IEnumerable
+  inheritedMembers:
+  - System.Object.ToString
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  extensionMethods:
+  - CoverageKiller2.DOM.Tables.Base1JaggedList`1.CoverageKiller2.Logging.PingService.PingPong``1(System.String)
+  - CoverageKiller2.DOM.Tables.Base1JaggedList`1.CoverageKiller2.Logging.PingService.PingPong``1(System.String,System.String)
+  - CoverageKiller2.DOM.Tables.Base1JaggedList`1.CoverageKiller2.Logging.PingService.PingPong``2(System.Func{{TResult}},System.String,System.String)
+  - CoverageKiller2.DOM.Tables.Base1JaggedList`1.CoverageKiller2.Logging.PingService.Ping``1(System.String)
+  - CoverageKiller2.DOM.Tables.Base1JaggedList`1.CoverageKiller2.Logging.PingService.Ping``1(System.String,System.String)
+  - CoverageKiller2.DOM.Tables.Base1JaggedList`1.CoverageKiller2.Logging.PingService.Ping``1(System.Type[],System.String)
+  - CoverageKiller2.DOM.Tables.Base1JaggedList`1.CoverageKiller2.Logging.PingService.Pong``1(System.String)
+  - CoverageKiller2.DOM.Tables.Base1JaggedList`1.CoverageKiller2.Logging.PingService.Pong``1(System.String,System.String)
+  - CoverageKiller2.DOM.Tables.Base1JaggedList`1.CoverageKiller2.Logging.PingService.Pong``1(System.Type,System.String)
+  - CoverageKiller2.DOM.Tables.Base1JaggedList`1.CoverageKiller2.Logging.PingService.Pong``1(System.Type[],System.String)
+  - CoverageKiller2.DOM.Tables.Base1JaggedList`1.CoverageKiller2.Logging.PingService.Pong``2(System.Func{{TResult}},System.String,System.String)
+  nameWithType.vb: Base1JaggedList(Of T)
+  fullName.vb: CoverageKiller2.DOM.Tables.Base1JaggedList(Of T)
+  name.vb: Base1JaggedList(Of T)
+- uid: CoverageKiller2.DOM.Tables.Base1JaggedList`1.#ctor
+  commentId: M:CoverageKiller2.DOM.Tables.Base1JaggedList`1.#ctor
+  id: '#ctor'
+  parent: CoverageKiller2.DOM.Tables.Base1JaggedList`1
+  langs:
+  - csharp
+  - vb
+  name: Base1JaggedList()
+  nameWithType: Base1JaggedList<T>.Base1JaggedList()
+  fullName: CoverageKiller2.DOM.Tables.Base1JaggedList<T>.Base1JaggedList()
+  type: Constructor
+  assemblies:
+  - CoverageKiller2
+  namespace: CoverageKiller2.DOM.Tables
+  syntax:
+    content: public Base1JaggedList()
+    content.vb: Public Sub New()
+  overload: CoverageKiller2.DOM.Tables.Base1JaggedList`1.#ctor*
+  nameWithType.vb: Base1JaggedList(Of T).New()
+  fullName.vb: CoverageKiller2.DOM.Tables.Base1JaggedList(Of T).New()
+  name.vb: New()
+- uid: CoverageKiller2.DOM.Tables.Base1JaggedList`1.#ctor(System.Collections.Generic.List{System.Collections.Generic.List{`0}})
+  commentId: M:CoverageKiller2.DOM.Tables.Base1JaggedList`1.#ctor(System.Collections.Generic.List{System.Collections.Generic.List{`0}})
+  id: '#ctor(System.Collections.Generic.List{System.Collections.Generic.List{`0}})'
+  parent: CoverageKiller2.DOM.Tables.Base1JaggedList`1
+  langs:
+  - csharp
+  - vb
+  name: Base1JaggedList(List<List<T>>)
+  nameWithType: Base1JaggedList<T>.Base1JaggedList(List<List<T>>)
+  fullName: CoverageKiller2.DOM.Tables.Base1JaggedList<T>.Base1JaggedList(System.Collections.Generic.List<System.Collections.Generic.List<T>>)
+  type: Constructor
+  assemblies:
+  - CoverageKiller2
+  namespace: CoverageKiller2.DOM.Tables
+  syntax:
+    content: public Base1JaggedList(List<List<T>> list)
+    parameters:
+    - id: list
+      type: System.Collections.Generic.List{System.Collections.Generic.List{{T}}}
+    content.vb: Public Sub New(list As List(Of List(Of T)))
+  overload: CoverageKiller2.DOM.Tables.Base1JaggedList`1.#ctor*
+  nameWithType.vb: Base1JaggedList(Of T).New(List(Of List(Of T)))
+  fullName.vb: CoverageKiller2.DOM.Tables.Base1JaggedList(Of T).New(System.Collections.Generic.List(Of System.Collections.Generic.List(Of T)))
+  name.vb: New(List(Of List(Of T)))
+- uid: CoverageKiller2.DOM.Tables.Base1JaggedList`1.Flatten
+  commentId: M:CoverageKiller2.DOM.Tables.Base1JaggedList`1.Flatten
+  id: Flatten
+  parent: CoverageKiller2.DOM.Tables.Base1JaggedList`1
+  langs:
+  - csharp
+  - vb
+  name: Flatten()
+  nameWithType: Base1JaggedList<T>.Flatten()
+  fullName: CoverageKiller2.DOM.Tables.Base1JaggedList<T>.Flatten()
+  type: Method
+  assemblies:
+  - CoverageKiller2
+  namespace: CoverageKiller2.DOM.Tables
+  summary: Flattens all inner lists into a single sequence of elements.
+  example: []
+  syntax:
+    content: public IEnumerable<T> Flatten()
+    return:
+      type: System.Collections.Generic.IEnumerable{{T}}
+    content.vb: Public Function Flatten() As IEnumerable(Of T)
+  overload: CoverageKiller2.DOM.Tables.Base1JaggedList`1.Flatten*
+  nameWithType.vb: Base1JaggedList(Of T).Flatten()
+  fullName.vb: CoverageKiller2.DOM.Tables.Base1JaggedList(Of T).Flatten()
+- uid: CoverageKiller2.DOM.Tables.Base1JaggedList`1.SelectMany``1(System.Func{`0,System.Collections.Generic.IEnumerable{``0}})
+  commentId: M:CoverageKiller2.DOM.Tables.Base1JaggedList`1.SelectMany``1(System.Func{`0,System.Collections.Generic.IEnumerable{``0}})
+  id: SelectMany``1(System.Func{`0,System.Collections.Generic.IEnumerable{``0}})
+  parent: CoverageKiller2.DOM.Tables.Base1JaggedList`1
+  langs:
+  - csharp
+  - vb
+  name: SelectMany<TResult>(Func<T, IEnumerable<TResult>>)
+  nameWithType: Base1JaggedList<T>.SelectMany<TResult>(Func<T, IEnumerable<TResult>>)
+  fullName: CoverageKiller2.DOM.Tables.Base1JaggedList<T>.SelectMany<TResult>(System.Func<T, System.Collections.Generic.IEnumerable<TResult>>)
+  type: Method
+  assemblies:
+  - CoverageKiller2
+  namespace: CoverageKiller2.DOM.Tables
+  summary: Projects each element of each inner list and flattens the result.
+  example: []
+  syntax:
+    content: public IEnumerable<TResult> SelectMany<TResult>(Func<T, IEnumerable<TResult>> selector)
+    parameters:
+    - id: selector
+      type: System.Func{{T},System.Collections.Generic.IEnumerable{{TResult}}}
+    typeParameters:
+    - id: TResult
+    return:
+      type: System.Collections.Generic.IEnumerable{{TResult}}
+    content.vb: Public Function SelectMany(Of TResult)(selector As Func(Of T, IEnumerable(Of TResult))) As IEnumerable(Of TResult)
+  overload: CoverageKiller2.DOM.Tables.Base1JaggedList`1.SelectMany*
+  nameWithType.vb: Base1JaggedList(Of T).SelectMany(Of TResult)(Func(Of T, IEnumerable(Of TResult)))
+  fullName.vb: CoverageKiller2.DOM.Tables.Base1JaggedList(Of T).SelectMany(Of TResult)(System.Func(Of T, System.Collections.Generic.IEnumerable(Of TResult)))
+  name.vb: SelectMany(Of TResult)(Func(Of T, IEnumerable(Of TResult)))
+- uid: CoverageKiller2.DOM.Tables.Base1JaggedList`1.SafeGet(System.Int32,System.Int32)
+  commentId: M:CoverageKiller2.DOM.Tables.Base1JaggedList`1.SafeGet(System.Int32,System.Int32)
+  id: SafeGet(System.Int32,System.Int32)
+  parent: CoverageKiller2.DOM.Tables.Base1JaggedList`1
+  langs:
+  - csharp
+  - vb
+  name: SafeGet(int, int)
+  nameWithType: Base1JaggedList<T>.SafeGet(int, int)
+  fullName: CoverageKiller2.DOM.Tables.Base1JaggedList<T>.SafeGet(int, int)
+  type: Method
+  assemblies:
+  - CoverageKiller2
+  namespace: CoverageKiller2.DOM.Tables
+  syntax:
+    content: public T SafeGet(int row, int col)
+    parameters:
+    - id: row
+      type: System.Int32
+    - id: col
+      type: System.Int32
+    return:
+      type: '{T}'
+    content.vb: Public Function SafeGet(row As Integer, col As Integer) As T
+  overload: CoverageKiller2.DOM.Tables.Base1JaggedList`1.SafeGet*
+  nameWithType.vb: Base1JaggedList(Of T).SafeGet(Integer, Integer)
+  fullName.vb: CoverageKiller2.DOM.Tables.Base1JaggedList(Of T).SafeGet(Integer, Integer)
+  name.vb: SafeGet(Integer, Integer)
+- uid: CoverageKiller2.DOM.Tables.Base1JaggedList`1.Add(CoverageKiller2.DOM.Tables.Base1List{`0})
+  commentId: M:CoverageKiller2.DOM.Tables.Base1JaggedList`1.Add(CoverageKiller2.DOM.Tables.Base1List{`0})
+  id: Add(CoverageKiller2.DOM.Tables.Base1List{`0})
+  parent: CoverageKiller2.DOM.Tables.Base1JaggedList`1
+  langs:
+  - csharp
+  - vb
+  name: Add(Base1List<T>)
+  nameWithType: Base1JaggedList<T>.Add(Base1List<T>)
+  fullName: CoverageKiller2.DOM.Tables.Base1JaggedList<T>.Add(CoverageKiller2.DOM.Tables.Base1List<T>)
+  type: Method
+  assemblies:
+  - CoverageKiller2
+  namespace: CoverageKiller2.DOM.Tables
+  syntax:
+    content: public void Add(Base1List<T> row)
+    parameters:
+    - id: row
+      type: CoverageKiller2.DOM.Tables.Base1List{{T}}
+    content.vb: Public Sub Add(row As Base1List(Of T))
+  overload: CoverageKiller2.DOM.Tables.Base1JaggedList`1.Add*
+  nameWithType.vb: Base1JaggedList(Of T).Add(Base1List(Of T))
+  fullName.vb: CoverageKiller2.DOM.Tables.Base1JaggedList(Of T).Add(CoverageKiller2.DOM.Tables.Base1List(Of T))
+  name.vb: Add(Base1List(Of T))
+- uid: CoverageKiller2.DOM.Tables.Base1JaggedList`1.Insert(System.Int32,CoverageKiller2.DOM.Tables.Base1List{`0})
+  commentId: M:CoverageKiller2.DOM.Tables.Base1JaggedList`1.Insert(System.Int32,CoverageKiller2.DOM.Tables.Base1List{`0})
+  id: Insert(System.Int32,CoverageKiller2.DOM.Tables.Base1List{`0})
+  parent: CoverageKiller2.DOM.Tables.Base1JaggedList`1
+  langs:
+  - csharp
+  - vb
+  name: Insert(int, Base1List<T>)
+  nameWithType: Base1JaggedList<T>.Insert(int, Base1List<T>)
+  fullName: CoverageKiller2.DOM.Tables.Base1JaggedList<T>.Insert(int, CoverageKiller2.DOM.Tables.Base1List<T>)
+  type: Method
+  assemblies:
+  - CoverageKiller2
+  namespace: CoverageKiller2.DOM.Tables
+  syntax:
+    content: public void Insert(int index, Base1List<T> row)
+    parameters:
+    - id: index
+      type: System.Int32
+    - id: row
+      type: CoverageKiller2.DOM.Tables.Base1List{{T}}
+    content.vb: Public Sub Insert(index As Integer, row As Base1List(Of T))
+  overload: CoverageKiller2.DOM.Tables.Base1JaggedList`1.Insert*
+  nameWithType.vb: Base1JaggedList(Of T).Insert(Integer, Base1List(Of T))
+  fullName.vb: CoverageKiller2.DOM.Tables.Base1JaggedList(Of T).Insert(Integer, CoverageKiller2.DOM.Tables.Base1List(Of T))
+  name.vb: Insert(Integer, Base1List(Of T))
+- uid: CoverageKiller2.DOM.Tables.Base1JaggedList`1.DumpGrid(System.Func{`0,System.String},System.String)
+  commentId: M:CoverageKiller2.DOM.Tables.Base1JaggedList`1.DumpGrid(System.Func{`0,System.String},System.String)
+  id: DumpGrid(System.Func{`0,System.String},System.String)
+  parent: CoverageKiller2.DOM.Tables.Base1JaggedList`1
+  langs:
+  - csharp
+  - vb
+  name: DumpGrid(Func<T, string>, string)
+  nameWithType: Base1JaggedList<T>.DumpGrid(Func<T, string>, string)
+  fullName: CoverageKiller2.DOM.Tables.Base1JaggedList<T>.DumpGrid(System.Func<T, string>, string)
+  type: Method
+  assemblies:
+  - CoverageKiller2
+  namespace: CoverageKiller2.DOM.Tables
+  summary: Dumps the contents of a Base1JaggedList&lt;T&gt;, projecting each cell through a delegate.
+  example: []
+  syntax:
+    content: public string DumpGrid(Func<T, string> projector, string message = null)
+    parameters:
+    - id: projector
+      type: System.Func{{T},System.String}
+      description: A projection function to convert each cell to a string.
+    - id: message
+      type: System.String
+      description: Optional label for the dump output.
+    return:
+      type: System.String
+      description: A formatted string of the dumped grid.
+    content.vb: Public Function DumpGrid(projector As Func(Of T, String), message As String = Nothing) As String
+  overload: CoverageKiller2.DOM.Tables.Base1JaggedList`1.DumpGrid*
+  nameWithType.vb: Base1JaggedList(Of T).DumpGrid(Func(Of T, String), String)
+  fullName.vb: CoverageKiller2.DOM.Tables.Base1JaggedList(Of T).DumpGrid(System.Func(Of T, String), String)
+  name.vb: DumpGrid(Func(Of T, String), String)
+- uid: CoverageKiller2.DOM.Tables.Base1JaggedList`1.RemoveAt(System.Int32)
+  commentId: M:CoverageKiller2.DOM.Tables.Base1JaggedList`1.RemoveAt(System.Int32)
+  id: RemoveAt(System.Int32)
+  parent: CoverageKiller2.DOM.Tables.Base1JaggedList`1
+  langs:
+  - csharp
+  - vb
+  name: RemoveAt(int)
+  nameWithType: Base1JaggedList<T>.RemoveAt(int)
+  fullName: CoverageKiller2.DOM.Tables.Base1JaggedList<T>.RemoveAt(int)
+  type: Method
+  assemblies:
+  - CoverageKiller2
+  namespace: CoverageKiller2.DOM.Tables
+  syntax:
+    content: public void RemoveAt(int index)
+    parameters:
+    - id: index
+      type: System.Int32
+    content.vb: Public Sub RemoveAt(index As Integer)
+  overload: CoverageKiller2.DOM.Tables.Base1JaggedList`1.RemoveAt*
+  nameWithType.vb: Base1JaggedList(Of T).RemoveAt(Integer)
+  fullName.vb: CoverageKiller2.DOM.Tables.Base1JaggedList(Of T).RemoveAt(Integer)
+  name.vb: RemoveAt(Integer)
+- uid: CoverageKiller2.DOM.Tables.Base1JaggedList`1.IndexOf(CoverageKiller2.DOM.Tables.Base1List{`0})
+  commentId: M:CoverageKiller2.DOM.Tables.Base1JaggedList`1.IndexOf(CoverageKiller2.DOM.Tables.Base1List{`0})
+  id: IndexOf(CoverageKiller2.DOM.Tables.Base1List{`0})
+  parent: CoverageKiller2.DOM.Tables.Base1JaggedList`1
+  langs:
+  - csharp
+  - vb
+  name: IndexOf(Base1List<T>)
+  nameWithType: Base1JaggedList<T>.IndexOf(Base1List<T>)
+  fullName: CoverageKiller2.DOM.Tables.Base1JaggedList<T>.IndexOf(CoverageKiller2.DOM.Tables.Base1List<T>)
+  type: Method
+  assemblies:
+  - CoverageKiller2
+  namespace: CoverageKiller2.DOM.Tables
+  syntax:
+    content: public int IndexOf(Base1List<T> row)
+    parameters:
+    - id: row
+      type: CoverageKiller2.DOM.Tables.Base1List{{T}}
+    return:
+      type: System.Int32
+    content.vb: Public Function IndexOf(row As Base1List(Of T)) As Integer
+  overload: CoverageKiller2.DOM.Tables.Base1JaggedList`1.IndexOf*
+  nameWithType.vb: Base1JaggedList(Of T).IndexOf(Base1List(Of T))
+  fullName.vb: CoverageKiller2.DOM.Tables.Base1JaggedList(Of T).IndexOf(CoverageKiller2.DOM.Tables.Base1List(Of T))
+  name.vb: IndexOf(Base1List(Of T))
+- uid: CoverageKiller2.DOM.Tables.Base1JaggedList`1.GetEnumerator
+  commentId: M:CoverageKiller2.DOM.Tables.Base1JaggedList`1.GetEnumerator
+  id: GetEnumerator
+  parent: CoverageKiller2.DOM.Tables.Base1JaggedList`1
+  langs:
+  - csharp
+  - vb
+  name: GetEnumerator()
+  nameWithType: Base1JaggedList<T>.GetEnumerator()
+  fullName: CoverageKiller2.DOM.Tables.Base1JaggedList<T>.GetEnumerator()
+  type: Method
+  assemblies:
+  - CoverageKiller2
+  namespace: CoverageKiller2.DOM.Tables
+  example: []
+  syntax:
+    content: public IEnumerator<Base1List<T>> GetEnumerator()
+    return:
+      type: System.Collections.Generic.IEnumerator{CoverageKiller2.DOM.Tables.Base1List{{T}}}
+    content.vb: Public Function GetEnumerator() As IEnumerator(Of Base1List(Of T))
+  overload: CoverageKiller2.DOM.Tables.Base1JaggedList`1.GetEnumerator*
+  implements:
+  - System.Collections.Generic.IEnumerable{CoverageKiller2.DOM.Tables.Base1List{{T}}}.GetEnumerator
+  nameWithType.vb: Base1JaggedList(Of T).GetEnumerator()
+  fullName.vb: CoverageKiller2.DOM.Tables.Base1JaggedList(Of T).GetEnumerator()
+- uid: CoverageKiller2.DOM.Tables.Base1JaggedList`1.LargestRowCount
+  commentId: P:CoverageKiller2.DOM.Tables.Base1JaggedList`1.LargestRowCount
+  id: LargestRowCount
+  parent: CoverageKiller2.DOM.Tables.Base1JaggedList`1
+  langs:
+  - csharp
+  - vb
+  name: LargestRowCount
+  nameWithType: Base1JaggedList<T>.LargestRowCount
+  fullName: CoverageKiller2.DOM.Tables.Base1JaggedList<T>.LargestRowCount
+  type: Property
+  assemblies:
+  - CoverageKiller2
+  namespace: CoverageKiller2.DOM.Tables
+  summary: Returns the largest column count across all rows.
+  example: []
+  syntax:
+    content: public int LargestRowCount { get; }
+    parameters: []
+    return:
+      type: System.Int32
+    content.vb: Public ReadOnly Property LargestRowCount As Integer
+  overload: CoverageKiller2.DOM.Tables.Base1JaggedList`1.LargestRowCount*
+  nameWithType.vb: Base1JaggedList(Of T).LargestRowCount
+  fullName.vb: CoverageKiller2.DOM.Tables.Base1JaggedList(Of T).LargestRowCount
+- uid: CoverageKiller2.DOM.Tables.Base1JaggedList`1.LargestRow
+  commentId: P:CoverageKiller2.DOM.Tables.Base1JaggedList`1.LargestRow
+  id: LargestRow
+  parent: CoverageKiller2.DOM.Tables.Base1JaggedList`1
+  langs:
+  - csharp
+  - vb
+  name: LargestRow
+  nameWithType: Base1JaggedList<T>.LargestRow
+  fullName: CoverageKiller2.DOM.Tables.Base1JaggedList<T>.LargestRow
+  type: Property
+  assemblies:
+  - CoverageKiller2
+  namespace: CoverageKiller2.DOM.Tables
+  summary: Returns the largest column count across all rows.
+  example: []
+  syntax:
+    content: public Base1List<T> LargestRow { get; }
+    parameters: []
+    return:
+      type: CoverageKiller2.DOM.Tables.Base1List{{T}}
+    content.vb: Public ReadOnly Property LargestRow As Base1List(Of T)
+  overload: CoverageKiller2.DOM.Tables.Base1JaggedList`1.LargestRow*
+  nameWithType.vb: Base1JaggedList(Of T).LargestRow
+  fullName.vb: CoverageKiller2.DOM.Tables.Base1JaggedList(Of T).LargestRow
+- uid: CoverageKiller2.DOM.Tables.Base1JaggedList`1.Count
+  commentId: P:CoverageKiller2.DOM.Tables.Base1JaggedList`1.Count
+  id: Count
+  parent: CoverageKiller2.DOM.Tables.Base1JaggedList`1
+  langs:
+  - csharp
+  - vb
+  name: Count
+  nameWithType: Base1JaggedList<T>.Count
+  fullName: CoverageKiller2.DOM.Tables.Base1JaggedList<T>.Count
+  type: Property
+  assemblies:
+  - CoverageKiller2
+  namespace: CoverageKiller2.DOM.Tables
+  example: []
+  syntax:
+    content: public int Count { get; }
+    parameters: []
+    return:
+      type: System.Int32
+    content.vb: Public ReadOnly Property Count As Integer
+  overload: CoverageKiller2.DOM.Tables.Base1JaggedList`1.Count*
+  implements:
+  - System.Collections.Generic.IReadOnlyCollection{CoverageKiller2.DOM.Tables.Base1List{{T}}}.Count
+  nameWithType.vb: Base1JaggedList(Of T).Count
+  fullName.vb: CoverageKiller2.DOM.Tables.Base1JaggedList(Of T).Count
+- uid: CoverageKiller2.DOM.Tables.Base1JaggedList`1.Item(System.Int32)
+  commentId: P:CoverageKiller2.DOM.Tables.Base1JaggedList`1.Item(System.Int32)
+  id: Item(System.Int32)
+  parent: CoverageKiller2.DOM.Tables.Base1JaggedList`1
+  langs:
+  - csharp
+  - vb
+  name: this[int]
+  nameWithType: Base1JaggedList<T>.this[int]
+  fullName: CoverageKiller2.DOM.Tables.Base1JaggedList<T>.this[int]
+  type: Property
+  assemblies:
+  - CoverageKiller2
+  namespace: CoverageKiller2.DOM.Tables
+  example: []
+  syntax:
+    content: public Base1List<T> this[int index] { get; }
+    parameters:
+    - id: index
+      type: System.Int32
+    return:
+      type: CoverageKiller2.DOM.Tables.Base1List{{T}}
+    content.vb: Public ReadOnly Default Property this[](index As Integer) As Base1List(Of T)
+  overload: CoverageKiller2.DOM.Tables.Base1JaggedList`1.Item*
+  implements:
+  - System.Collections.Generic.IReadOnlyList{CoverageKiller2.DOM.Tables.Base1List{{T}}}.Item(System.Int32)
+  nameWithType.vb: Base1JaggedList(Of T).this[](Integer)
+  fullName.vb: CoverageKiller2.DOM.Tables.Base1JaggedList(Of T).this[](Integer)
+  name.vb: this[](Integer)
+references:
+- uid: CoverageKiller2.DOM.Tables
+  commentId: N:CoverageKiller2.DOM.Tables
+  isExternal: true
+  href: CoverageKiller2.html
+  name: CoverageKiller2.DOM.Tables
+  nameWithType: CoverageKiller2.DOM.Tables
+  fullName: CoverageKiller2.DOM.Tables
+  spec.csharp:
+  - uid: CoverageKiller2
+    name: CoverageKiller2
+    isExternal: true
+    href: CoverageKiller2.html
+  - name: .
+  - uid: CoverageKiller2.DOM
+    name: DOM
+    isExternal: true
+    href: CoverageKiller2.DOM.html
+  - name: .
+  - uid: CoverageKiller2.DOM.Tables
+    name: Tables
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.html
+  spec.vb:
+  - uid: CoverageKiller2
+    name: CoverageKiller2
+    isExternal: true
+    href: CoverageKiller2.html
+  - name: .
+  - uid: CoverageKiller2.DOM
+    name: DOM
+    isExternal: true
+    href: CoverageKiller2.DOM.html
+  - name: .
+  - uid: CoverageKiller2.DOM.Tables
+    name: Tables
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Collections.Generic.IReadOnlyList{CoverageKiller2.DOM.Tables.Base1List{{T}}}
+  commentId: T:System.Collections.Generic.IReadOnlyList{CoverageKiller2.DOM.Tables.Base1List{`0}}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.IReadOnlyList`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
+  name: IReadOnlyList<Base1List<T>>
+  nameWithType: IReadOnlyList<Base1List<T>>
+  fullName: System.Collections.Generic.IReadOnlyList<CoverageKiller2.DOM.Tables.Base1List<T>>
+  nameWithType.vb: IReadOnlyList(Of Base1List(Of T))
+  fullName.vb: System.Collections.Generic.IReadOnlyList(Of CoverageKiller2.DOM.Tables.Base1List(Of T))
+  name.vb: IReadOnlyList(Of Base1List(Of T))
+  spec.csharp:
+  - uid: System.Collections.Generic.IReadOnlyList`1
+    name: IReadOnlyList
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
+  - name: <
+  - uid: CoverageKiller2.DOM.Tables.Base1List`1
+    name: Base1List
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.Base1List-1.html
+  - name: <
+  - name: T
+  - name: '>'
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IReadOnlyList`1
+    name: IReadOnlyList
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: CoverageKiller2.DOM.Tables.Base1List`1
+    name: Base1List
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.Base1List-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: )
+- uid: System.Collections.Generic.IReadOnlyCollection{CoverageKiller2.DOM.Tables.Base1List{{T}}}
+  commentId: T:System.Collections.Generic.IReadOnlyCollection{CoverageKiller2.DOM.Tables.Base1List{`0}}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.IReadOnlyCollection`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlycollection-1
+  name: IReadOnlyCollection<Base1List<T>>
+  nameWithType: IReadOnlyCollection<Base1List<T>>
+  fullName: System.Collections.Generic.IReadOnlyCollection<CoverageKiller2.DOM.Tables.Base1List<T>>
+  nameWithType.vb: IReadOnlyCollection(Of Base1List(Of T))
+  fullName.vb: System.Collections.Generic.IReadOnlyCollection(Of CoverageKiller2.DOM.Tables.Base1List(Of T))
+  name.vb: IReadOnlyCollection(Of Base1List(Of T))
+  spec.csharp:
+  - uid: System.Collections.Generic.IReadOnlyCollection`1
+    name: IReadOnlyCollection
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlycollection-1
+  - name: <
+  - uid: CoverageKiller2.DOM.Tables.Base1List`1
+    name: Base1List
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.Base1List-1.html
+  - name: <
+  - name: T
+  - name: '>'
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IReadOnlyCollection`1
+    name: IReadOnlyCollection
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlycollection-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: CoverageKiller2.DOM.Tables.Base1List`1
+    name: Base1List
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.Base1List-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: )
+- uid: System.Collections.Generic.IEnumerable{CoverageKiller2.DOM.Tables.Base1List{{T}}}
+  commentId: T:System.Collections.Generic.IEnumerable{CoverageKiller2.DOM.Tables.Base1List{`0}}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.IEnumerable`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  name: IEnumerable<Base1List<T>>
+  nameWithType: IEnumerable<Base1List<T>>
+  fullName: System.Collections.Generic.IEnumerable<CoverageKiller2.DOM.Tables.Base1List<T>>
+  nameWithType.vb: IEnumerable(Of Base1List(Of T))
+  fullName.vb: System.Collections.Generic.IEnumerable(Of CoverageKiller2.DOM.Tables.Base1List(Of T))
+  name.vb: IEnumerable(Of Base1List(Of T))
+  spec.csharp:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: <
+  - uid: CoverageKiller2.DOM.Tables.Base1List`1
+    name: Base1List
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.Base1List-1.html
+  - name: <
+  - name: T
+  - name: '>'
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: CoverageKiller2.DOM.Tables.Base1List`1
+    name: Base1List
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.Base1List-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: )
+- uid: System.Collections.IEnumerable
+  commentId: T:System.Collections.IEnumerable
+  parent: System.Collections
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.ienumerable
+  name: IEnumerable
+  nameWithType: IEnumerable
+  fullName: System.Collections.IEnumerable
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: CoverageKiller2.DOM.Tables.Base1JaggedList`1.CoverageKiller2.Logging.PingService.PingPong``1(System.String)
+  commentId: M:CoverageKiller2.Logging.PingService.PingPong``1(``0,System.String)
+  parent: CoverageKiller2.Logging.PingService
+  definition: CoverageKiller2.Logging.PingService.PingPong``1(``0,System.String)
+  href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_PingPong__1___0_System_String_
+  name: PingPong<Base1JaggedList<T>>(Base1JaggedList<T>, string)
+  nameWithType: PingService.PingPong<Base1JaggedList<T>>(Base1JaggedList<T>, string)
+  fullName: CoverageKiller2.Logging.PingService.PingPong<CoverageKiller2.DOM.Tables.Base1JaggedList<T>>(CoverageKiller2.DOM.Tables.Base1JaggedList<T>, string)
+  nameWithType.vb: PingService.PingPong(Of Base1JaggedList(Of T))(Base1JaggedList(Of T), String)
+  fullName.vb: CoverageKiller2.Logging.PingService.PingPong(Of CoverageKiller2.DOM.Tables.Base1JaggedList(Of T))(CoverageKiller2.DOM.Tables.Base1JaggedList(Of T), String)
+  name.vb: PingPong(Of Base1JaggedList(Of T))(Base1JaggedList(Of T), String)
+  spec.csharp:
+  - uid: CoverageKiller2.Logging.PingService.PingPong``1(CoverageKiller2.DOM.Tables.Base1JaggedList{`0},System.String)
+    name: PingPong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_PingPong__1___0_System_String_
+  - name: <
+  - uid: CoverageKiller2.DOM.Tables.Base1JaggedList`1
+    name: Base1JaggedList
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.Base1JaggedList-1.html
+  - name: <
+  - name: T
+  - name: '>'
+  - name: '>'
+  - name: (
+  - uid: CoverageKiller2.DOM.Tables.Base1JaggedList`1
+    name: Base1JaggedList
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.Base1JaggedList-1.html
+  - name: <
+  - name: T
+  - name: '>'
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: CoverageKiller2.Logging.PingService.PingPong``1(CoverageKiller2.DOM.Tables.Base1JaggedList{`0},System.String)
+    name: PingPong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_PingPong__1___0_System_String_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: CoverageKiller2.DOM.Tables.Base1JaggedList`1
+    name: Base1JaggedList
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.Base1JaggedList-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: )
+  - name: (
+  - uid: CoverageKiller2.DOM.Tables.Base1JaggedList`1
+    name: Base1JaggedList
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.Base1JaggedList-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: CoverageKiller2.DOM.Tables.Base1JaggedList`1.CoverageKiller2.Logging.PingService.PingPong``1(System.String,System.String)
+  commentId: M:CoverageKiller2.Logging.PingService.PingPong``1(``0,System.String,System.String)
+  parent: CoverageKiller2.Logging.PingService
+  definition: CoverageKiller2.Logging.PingService.PingPong``1(``0,System.String,System.String)
+  href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_PingPong__1___0_System_String_System_String_
+  name: PingPong<Base1JaggedList<T>>(Base1JaggedList<T>, string, string)
+  nameWithType: PingService.PingPong<Base1JaggedList<T>>(Base1JaggedList<T>, string, string)
+  fullName: CoverageKiller2.Logging.PingService.PingPong<CoverageKiller2.DOM.Tables.Base1JaggedList<T>>(CoverageKiller2.DOM.Tables.Base1JaggedList<T>, string, string)
+  nameWithType.vb: PingService.PingPong(Of Base1JaggedList(Of T))(Base1JaggedList(Of T), String, String)
+  fullName.vb: CoverageKiller2.Logging.PingService.PingPong(Of CoverageKiller2.DOM.Tables.Base1JaggedList(Of T))(CoverageKiller2.DOM.Tables.Base1JaggedList(Of T), String, String)
+  name.vb: PingPong(Of Base1JaggedList(Of T))(Base1JaggedList(Of T), String, String)
+  spec.csharp:
+  - uid: CoverageKiller2.Logging.PingService.PingPong``1(CoverageKiller2.DOM.Tables.Base1JaggedList{`0},System.String,System.String)
+    name: PingPong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_PingPong__1___0_System_String_System_String_
+  - name: <
+  - uid: CoverageKiller2.DOM.Tables.Base1JaggedList`1
+    name: Base1JaggedList
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.Base1JaggedList-1.html
+  - name: <
+  - name: T
+  - name: '>'
+  - name: '>'
+  - name: (
+  - uid: CoverageKiller2.DOM.Tables.Base1JaggedList`1
+    name: Base1JaggedList
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.Base1JaggedList-1.html
+  - name: <
+  - name: T
+  - name: '>'
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: CoverageKiller2.Logging.PingService.PingPong``1(CoverageKiller2.DOM.Tables.Base1JaggedList{`0},System.String,System.String)
+    name: PingPong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_PingPong__1___0_System_String_System_String_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: CoverageKiller2.DOM.Tables.Base1JaggedList`1
+    name: Base1JaggedList
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.Base1JaggedList-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: )
+  - name: (
+  - uid: CoverageKiller2.DOM.Tables.Base1JaggedList`1
+    name: Base1JaggedList
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.Base1JaggedList-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: CoverageKiller2.DOM.Tables.Base1JaggedList`1.CoverageKiller2.Logging.PingService.PingPong``2(System.Func{{TResult}},System.String,System.String)
+  commentId: M:CoverageKiller2.Logging.PingService.PingPong``2(``0,System.Func{``1},System.String,System.String)
+  parent: CoverageKiller2.Logging.PingService
+  definition: CoverageKiller2.Logging.PingService.PingPong``2(``0,System.Func{``1},System.String,System.String)
+  href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_PingPong__2___0_System_Func___1__System_String_System_String_
+  name: PingPong<Base1JaggedList<T>, TResult>(Base1JaggedList<T>, Func<TResult>, string, string)
+  nameWithType: PingService.PingPong<Base1JaggedList<T>, TResult>(Base1JaggedList<T>, Func<TResult>, string, string)
+  fullName: CoverageKiller2.Logging.PingService.PingPong<CoverageKiller2.DOM.Tables.Base1JaggedList<T>, TResult>(CoverageKiller2.DOM.Tables.Base1JaggedList<T>, System.Func<TResult>, string, string)
+  nameWithType.vb: PingService.PingPong(Of Base1JaggedList(Of T), TResult)(Base1JaggedList(Of T), Func(Of TResult), String, String)
+  fullName.vb: CoverageKiller2.Logging.PingService.PingPong(Of CoverageKiller2.DOM.Tables.Base1JaggedList(Of T), TResult)(CoverageKiller2.DOM.Tables.Base1JaggedList(Of T), System.Func(Of TResult), String, String)
+  name.vb: PingPong(Of Base1JaggedList(Of T), TResult)(Base1JaggedList(Of T), Func(Of TResult), String, String)
+  spec.csharp:
+  - uid: CoverageKiller2.Logging.PingService.PingPong``2(CoverageKiller2.DOM.Tables.Base1JaggedList{`0},System.Func{``1},System.String,System.String)
+    name: PingPong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_PingPong__2___0_System_Func___1__System_String_System_String_
+  - name: <
+  - uid: CoverageKiller2.DOM.Tables.Base1JaggedList`1
+    name: Base1JaggedList
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.Base1JaggedList-1.html
+  - name: <
+  - name: T
+  - name: '>'
+  - name: ','
+  - name: " "
+  - name: TResult
+  - name: '>'
+  - name: (
+  - uid: CoverageKiller2.DOM.Tables.Base1JaggedList`1
+    name: Base1JaggedList
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.Base1JaggedList-1.html
+  - name: <
+  - name: T
+  - name: '>'
+  - name: ','
+  - name: " "
+  - uid: System.Func`1
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-1
+  - name: <
+  - name: TResult
+  - name: '>'
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: CoverageKiller2.Logging.PingService.PingPong``2(CoverageKiller2.DOM.Tables.Base1JaggedList{`0},System.Func{``1},System.String,System.String)
+    name: PingPong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_PingPong__2___0_System_Func___1__System_String_System_String_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: CoverageKiller2.DOM.Tables.Base1JaggedList`1
+    name: Base1JaggedList
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.Base1JaggedList-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: ','
+  - name: " "
+  - name: TResult
+  - name: )
+  - name: (
+  - uid: CoverageKiller2.DOM.Tables.Base1JaggedList`1
+    name: Base1JaggedList
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.Base1JaggedList-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: System.Func`1
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TResult
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: CoverageKiller2.DOM.Tables.Base1JaggedList`1.CoverageKiller2.Logging.PingService.Ping``1(System.String)
+  commentId: M:CoverageKiller2.Logging.PingService.Ping``1(``0,System.String)
+  parent: CoverageKiller2.Logging.PingService
+  definition: CoverageKiller2.Logging.PingService.Ping``1(``0,System.String)
+  href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Ping__1___0_System_String_
+  name: Ping<Base1JaggedList<T>>(Base1JaggedList<T>, string)
+  nameWithType: PingService.Ping<Base1JaggedList<T>>(Base1JaggedList<T>, string)
+  fullName: CoverageKiller2.Logging.PingService.Ping<CoverageKiller2.DOM.Tables.Base1JaggedList<T>>(CoverageKiller2.DOM.Tables.Base1JaggedList<T>, string)
+  nameWithType.vb: PingService.Ping(Of Base1JaggedList(Of T))(Base1JaggedList(Of T), String)
+  fullName.vb: CoverageKiller2.Logging.PingService.Ping(Of CoverageKiller2.DOM.Tables.Base1JaggedList(Of T))(CoverageKiller2.DOM.Tables.Base1JaggedList(Of T), String)
+  name.vb: Ping(Of Base1JaggedList(Of T))(Base1JaggedList(Of T), String)
+  spec.csharp:
+  - uid: CoverageKiller2.Logging.PingService.Ping``1(CoverageKiller2.DOM.Tables.Base1JaggedList{`0},System.String)
+    name: Ping
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Ping__1___0_System_String_
+  - name: <
+  - uid: CoverageKiller2.DOM.Tables.Base1JaggedList`1
+    name: Base1JaggedList
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.Base1JaggedList-1.html
+  - name: <
+  - name: T
+  - name: '>'
+  - name: '>'
+  - name: (
+  - uid: CoverageKiller2.DOM.Tables.Base1JaggedList`1
+    name: Base1JaggedList
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.Base1JaggedList-1.html
+  - name: <
+  - name: T
+  - name: '>'
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: CoverageKiller2.Logging.PingService.Ping``1(CoverageKiller2.DOM.Tables.Base1JaggedList{`0},System.String)
+    name: Ping
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Ping__1___0_System_String_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: CoverageKiller2.DOM.Tables.Base1JaggedList`1
+    name: Base1JaggedList
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.Base1JaggedList-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: )
+  - name: (
+  - uid: CoverageKiller2.DOM.Tables.Base1JaggedList`1
+    name: Base1JaggedList
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.Base1JaggedList-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: CoverageKiller2.DOM.Tables.Base1JaggedList`1.CoverageKiller2.Logging.PingService.Ping``1(System.String,System.String)
+  commentId: M:CoverageKiller2.Logging.PingService.Ping``1(``0,System.String,System.String)
+  parent: CoverageKiller2.Logging.PingService
+  definition: CoverageKiller2.Logging.PingService.Ping``1(``0,System.String,System.String)
+  href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Ping__1___0_System_String_System_String_
+  name: Ping<Base1JaggedList<T>>(Base1JaggedList<T>, string, string)
+  nameWithType: PingService.Ping<Base1JaggedList<T>>(Base1JaggedList<T>, string, string)
+  fullName: CoverageKiller2.Logging.PingService.Ping<CoverageKiller2.DOM.Tables.Base1JaggedList<T>>(CoverageKiller2.DOM.Tables.Base1JaggedList<T>, string, string)
+  nameWithType.vb: PingService.Ping(Of Base1JaggedList(Of T))(Base1JaggedList(Of T), String, String)
+  fullName.vb: CoverageKiller2.Logging.PingService.Ping(Of CoverageKiller2.DOM.Tables.Base1JaggedList(Of T))(CoverageKiller2.DOM.Tables.Base1JaggedList(Of T), String, String)
+  name.vb: Ping(Of Base1JaggedList(Of T))(Base1JaggedList(Of T), String, String)
+  spec.csharp:
+  - uid: CoverageKiller2.Logging.PingService.Ping``1(CoverageKiller2.DOM.Tables.Base1JaggedList{`0},System.String,System.String)
+    name: Ping
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Ping__1___0_System_String_System_String_
+  - name: <
+  - uid: CoverageKiller2.DOM.Tables.Base1JaggedList`1
+    name: Base1JaggedList
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.Base1JaggedList-1.html
+  - name: <
+  - name: T
+  - name: '>'
+  - name: '>'
+  - name: (
+  - uid: CoverageKiller2.DOM.Tables.Base1JaggedList`1
+    name: Base1JaggedList
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.Base1JaggedList-1.html
+  - name: <
+  - name: T
+  - name: '>'
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: CoverageKiller2.Logging.PingService.Ping``1(CoverageKiller2.DOM.Tables.Base1JaggedList{`0},System.String,System.String)
+    name: Ping
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Ping__1___0_System_String_System_String_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: CoverageKiller2.DOM.Tables.Base1JaggedList`1
+    name: Base1JaggedList
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.Base1JaggedList-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: )
+  - name: (
+  - uid: CoverageKiller2.DOM.Tables.Base1JaggedList`1
+    name: Base1JaggedList
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.Base1JaggedList-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: CoverageKiller2.DOM.Tables.Base1JaggedList`1.CoverageKiller2.Logging.PingService.Ping``1(System.Type[],System.String)
+  commentId: M:CoverageKiller2.Logging.PingService.Ping``1(``0,System.Type[],System.String)
+  parent: CoverageKiller2.Logging.PingService
+  definition: CoverageKiller2.Logging.PingService.Ping``1(``0,System.Type[],System.String)
+  href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Ping__1___0_System_Type___System_String_
+  name: Ping<Base1JaggedList<T>>(Base1JaggedList<T>, Type[], string)
+  nameWithType: PingService.Ping<Base1JaggedList<T>>(Base1JaggedList<T>, Type[], string)
+  fullName: CoverageKiller2.Logging.PingService.Ping<CoverageKiller2.DOM.Tables.Base1JaggedList<T>>(CoverageKiller2.DOM.Tables.Base1JaggedList<T>, System.Type[], string)
+  nameWithType.vb: PingService.Ping(Of Base1JaggedList(Of T))(Base1JaggedList(Of T), Type(), String)
+  fullName.vb: CoverageKiller2.Logging.PingService.Ping(Of CoverageKiller2.DOM.Tables.Base1JaggedList(Of T))(CoverageKiller2.DOM.Tables.Base1JaggedList(Of T), System.Type(), String)
+  name.vb: Ping(Of Base1JaggedList(Of T))(Base1JaggedList(Of T), Type(), String)
+  spec.csharp:
+  - uid: CoverageKiller2.Logging.PingService.Ping``1(CoverageKiller2.DOM.Tables.Base1JaggedList{`0},System.Type[],System.String)
+    name: Ping
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Ping__1___0_System_Type___System_String_
+  - name: <
+  - uid: CoverageKiller2.DOM.Tables.Base1JaggedList`1
+    name: Base1JaggedList
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.Base1JaggedList-1.html
+  - name: <
+  - name: T
+  - name: '>'
+  - name: '>'
+  - name: (
+  - uid: CoverageKiller2.DOM.Tables.Base1JaggedList`1
+    name: Base1JaggedList
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.Base1JaggedList-1.html
+  - name: <
+  - name: T
+  - name: '>'
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: '['
+  - name: ']'
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: CoverageKiller2.Logging.PingService.Ping``1(CoverageKiller2.DOM.Tables.Base1JaggedList{`0},System.Type[],System.String)
+    name: Ping
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Ping__1___0_System_Type___System_String_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: CoverageKiller2.DOM.Tables.Base1JaggedList`1
+    name: Base1JaggedList
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.Base1JaggedList-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: )
+  - name: (
+  - uid: CoverageKiller2.DOM.Tables.Base1JaggedList`1
+    name: Base1JaggedList
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.Base1JaggedList-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: (
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: CoverageKiller2.DOM.Tables.Base1JaggedList`1.CoverageKiller2.Logging.PingService.Pong``1(System.String)
+  commentId: M:CoverageKiller2.Logging.PingService.Pong``1(``0,System.String)
+  parent: CoverageKiller2.Logging.PingService
+  definition: CoverageKiller2.Logging.PingService.Pong``1(``0,System.String)
+  href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1___0_System_String_
+  name: Pong<Base1JaggedList<T>>(Base1JaggedList<T>, string)
+  nameWithType: PingService.Pong<Base1JaggedList<T>>(Base1JaggedList<T>, string)
+  fullName: CoverageKiller2.Logging.PingService.Pong<CoverageKiller2.DOM.Tables.Base1JaggedList<T>>(CoverageKiller2.DOM.Tables.Base1JaggedList<T>, string)
+  nameWithType.vb: PingService.Pong(Of Base1JaggedList(Of T))(Base1JaggedList(Of T), String)
+  fullName.vb: CoverageKiller2.Logging.PingService.Pong(Of CoverageKiller2.DOM.Tables.Base1JaggedList(Of T))(CoverageKiller2.DOM.Tables.Base1JaggedList(Of T), String)
+  name.vb: Pong(Of Base1JaggedList(Of T))(Base1JaggedList(Of T), String)
+  spec.csharp:
+  - uid: CoverageKiller2.Logging.PingService.Pong``1(CoverageKiller2.DOM.Tables.Base1JaggedList{`0},System.String)
+    name: Pong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1___0_System_String_
+  - name: <
+  - uid: CoverageKiller2.DOM.Tables.Base1JaggedList`1
+    name: Base1JaggedList
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.Base1JaggedList-1.html
+  - name: <
+  - name: T
+  - name: '>'
+  - name: '>'
+  - name: (
+  - uid: CoverageKiller2.DOM.Tables.Base1JaggedList`1
+    name: Base1JaggedList
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.Base1JaggedList-1.html
+  - name: <
+  - name: T
+  - name: '>'
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: CoverageKiller2.Logging.PingService.Pong``1(CoverageKiller2.DOM.Tables.Base1JaggedList{`0},System.String)
+    name: Pong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1___0_System_String_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: CoverageKiller2.DOM.Tables.Base1JaggedList`1
+    name: Base1JaggedList
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.Base1JaggedList-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: )
+  - name: (
+  - uid: CoverageKiller2.DOM.Tables.Base1JaggedList`1
+    name: Base1JaggedList
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.Base1JaggedList-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: CoverageKiller2.DOM.Tables.Base1JaggedList`1.CoverageKiller2.Logging.PingService.Pong``1(System.String,System.String)
+  commentId: M:CoverageKiller2.Logging.PingService.Pong``1(``0,System.String,System.String)
+  parent: CoverageKiller2.Logging.PingService
+  definition: CoverageKiller2.Logging.PingService.Pong``1(``0,System.String,System.String)
+  href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1___0_System_String_System_String_
+  name: Pong<Base1JaggedList<T>>(Base1JaggedList<T>, string, string)
+  nameWithType: PingService.Pong<Base1JaggedList<T>>(Base1JaggedList<T>, string, string)
+  fullName: CoverageKiller2.Logging.PingService.Pong<CoverageKiller2.DOM.Tables.Base1JaggedList<T>>(CoverageKiller2.DOM.Tables.Base1JaggedList<T>, string, string)
+  nameWithType.vb: PingService.Pong(Of Base1JaggedList(Of T))(Base1JaggedList(Of T), String, String)
+  fullName.vb: CoverageKiller2.Logging.PingService.Pong(Of CoverageKiller2.DOM.Tables.Base1JaggedList(Of T))(CoverageKiller2.DOM.Tables.Base1JaggedList(Of T), String, String)
+  name.vb: Pong(Of Base1JaggedList(Of T))(Base1JaggedList(Of T), String, String)
+  spec.csharp:
+  - uid: CoverageKiller2.Logging.PingService.Pong``1(CoverageKiller2.DOM.Tables.Base1JaggedList{`0},System.String,System.String)
+    name: Pong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1___0_System_String_System_String_
+  - name: <
+  - uid: CoverageKiller2.DOM.Tables.Base1JaggedList`1
+    name: Base1JaggedList
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.Base1JaggedList-1.html
+  - name: <
+  - name: T
+  - name: '>'
+  - name: '>'
+  - name: (
+  - uid: CoverageKiller2.DOM.Tables.Base1JaggedList`1
+    name: Base1JaggedList
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.Base1JaggedList-1.html
+  - name: <
+  - name: T
+  - name: '>'
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: CoverageKiller2.Logging.PingService.Pong``1(CoverageKiller2.DOM.Tables.Base1JaggedList{`0},System.String,System.String)
+    name: Pong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1___0_System_String_System_String_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: CoverageKiller2.DOM.Tables.Base1JaggedList`1
+    name: Base1JaggedList
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.Base1JaggedList-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: )
+  - name: (
+  - uid: CoverageKiller2.DOM.Tables.Base1JaggedList`1
+    name: Base1JaggedList
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.Base1JaggedList-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: CoverageKiller2.DOM.Tables.Base1JaggedList`1.CoverageKiller2.Logging.PingService.Pong``1(System.Type,System.String)
+  commentId: M:CoverageKiller2.Logging.PingService.Pong``1(``0,System.Type,System.String)
+  parent: CoverageKiller2.Logging.PingService
+  definition: CoverageKiller2.Logging.PingService.Pong``1(``0,System.Type,System.String)
+  href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1___0_System_Type_System_String_
+  name: Pong<Base1JaggedList<T>>(Base1JaggedList<T>, Type, string)
+  nameWithType: PingService.Pong<Base1JaggedList<T>>(Base1JaggedList<T>, Type, string)
+  fullName: CoverageKiller2.Logging.PingService.Pong<CoverageKiller2.DOM.Tables.Base1JaggedList<T>>(CoverageKiller2.DOM.Tables.Base1JaggedList<T>, System.Type, string)
+  nameWithType.vb: PingService.Pong(Of Base1JaggedList(Of T))(Base1JaggedList(Of T), Type, String)
+  fullName.vb: CoverageKiller2.Logging.PingService.Pong(Of CoverageKiller2.DOM.Tables.Base1JaggedList(Of T))(CoverageKiller2.DOM.Tables.Base1JaggedList(Of T), System.Type, String)
+  name.vb: Pong(Of Base1JaggedList(Of T))(Base1JaggedList(Of T), Type, String)
+  spec.csharp:
+  - uid: CoverageKiller2.Logging.PingService.Pong``1(CoverageKiller2.DOM.Tables.Base1JaggedList{`0},System.Type,System.String)
+    name: Pong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1___0_System_Type_System_String_
+  - name: <
+  - uid: CoverageKiller2.DOM.Tables.Base1JaggedList`1
+    name: Base1JaggedList
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.Base1JaggedList-1.html
+  - name: <
+  - name: T
+  - name: '>'
+  - name: '>'
+  - name: (
+  - uid: CoverageKiller2.DOM.Tables.Base1JaggedList`1
+    name: Base1JaggedList
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.Base1JaggedList-1.html
+  - name: <
+  - name: T
+  - name: '>'
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: CoverageKiller2.Logging.PingService.Pong``1(CoverageKiller2.DOM.Tables.Base1JaggedList{`0},System.Type,System.String)
+    name: Pong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1___0_System_Type_System_String_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: CoverageKiller2.DOM.Tables.Base1JaggedList`1
+    name: Base1JaggedList
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.Base1JaggedList-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: )
+  - name: (
+  - uid: CoverageKiller2.DOM.Tables.Base1JaggedList`1
+    name: Base1JaggedList
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.Base1JaggedList-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: CoverageKiller2.DOM.Tables.Base1JaggedList`1.CoverageKiller2.Logging.PingService.Pong``1(System.Type[],System.String)
+  commentId: M:CoverageKiller2.Logging.PingService.Pong``1(``0,System.Type[],System.String)
+  parent: CoverageKiller2.Logging.PingService
+  definition: CoverageKiller2.Logging.PingService.Pong``1(``0,System.Type[],System.String)
+  href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1___0_System_Type___System_String_
+  name: Pong<Base1JaggedList<T>>(Base1JaggedList<T>, Type[], string)
+  nameWithType: PingService.Pong<Base1JaggedList<T>>(Base1JaggedList<T>, Type[], string)
+  fullName: CoverageKiller2.Logging.PingService.Pong<CoverageKiller2.DOM.Tables.Base1JaggedList<T>>(CoverageKiller2.DOM.Tables.Base1JaggedList<T>, System.Type[], string)
+  nameWithType.vb: PingService.Pong(Of Base1JaggedList(Of T))(Base1JaggedList(Of T), Type(), String)
+  fullName.vb: CoverageKiller2.Logging.PingService.Pong(Of CoverageKiller2.DOM.Tables.Base1JaggedList(Of T))(CoverageKiller2.DOM.Tables.Base1JaggedList(Of T), System.Type(), String)
+  name.vb: Pong(Of Base1JaggedList(Of T))(Base1JaggedList(Of T), Type(), String)
+  spec.csharp:
+  - uid: CoverageKiller2.Logging.PingService.Pong``1(CoverageKiller2.DOM.Tables.Base1JaggedList{`0},System.Type[],System.String)
+    name: Pong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1___0_System_Type___System_String_
+  - name: <
+  - uid: CoverageKiller2.DOM.Tables.Base1JaggedList`1
+    name: Base1JaggedList
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.Base1JaggedList-1.html
+  - name: <
+  - name: T
+  - name: '>'
+  - name: '>'
+  - name: (
+  - uid: CoverageKiller2.DOM.Tables.Base1JaggedList`1
+    name: Base1JaggedList
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.Base1JaggedList-1.html
+  - name: <
+  - name: T
+  - name: '>'
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: '['
+  - name: ']'
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: CoverageKiller2.Logging.PingService.Pong``1(CoverageKiller2.DOM.Tables.Base1JaggedList{`0},System.Type[],System.String)
+    name: Pong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1___0_System_Type___System_String_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: CoverageKiller2.DOM.Tables.Base1JaggedList`1
+    name: Base1JaggedList
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.Base1JaggedList-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: )
+  - name: (
+  - uid: CoverageKiller2.DOM.Tables.Base1JaggedList`1
+    name: Base1JaggedList
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.Base1JaggedList-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: (
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: CoverageKiller2.DOM.Tables.Base1JaggedList`1.CoverageKiller2.Logging.PingService.Pong``2(System.Func{{TResult}},System.String,System.String)
+  commentId: M:CoverageKiller2.Logging.PingService.Pong``2(``0,System.Func{``1},System.String,System.String)
+  parent: CoverageKiller2.Logging.PingService
+  definition: CoverageKiller2.Logging.PingService.Pong``2(``0,System.Func{``1},System.String,System.String)
+  href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__2___0_System_Func___1__System_String_System_String_
+  name: Pong<Base1JaggedList<T>, TResult>(Base1JaggedList<T>, Func<TResult>, string, string)
+  nameWithType: PingService.Pong<Base1JaggedList<T>, TResult>(Base1JaggedList<T>, Func<TResult>, string, string)
+  fullName: CoverageKiller2.Logging.PingService.Pong<CoverageKiller2.DOM.Tables.Base1JaggedList<T>, TResult>(CoverageKiller2.DOM.Tables.Base1JaggedList<T>, System.Func<TResult>, string, string)
+  nameWithType.vb: PingService.Pong(Of Base1JaggedList(Of T), TResult)(Base1JaggedList(Of T), Func(Of TResult), String, String)
+  fullName.vb: CoverageKiller2.Logging.PingService.Pong(Of CoverageKiller2.DOM.Tables.Base1JaggedList(Of T), TResult)(CoverageKiller2.DOM.Tables.Base1JaggedList(Of T), System.Func(Of TResult), String, String)
+  name.vb: Pong(Of Base1JaggedList(Of T), TResult)(Base1JaggedList(Of T), Func(Of TResult), String, String)
+  spec.csharp:
+  - uid: CoverageKiller2.Logging.PingService.Pong``2(CoverageKiller2.DOM.Tables.Base1JaggedList{`0},System.Func{``1},System.String,System.String)
+    name: Pong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__2___0_System_Func___1__System_String_System_String_
+  - name: <
+  - uid: CoverageKiller2.DOM.Tables.Base1JaggedList`1
+    name: Base1JaggedList
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.Base1JaggedList-1.html
+  - name: <
+  - name: T
+  - name: '>'
+  - name: ','
+  - name: " "
+  - name: TResult
+  - name: '>'
+  - name: (
+  - uid: CoverageKiller2.DOM.Tables.Base1JaggedList`1
+    name: Base1JaggedList
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.Base1JaggedList-1.html
+  - name: <
+  - name: T
+  - name: '>'
+  - name: ','
+  - name: " "
+  - uid: System.Func`1
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-1
+  - name: <
+  - name: TResult
+  - name: '>'
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: CoverageKiller2.Logging.PingService.Pong``2(CoverageKiller2.DOM.Tables.Base1JaggedList{`0},System.Func{``1},System.String,System.String)
+    name: Pong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__2___0_System_Func___1__System_String_System_String_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: CoverageKiller2.DOM.Tables.Base1JaggedList`1
+    name: Base1JaggedList
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.Base1JaggedList-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: ','
+  - name: " "
+  - name: TResult
+  - name: )
+  - name: (
+  - uid: CoverageKiller2.DOM.Tables.Base1JaggedList`1
+    name: Base1JaggedList
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.Base1JaggedList-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: System.Func`1
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TResult
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: System.Collections.Generic.IReadOnlyList`1
+  commentId: T:System.Collections.Generic.IReadOnlyList`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
+  name: IReadOnlyList<T>
+  nameWithType: IReadOnlyList<T>
+  fullName: System.Collections.Generic.IReadOnlyList<T>
+  nameWithType.vb: IReadOnlyList(Of T)
+  fullName.vb: System.Collections.Generic.IReadOnlyList(Of T)
+  name.vb: IReadOnlyList(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.IReadOnlyList`1
+    name: IReadOnlyList
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IReadOnlyList`1
+    name: IReadOnlyList
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: System.Collections.Generic
+  commentId: N:System.Collections.Generic
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Collections.Generic
+  nameWithType: System.Collections.Generic
+  fullName: System.Collections.Generic
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+- uid: System.Collections.Generic.IReadOnlyCollection`1
+  commentId: T:System.Collections.Generic.IReadOnlyCollection`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlycollection-1
+  name: IReadOnlyCollection<T>
+  nameWithType: IReadOnlyCollection<T>
+  fullName: System.Collections.Generic.IReadOnlyCollection<T>
+  nameWithType.vb: IReadOnlyCollection(Of T)
+  fullName.vb: System.Collections.Generic.IReadOnlyCollection(Of T)
+  name.vb: IReadOnlyCollection(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.IReadOnlyCollection`1
+    name: IReadOnlyCollection
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlycollection-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IReadOnlyCollection`1
+    name: IReadOnlyCollection
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlycollection-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: System.Collections.Generic.IEnumerable`1
+  commentId: T:System.Collections.Generic.IEnumerable`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  name: IEnumerable<T>
+  nameWithType: IEnumerable<T>
+  fullName: System.Collections.Generic.IEnumerable<T>
+  nameWithType.vb: IEnumerable(Of T)
+  fullName.vb: System.Collections.Generic.IEnumerable(Of T)
+  name.vb: IEnumerable(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: System.Collections
+  commentId: N:System.Collections
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Collections
+  nameWithType: System.Collections
+  fullName: System.Collections
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+- uid: CoverageKiller2.Logging.PingService.PingPong``1(``0,System.String)
+  commentId: M:CoverageKiller2.Logging.PingService.PingPong``1(``0,System.String)
+  isExternal: true
+  href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_PingPong__1___0_System_String_
+  name: PingPong<T>(T, string)
+  nameWithType: PingService.PingPong<T>(T, string)
+  fullName: CoverageKiller2.Logging.PingService.PingPong<T>(T, string)
+  nameWithType.vb: PingService.PingPong(Of T)(T, String)
+  fullName.vb: CoverageKiller2.Logging.PingService.PingPong(Of T)(T, String)
+  name.vb: PingPong(Of T)(T, String)
+  spec.csharp:
+  - uid: CoverageKiller2.Logging.PingService.PingPong``1(``0,System.String)
+    name: PingPong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_PingPong__1___0_System_String_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: CoverageKiller2.Logging.PingService.PingPong``1(``0,System.String)
+    name: PingPong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_PingPong__1___0_System_String_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: CoverageKiller2.Logging.PingService
+  commentId: T:CoverageKiller2.Logging.PingService
+  parent: CoverageKiller2.Logging
+  isExternal: true
+  href: CoverageKiller2.Logging.PingService.html
+  name: PingService
+  nameWithType: PingService
+  fullName: CoverageKiller2.Logging.PingService
+- uid: CoverageKiller2.Logging.PingService.PingPong``1(``0,System.String,System.String)
+  commentId: M:CoverageKiller2.Logging.PingService.PingPong``1(``0,System.String,System.String)
+  isExternal: true
+  href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_PingPong__1___0_System_String_System_String_
+  name: PingPong<T>(T, string, string)
+  nameWithType: PingService.PingPong<T>(T, string, string)
+  fullName: CoverageKiller2.Logging.PingService.PingPong<T>(T, string, string)
+  nameWithType.vb: PingService.PingPong(Of T)(T, String, String)
+  fullName.vb: CoverageKiller2.Logging.PingService.PingPong(Of T)(T, String, String)
+  name.vb: PingPong(Of T)(T, String, String)
+  spec.csharp:
+  - uid: CoverageKiller2.Logging.PingService.PingPong``1(``0,System.String,System.String)
+    name: PingPong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_PingPong__1___0_System_String_System_String_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: CoverageKiller2.Logging.PingService.PingPong``1(``0,System.String,System.String)
+    name: PingPong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_PingPong__1___0_System_String_System_String_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: CoverageKiller2.Logging.PingService.PingPong``2(``0,System.Func{``1},System.String,System.String)
+  commentId: M:CoverageKiller2.Logging.PingService.PingPong``2(``0,System.Func{``1},System.String,System.String)
+  isExternal: true
+  href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_PingPong__2___0_System_Func___1__System_String_System_String_
+  name: PingPong<T, TResult>(T, Func<TResult>, string, string)
+  nameWithType: PingService.PingPong<T, TResult>(T, Func<TResult>, string, string)
+  fullName: CoverageKiller2.Logging.PingService.PingPong<T, TResult>(T, System.Func<TResult>, string, string)
+  nameWithType.vb: PingService.PingPong(Of T, TResult)(T, Func(Of TResult), String, String)
+  fullName.vb: CoverageKiller2.Logging.PingService.PingPong(Of T, TResult)(T, System.Func(Of TResult), String, String)
+  name.vb: PingPong(Of T, TResult)(T, Func(Of TResult), String, String)
+  spec.csharp:
+  - uid: CoverageKiller2.Logging.PingService.PingPong``2(``0,System.Func{``1},System.String,System.String)
+    name: PingPong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_PingPong__2___0_System_Func___1__System_String_System_String_
+  - name: <
+  - name: T
+  - name: ','
+  - name: " "
+  - name: TResult
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Func`1
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-1
+  - name: <
+  - name: TResult
+  - name: '>'
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: CoverageKiller2.Logging.PingService.PingPong``2(``0,System.Func{``1},System.String,System.String)
+    name: PingPong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_PingPong__2___0_System_Func___1__System_String_System_String_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - name: TResult
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Func`1
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TResult
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: CoverageKiller2.Logging.PingService.Ping``1(``0,System.String)
+  commentId: M:CoverageKiller2.Logging.PingService.Ping``1(``0,System.String)
+  isExternal: true
+  href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Ping__1___0_System_String_
+  name: Ping<T>(T, string)
+  nameWithType: PingService.Ping<T>(T, string)
+  fullName: CoverageKiller2.Logging.PingService.Ping<T>(T, string)
+  nameWithType.vb: PingService.Ping(Of T)(T, String)
+  fullName.vb: CoverageKiller2.Logging.PingService.Ping(Of T)(T, String)
+  name.vb: Ping(Of T)(T, String)
+  spec.csharp:
+  - uid: CoverageKiller2.Logging.PingService.Ping``1(``0,System.String)
+    name: Ping
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Ping__1___0_System_String_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: CoverageKiller2.Logging.PingService.Ping``1(``0,System.String)
+    name: Ping
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Ping__1___0_System_String_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: CoverageKiller2.Logging.PingService.Ping``1(``0,System.String,System.String)
+  commentId: M:CoverageKiller2.Logging.PingService.Ping``1(``0,System.String,System.String)
+  isExternal: true
+  href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Ping__1___0_System_String_System_String_
+  name: Ping<T>(T, string, string)
+  nameWithType: PingService.Ping<T>(T, string, string)
+  fullName: CoverageKiller2.Logging.PingService.Ping<T>(T, string, string)
+  nameWithType.vb: PingService.Ping(Of T)(T, String, String)
+  fullName.vb: CoverageKiller2.Logging.PingService.Ping(Of T)(T, String, String)
+  name.vb: Ping(Of T)(T, String, String)
+  spec.csharp:
+  - uid: CoverageKiller2.Logging.PingService.Ping``1(``0,System.String,System.String)
+    name: Ping
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Ping__1___0_System_String_System_String_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: CoverageKiller2.Logging.PingService.Ping``1(``0,System.String,System.String)
+    name: Ping
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Ping__1___0_System_String_System_String_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: CoverageKiller2.Logging.PingService.Ping``1(``0,System.Type[],System.String)
+  commentId: M:CoverageKiller2.Logging.PingService.Ping``1(``0,System.Type[],System.String)
+  isExternal: true
+  href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Ping__1___0_System_Type___System_String_
+  name: Ping<T>(T, Type[], string)
+  nameWithType: PingService.Ping<T>(T, Type[], string)
+  fullName: CoverageKiller2.Logging.PingService.Ping<T>(T, System.Type[], string)
+  nameWithType.vb: PingService.Ping(Of T)(T, Type(), String)
+  fullName.vb: CoverageKiller2.Logging.PingService.Ping(Of T)(T, System.Type(), String)
+  name.vb: Ping(Of T)(T, Type(), String)
+  spec.csharp:
+  - uid: CoverageKiller2.Logging.PingService.Ping``1(``0,System.Type[],System.String)
+    name: Ping
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Ping__1___0_System_Type___System_String_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: '['
+  - name: ']'
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: CoverageKiller2.Logging.PingService.Ping``1(``0,System.Type[],System.String)
+    name: Ping
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Ping__1___0_System_Type___System_String_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: (
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: CoverageKiller2.Logging.PingService.Pong``1(``0,System.String)
+  commentId: M:CoverageKiller2.Logging.PingService.Pong``1(``0,System.String)
+  isExternal: true
+  href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1___0_System_String_
+  name: Pong<T>(T, string)
+  nameWithType: PingService.Pong<T>(T, string)
+  fullName: CoverageKiller2.Logging.PingService.Pong<T>(T, string)
+  nameWithType.vb: PingService.Pong(Of T)(T, String)
+  fullName.vb: CoverageKiller2.Logging.PingService.Pong(Of T)(T, String)
+  name.vb: Pong(Of T)(T, String)
+  spec.csharp:
+  - uid: CoverageKiller2.Logging.PingService.Pong``1(``0,System.String)
+    name: Pong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1___0_System_String_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: CoverageKiller2.Logging.PingService.Pong``1(``0,System.String)
+    name: Pong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1___0_System_String_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: CoverageKiller2.Logging.PingService.Pong``1(``0,System.String,System.String)
+  commentId: M:CoverageKiller2.Logging.PingService.Pong``1(``0,System.String,System.String)
+  isExternal: true
+  href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1___0_System_String_System_String_
+  name: Pong<T>(T, string, string)
+  nameWithType: PingService.Pong<T>(T, string, string)
+  fullName: CoverageKiller2.Logging.PingService.Pong<T>(T, string, string)
+  nameWithType.vb: PingService.Pong(Of T)(T, String, String)
+  fullName.vb: CoverageKiller2.Logging.PingService.Pong(Of T)(T, String, String)
+  name.vb: Pong(Of T)(T, String, String)
+  spec.csharp:
+  - uid: CoverageKiller2.Logging.PingService.Pong``1(``0,System.String,System.String)
+    name: Pong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1___0_System_String_System_String_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: CoverageKiller2.Logging.PingService.Pong``1(``0,System.String,System.String)
+    name: Pong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1___0_System_String_System_String_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: CoverageKiller2.Logging.PingService.Pong``1(``0,System.Type,System.String)
+  commentId: M:CoverageKiller2.Logging.PingService.Pong``1(``0,System.Type,System.String)
+  isExternal: true
+  href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1___0_System_Type_System_String_
+  name: Pong<T>(T, Type, string)
+  nameWithType: PingService.Pong<T>(T, Type, string)
+  fullName: CoverageKiller2.Logging.PingService.Pong<T>(T, System.Type, string)
+  nameWithType.vb: PingService.Pong(Of T)(T, Type, String)
+  fullName.vb: CoverageKiller2.Logging.PingService.Pong(Of T)(T, System.Type, String)
+  name.vb: Pong(Of T)(T, Type, String)
+  spec.csharp:
+  - uid: CoverageKiller2.Logging.PingService.Pong``1(``0,System.Type,System.String)
+    name: Pong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1___0_System_Type_System_String_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: CoverageKiller2.Logging.PingService.Pong``1(``0,System.Type,System.String)
+    name: Pong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1___0_System_Type_System_String_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: CoverageKiller2.Logging.PingService.Pong``1(``0,System.Type[],System.String)
+  commentId: M:CoverageKiller2.Logging.PingService.Pong``1(``0,System.Type[],System.String)
+  isExternal: true
+  href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1___0_System_Type___System_String_
+  name: Pong<T>(T, Type[], string)
+  nameWithType: PingService.Pong<T>(T, Type[], string)
+  fullName: CoverageKiller2.Logging.PingService.Pong<T>(T, System.Type[], string)
+  nameWithType.vb: PingService.Pong(Of T)(T, Type(), String)
+  fullName.vb: CoverageKiller2.Logging.PingService.Pong(Of T)(T, System.Type(), String)
+  name.vb: Pong(Of T)(T, Type(), String)
+  spec.csharp:
+  - uid: CoverageKiller2.Logging.PingService.Pong``1(``0,System.Type[],System.String)
+    name: Pong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1___0_System_Type___System_String_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: '['
+  - name: ']'
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: CoverageKiller2.Logging.PingService.Pong``1(``0,System.Type[],System.String)
+    name: Pong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1___0_System_Type___System_String_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: (
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: CoverageKiller2.Logging.PingService.Pong``2(``0,System.Func{``1},System.String,System.String)
+  commentId: M:CoverageKiller2.Logging.PingService.Pong``2(``0,System.Func{``1},System.String,System.String)
+  isExternal: true
+  href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__2___0_System_Func___1__System_String_System_String_
+  name: Pong<T, TResult>(T, Func<TResult>, string, string)
+  nameWithType: PingService.Pong<T, TResult>(T, Func<TResult>, string, string)
+  fullName: CoverageKiller2.Logging.PingService.Pong<T, TResult>(T, System.Func<TResult>, string, string)
+  nameWithType.vb: PingService.Pong(Of T, TResult)(T, Func(Of TResult), String, String)
+  fullName.vb: CoverageKiller2.Logging.PingService.Pong(Of T, TResult)(T, System.Func(Of TResult), String, String)
+  name.vb: Pong(Of T, TResult)(T, Func(Of TResult), String, String)
+  spec.csharp:
+  - uid: CoverageKiller2.Logging.PingService.Pong``2(``0,System.Func{``1},System.String,System.String)
+    name: Pong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__2___0_System_Func___1__System_String_System_String_
+  - name: <
+  - name: T
+  - name: ','
+  - name: " "
+  - name: TResult
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Func`1
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-1
+  - name: <
+  - name: TResult
+  - name: '>'
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: CoverageKiller2.Logging.PingService.Pong``2(``0,System.Func{``1},System.String,System.String)
+    name: Pong
+    isExternal: true
+    href: CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__2___0_System_Func___1__System_String_System_String_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - name: TResult
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Func`1
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TResult
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: CoverageKiller2.Logging
+  commentId: N:CoverageKiller2.Logging
+  isExternal: true
+  href: CoverageKiller2.html
+  name: CoverageKiller2.Logging
+  nameWithType: CoverageKiller2.Logging
+  fullName: CoverageKiller2.Logging
+  spec.csharp:
+  - uid: CoverageKiller2
+    name: CoverageKiller2
+    isExternal: true
+    href: CoverageKiller2.html
+  - name: .
+  - uid: CoverageKiller2.Logging
+    name: Logging
+    isExternal: true
+    href: CoverageKiller2.Logging.html
+  spec.vb:
+  - uid: CoverageKiller2
+    name: CoverageKiller2
+    isExternal: true
+    href: CoverageKiller2.html
+  - name: .
+  - uid: CoverageKiller2.Logging
+    name: Logging
+    isExternal: true
+    href: CoverageKiller2.Logging.html
+- uid: CoverageKiller2.DOM.Tables.Base1JaggedList`1.#ctor*
+  commentId: Overload:CoverageKiller2.DOM.Tables.Base1JaggedList`1.#ctor
+  isExternal: true
+  href: CoverageKiller2.DOM.Tables.Base1JaggedList-1.html#CoverageKiller2_DOM_Tables_Base1JaggedList_1__ctor
+  name: Base1JaggedList
+  nameWithType: Base1JaggedList<T>.Base1JaggedList
+  fullName: CoverageKiller2.DOM.Tables.Base1JaggedList<T>.Base1JaggedList
+  nameWithType.vb: Base1JaggedList(Of T).New
+  fullName.vb: CoverageKiller2.DOM.Tables.Base1JaggedList(Of T).New
+  name.vb: New
+- uid: System.Collections.Generic.List{System.Collections.Generic.List{{T}}}
+  commentId: T:System.Collections.Generic.List{System.Collections.Generic.List{`0}}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.List`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<List<T>>
+  nameWithType: List<List<T>>
+  fullName: System.Collections.Generic.List<System.Collections.Generic.List<T>>
+  nameWithType.vb: List(Of List(Of T))
+  fullName.vb: System.Collections.Generic.List(Of System.Collections.Generic.List(Of T))
+  name.vb: List(Of List(Of T))
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - name: T
+  - name: '>'
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: )
+- uid: System.Collections.Generic.List`1
+  commentId: T:System.Collections.Generic.List`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<T>
+  nameWithType: List<T>
+  fullName: System.Collections.Generic.List<T>
+  nameWithType.vb: List(Of T)
+  fullName.vb: System.Collections.Generic.List(Of T)
+  name.vb: List(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: CoverageKiller2.DOM.Tables.Base1JaggedList`1.Flatten*
+  commentId: Overload:CoverageKiller2.DOM.Tables.Base1JaggedList`1.Flatten
+  isExternal: true
+  href: CoverageKiller2.DOM.Tables.Base1JaggedList-1.html#CoverageKiller2_DOM_Tables_Base1JaggedList_1_Flatten
+  name: Flatten
+  nameWithType: Base1JaggedList<T>.Flatten
+  fullName: CoverageKiller2.DOM.Tables.Base1JaggedList<T>.Flatten
+  nameWithType.vb: Base1JaggedList(Of T).Flatten
+  fullName.vb: CoverageKiller2.DOM.Tables.Base1JaggedList(Of T).Flatten
+- uid: System.Collections.Generic.IEnumerable{{T}}
+  commentId: T:System.Collections.Generic.IEnumerable{`0}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.IEnumerable`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  name: IEnumerable<T>
+  nameWithType: IEnumerable<T>
+  fullName: System.Collections.Generic.IEnumerable<T>
+  nameWithType.vb: IEnumerable(Of T)
+  fullName.vb: System.Collections.Generic.IEnumerable(Of T)
+  name.vb: IEnumerable(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: CoverageKiller2.DOM.Tables.Base1JaggedList`1.SelectMany*
+  commentId: Overload:CoverageKiller2.DOM.Tables.Base1JaggedList`1.SelectMany
+  isExternal: true
+  href: CoverageKiller2.DOM.Tables.Base1JaggedList-1.html#CoverageKiller2_DOM_Tables_Base1JaggedList_1_SelectMany__1_System_Func__0_System_Collections_Generic_IEnumerable___0___
+  name: SelectMany
+  nameWithType: Base1JaggedList<T>.SelectMany
+  fullName: CoverageKiller2.DOM.Tables.Base1JaggedList<T>.SelectMany
+  nameWithType.vb: Base1JaggedList(Of T).SelectMany
+  fullName.vb: CoverageKiller2.DOM.Tables.Base1JaggedList(Of T).SelectMany
+- uid: System.Func{{T},System.Collections.Generic.IEnumerable{{TResult}}}
+  commentId: T:System.Func{`0,System.Collections.Generic.IEnumerable{``0}}
+  parent: System
+  definition: System.Func`2
+  href: https://learn.microsoft.com/dotnet/api/system.func-2
+  name: Func<T, IEnumerable<TResult>>
+  nameWithType: Func<T, IEnumerable<TResult>>
+  fullName: System.Func<T, System.Collections.Generic.IEnumerable<TResult>>
+  nameWithType.vb: Func(Of T, IEnumerable(Of TResult))
+  fullName.vb: System.Func(Of T, System.Collections.Generic.IEnumerable(Of TResult))
+  name.vb: Func(Of T, IEnumerable(Of TResult))
+  spec.csharp:
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: <
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: <
+  - name: TResult
+  - name: '>'
+  - name: '>'
+  spec.vb:
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TResult
+  - name: )
+  - name: )
+- uid: System.Collections.Generic.IEnumerable{{TResult}}
+  commentId: T:System.Collections.Generic.IEnumerable{``0}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.IEnumerable`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  name: IEnumerable<TResult>
+  nameWithType: IEnumerable<TResult>
+  fullName: System.Collections.Generic.IEnumerable<TResult>
+  nameWithType.vb: IEnumerable(Of TResult)
+  fullName.vb: System.Collections.Generic.IEnumerable(Of TResult)
+  name.vb: IEnumerable(Of TResult)
+  spec.csharp:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: <
+  - name: TResult
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TResult
+  - name: )
+- uid: System.Func`2
+  commentId: T:System.Func`2
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.func-2
+  name: Func<T, TResult>
+  nameWithType: Func<T, TResult>
+  fullName: System.Func<T, TResult>
+  nameWithType.vb: Func(Of T, TResult)
+  fullName.vb: System.Func(Of T, TResult)
+  name.vb: Func(Of T, TResult)
+  spec.csharp:
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: <
+  - name: T
+  - name: ','
+  - name: " "
+  - name: TResult
+  - name: '>'
+  spec.vb:
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - name: TResult
+  - name: )
+- uid: CoverageKiller2.DOM.Tables.Base1JaggedList`1.SafeGet*
+  commentId: Overload:CoverageKiller2.DOM.Tables.Base1JaggedList`1.SafeGet
+  isExternal: true
+  href: CoverageKiller2.DOM.Tables.Base1JaggedList-1.html#CoverageKiller2_DOM_Tables_Base1JaggedList_1_SafeGet_System_Int32_System_Int32_
+  name: SafeGet
+  nameWithType: Base1JaggedList<T>.SafeGet
+  fullName: CoverageKiller2.DOM.Tables.Base1JaggedList<T>.SafeGet
+  nameWithType.vb: Base1JaggedList(Of T).SafeGet
+  fullName.vb: CoverageKiller2.DOM.Tables.Base1JaggedList(Of T).SafeGet
+- uid: System.Int32
+  commentId: T:System.Int32
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.int32
+  name: int
+  nameWithType: int
+  fullName: int
+  nameWithType.vb: Integer
+  fullName.vb: Integer
+  name.vb: Integer
+- uid: '{T}'
+  commentId: '!:T'
+  definition: T
+  name: T
+  nameWithType: T
+  fullName: T
+- uid: T
+  name: T
+  nameWithType: T
+  fullName: T
+- uid: CoverageKiller2.DOM.Tables.Base1JaggedList`1.Add*
+  commentId: Overload:CoverageKiller2.DOM.Tables.Base1JaggedList`1.Add
+  isExternal: true
+  href: CoverageKiller2.DOM.Tables.Base1JaggedList-1.html#CoverageKiller2_DOM_Tables_Base1JaggedList_1_Add_CoverageKiller2_DOM_Tables_Base1List__0__
+  name: Add
+  nameWithType: Base1JaggedList<T>.Add
+  fullName: CoverageKiller2.DOM.Tables.Base1JaggedList<T>.Add
+  nameWithType.vb: Base1JaggedList(Of T).Add
+  fullName.vb: CoverageKiller2.DOM.Tables.Base1JaggedList(Of T).Add
+- uid: CoverageKiller2.DOM.Tables.Base1List{{T}}
+  commentId: T:CoverageKiller2.DOM.Tables.Base1List{`0}
+  parent: CoverageKiller2.DOM.Tables
+  definition: CoverageKiller2.DOM.Tables.Base1List`1
+  href: CoverageKiller2.DOM.Tables.Base1List-1.html
+  name: Base1List<T>
+  nameWithType: Base1List<T>
+  fullName: CoverageKiller2.DOM.Tables.Base1List<T>
+  nameWithType.vb: Base1List(Of T)
+  fullName.vb: CoverageKiller2.DOM.Tables.Base1List(Of T)
+  name.vb: Base1List(Of T)
+  spec.csharp:
+  - uid: CoverageKiller2.DOM.Tables.Base1List`1
+    name: Base1List
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.Base1List-1.html
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: CoverageKiller2.DOM.Tables.Base1List`1
+    name: Base1List
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.Base1List-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: CoverageKiller2.DOM.Tables.Base1List`1
+  commentId: T:CoverageKiller2.DOM.Tables.Base1List`1
+  parent: CoverageKiller2.DOM.Tables
+  isExternal: true
+  href: CoverageKiller2.DOM.Tables.Base1List-1.html
+  name: Base1List<T>
+  nameWithType: Base1List<T>
+  fullName: CoverageKiller2.DOM.Tables.Base1List<T>
+  nameWithType.vb: Base1List(Of T)
+  fullName.vb: CoverageKiller2.DOM.Tables.Base1List(Of T)
+  name.vb: Base1List(Of T)
+  spec.csharp:
+  - uid: CoverageKiller2.DOM.Tables.Base1List`1
+    name: Base1List
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.Base1List-1.html
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: CoverageKiller2.DOM.Tables.Base1List`1
+    name: Base1List
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.Base1List-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: CoverageKiller2.DOM.Tables.Base1JaggedList`1.Insert*
+  commentId: Overload:CoverageKiller2.DOM.Tables.Base1JaggedList`1.Insert
+  isExternal: true
+  href: CoverageKiller2.DOM.Tables.Base1JaggedList-1.html#CoverageKiller2_DOM_Tables_Base1JaggedList_1_Insert_System_Int32_CoverageKiller2_DOM_Tables_Base1List__0__
+  name: Insert
+  nameWithType: Base1JaggedList<T>.Insert
+  fullName: CoverageKiller2.DOM.Tables.Base1JaggedList<T>.Insert
+  nameWithType.vb: Base1JaggedList(Of T).Insert
+  fullName.vb: CoverageKiller2.DOM.Tables.Base1JaggedList(Of T).Insert
+- uid: CoverageKiller2.DOM.Tables.Base1JaggedList`1.DumpGrid*
+  commentId: Overload:CoverageKiller2.DOM.Tables.Base1JaggedList`1.DumpGrid
+  isExternal: true
+  href: CoverageKiller2.DOM.Tables.Base1JaggedList-1.html#CoverageKiller2_DOM_Tables_Base1JaggedList_1_DumpGrid_System_Func__0_System_String__System_String_
+  name: DumpGrid
+  nameWithType: Base1JaggedList<T>.DumpGrid
+  fullName: CoverageKiller2.DOM.Tables.Base1JaggedList<T>.DumpGrid
+  nameWithType.vb: Base1JaggedList(Of T).DumpGrid
+  fullName.vb: CoverageKiller2.DOM.Tables.Base1JaggedList(Of T).DumpGrid
+- uid: System.Func{{T},System.String}
+  commentId: T:System.Func{`0,System.String}
+  parent: System
+  definition: System.Func`2
+  href: https://learn.microsoft.com/dotnet/api/system.func-2
+  name: Func<T, string>
+  nameWithType: Func<T, string>
+  fullName: System.Func<T, string>
+  nameWithType.vb: Func(Of T, String)
+  fullName.vb: System.Func(Of T, String)
+  name.vb: Func(Of T, String)
+  spec.csharp:
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: <
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: '>'
+  spec.vb:
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: CoverageKiller2.DOM.Tables.Base1JaggedList`1.RemoveAt*
+  commentId: Overload:CoverageKiller2.DOM.Tables.Base1JaggedList`1.RemoveAt
+  isExternal: true
+  href: CoverageKiller2.DOM.Tables.Base1JaggedList-1.html#CoverageKiller2_DOM_Tables_Base1JaggedList_1_RemoveAt_System_Int32_
+  name: RemoveAt
+  nameWithType: Base1JaggedList<T>.RemoveAt
+  fullName: CoverageKiller2.DOM.Tables.Base1JaggedList<T>.RemoveAt
+  nameWithType.vb: Base1JaggedList(Of T).RemoveAt
+  fullName.vb: CoverageKiller2.DOM.Tables.Base1JaggedList(Of T).RemoveAt
+- uid: CoverageKiller2.DOM.Tables.Base1JaggedList`1.IndexOf*
+  commentId: Overload:CoverageKiller2.DOM.Tables.Base1JaggedList`1.IndexOf
+  isExternal: true
+  href: CoverageKiller2.DOM.Tables.Base1JaggedList-1.html#CoverageKiller2_DOM_Tables_Base1JaggedList_1_IndexOf_CoverageKiller2_DOM_Tables_Base1List__0__
+  name: IndexOf
+  nameWithType: Base1JaggedList<T>.IndexOf
+  fullName: CoverageKiller2.DOM.Tables.Base1JaggedList<T>.IndexOf
+  nameWithType.vb: Base1JaggedList(Of T).IndexOf
+  fullName.vb: CoverageKiller2.DOM.Tables.Base1JaggedList(Of T).IndexOf
+- uid: CoverageKiller2.DOM.Tables.Base1JaggedList`1.GetEnumerator*
+  commentId: Overload:CoverageKiller2.DOM.Tables.Base1JaggedList`1.GetEnumerator
+  isExternal: true
+  href: CoverageKiller2.DOM.Tables.Base1JaggedList-1.html#CoverageKiller2_DOM_Tables_Base1JaggedList_1_GetEnumerator
+  name: GetEnumerator
+  nameWithType: Base1JaggedList<T>.GetEnumerator
+  fullName: CoverageKiller2.DOM.Tables.Base1JaggedList<T>.GetEnumerator
+  nameWithType.vb: Base1JaggedList(Of T).GetEnumerator
+  fullName.vb: CoverageKiller2.DOM.Tables.Base1JaggedList(Of T).GetEnumerator
+- uid: System.Collections.Generic.IEnumerable{CoverageKiller2.DOM.Tables.Base1List{{T}}}.GetEnumerator
+  commentId: M:System.Collections.Generic.IEnumerable{CoverageKiller2.DOM.Tables.Base1List{`0}}.GetEnumerator
+  parent: System.Collections.Generic.IEnumerable{CoverageKiller2.DOM.Tables.Base1List{{T}}}
+  definition: System.Collections.Generic.IEnumerable`1.GetEnumerator
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1.getenumerator
+  name: GetEnumerator()
+  nameWithType: IEnumerable<Base1List<T>>.GetEnumerator()
+  fullName: System.Collections.Generic.IEnumerable<CoverageKiller2.DOM.Tables.Base1List<T>>.GetEnumerator()
+  nameWithType.vb: IEnumerable(Of Base1List(Of T)).GetEnumerator()
+  fullName.vb: System.Collections.Generic.IEnumerable(Of CoverageKiller2.DOM.Tables.Base1List(Of T)).GetEnumerator()
+  spec.csharp:
+  - uid: System.Collections.Generic.IEnumerable{CoverageKiller2.DOM.Tables.Base1List{`0}}.GetEnumerator
+    name: GetEnumerator
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1.getenumerator
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Collections.Generic.IEnumerable{CoverageKiller2.DOM.Tables.Base1List{`0}}.GetEnumerator
+    name: GetEnumerator
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1.getenumerator
+  - name: (
+  - name: )
+- uid: System.Collections.Generic.IEnumerator{CoverageKiller2.DOM.Tables.Base1List{{T}}}
+  commentId: T:System.Collections.Generic.IEnumerator{CoverageKiller2.DOM.Tables.Base1List{`0}}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.IEnumerator`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerator-1
+  name: IEnumerator<Base1List<T>>
+  nameWithType: IEnumerator<Base1List<T>>
+  fullName: System.Collections.Generic.IEnumerator<CoverageKiller2.DOM.Tables.Base1List<T>>
+  nameWithType.vb: IEnumerator(Of Base1List(Of T))
+  fullName.vb: System.Collections.Generic.IEnumerator(Of CoverageKiller2.DOM.Tables.Base1List(Of T))
+  name.vb: IEnumerator(Of Base1List(Of T))
+  spec.csharp:
+  - uid: System.Collections.Generic.IEnumerator`1
+    name: IEnumerator
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerator-1
+  - name: <
+  - uid: CoverageKiller2.DOM.Tables.Base1List`1
+    name: Base1List
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.Base1List-1.html
+  - name: <
+  - name: T
+  - name: '>'
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IEnumerator`1
+    name: IEnumerator
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerator-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: CoverageKiller2.DOM.Tables.Base1List`1
+    name: Base1List
+    isExternal: true
+    href: CoverageKiller2.DOM.Tables.Base1List-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: )
+- uid: System.Collections.Generic.IEnumerable`1.GetEnumerator
+  commentId: M:System.Collections.Generic.IEnumerable`1.GetEnumerator
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1.getenumerator
+  name: GetEnumerator()
+  nameWithType: IEnumerable<T>.GetEnumerator()
+  fullName: System.Collections.Generic.IEnumerable<T>.GetEnumerator()
+  nameWithType.vb: IEnumerable(Of T).GetEnumerator()
+  fullName.vb: System.Collections.Generic.IEnumerable(Of T).GetEnumerator()
+  spec.csharp:
+  - uid: System.Collections.Generic.IEnumerable`1.GetEnumerator
+    name: GetEnumerator
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1.getenumerator
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Collections.Generic.IEnumerable`1.GetEnumerator
+    name: GetEnumerator
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1.getenumerator
+  - name: (
+  - name: )
+- uid: System.Collections.Generic.IEnumerator`1
+  commentId: T:System.Collections.Generic.IEnumerator`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerator-1
+  name: IEnumerator<T>
+  nameWithType: IEnumerator<T>
+  fullName: System.Collections.Generic.IEnumerator<T>
+  nameWithType.vb: IEnumerator(Of T)
+  fullName.vb: System.Collections.Generic.IEnumerator(Of T)
+  name.vb: IEnumerator(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.IEnumerator`1
+    name: IEnumerator
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerator-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IEnumerator`1
+    name: IEnumerator
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerator-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: CoverageKiller2.DOM.Tables.Base1JaggedList`1.LargestRowCount*
+  commentId: Overload:CoverageKiller2.DOM.Tables.Base1JaggedList`1.LargestRowCount
+  isExternal: true
+  href: CoverageKiller2.DOM.Tables.Base1JaggedList-1.html#CoverageKiller2_DOM_Tables_Base1JaggedList_1_LargestRowCount
+  name: LargestRowCount
+  nameWithType: Base1JaggedList<T>.LargestRowCount
+  fullName: CoverageKiller2.DOM.Tables.Base1JaggedList<T>.LargestRowCount
+  nameWithType.vb: Base1JaggedList(Of T).LargestRowCount
+  fullName.vb: CoverageKiller2.DOM.Tables.Base1JaggedList(Of T).LargestRowCount
+- uid: CoverageKiller2.DOM.Tables.Base1JaggedList`1.LargestRow*
+  commentId: Overload:CoverageKiller2.DOM.Tables.Base1JaggedList`1.LargestRow
+  isExternal: true
+  href: CoverageKiller2.DOM.Tables.Base1JaggedList-1.html#CoverageKiller2_DOM_Tables_Base1JaggedList_1_LargestRow
+  name: LargestRow
+  nameWithType: Base1JaggedList<T>.LargestRow
+  fullName: CoverageKiller2.DOM.Tables.Base1JaggedList<T>.LargestRow
+  nameWithType.vb: Base1JaggedList(Of T).LargestRow
+  fullName.vb: CoverageKiller2.DOM.Tables.Base1JaggedList(Of T).LargestRow
+- uid: CoverageKiller2.DOM.Tables.Base1JaggedList`1.Count*
+  commentId: Overload:CoverageKiller2.DOM.Tables.Base1JaggedList`1.Count
+  isExternal: true
+  href: CoverageKiller2.DOM.Tables.Base1JaggedList-1.html#CoverageKiller2_DOM_Tables_Base1JaggedList_1_Count
+  name: Count
+  nameWithType: Base1JaggedList<T>.Count
+  fullName: CoverageKiller2.DOM.Tables.Base1JaggedList<T>.Count
+  nameWithType.vb: Base1JaggedList(Of T).Count
+  fullName.vb: CoverageKiller2.DOM.Tables.Base1JaggedList(Of T).Count
+- uid: System.Collections.Generic.IReadOnlyCollection{CoverageKiller2.DOM.Tables.Base1List{{T}}}.Count
+  commentId: P:System.Collections.Generic.IReadOnlyCollection{CoverageKiller2.DOM.Tables.Base1List{`0}}.Count
+  parent: System.Collections.Generic.IReadOnlyCollection{CoverageKiller2.DOM.Tables.Base1List{{T}}}
+  definition: System.Collections.Generic.IReadOnlyCollection`1.Count
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlycollection-1.count
+  name: Count
+  nameWithType: IReadOnlyCollection<Base1List<T>>.Count
+  fullName: System.Collections.Generic.IReadOnlyCollection<CoverageKiller2.DOM.Tables.Base1List<T>>.Count
+  nameWithType.vb: IReadOnlyCollection(Of Base1List(Of T)).Count
+  fullName.vb: System.Collections.Generic.IReadOnlyCollection(Of CoverageKiller2.DOM.Tables.Base1List(Of T)).Count
+- uid: System.Collections.Generic.IReadOnlyCollection`1.Count
+  commentId: P:System.Collections.Generic.IReadOnlyCollection`1.Count
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlycollection-1.count
+  name: Count
+  nameWithType: IReadOnlyCollection<T>.Count
+  fullName: System.Collections.Generic.IReadOnlyCollection<T>.Count
+  nameWithType.vb: IReadOnlyCollection(Of T).Count
+  fullName.vb: System.Collections.Generic.IReadOnlyCollection(Of T).Count
+- uid: CoverageKiller2.DOM.Tables.Base1JaggedList`1.Item*
+  commentId: Overload:CoverageKiller2.DOM.Tables.Base1JaggedList`1.Item
+  isExternal: true
+  href: CoverageKiller2.DOM.Tables.Base1JaggedList-1.html#CoverageKiller2_DOM_Tables_Base1JaggedList_1_Item_System_Int32_
+  name: this
+  nameWithType: Base1JaggedList<T>.this
+  fullName: CoverageKiller2.DOM.Tables.Base1JaggedList<T>.this
+  nameWithType.vb: Base1JaggedList(Of T).this[]
+  fullName.vb: CoverageKiller2.DOM.Tables.Base1JaggedList(Of T).this[]
+  name.vb: this[]
+- uid: System.Collections.Generic.IReadOnlyList{CoverageKiller2.DOM.Tables.Base1List{{T}}}.Item(System.Int32)
+  commentId: P:System.Collections.Generic.IReadOnlyList{CoverageKiller2.DOM.Tables.Base1List{`0}}.Item(System.Int32)
+  parent: System.Collections.Generic.IReadOnlyList{CoverageKiller2.DOM.Tables.Base1List{{T}}}
+  definition: System.Collections.Generic.IReadOnlyList`1.Item(System.Int32)
+  href: https://learn.microsoft.com/dotnet/api/system.int32
+  name: this[int]
+  nameWithType: IReadOnlyList<Base1List<T>>.this[int]
+  fullName: System.Collections.Generic.IReadOnlyList<CoverageKiller2.DOM.Tables.Base1List<T>>.this[int]
+  nameWithType.vb: IReadOnlyList(Of Base1List(Of T)).this[](Integer)
+  fullName.vb: System.Collections.Generic.IReadOnlyList(Of CoverageKiller2.DOM.Tables.Base1List(Of T)).this[](Integer)
+  name.vb: this[](Integer)
+  spec.csharp:
+  - name: this
+  - name: '['
+  - uid: System.Int32
+    name: int
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: ']'
+  spec.vb:
+  - uid: System.Collections.Generic.IReadOnlyList{CoverageKiller2.DOM.Tables.Base1List{`0}}.Item(System.Int32)
+    name: this[]
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1.item
+  - name: (
+  - uid: System.Int32
+    name: Integer
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: )
+- uid: System.Collections.Generic.IReadOnlyList`1.Item(System.Int32)
+  commentId: P:System.Collections.Generic.IReadOnlyList`1.Item(System.Int32)
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.int32
+  name: this[int]
+  nameWithType: IReadOnlyList<T>.this[int]
+  fullName: System.Collections.Generic.IReadOnlyList<T>.this[int]
+  nameWithType.vb: IReadOnlyList(Of T).this[](Integer)
+  fullName.vb: System.Collections.Generic.IReadOnlyList(Of T).this[](Integer)
+  name.vb: this[](Integer)
+  spec.csharp:
+  - name: this
+  - name: '['
+  - uid: System.Int32
+    name: int
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: ']'
+  spec.vb:
+  - uid: System.Collections.Generic.IReadOnlyList`1.Item(System.Int32)
+    name: this[]
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1.item
+  - name: (
+  - uid: System.Int32
+    name: Integer
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: )

@@ -1,0 +1,24 @@
+### YamlMime:ManagedReference
+items:
+- uid: CoverageKiller2.Pipeline.WordHelpers
+  commentId: N:CoverageKiller2.Pipeline.WordHelpers
+  id: CoverageKiller2.Pipeline.WordHelpers
+  children:
+  - CoverageKiller2.Pipeline.WordHelpers.TextFinder
+  langs:
+  - csharp
+  - vb
+  name: CoverageKiller2.Pipeline.WordHelpers
+  nameWithType: CoverageKiller2.Pipeline.WordHelpers
+  fullName: CoverageKiller2.Pipeline.WordHelpers
+  type: Namespace
+  assemblies:
+  - CoverageKiller2
+references:
+- uid: CoverageKiller2.Pipeline.WordHelpers.TextFinder
+  commentId: T:CoverageKiller2.Pipeline.WordHelpers.TextFinder
+  isExternal: true
+  href: CoverageKiller2.Pipeline.WordHelpers.TextFinder.html
+  name: TextFinder
+  nameWithType: TextFinder
+  fullName: CoverageKiller2.Pipeline.WordHelpers.TextFinder

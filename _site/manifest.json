@@ -1,14 +1,1251 @@
 {
-  "source_base_path": "C:/Users/akeyte.PCM/source/repos/CoverageKiller2",
+  "source_base_path": "C:/Users/akeyte.PCM/source/repos/CoverageKiller2/docfx_project",
   "xrefmap": "xrefmap.yml",
   "files": [
     {
-      "type": "Resource",
+      "type": "ManagedReference",
+      "source_relative_path": "api/CoverageKiller2.CKRibbon.yml",
       "output": {
-        "resource": {
-          "relative_path": "index.json"
+        ".html": {
+          "relative_path": "api/CoverageKiller2.CKRibbon.html"
         }
-      }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "CoverageKiller2.CKRibbon",
+      "Summary": "<p sourcefile=\"api/CoverageKiller2.CKRibbon.yml\" sourcestartlinenumber=\"1\">Custom Ribbon class for the Word add-in, implementing the IRibbonExtensibility interface.\nIt includes callback methods for various ribbon buttons to fix PCTEL documents.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/CoverageKiller2.CkDocHelpers.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/CoverageKiller2.CkDocHelpers.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "CoverageKiller2.CkDocHelpers",
+      "Summary": "<p sourcefile=\"api/CoverageKiller2.CkDocHelpers.yml\" sourcestartlinenumber=\"1\">depreciate</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/CoverageKiller2.DOM.ACKRangeCollection.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/CoverageKiller2.DOM.ACKRangeCollection.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "CoverageKiller2.DOM.ACKRangeCollection",
+      "Summary": "<p sourcefile=\"api/CoverageKiller2.DOM.ACKRangeCollection.yml\" sourcestartlinenumber=\"1\">Abstract base class for all collection types based on a Word range.\nProvides IsDirty tracking, deferCOM lazy activation, and cache helpers.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/CoverageKiller2.DOM.AppRecord.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/CoverageKiller2.DOM.AppRecord.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "CoverageKiller2.DOM.AppRecord",
+      "Summary": "<p sourcefile=\"api/CoverageKiller2.DOM.AppRecord.yml\" sourcestartlinenumber=\"1\">Represents a record of a previously created Word application process.\nUsed for crash recovery and cleanup of orphaned instances.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/CoverageKiller2.DOM.AppRecordManager.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/CoverageKiller2.DOM.AppRecordManager.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "CoverageKiller2.DOM.AppRecordManager",
+      "Summary": "<p sourcefile=\"api/CoverageKiller2.DOM.AppRecordManager.yml\" sourcestartlinenumber=\"1\">Tracks known Word application process records for crash recovery.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/CoverageKiller2.DOM.CKApplication.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/CoverageKiller2.DOM.CKApplication.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "CoverageKiller2.DOM.CKApplication",
+      "Summary": "<p sourcefile=\"api/CoverageKiller2.DOM.CKApplication.yml\" sourcestartlinenumber=\"1\">Represents a Word application instance responsible for creating, managing,\nand closing documents in a controlled environment.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/CoverageKiller2.DOM.CKDOMObject.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/CoverageKiller2.DOM.CKDOMObject.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "CoverageKiller2.DOM.CKDOMObject",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/CoverageKiller2.DOM.CKDocument.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/CoverageKiller2.DOM.CKDocument.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "CoverageKiller2.DOM.CKDocument",
+      "Summary": "<p sourcefile=\"api/CoverageKiller2.DOM.CKDocument.yml\" sourcestartlinenumber=\"1\">Represents a wrapper around a Word document, providing DOM access to tables, sections,\nheaders, footers, and other editable regions of the document.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/CoverageKiller2.DOM.CKOffice_Word.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/CoverageKiller2.DOM.CKOffice_Word.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "CoverageKiller2.DOM.CKOffice_Word",
+      "Summary": "<p sourcefile=\"api/CoverageKiller2.DOM.CKOffice_Word.yml\" sourcestartlinenumber=\"1\">Central manager for all Word application instances in the CoverageKiller2 system.\nHandles lifecycle and cleanup, including the special VSTO ThisAddIn instance.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/CoverageKiller2.DOM.CKParagraph.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/CoverageKiller2.DOM.CKParagraph.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "CoverageKiller2.DOM.CKParagraph",
+      "Summary": "<p sourcefile=\"api/CoverageKiller2.DOM.CKParagraph.yml\" sourcestartlinenumber=\"1\">Represents a basic wrapper for a Word.Paragraph object.\nInherits from CKRange since a paragraph is fundamentally a range.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/CoverageKiller2.DOM.CKParagraphs.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/CoverageKiller2.DOM.CKParagraphs.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "CoverageKiller2.DOM.CKParagraphs",
+      "Summary": "<p sourcefile=\"api/CoverageKiller2.DOM.CKParagraphs.yml\" sourcestartlinenumber=\"1\">Represents a collection of <xref href=\"CoverageKiller2.DOM.CKParagraph\" data-throw-if-not-resolved=\"false\"></xref> objects associated with a <xref href=\"CoverageKiller2.DOM.CKRange\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/CoverageKiller2.DOM.CKRange.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/CoverageKiller2.DOM.CKRange.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "CoverageKiller2.DOM.CKRange",
+      "Summary": "<p sourcefile=\"api/CoverageKiller2.DOM.CKRange.yml\" sourcestartlinenumber=\"1\">Represents a simple wrapper for the Word.Range object.\nProvides caching of text and boundary values for robust equality and hash code calculations,\neven if the underlying COM object becomes orphaned.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/CoverageKiller2.DOM.CKSection.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/CoverageKiller2.DOM.CKSection.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "CoverageKiller2.DOM.CKSection",
+      "Summary": "<p sourcefile=\"api/CoverageKiller2.DOM.CKSection.yml\" sourcestartlinenumber=\"1\">Represents a wrapper for the Word.Section object, exposing common functionality for a section in a Word document.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/CoverageKiller2.DOM.CKSections.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/CoverageKiller2.DOM.CKSections.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "CoverageKiller2.DOM.CKSections",
+      "Summary": "<p sourcefile=\"api/CoverageKiller2.DOM.CKSections.yml\" sourcestartlinenumber=\"1\">Represents a collection of <xref href=\"CoverageKiller2.DOM.CKSection\" data-throw-if-not-resolved=\"false\"></xref> objects associated with a <xref href=\"CoverageKiller2.DOM.CKRange\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/CoverageKiller2.DOM.CKTextHelper.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/CoverageKiller2.DOM.CKTextHelper.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "CoverageKiller2.DOM.CKTextHelper",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/CoverageKiller2.DOM.IDOMCaster.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/CoverageKiller2.DOM.IDOMCaster.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "CoverageKiller2.DOM.IDOMCaster",
+      "Summary": "<p sourcefile=\"api/CoverageKiller2.DOM.IDOMCaster.yml\" sourcestartlinenumber=\"1\">Provides a registry for converting one IDOMObject into a specific derived type.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/CoverageKiller2.DOM.IDOMObject.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/CoverageKiller2.DOM.IDOMObject.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "CoverageKiller2.DOM.IDOMObject",
+      "Summary": "<p sourcefile=\"api/CoverageKiller2.DOM.IDOMObject.yml\" sourcestartlinenumber=\"1\">Represents a DOM object in the CoverageKiller2 system.\nProvides references to parent structures and document/application context.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/CoverageKiller2.DOM.RangeSnapshot.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/CoverageKiller2.DOM.RangeSnapshot.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "CoverageKiller2.DOM.RangeSnapshot",
+      "Summary": "<p sourcefile=\"api/CoverageKiller2.DOM.RangeSnapshot.yml\" sourcestartlinenumber=\"1\">Represents a cached, COM-free fingerprint of a Word.Range.\nSupports fast hash comparisons and optional slow fallbacks.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/CoverageKiller2.DOM.SafeCOM.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/CoverageKiller2.DOM.SafeCOM.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "CoverageKiller2.DOM.SafeCOM",
+      "Summary": "<p sourcefile=\"api/CoverageKiller2.DOM.SafeCOM.yml\" sourcestartlinenumber=\"1\">Provides a helper to safely execute COM actions that may fail, marking the owning table dirty if needed.\nSupports optional retries and retry delay.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/CoverageKiller2.DOM.Tables.Base1JaggedList-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/CoverageKiller2.DOM.Tables.Base1JaggedList-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "CoverageKiller2.DOM.Tables.Base1JaggedList<T>",
+      "Summary": "<p sourcefile=\"api/CoverageKiller2.DOM.Tables.Base1JaggedList-1.yml\" sourcestartlinenumber=\"1\">Represents a jagged 1-based collection of Base1List&lt;T&gt;, useful for table-like structures.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/CoverageKiller2.DOM.Tables.Base1List-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/CoverageKiller2.DOM.Tables.Base1List-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "CoverageKiller2.DOM.Tables.Base1List<T>",
+      "Summary": "<p sourcefile=\"api/CoverageKiller2.DOM.Tables.Base1List-1.yml\" sourcestartlinenumber=\"1\">Represents a 1-based collection of elements of type T.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/CoverageKiller2.DOM.Tables.CKCell.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/CoverageKiller2.DOM.Tables.CKCell.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "CoverageKiller2.DOM.Tables.CKCell",
+      "Summary": "<p sourcefile=\"api/CoverageKiller2.DOM.Tables.CKCell.yml\" sourcestartlinenumber=\"1\">Represents a single cell in a Word table, with DOM wrappers and location metadata.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/CoverageKiller2.DOM.Tables.CKCellRef.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/CoverageKiller2.DOM.Tables.CKCellRef.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "CoverageKiller2.DOM.Tables.CKCellRef",
+      "Summary": "<p sourcefile=\"api/CoverageKiller2.DOM.Tables.CKCellRef.yml\" sourcestartlinenumber=\"1\">Represents a reference to a cell or group of cells within a Word table.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/CoverageKiller2.DOM.Tables.CKCells.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/CoverageKiller2.DOM.Tables.CKCells.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "CoverageKiller2.DOM.Tables.CKCells",
+      "Summary": "<p sourcefile=\"api/CoverageKiller2.DOM.Tables.CKCells.yml\" sourcestartlinenumber=\"1\">Represents a collection of <xref href=\"CoverageKiller2.DOM.Tables.CKCell\" data-throw-if-not-resolved=\"false\"></xref> instances derived from a <xref href=\"CoverageKiller2.DOM.Tables.CKCellRef\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/CoverageKiller2.DOM.Tables.CKColCellRef.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/CoverageKiller2.DOM.Tables.CKColCellRef.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "CoverageKiller2.DOM.Tables.CKColCellRef",
+      "Summary": "<p sourcefile=\"api/CoverageKiller2.DOM.Tables.CKColCellRef.yml\" sourcestartlinenumber=\"1\">Represents a one-based cell reference to a specific column in a Word table.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/CoverageKiller2.DOM.Tables.CKColumn.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/CoverageKiller2.DOM.Tables.CKColumn.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "CoverageKiller2.DOM.Tables.CKColumn",
+      "Summary": "<p sourcefile=\"api/CoverageKiller2.DOM.Tables.CKColumn.yml\" sourcestartlinenumber=\"1\">Represents a column in a Word table.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/CoverageKiller2.DOM.Tables.CKColumns.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/CoverageKiller2.DOM.Tables.CKColumns.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "CoverageKiller2.DOM.Tables.CKColumns",
+      "Summary": "<p sourcefile=\"api/CoverageKiller2.DOM.Tables.CKColumns.yml\" sourcestartlinenumber=\"1\">Represents a collection of <xref href=\"CoverageKiller2.DOM.Tables.CKColumn\" data-throw-if-not-resolved=\"false\"></xref> objects in a Word table.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/CoverageKiller2.DOM.Tables.CKGridCellRef.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/CoverageKiller2.DOM.Tables.CKGridCellRef.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "CoverageKiller2.DOM.Tables.CKGridCellRef",
+      "Summary": "<p sourcefile=\"api/CoverageKiller2.DOM.Tables.CKGridCellRef.yml\" sourcestartlinenumber=\"1\">Represents a rectangular cell reference within a CKTableGrid.\nCoordinates are 1 based and inclusive.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/CoverageKiller2.DOM.Tables.CKRow.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/CoverageKiller2.DOM.Tables.CKRow.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "CoverageKiller2.DOM.Tables.CKRow",
+      "Summary": "<p sourcefile=\"api/CoverageKiller2.DOM.Tables.CKRow.yml\" sourcestartlinenumber=\"1\">Represents a row in a Word table.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/CoverageKiller2.DOM.Tables.CKRowCellRef.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/CoverageKiller2.DOM.Tables.CKRowCellRef.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "CoverageKiller2.DOM.Tables.CKRowCellRef",
+      "Summary": "<p sourcefile=\"api/CoverageKiller2.DOM.Tables.CKRowCellRef.yml\" sourcestartlinenumber=\"1\">Represents a one-based cell reference to a specific row in a Word table.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/CoverageKiller2.DOM.Tables.CKRows.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/CoverageKiller2.DOM.Tables.CKRows.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "CoverageKiller2.DOM.Tables.CKRows",
+      "Summary": "<p sourcefile=\"api/CoverageKiller2.DOM.Tables.CKRows.yml\" sourcestartlinenumber=\"1\">Represents a collection of <xref href=\"CoverageKiller2.DOM.Tables.CKRow\" data-throw-if-not-resolved=\"false\"></xref> objects in a Word table.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/CoverageKiller2.DOM.Tables.CKTable.CKCellRefConverterService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/CoverageKiller2.DOM.Tables.CKTable.CKCellRefConverterService.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "CoverageKiller2.DOM.Tables.CKTable.CKCellRefConverterService",
+      "Summary": "<p sourcefile=\"api/CoverageKiller2.DOM.Tables.CKTable.CKCellRefConverterService.yml\" sourcestartlinenumber=\"1\">Provides conversion services for cell reference and grid mapping.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/CoverageKiller2.DOM.Tables.CKTable.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/CoverageKiller2.DOM.Tables.CKTable.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "CoverageKiller2.DOM.Tables.CKTable",
+      "Summary": "<p sourcefile=\"api/CoverageKiller2.DOM.Tables.CKTable.yml\" sourcestartlinenumber=\"1\">Provides methods for manipulating a Word table.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/CoverageKiller2.DOM.Tables.CKTableGrid.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/CoverageKiller2.DOM.Tables.CKTableGrid.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "CoverageKiller2.DOM.Tables.CKTableGrid",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/CoverageKiller2.DOM.Tables.CKTables.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/CoverageKiller2.DOM.Tables.CKTables.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "CoverageKiller2.DOM.Tables.CKTables",
+      "Summary": "<p sourcefile=\"api/CoverageKiller2.DOM.Tables.CKTables.yml\" sourcestartlinenumber=\"1\">Represents a collection of <xref href=\"CoverageKiller2.DOM.Tables.CKTable\" data-throw-if-not-resolved=\"false\"></xref> objects associated with a <xref href=\"CoverageKiller2.DOM.CKRange\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/CoverageKiller2.DOM.Tables.ConverterServiceExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/CoverageKiller2.DOM.Tables.ConverterServiceExtensions.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "CoverageKiller2.DOM.Tables.ConverterServiceExtensions",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/CoverageKiller2.DOM.Tables.GhostGridCell5.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/CoverageKiller2.DOM.Tables.GhostGridCell5.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "CoverageKiller2.DOM.Tables.GhostGridCell5",
+      "Summary": "<p sourcefile=\"api/CoverageKiller2.DOM.Tables.GhostGridCell5.yml\" sourcestartlinenumber=\"1\">Ghost cell points to itself but is not a master. used to take place\nof undiscovered grid placements.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/CoverageKiller2.DOM.Tables.GridCell5.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/CoverageKiller2.DOM.Tables.GridCell5.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "CoverageKiller2.DOM.Tables.GridCell5",
+      "Summary": "<p sourcefile=\"api/CoverageKiller2.DOM.Tables.GridCell5.yml\" sourcestartlinenumber=\"1\">Represents a visual layout cell with merge span metadata,\nsuitable for use as a reusable layout template independent of COM references.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/CoverageKiller2.DOM.Tables.GridCrawler5.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/CoverageKiller2.DOM.Tables.GridCrawler5.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "CoverageKiller2.DOM.Tables.GridCrawler5",
+      "Summary": "<p sourcefile=\"api/CoverageKiller2.DOM.Tables.GridCrawler5.yml\" sourcestartlinenumber=\"1\">Builds a reusable layout grid from a Word table using both visual and textual merge inference.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/CoverageKiller2.DOM.Tables.ICellRef-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/CoverageKiller2.DOM.Tables.ICellRef-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "CoverageKiller2.DOM.Tables.ICellRef<T>",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/CoverageKiller2.DOM.Tables.MergedGridCell5.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/CoverageKiller2.DOM.Tables.MergedGridCell5.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "CoverageKiller2.DOM.Tables.MergedGridCell5",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/CoverageKiller2.DOM.Tables.RowEndGridCell5.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/CoverageKiller2.DOM.Tables.RowEndGridCell5.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "CoverageKiller2.DOM.Tables.RowEndGridCell5",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/CoverageKiller2.DOM.Tables.TableAccessMode.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/CoverageKiller2.DOM.Tables.TableAccessMode.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "CoverageKiller2.DOM.Tables.TableAccessMode",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/CoverageKiller2.DOM.Tables.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/CoverageKiller2.DOM.Tables.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "CoverageKiller2.DOM.Tables",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/CoverageKiller2.DOM.WordInteropExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/CoverageKiller2.DOM.WordInteropExtensions.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "CoverageKiller2.DOM.WordInteropExtensions",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/CoverageKiller2.DOM.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/CoverageKiller2.DOM.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "CoverageKiller2.DOM",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/CoverageKiller2.ExceptionDetail.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/CoverageKiller2.ExceptionDetail.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "CoverageKiller2.ExceptionDetail",
+      "Summary": "<p sourcefile=\"api/CoverageKiller2.ExceptionDetail.yml\" sourcestartlinenumber=\"1\">Represents a filter for matching known exceptions by their characteristics.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/CoverageKiller2.ExceptionRegistry.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/CoverageKiller2.ExceptionRegistry.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "CoverageKiller2.ExceptionRegistry",
+      "Summary": "<p sourcefile=\"api/CoverageKiller2.ExceptionRegistry.yml\" sourcestartlinenumber=\"1\">Optional: Maps enum identifiers to ExceptionDetail instances.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/CoverageKiller2.IndoorReportTemplate.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/CoverageKiller2.IndoorReportTemplate.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "CoverageKiller2.IndoorReportTemplate",
+      "Summary": "<p sourcefile=\"api/CoverageKiller2.IndoorReportTemplate.yml\" sourcestartlinenumber=\"1\">Represents an indoor report template for PCTEL reports.\nIt inherits from <xref href=\"CoverageKiller2.DOM.CKDocument\" data-throw-if-not-resolved=\"false\"></xref> and provides functionality\nto load the report template from an embedded resource.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/CoverageKiller2.KnownExceptionType.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/CoverageKiller2.KnownExceptionType.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "CoverageKiller2.KnownExceptionType",
+      "Summary": "<p sourcefile=\"api/CoverageKiller2.KnownExceptionType.yml\" sourcestartlinenumber=\"1\">Types of known exception patterns for optional enum-based access.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/CoverageKiller2.KnownExceptions.ExcelInterop.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/CoverageKiller2.KnownExceptions.ExcelInterop.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "CoverageKiller2.KnownExceptions.ExcelInterop",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/CoverageKiller2.KnownExceptions.PowerPointInterop.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/CoverageKiller2.KnownExceptions.PowerPointInterop.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "CoverageKiller2.KnownExceptions.PowerPointInterop",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/CoverageKiller2.KnownExceptions.VSTO.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/CoverageKiller2.KnownExceptions.VSTO.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "CoverageKiller2.KnownExceptions.VSTO",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/CoverageKiller2.KnownExceptions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/CoverageKiller2.KnownExceptions.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "CoverageKiller2.KnownExceptions",
+      "Summary": "<p sourcefile=\"api/CoverageKiller2.KnownExceptions.yml\" sourcestartlinenumber=\"1\">Known grouped exceptions by context (like WordInterop, ExcelInterop, etc).</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/CoverageKiller2.Logging.CKDebugException.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/CoverageKiller2.Logging.CKDebugException.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "CoverageKiller2.Logging.CKDebugException",
+      "Summary": "<p sourcefile=\"api/CoverageKiller2.Logging.CKDebugException.yml\" sourcestartlinenumber=\"1\">Represents an internal debug exception that signals an unexpected state or logic error\nwithin the CoverageKiller DOM system.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/CoverageKiller2.Logging.ComplexObject.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/CoverageKiller2.Logging.ComplexObject.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "CoverageKiller2.Logging.ComplexObject",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/CoverageKiller2.Logging.DataPoints.Actions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/CoverageKiller2.Logging.DataPoints.Actions.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "CoverageKiller2.Logging.DataPoints.Actions",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/CoverageKiller2.Logging.DataPoints.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/CoverageKiller2.Logging.DataPoints.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "CoverageKiller2.Logging.DataPoints",
+      "Summary": "<p sourcefile=\"api/CoverageKiller2.Logging.DataPoints.yml\" sourcestartlinenumber=\"1\">A collection of named data points used in logging and tracing.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/CoverageKiller2.Logging.LH.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/CoverageKiller2.Logging.LH.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "CoverageKiller2.Logging.LH",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/CoverageKiller2.Logging.LogExpertLoader.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/CoverageKiller2.Logging.LogExpertLoader.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "CoverageKiller2.Logging.LogExpertLoader",
+      "Summary": "<p sourcefile=\"api/CoverageKiller2.Logging.LogExpertLoader.yml\" sourcestartlinenumber=\"1\">Handles loading and managing LogExpert log files.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/CoverageKiller2.Logging.LogTailLoader.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/CoverageKiller2.Logging.LogTailLoader.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "CoverageKiller2.Logging.LogTailLoader",
+      "Summary": "<p sourcefile=\"api/CoverageKiller2.Logging.LogTailLoader.yml\" sourcestartlinenumber=\"1\">Handles loading and managing BareTail log files.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/CoverageKiller2.Logging.LoggingLoader.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/CoverageKiller2.Logging.LoggingLoader.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "CoverageKiller2.Logging.LoggingLoader",
+      "Summary": "<p sourcefile=\"api/CoverageKiller2.Logging.LoggingLoader.yml\" sourcestartlinenumber=\"1\">stuff goes here</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/CoverageKiller2.Logging.PingService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/CoverageKiller2.Logging.PingService.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "CoverageKiller2.Logging.PingService",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/CoverageKiller2.Logging.SomeTestClass.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/CoverageKiller2.Logging.SomeTestClass.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "CoverageKiller2.Logging.SomeTestClass",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/CoverageKiller2.Logging.Tracer.LogOptions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/CoverageKiller2.Logging.Tracer.LogOptions.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "CoverageKiller2.Logging.Tracer.LogOptions",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/CoverageKiller2.Logging.Tracer.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/CoverageKiller2.Logging.Tracer.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "CoverageKiller2.Logging.Tracer",
+      "Summary": "<p sourcefile=\"api/CoverageKiller2.Logging.Tracer.yml\" sourcestartlinenumber=\"1\">Provides structured tracing and stashing of values for debugging.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/CoverageKiller2.Logging.TracerEnumExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/CoverageKiller2.Logging.TracerEnumExtensions.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "CoverageKiller2.Logging.TracerEnumExtensions",
+      "Summary": "<p sourcefile=\"api/CoverageKiller2.Logging.TracerEnumExtensions.yml\" sourcestartlinenumber=\"1\">Extension method for enums to test flag presence (mainly for LogOptions).</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/CoverageKiller2.Logging.TracerHelpers.PP.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/CoverageKiller2.Logging.TracerHelpers.PP.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "CoverageKiller2.Logging.TracerHelpers.PP",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/CoverageKiller2.Logging.TracerHelpers.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/CoverageKiller2.Logging.TracerHelpers.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "CoverageKiller2.Logging.TracerHelpers",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/CoverageKiller2.Logging.UnsafeTraceAttribute.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/CoverageKiller2.Logging.UnsafeTraceAttribute.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "CoverageKiller2.Logging.UnsafeTraceAttribute",
+      "Summary": "<p sourcefile=\"api/CoverageKiller2.Logging.UnsafeTraceAttribute.yml\" sourcestartlinenumber=\"1\">Marker attribute indicating that a property is unsafe for tracing.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/CoverageKiller2.Logging.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/CoverageKiller2.Logging.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "CoverageKiller2.Logging",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/CoverageKiller2.LongOperationHelpers.ProgressLogger.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/CoverageKiller2.LongOperationHelpers.ProgressLogger.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "CoverageKiller2.LongOperationHelpers.ProgressLogger",
+      "Summary": "<p sourcefile=\"api/CoverageKiller2.LongOperationHelpers.ProgressLogger.yml\" sourcestartlinenumber=\"1\">Tracks progress for long operations, logging percent complete and estimated time remaining.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/CoverageKiller2.LongOperationHelpers.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/CoverageKiller2.LongOperationHelpers.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "CoverageKiller2.LongOperationHelpers",
+      "Summary": "<p sourcefile=\"api/CoverageKiller2.LongOperationHelpers.yml\" sourcestartlinenumber=\"1\">Provides utilities for managing long-running document operations.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/CoverageKiller2.Pipeline.CKWordPipeline.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/CoverageKiller2.Pipeline.CKWordPipeline.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "CoverageKiller2.Pipeline.CKWordPipeline",
+      "Summary": "<p sourcefile=\"api/CoverageKiller2.Pipeline.CKWordPipeline.yml\" sourcestartlinenumber=\"1\">Represents a pipeline for processing Word documents using a collection of pipeline processes.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/CoverageKiller2.Pipeline.CKWordPipelineProcess.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/CoverageKiller2.Pipeline.CKWordPipelineProcess.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "CoverageKiller2.Pipeline.CKWordPipelineProcess",
+      "Summary": "<p sourcefile=\"api/CoverageKiller2.Pipeline.CKWordPipelineProcess.yml\" sourcestartlinenumber=\"1\">Represents an abstract base class for processing Word documents in the pipeline.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/CoverageKiller2.Pipeline.Config.Pipeline.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/CoverageKiller2.Pipeline.Config.Pipeline.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "CoverageKiller2.Pipeline.Config.Pipeline",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/CoverageKiller2.Pipeline.Config.ProcessorConfig.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/CoverageKiller2.Pipeline.Config.ProcessorConfig.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "CoverageKiller2.Pipeline.Config.ProcessorConfig",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/CoverageKiller2.Pipeline.Config.ProcessorConfigLoader.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/CoverageKiller2.Pipeline.Config.ProcessorConfigLoader.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "CoverageKiller2.Pipeline.Config.ProcessorConfigLoader",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/CoverageKiller2.Pipeline.Config.Step.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/CoverageKiller2.Pipeline.Config.Step.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "CoverageKiller2.Pipeline.Config.Step",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/CoverageKiller2.Pipeline.Config.Steps.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/CoverageKiller2.Pipeline.Config.Steps.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "CoverageKiller2.Pipeline.Config.Steps",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/CoverageKiller2.Pipeline.Config.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/CoverageKiller2.Pipeline.Config.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "CoverageKiller2.Pipeline.Config",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/CoverageKiller2.Pipeline.WordHelpers.TextFinder.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/CoverageKiller2.Pipeline.WordHelpers.TextFinder.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "CoverageKiller2.Pipeline.WordHelpers.TextFinder",
+      "Summary": "<p sourcefile=\"api/CoverageKiller2.Pipeline.WordHelpers.TextFinder.yml\" sourcestartlinenumber=\"1\">A utility class for finding and replacing text in a Word document.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/CoverageKiller2.Pipeline.WordHelpers.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/CoverageKiller2.Pipeline.WordHelpers.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "CoverageKiller2.Pipeline.WordHelpers",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/CoverageKiller2.Pipeline.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/CoverageKiller2.Pipeline.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "CoverageKiller2.Pipeline",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/CoverageKiller2.Properties.Resources.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/CoverageKiller2.Properties.Resources.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "CoverageKiller2.Properties.Resources",
+      "Summary": "<p sourcefile=\"api/CoverageKiller2.Properties.Resources.yml\" sourcestartlinenumber=\"1\">A strongly-typed resource class, for looking up localized strings, etc.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/CoverageKiller2.Properties.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/CoverageKiller2.Properties.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "CoverageKiller2.Properties",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/CoverageKiller2.ThisAddIn.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/CoverageKiller2.ThisAddIn.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "CoverageKiller2.ThisAddIn",
+      "Summary": "<p sourcefile=\"api/CoverageKiller2.ThisAddIn.yml\" sourcestartlinenumber=\"1\">The main class for the VSTO add-in. Handles initialization, shutdown,\nand custom ribbon functionality for the Word add-in.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/CoverageKiller2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/CoverageKiller2.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "CoverageKiller2",
+      "Summary": null
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "api/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/toc.html"
+        },
+        ".json": {
+          "relative_path": "api/toc.json"
+        }
+      },
+      "version": ""
     },
     {
       "type": "Conceptual",
@@ -31,74 +1268,11 @@
       "version": ""
     },
     {
-      "type": "Toc",
-      "source_relative_path": "docs/toc.yml",
-      "output": {
-        ".html": {
-          "relative_path": "docs/toc.html"
-        },
-        ".json": {
-          "relative_path": "docs/toc.json"
-        }
-      },
-      "version": ""
-    },
-    {
       "type": "Conceptual",
       "source_relative_path": "index.md",
       "output": {
         ".html": {
           "relative_path": "index.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "Conceptual",
-      "source_relative_path": "packages/Serilog.4.0.2/README.md",
-      "output": {
-        ".html": {
-          "relative_path": "packages/Serilog.4.0.2/README.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "Conceptual",
-      "source_relative_path": "packages/Serilog.Sinks.Async.2.0.0/README.md",
-      "output": {
-        ".html": {
-          "relative_path": "packages/Serilog.Sinks.Async.2.0.0/README.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "Conceptual",
-      "source_relative_path": "packages/Serilog.Sinks.Debug.3.0.0/README.md",
-      "output": {
-        ".html": {
-          "relative_path": "packages/Serilog.Sinks.Debug.3.0.0/README.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "Conceptual",
-      "source_relative_path": "packages/Serilog.Sinks.File.6.0.0/README.md",
-      "output": {
-        ".html": {
-          "relative_path": "packages/Serilog.Sinks.File.6.0.0/README.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "Conceptual",
-      "source_relative_path": "packages/System.Threading.Channels.8.0.0/PACKAGE.md",
-      "output": {
-        ".html": {
-          "relative_path": "packages/System.Threading.Channels.8.0.0/PACKAGE.html"
         }
       },
       "version": ""

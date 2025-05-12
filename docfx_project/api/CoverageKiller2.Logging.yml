@@ -1,0 +1,240 @@
+### YamlMime:ManagedReference
+items:
+- uid: CoverageKiller2.Logging
+  commentId: N:CoverageKiller2.Logging
+  id: CoverageKiller2.Logging
+  children:
+  - CoverageKiller2.Logging.CKDebugException
+  - CoverageKiller2.Logging.ComplexObject
+  - CoverageKiller2.Logging.DataPoints
+  - CoverageKiller2.Logging.DataPoints.Actions
+  - CoverageKiller2.Logging.LH
+  - CoverageKiller2.Logging.LogExpertLoader
+  - CoverageKiller2.Logging.LogTailLoader
+  - CoverageKiller2.Logging.LoggingLoader
+  - CoverageKiller2.Logging.PingService
+  - CoverageKiller2.Logging.SomeTestClass
+  - CoverageKiller2.Logging.Tracer
+  - CoverageKiller2.Logging.Tracer.LogOptions
+  - CoverageKiller2.Logging.TracerEnumExtensions
+  - CoverageKiller2.Logging.TracerHelpers
+  - CoverageKiller2.Logging.TracerHelpers.PP
+  - CoverageKiller2.Logging.UnsafeTraceAttribute
+  langs:
+  - csharp
+  - vb
+  name: CoverageKiller2.Logging
+  nameWithType: CoverageKiller2.Logging
+  fullName: CoverageKiller2.Logging
+  type: Namespace
+  assemblies:
+  - CoverageKiller2
+references:
+- uid: CoverageKiller2.Logging.CKDebugException
+  commentId: T:CoverageKiller2.Logging.CKDebugException
+  isExternal: true
+  href: CoverageKiller2.Logging.CKDebugException.html
+  name: CKDebugException
+  nameWithType: CKDebugException
+  fullName: CoverageKiller2.Logging.CKDebugException
+- uid: CoverageKiller2.Logging.LH
+  commentId: T:CoverageKiller2.Logging.LH
+  isExternal: true
+  href: CoverageKiller2.Logging.LH.html
+  name: LH
+  nameWithType: LH
+  fullName: CoverageKiller2.Logging.LH
+- uid: CoverageKiller2.Logging.LogExpertLoader
+  commentId: T:CoverageKiller2.Logging.LogExpertLoader
+  isExternal: true
+  href: CoverageKiller2.Logging.LogExpertLoader.html
+  name: LogExpertLoader
+  nameWithType: LogExpertLoader
+  fullName: CoverageKiller2.Logging.LogExpertLoader
+- uid: CoverageKiller2.Logging.LoggingLoader
+  commentId: T:CoverageKiller2.Logging.LoggingLoader
+  isExternal: true
+  href: CoverageKiller2.Logging.LoggingLoader.html
+  name: LoggingLoader
+  nameWithType: LoggingLoader
+  fullName: CoverageKiller2.Logging.LoggingLoader
+- uid: CoverageKiller2.Logging.LogTailLoader
+  commentId: T:CoverageKiller2.Logging.LogTailLoader
+  isExternal: true
+  href: CoverageKiller2.Logging.LogTailLoader.html
+  name: LogTailLoader
+  nameWithType: LogTailLoader
+  fullName: CoverageKiller2.Logging.LogTailLoader
+- uid: CoverageKiller2.Logging.PingService
+  commentId: T:CoverageKiller2.Logging.PingService
+  parent: CoverageKiller2.Logging
+  isExternal: true
+  href: CoverageKiller2.Logging.PingService.html
+  name: PingService
+  nameWithType: PingService
+  fullName: CoverageKiller2.Logging.PingService
+- uid: CoverageKiller2.Logging.ComplexObject
+  commentId: T:CoverageKiller2.Logging.ComplexObject
+  parent: CoverageKiller2.Logging
+  isExternal: true
+  href: CoverageKiller2.Logging.ComplexObject.html
+  name: ComplexObject
+  nameWithType: ComplexObject
+  fullName: CoverageKiller2.Logging.ComplexObject
+- uid: CoverageKiller2.Logging.SomeTestClass
+  commentId: T:CoverageKiller2.Logging.SomeTestClass
+  isExternal: true
+  href: CoverageKiller2.Logging.SomeTestClass.html
+  name: SomeTestClass
+  nameWithType: SomeTestClass
+  fullName: CoverageKiller2.Logging.SomeTestClass
+- uid: CoverageKiller2.Logging.UnsafeTraceAttribute
+  commentId: T:CoverageKiller2.Logging.UnsafeTraceAttribute
+  parent: CoverageKiller2.Logging
+  isExternal: true
+  href: CoverageKiller2.Logging.UnsafeTraceAttribute.html
+  name: UnsafeTraceAttribute
+  nameWithType: UnsafeTraceAttribute
+  fullName: CoverageKiller2.Logging.UnsafeTraceAttribute
+- uid: CoverageKiller2.Logging.Tracer
+  commentId: T:CoverageKiller2.Logging.Tracer
+  parent: CoverageKiller2.Logging
+  isExternal: true
+  href: CoverageKiller2.Logging.Tracer.html
+  name: Tracer
+  nameWithType: Tracer
+  fullName: CoverageKiller2.Logging.Tracer
+- uid: CoverageKiller2.Logging.Tracer.LogOptions
+  commentId: T:CoverageKiller2.Logging.Tracer.LogOptions
+  parent: CoverageKiller2.Logging
+  isExternal: true
+  href: CoverageKiller2.Logging.Tracer.html
+  name: Tracer.LogOptions
+  nameWithType: Tracer.LogOptions
+  fullName: CoverageKiller2.Logging.Tracer.LogOptions
+  spec.csharp:
+  - uid: CoverageKiller2.Logging.Tracer
+    name: Tracer
+    isExternal: true
+    href: CoverageKiller2.Logging.Tracer.html
+  - name: .
+  - uid: CoverageKiller2.Logging.Tracer.LogOptions
+    name: LogOptions
+    isExternal: true
+    href: CoverageKiller2.Logging.Tracer.LogOptions.html
+  spec.vb:
+  - uid: CoverageKiller2.Logging.Tracer
+    name: Tracer
+    isExternal: true
+    href: CoverageKiller2.Logging.Tracer.html
+  - name: .
+  - uid: CoverageKiller2.Logging.Tracer.LogOptions
+    name: LogOptions
+    isExternal: true
+    href: CoverageKiller2.Logging.Tracer.LogOptions.html
+- uid: CoverageKiller2.Logging.DataPoints
+  commentId: T:CoverageKiller2.Logging.DataPoints
+  parent: CoverageKiller2.Logging
+  isExternal: true
+  href: CoverageKiller2.Logging.DataPoints.html
+  name: DataPoints
+  nameWithType: DataPoints
+  fullName: CoverageKiller2.Logging.DataPoints
+- uid: CoverageKiller2.Logging.DataPoints.Actions
+  commentId: T:CoverageKiller2.Logging.DataPoints.Actions
+  parent: CoverageKiller2.Logging
+  isExternal: true
+  href: CoverageKiller2.Logging.DataPoints.html
+  name: DataPoints.Actions
+  nameWithType: DataPoints.Actions
+  fullName: CoverageKiller2.Logging.DataPoints.Actions
+  spec.csharp:
+  - uid: CoverageKiller2.Logging.DataPoints
+    name: DataPoints
+    isExternal: true
+    href: CoverageKiller2.Logging.DataPoints.html
+  - name: .
+  - uid: CoverageKiller2.Logging.DataPoints.Actions
+    name: Actions
+    isExternal: true
+    href: CoverageKiller2.Logging.DataPoints.Actions.html
+  spec.vb:
+  - uid: CoverageKiller2.Logging.DataPoints
+    name: DataPoints
+    isExternal: true
+    href: CoverageKiller2.Logging.DataPoints.html
+  - name: .
+  - uid: CoverageKiller2.Logging.DataPoints.Actions
+    name: Actions
+    isExternal: true
+    href: CoverageKiller2.Logging.DataPoints.Actions.html
+- uid: CoverageKiller2.Logging.TracerEnumExtensions
+  commentId: T:CoverageKiller2.Logging.TracerEnumExtensions
+  parent: CoverageKiller2.Logging
+  isExternal: true
+  href: CoverageKiller2.Logging.TracerEnumExtensions.html
+  name: TracerEnumExtensions
+  nameWithType: TracerEnumExtensions
+  fullName: CoverageKiller2.Logging.TracerEnumExtensions
+- uid: CoverageKiller2.Logging.TracerHelpers
+  commentId: T:CoverageKiller2.Logging.TracerHelpers
+  isExternal: true
+  href: CoverageKiller2.Logging.TracerHelpers.html
+  name: TracerHelpers
+  nameWithType: TracerHelpers
+  fullName: CoverageKiller2.Logging.TracerHelpers
+- uid: CoverageKiller2.Logging.TracerHelpers.PP
+  commentId: T:CoverageKiller2.Logging.TracerHelpers.PP
+  parent: CoverageKiller2.Logging
+  isExternal: true
+  href: CoverageKiller2.Logging.TracerHelpers.html
+  name: TracerHelpers.PP
+  nameWithType: TracerHelpers.PP
+  fullName: CoverageKiller2.Logging.TracerHelpers.PP
+  spec.csharp:
+  - uid: CoverageKiller2.Logging.TracerHelpers
+    name: TracerHelpers
+    isExternal: true
+    href: CoverageKiller2.Logging.TracerHelpers.html
+  - name: .
+  - uid: CoverageKiller2.Logging.TracerHelpers.PP
+    name: PP
+    isExternal: true
+    href: CoverageKiller2.Logging.TracerHelpers.PP.html
+  spec.vb:
+  - uid: CoverageKiller2.Logging.TracerHelpers
+    name: TracerHelpers
+    isExternal: true
+    href: CoverageKiller2.Logging.TracerHelpers.html
+  - name: .
+  - uid: CoverageKiller2.Logging.TracerHelpers.PP
+    name: PP
+    isExternal: true
+    href: CoverageKiller2.Logging.TracerHelpers.PP.html
+- uid: CoverageKiller2.Logging
+  commentId: N:CoverageKiller2.Logging
+  isExternal: true
+  href: CoverageKiller2.html
+  name: CoverageKiller2.Logging
+  nameWithType: CoverageKiller2.Logging
+  fullName: CoverageKiller2.Logging
+  spec.csharp:
+  - uid: CoverageKiller2
+    name: CoverageKiller2
+    isExternal: true
+    href: CoverageKiller2.html
+  - name: .
+  - uid: CoverageKiller2.Logging
+    name: Logging
+    isExternal: true
+    href: CoverageKiller2.Logging.html
+  spec.vb:
+  - uid: CoverageKiller2
+    name: CoverageKiller2
+    isExternal: true
+    href: CoverageKiller2.html
+  - name: .
+  - uid: CoverageKiller2.Logging
+    name: Logging
+    isExternal: true
+    href: CoverageKiller2.Logging.html

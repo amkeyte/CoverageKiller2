@@ -1,0 +1,1528 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Class CKRange </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Class CKRange ">
+    
+    <meta name="description" content="Represents a simple wrapper for the Word.Range object. Provides caching of text and boundary values for robust equality and hash code calculations, even if the underlying COM object becomes orphaned.">
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="CoverageKiller2.DOM.CKRange">
+
+
+
+  <h1 id="CoverageKiller2_DOM_CKRange" data-uid="CoverageKiller2.DOM.CKRange" class="text-break">Class CKRange</h1>
+  <div class="markdown level0 summary"><p>Represents a simple wrapper for the Word.Range object.
+Provides caching of text and boundary values for robust equality and hash code calculations,
+even if the underlying COM object becomes orphaned.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><span class="xref">CKRange</span></div>
+      <div class="level2"><a class="xref" href="CoverageKiller2.DOM.CKParagraph.html">CKParagraph</a></div>
+      <div class="level2"><a class="xref" href="CoverageKiller2.DOM.CKSection.html">CKSection</a></div>
+      <div class="level2"><a class="xref" href="CoverageKiller2.DOM.Tables.CKCell.html">CKCell</a></div>
+      <div class="level2"><a class="xref" href="CoverageKiller2.DOM.Tables.CKTable.html">CKTable</a></div>
+  </div>
+  <div class="implements">
+    <h5>Implements</h5>
+    <div><a class="xref" href="CoverageKiller2.DOM.IDOMObject.html">IDOMObject</a></div>
+    <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.idisposable">IDisposable</a></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="CoverageKiller2.html">CoverageKiller2</a>.<a class="xref" href="CoverageKiller2.DOM.html">DOM</a></h6>
+  <h6><strong>Assembly</strong>: CoverageKiller2.dll</h6>
+  <h5 id="CoverageKiller2_DOM_CKRange_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class CKRange : IDOMObject, IDisposable</code></pre>
+  </div>
+  <h3 id="constructors">Constructors
+</h3>
+
+
+  <a id="CoverageKiller2_DOM_CKRange__ctor_" data-uid="CoverageKiller2.DOM.CKRange.#ctor*"></a>
+  <h4 id="CoverageKiller2_DOM_CKRange__ctor_CoverageKiller2_DOM_IDOMObject_System_Boolean_System_String_" data-uid="CoverageKiller2.DOM.CKRange.#ctor(CoverageKiller2.DOM.IDOMObject,System.Boolean,System.String)">CKRange(IDOMObject, bool, string)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public CKRange(IDOMObject parent, bool deferCom = true, string caller = &quot;&quot;)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="CoverageKiller2.DOM.IDOMObject.html">IDOMObject</a></td>
+        <td><span class="parametername">parent</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><span class="parametername">deferCom</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">caller</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+
+
+  <a id="CoverageKiller2_DOM_CKRange__ctor_" data-uid="CoverageKiller2.DOM.CKRange.#ctor*"></a>
+  <h4 id="CoverageKiller2_DOM_CKRange__ctor_Microsoft_Office_Interop_Word_Range_CoverageKiller2_DOM_IDOMObject_System_Boolean_System_String_" data-uid="CoverageKiller2.DOM.CKRange.#ctor(Microsoft.Office.Interop.Word.Range,CoverageKiller2.DOM.IDOMObject,System.Boolean,System.String)">CKRange(Range, IDOMObject, bool, string)</h4>
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="CoverageKiller2.DOM.CKRange.html">CKRange</a> class.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public CKRange(Range range, IDOMObject parent, bool deferCom = false, string caller = &quot;&quot;)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.office.interop.word.range">Range</a></td>
+        <td><span class="parametername">range</span></td>
+        <td><p>The Word.Range object to wrap.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="CoverageKiller2.DOM.IDOMObject.html">IDOMObject</a></td>
+        <td><span class="parametername">parent</span></td>
+        <td><p>Parent DOM object; if not provided, will be looked up via CKDocuments.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><span class="parametername">deferCom</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">caller</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a></td>
+        <td><p>Thrown when the <code class="paramref">range</code> parameter is null.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="fields">Fields
+</h3>
+
+
+  <h4 id="CoverageKiller2_DOM_CKRange__isRefreshing" data-uid="CoverageKiller2.DOM.CKRange._isRefreshing">_isRefreshing</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool _isRefreshing</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="properties">Properties
+</h3>
+
+
+  <a id="CoverageKiller2_DOM_CKRange_Application_" data-uid="CoverageKiller2.DOM.CKRange.Application*"></a>
+  <h4 id="CoverageKiller2_DOM_CKRange_Application" data-uid="CoverageKiller2.DOM.CKRange.Application">Application</h4>
+  <div class="markdown level1 summary"><p>Gets the Word application managing the document.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public CKApplication Application { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="CoverageKiller2.DOM.CKApplication.html">CKApplication</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+
+
+  <a id="CoverageKiller2_DOM_CKRange_COMRange_" data-uid="CoverageKiller2.DOM.CKRange.COMRange*"></a>
+  <h4 id="CoverageKiller2_DOM_CKRange_COMRange" data-uid="CoverageKiller2.DOM.CKRange.COMRange">COMRange</h4>
+  <div class="markdown level1 summary"><p>Gets the underlying Word.Range COM object.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Obsolete(&quot;Planned for privatization&quot;)]
+public Range COMRange { get; protected set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.office.interop.word.range">Range</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+
+
+  <a id="CoverageKiller2_DOM_CKRange_Cells_" data-uid="CoverageKiller2.DOM.CKRange.Cells*"></a>
+  <h4 id="CoverageKiller2_DOM_CKRange_Cells" data-uid="CoverageKiller2.DOM.CKRange.Cells">Cells</h4>
+  <div class="markdown level1 summary"><p>1 based list.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public CKCells Cells { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="CoverageKiller2.DOM.Tables.CKCells.html">CKCells</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+
+
+  <a id="CoverageKiller2_DOM_CKRange_Document_" data-uid="CoverageKiller2.DOM.CKRange.Document*"></a>
+  <h4 id="CoverageKiller2_DOM_CKRange_Document" data-uid="CoverageKiller2.DOM.CKRange.Document">Document</h4>
+  <div class="markdown level1 summary"><p>Gets the document associated with this CKRange.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public CKDocument Document { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="CoverageKiller2.DOM.CKDocument.html">CKDocument</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+
+
+  <a id="CoverageKiller2_DOM_CKRange_End_" data-uid="CoverageKiller2.DOM.CKRange.End*"></a>
+  <h4 id="CoverageKiller2_DOM_CKRange_End" data-uid="CoverageKiller2.DOM.CKRange.End">End</h4>
+  <div class="markdown level1 summary"><p>Gets the ending position of the range.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int End { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+
+
+  <a id="CoverageKiller2_DOM_CKRange_Font_" data-uid="CoverageKiller2.DOM.CKRange.Font*"></a>
+  <h4 id="CoverageKiller2_DOM_CKRange_Font" data-uid="CoverageKiller2.DOM.CKRange.Font">Font</h4>
+  <div class="markdown level1 summary"><p>unsage.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Font Font { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.office.interop.word.font">Font</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+
+
+  <a id="CoverageKiller2_DOM_CKRange_FormattedText_" data-uid="CoverageKiller2.DOM.CKRange.FormattedText*"></a>
+  <h4 id="CoverageKiller2_DOM_CKRange_FormattedText" data-uid="CoverageKiller2.DOM.CKRange.FormattedText">FormattedText</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the formatted text for this range. Setting this value replaces the contents and formatting of the range.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public CKRange FormattedText { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="CoverageKiller2.DOM.CKRange.html">CKRange</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+
+
+  <a id="CoverageKiller2_DOM_CKRange_IsCOMDeferred_" data-uid="CoverageKiller2.DOM.CKRange.IsCOMDeferred*"></a>
+  <h4 id="CoverageKiller2_DOM_CKRange_IsCOMDeferred" data-uid="CoverageKiller2.DOM.CKRange.IsCOMDeferred">IsCOMDeferred</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsCOMDeferred { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+
+
+  <a id="CoverageKiller2_DOM_CKRange_IsDirty_" data-uid="CoverageKiller2.DOM.CKRange.IsDirty*"></a>
+  <h4 id="CoverageKiller2_DOM_CKRange_IsDirty" data-uid="CoverageKiller2.DOM.CKRange.IsDirty">IsDirty</h4>
+  <div class="markdown level1 summary"><p>Indicates whether this DOM object has unsaved changes.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual bool IsDirty { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+
+
+  <a id="CoverageKiller2_DOM_CKRange_IsOrphan_" data-uid="CoverageKiller2.DOM.CKRange.IsOrphan*"></a>
+  <h4 id="CoverageKiller2_DOM_CKRange_IsOrphan" data-uid="CoverageKiller2.DOM.CKRange.IsOrphan">IsOrphan</h4>
+  <div class="markdown level1 summary"><p>Gets a value indicating whether this CKRange is orphaned,
+i.e. its underlying COMRange is no longer valid.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsOrphan { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+
+
+  <a id="CoverageKiller2_DOM_CKRange_Paragraphs_" data-uid="CoverageKiller2.DOM.CKRange.Paragraphs*"></a>
+  <h4 id="CoverageKiller2_DOM_CKRange_Paragraphs" data-uid="CoverageKiller2.DOM.CKRange.Paragraphs">Paragraphs</h4>
+  <div class="markdown level1 summary"><p>Gets the paragraphs contained in the range.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public CKParagraphs Paragraphs { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="CoverageKiller2.DOM.CKParagraphs.html">CKParagraphs</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+
+
+  <a id="CoverageKiller2_DOM_CKRange_Parent_" data-uid="CoverageKiller2.DOM.CKRange.Parent*"></a>
+  <h4 id="CoverageKiller2_DOM_CKRange_Parent" data-uid="CoverageKiller2.DOM.CKRange.Parent">Parent</h4>
+  <div class="markdown level1 summary"><p>Gets the parent DOM object.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IDOMObject Parent { get; protected set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="CoverageKiller2.DOM.IDOMObject.html">IDOMObject</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+
+
+  <a id="CoverageKiller2_DOM_CKRange_PrettyText_" data-uid="CoverageKiller2.DOM.CKRange.PrettyText*"></a>
+  <h4 id="CoverageKiller2_DOM_CKRange_PrettyText" data-uid="CoverageKiller2.DOM.CKRange.PrettyText">PrettyText</h4>
+  <div class="markdown level1 summary"><p>Gets a &quot;pretty&quot; version of the range's text.
+This version replaces cell markers with tabs, preserves Windows-style newlines,
+and removes extraneous control characters.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string PrettyText { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+
+
+  <a id="CoverageKiller2_DOM_CKRange_ScrunchedText_" data-uid="CoverageKiller2.DOM.CKRange.ScrunchedText*"></a>
+  <h4 id="CoverageKiller2_DOM_CKRange_ScrunchedText" data-uid="CoverageKiller2.DOM.CKRange.ScrunchedText">ScrunchedText</h4>
+  <div class="markdown level1 summary"><p>Gets the scrunched version of the range's text, i.e. all whitespace removed,
+for reliable comparisons.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string ScrunchedText { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+
+
+  <a id="CoverageKiller2_DOM_CKRange_Sections_" data-uid="CoverageKiller2.DOM.CKRange.Sections*"></a>
+  <h4 id="CoverageKiller2_DOM_CKRange_Sections" data-uid="CoverageKiller2.DOM.CKRange.Sections">Sections</h4>
+  <div class="markdown level1 summary"><p>Gets the sections contained in the range.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public CKSections Sections { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="CoverageKiller2.DOM.CKSections.html">CKSections</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+
+
+  <a id="CoverageKiller2_DOM_CKRange_Snapshot_" data-uid="CoverageKiller2.DOM.CKRange.Snapshot*"></a>
+  <h4 id="CoverageKiller2_DOM_CKRange_Snapshot" data-uid="CoverageKiller2.DOM.CKRange.Snapshot">Snapshot</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public RangeSnapshot Snapshot { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="CoverageKiller2.DOM.RangeSnapshot.html">RangeSnapshot</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+
+
+  <a id="CoverageKiller2_DOM_CKRange_Start_" data-uid="CoverageKiller2.DOM.CKRange.Start*"></a>
+  <h4 id="CoverageKiller2_DOM_CKRange_Start" data-uid="CoverageKiller2.DOM.CKRange.Start">Start</h4>
+  <div class="markdown level1 summary"><p>Gets the starting position of the range.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int Start { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+
+
+  <a id="CoverageKiller2_DOM_CKRange_Tables_" data-uid="CoverageKiller2.DOM.CKRange.Tables*"></a>
+  <h4 id="CoverageKiller2_DOM_CKRange_Tables" data-uid="CoverageKiller2.DOM.CKRange.Tables">Tables</h4>
+  <div class="markdown level1 summary"><p>Gets the tables contained in the range.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public CKTables Tables { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="CoverageKiller2.DOM.Tables.CKTables.html">CKTables</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="CoverageKiller2_DOM_CKRange_Tables_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>Parent of a Tables collection is ALWAYS the document.</p>
+</div>
+
+
+  <a id="CoverageKiller2_DOM_CKRange_Text_" data-uid="CoverageKiller2.DOM.CKRange.Text*"></a>
+  <h4 id="CoverageKiller2_DOM_CKRange_Text" data-uid="CoverageKiller2.DOM.CKRange.Text">Text</h4>
+  <div class="markdown level1 summary"><p>Gets the raw text of the range as returned by Word without caching.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string Text { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+</h3>
+
+
+  <a id="CoverageKiller2_DOM_CKRange_Cache_" data-uid="CoverageKiller2.DOM.CKRange.Cache*"></a>
+  <h4 id="CoverageKiller2_DOM_CKRange_Cache__1___0__" data-uid="CoverageKiller2.DOM.CKRange.Cache``1(``0@)">Cache&lt;T&gt;(ref T)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected T Cache&lt;T&gt;(ref T cachedField)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">cachedField</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+
+
+  <a id="CoverageKiller2_DOM_CKRange_Cache_" data-uid="CoverageKiller2.DOM.CKRange.Cache*"></a>
+  <h4 id="CoverageKiller2_DOM_CKRange_Cache__1___0__System_Func___0__" data-uid="CoverageKiller2.DOM.CKRange.Cache``1(``0@,System.Func{``0})">Cache&lt;T&gt;(ref T, Func&lt;T&gt;)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected T Cache&lt;T&gt;(ref T cachedField, Func&lt;T&gt; refreshFunc)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">cachedField</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-1">Func</a>&lt;T&gt;</td>
+        <td><span class="parametername">refreshFunc</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+
+
+  <a id="CoverageKiller2_DOM_CKRange_CheckDirtyFor_" data-uid="CoverageKiller2.DOM.CKRange.CheckDirtyFor*"></a>
+  <h4 id="CoverageKiller2_DOM_CKRange_CheckDirtyFor" data-uid="CoverageKiller2.DOM.CKRange.CheckDirtyFor">CheckDirtyFor()</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual bool CheckDirtyFor()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+
+
+  <a id="CoverageKiller2_DOM_CKRange_CollapseToEnd_" data-uid="CoverageKiller2.DOM.CKRange.CollapseToEnd*"></a>
+  <h4 id="CoverageKiller2_DOM_CKRange_CollapseToEnd" data-uid="CoverageKiller2.DOM.CKRange.CollapseToEnd">CollapseToEnd()</h4>
+  <div class="markdown level1 summary"><p>Returns a new CKRange collapsed to the end of this range.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public CKRange CollapseToEnd()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="CoverageKiller2.DOM.CKRange.html">CKRange</a></td>
+        <td><p>A new CKRange positioned at the end of this range.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="CoverageKiller2_DOM_CKRange_CollapseToEnd_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>Version: CK2.00.01.0015</p>
+</div>
+
+
+  <a id="CoverageKiller2_DOM_CKRange_CollapseToStart_" data-uid="CoverageKiller2.DOM.CKRange.CollapseToStart*"></a>
+  <h4 id="CoverageKiller2_DOM_CKRange_CollapseToStart" data-uid="CoverageKiller2.DOM.CKRange.CollapseToStart">CollapseToStart()</h4>
+  <div class="markdown level1 summary"><p>Returns a new CKRange collapsed to the start of this range.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public CKRange CollapseToStart()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="CoverageKiller2.DOM.CKRange.html">CKRange</a></td>
+        <td><p>A new CKRange positioned at the start of this range.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="CoverageKiller2_DOM_CKRange_CollapseToStart_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>Version: CK2.00.01.0016</p>
+</div>
+
+
+  <a id="CoverageKiller2_DOM_CKRange_Contains_" data-uid="CoverageKiller2.DOM.CKRange.Contains*"></a>
+  <h4 id="CoverageKiller2_DOM_CKRange_Contains_CoverageKiller2_DOM_CKRange_" data-uid="CoverageKiller2.DOM.CKRange.Contains(CoverageKiller2.DOM.CKRange)">Contains(CKRange)</h4>
+  <div class="markdown level1 summary"><p>Determines whether this range fully contains the specified range.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool Contains(CKRange other)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="CoverageKiller2.DOM.CKRange.html">CKRange</a></td>
+        <td><span class="parametername">other</span></td>
+        <td><p>The range to check for containment.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><p>True if the other range is entirely within this range; otherwise, false.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="CoverageKiller2_DOM_CKRange_Contains_CoverageKiller2_DOM_CKRange__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>Version: CK2.00.01.0002</p>
+</div>
+
+
+  <a id="CoverageKiller2_DOM_CKRange_Delete_" data-uid="CoverageKiller2.DOM.CKRange.Delete*"></a>
+  <h4 id="CoverageKiller2_DOM_CKRange_Delete_CoverageKiller2_DOM_Tables_CKTables_" data-uid="CoverageKiller2.DOM.CKRange.Delete(CoverageKiller2.DOM.Tables.CKTables)">Delete(CKTables)</h4>
+  <div class="markdown level1 summary"><p>Deletes all tables in the specified <a class="xref" href="CoverageKiller2.DOM.Tables.CKTables.html">CKTables</a> collection that fall within this range.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Delete(CKTables tables)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="CoverageKiller2.DOM.Tables.CKTables.html">CKTables</a></td>
+        <td><span class="parametername">tables</span></td>
+        <td><p>The collection of tables to consider for deletion.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="CoverageKiller2_DOM_CKRange_Delete_CoverageKiller2_DOM_Tables_CKTables__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>Version: CK2.00.01.0001</p>
+</div>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a></td>
+        <td><p>Thrown if tables is null.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+
+  <a id="CoverageKiller2_DOM_CKRange_Dispose_" data-uid="CoverageKiller2.DOM.CKRange.Dispose*"></a>
+  <h4 id="CoverageKiller2_DOM_CKRange_Dispose_System_Boolean_" data-uid="CoverageKiller2.DOM.CKRange.Dispose(System.Boolean)">Dispose(bool)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void Dispose(bool disposing)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><span class="parametername">disposing</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+
+
+  <a id="CoverageKiller2_DOM_CKRange_DoRefreshThings_" data-uid="CoverageKiller2.DOM.CKRange.DoRefreshThings*"></a>
+  <h4 id="CoverageKiller2_DOM_CKRange_DoRefreshThings" data-uid="CoverageKiller2.DOM.CKRange.DoRefreshThings">DoRefreshThings()</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void DoRefreshThings()</code></pre>
+  </div>
+
+
+  <a id="CoverageKiller2_DOM_CKRange_Equals_" data-uid="CoverageKiller2.DOM.CKRange.Equals*"></a>
+  <h4 id="CoverageKiller2_DOM_CKRange_Equals_CoverageKiller2_DOM_CKRange_" data-uid="CoverageKiller2.DOM.CKRange.Equals(CoverageKiller2.DOM.CKRange)">Equals(CKRange)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool Equals(CKRange other)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="CoverageKiller2.DOM.CKRange.html">CKRange</a></td>
+        <td><span class="parametername">other</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+
+
+  <a id="CoverageKiller2_DOM_CKRange_Equals_" data-uid="CoverageKiller2.DOM.CKRange.Equals*"></a>
+  <h4 id="CoverageKiller2_DOM_CKRange_Equals_System_Object_" data-uid="CoverageKiller2.DOM.CKRange.Equals(System.Object)">Equals(object)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override bool Equals(object obj)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></td>
+        <td><span class="parametername">obj</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a></div>
+
+
+  <a id="CoverageKiller2_DOM_CKRange_GetHashCode_" data-uid="CoverageKiller2.DOM.CKRange.GetHashCode*"></a>
+  <h4 id="CoverageKiller2_DOM_CKRange_GetHashCode" data-uid="CoverageKiller2.DOM.CKRange.GetHashCode">GetHashCode()</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override int GetHashCode()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a></div>
+
+
+  <a id="CoverageKiller2_DOM_CKRange_SetBackgroundColor_" data-uid="CoverageKiller2.DOM.CKRange.SetBackgroundColor*"></a>
+  <h4 id="CoverageKiller2_DOM_CKRange_SetBackgroundColor_Microsoft_Office_Interop_Word_WdColor_" data-uid="CoverageKiller2.DOM.CKRange.SetBackgroundColor(Microsoft.Office.Interop.Word.WdColor)">SetBackgroundColor(WdColor)</h4>
+  <div class="markdown level1 summary"><p>Sets the background color for all cells in this range if present,
+or for the range itself if no cells exist.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void SetBackgroundColor(WdColor color)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.office.interop.word.wdcolor">WdColor</a></td>
+        <td><span class="parametername">color</span></td>
+        <td><p>The Word color to apply.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="CoverageKiller2_DOM_CKRange_SetBackgroundColor_Microsoft_Office_Interop_Word_WdColor__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>Version: CK2.00.01.0003</p>
+</div>
+
+
+  <a id="CoverageKiller2_DOM_CKRange_SetCache_" data-uid="CoverageKiller2.DOM.CKRange.SetCache*"></a>
+  <h4 id="CoverageKiller2_DOM_CKRange_SetCache__1___0____0_System_Action___0__" data-uid="CoverageKiller2.DOM.CKRange.SetCache``1(``0@,``0,System.Action{``0})">SetCache&lt;T&gt;(ref T, T, Action&lt;T&gt;)</h4>
+  <div class="markdown level1 summary"><p>Sets a cached field value, updates the underlying COM object,
+and marks the object dirty to force revalidation of related caches.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected void SetCache&lt;T&gt;(ref T cachedField, T value, Action&lt;T&gt; comSetter)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">cachedField</span></td>
+        <td><p>Reference to the cached field to update.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">value</span></td>
+        <td><p>The new value to set.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.action-1">Action</a>&lt;T&gt;</td>
+        <td><span class="parametername">comSetter</span></td>
+        <td><p>An action that sets the underlying COM object. Must not be null.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>The type of the cached field.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+
+  <a id="CoverageKiller2_DOM_CKRange_TryFindNext_" data-uid="CoverageKiller2.DOM.CKRange.TryFindNext*"></a>
+  <h4 id="CoverageKiller2_DOM_CKRange_TryFindNext_System_String_System_Boolean_System_Boolean_System_Boolean_" data-uid="CoverageKiller2.DOM.CKRange.TryFindNext(System.String,System.Boolean,System.Boolean,System.Boolean)">TryFindNext(string, bool, bool, bool)</h4>
+  <div class="markdown level1 summary"><p>Attempts to find the next occurrence of the specified text using Word's Find functionality.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public CKRange TryFindNext(string text, bool matchWildcards = false, bool matchCase = false, bool matchWholeWord = false)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">text</span></td>
+        <td><p>The text to search for.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><span class="parametername">matchWildcards</span></td>
+        <td><p>Whether to enable wildcard matching.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><span class="parametername">matchCase</span></td>
+        <td><p>Whether to perform a case-sensitive search.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><span class="parametername">matchWholeWord</span></td>
+        <td><p>Whether to match the whole word only.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="CoverageKiller2.DOM.CKRange.html">CKRange</a></td>
+        <td><p>A new <a class="xref" href="CoverageKiller2.DOM.CKRange.html">CKRange</a> containing the match if found; otherwise, <code>null</code>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="CoverageKiller2_DOM_CKRange_TryFindNext_System_String_System_Boolean_System_Boolean_System_Boolean__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>Version: CK2.00.01.0034</p>
+</div>
+  <h3 id="operators">Operators
+</h3>
+
+
+  <a id="CoverageKiller2_DOM_CKRange_op_Equality_" data-uid="CoverageKiller2.DOM.CKRange.op_Equality*"></a>
+  <h4 id="CoverageKiller2_DOM_CKRange_op_Equality_CoverageKiller2_DOM_CKRange_CoverageKiller2_DOM_CKRange_" data-uid="CoverageKiller2.DOM.CKRange.op_Equality(CoverageKiller2.DOM.CKRange,CoverageKiller2.DOM.CKRange)">operator ==(CKRange, CKRange)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool operator ==(CKRange left, CKRange right)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="CoverageKiller2.DOM.CKRange.html">CKRange</a></td>
+        <td><span class="parametername">left</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="CoverageKiller2.DOM.CKRange.html">CKRange</a></td>
+        <td><span class="parametername">right</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+
+
+  <a id="CoverageKiller2_DOM_CKRange_op_Inequality_" data-uid="CoverageKiller2.DOM.CKRange.op_Inequality*"></a>
+  <h4 id="CoverageKiller2_DOM_CKRange_op_Inequality_CoverageKiller2_DOM_CKRange_CoverageKiller2_DOM_CKRange_" data-uid="CoverageKiller2.DOM.CKRange.op_Inequality(CoverageKiller2.DOM.CKRange,CoverageKiller2.DOM.CKRange)">operator !=(CKRange, CKRange)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool operator !=(CKRange left, CKRange right)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="CoverageKiller2.DOM.CKRange.html">CKRange</a></td>
+        <td><span class="parametername">left</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="CoverageKiller2.DOM.CKRange.html">CKRange</a></td>
+        <td><span class="parametername">right</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="implements">Implements</h3>
+  <div>
+      <a class="xref" href="CoverageKiller2.DOM.IDOMObject.html">IDOMObject</a>
+  </div>
+  <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.idisposable">IDisposable</a>
+  </div>
+  <h3 id="extensionmethods">Extension Methods</h3>
+  <div>
+      <a class="xref" href="CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_PingPong__1___0_System_String_">PingService.PingPong&lt;T&gt;(T, string)</a>
+  </div>
+  <div>
+      <a class="xref" href="CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_PingPong__1___0_System_String_System_String_">PingService.PingPong&lt;T&gt;(T, string, string)</a>
+  </div>
+  <div>
+      <a class="xref" href="CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_PingPong__2___0_System_Func___1__System_String_System_String_">PingService.PingPong&lt;T, TResult&gt;(T, Func&lt;TResult&gt;, string, string)</a>
+  </div>
+  <div>
+      <a class="xref" href="CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Ping__1___0_System_String_">PingService.Ping&lt;T&gt;(T, string)</a>
+  </div>
+  <div>
+      <a class="xref" href="CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Ping__1___0_System_String_System_String_">PingService.Ping&lt;T&gt;(T, string, string)</a>
+  </div>
+  <div>
+      <a class="xref" href="CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Ping__1___0_System_Type___System_String_">PingService.Ping&lt;T&gt;(T, Type[], string)</a>
+  </div>
+  <div>
+      <a class="xref" href="CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1___0_System_String_">PingService.Pong&lt;T&gt;(T, string)</a>
+  </div>
+  <div>
+      <a class="xref" href="CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1___0_System_String_System_String_">PingService.Pong&lt;T&gt;(T, string, string)</a>
+  </div>
+  <div>
+      <a class="xref" href="CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1___0_System_Type_System_String_">PingService.Pong&lt;T&gt;(T, Type, string)</a>
+  </div>
+  <div>
+      <a class="xref" href="CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__1___0_System_Type___System_String_">PingService.Pong&lt;T&gt;(T, Type[], string)</a>
+  </div>
+  <div>
+      <a class="xref" href="CoverageKiller2.Logging.PingService.html#CoverageKiller2_Logging_PingService_Pong__2___0_System_Func___1__System_String_System_String_">PingService.Pong&lt;T, TResult&gt;(T, Func&lt;TResult&gt;, string, string)</a>
+  </div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

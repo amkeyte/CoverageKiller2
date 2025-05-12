@@ -1,0 +1,275 @@
+### YamlMime:TableOfContent
+items:
+- uid: CoverageKiller2
+  name: CoverageKiller2
+  type: Namespace
+  items:
+  - uid: CoverageKiller2.CKRibbon
+    name: CKRibbon
+    type: Class
+  - uid: CoverageKiller2.CkDocHelpers
+    name: CkDocHelpers
+    type: Class
+  - uid: CoverageKiller2.ExceptionDetail
+    name: ExceptionDetail
+    type: Class
+  - uid: CoverageKiller2.ExceptionRegistry
+    name: ExceptionRegistry
+    type: Class
+  - uid: CoverageKiller2.IndoorReportTemplate
+    name: IndoorReportTemplate
+    type: Class
+  - uid: CoverageKiller2.KnownExceptionType
+    name: KnownExceptionType
+    type: Enum
+  - uid: CoverageKiller2.KnownExceptions
+    name: KnownExceptions
+    type: Class
+  - uid: CoverageKiller2.KnownExceptions.ExcelInterop
+    name: KnownExceptions.ExcelInterop
+    type: Class
+  - uid: CoverageKiller2.KnownExceptions.PowerPointInterop
+    name: KnownExceptions.PowerPointInterop
+    type: Class
+  - uid: CoverageKiller2.KnownExceptions.VSTO
+    name: KnownExceptions.VSTO
+    type: Class
+  - uid: CoverageKiller2.LongOperationHelpers
+    name: LongOperationHelpers
+    type: Class
+  - uid: CoverageKiller2.LongOperationHelpers.ProgressLogger
+    name: LongOperationHelpers.ProgressLogger
+    type: Class
+  - uid: CoverageKiller2.ThisAddIn
+    name: ThisAddIn
+    type: Class
+- uid: CoverageKiller2.DOM
+  name: CoverageKiller2.DOM
+  type: Namespace
+  items:
+  - uid: CoverageKiller2.DOM.ACKRangeCollection
+    name: ACKRangeCollection
+    type: Class
+  - uid: CoverageKiller2.DOM.AppRecord
+    name: AppRecord
+    type: Class
+  - uid: CoverageKiller2.DOM.AppRecordManager
+    name: AppRecordManager
+    type: Class
+  - uid: CoverageKiller2.DOM.CKApplication
+    name: CKApplication
+    type: Class
+  - uid: CoverageKiller2.DOM.CKDOMObject
+    name: CKDOMObject
+    type: Class
+  - uid: CoverageKiller2.DOM.CKDocument
+    name: CKDocument
+    type: Class
+  - uid: CoverageKiller2.DOM.CKOffice_Word
+    name: CKOffice_Word
+    type: Class
+  - uid: CoverageKiller2.DOM.CKParagraph
+    name: CKParagraph
+    type: Class
+  - uid: CoverageKiller2.DOM.CKParagraphs
+    name: CKParagraphs
+    type: Class
+  - uid: CoverageKiller2.DOM.CKRange
+    name: CKRange
+    type: Class
+  - uid: CoverageKiller2.DOM.CKSection
+    name: CKSection
+    type: Class
+  - uid: CoverageKiller2.DOM.CKSections
+    name: CKSections
+    type: Class
+  - uid: CoverageKiller2.DOM.CKTextHelper
+    name: CKTextHelper
+    type: Class
+  - uid: CoverageKiller2.DOM.IDOMCaster
+    name: IDOMCaster
+    type: Class
+  - uid: CoverageKiller2.DOM.IDOMObject
+    name: IDOMObject
+    type: Interface
+  - uid: CoverageKiller2.DOM.RangeSnapshot
+    name: RangeSnapshot
+    type: Class
+  - uid: CoverageKiller2.DOM.SafeCOM
+    name: SafeCOM
+    type: Class
+  - uid: CoverageKiller2.DOM.WordInteropExtensions
+    name: WordInteropExtensions
+    type: Class
+- uid: CoverageKiller2.DOM.Tables
+  name: CoverageKiller2.DOM.Tables
+  type: Namespace
+  items:
+  - uid: CoverageKiller2.DOM.Tables.Base1JaggedList`1
+    name: Base1JaggedList<T>
+    type: Class
+  - uid: CoverageKiller2.DOM.Tables.Base1List`1
+    name: Base1List<T>
+    type: Class
+  - uid: CoverageKiller2.DOM.Tables.CKCell
+    name: CKCell
+    type: Class
+  - uid: CoverageKiller2.DOM.Tables.CKCellRef
+    name: CKCellRef
+    type: Class
+  - uid: CoverageKiller2.DOM.Tables.CKCells
+    name: CKCells
+    type: Class
+  - uid: CoverageKiller2.DOM.Tables.CKColCellRef
+    name: CKColCellRef
+    type: Class
+  - uid: CoverageKiller2.DOM.Tables.CKColumn
+    name: CKColumn
+    type: Class
+  - uid: CoverageKiller2.DOM.Tables.CKColumns
+    name: CKColumns
+    type: Class
+  - uid: CoverageKiller2.DOM.Tables.CKGridCellRef
+    name: CKGridCellRef
+    type: Struct
+  - uid: CoverageKiller2.DOM.Tables.CKRow
+    name: CKRow
+    type: Class
+  - uid: CoverageKiller2.DOM.Tables.CKRowCellRef
+    name: CKRowCellRef
+    type: Class
+  - uid: CoverageKiller2.DOM.Tables.CKRows
+    name: CKRows
+    type: Class
+  - uid: CoverageKiller2.DOM.Tables.CKTable
+    name: CKTable
+    type: Class
+  - uid: CoverageKiller2.DOM.Tables.CKTable.CKCellRefConverterService
+    name: CKTable.CKCellRefConverterService
+    type: Class
+  - uid: CoverageKiller2.DOM.Tables.CKTableGrid
+    name: CKTableGrid
+    type: Class
+  - uid: CoverageKiller2.DOM.Tables.CKTables
+    name: CKTables
+    type: Class
+  - uid: CoverageKiller2.DOM.Tables.ConverterServiceExtensions
+    name: ConverterServiceExtensions
+    type: Class
+  - uid: CoverageKiller2.DOM.Tables.GhostGridCell5
+    name: GhostGridCell5
+    type: Class
+  - uid: CoverageKiller2.DOM.Tables.GridCell5
+    name: GridCell5
+    type: Class
+  - uid: CoverageKiller2.DOM.Tables.GridCrawler5
+    name: GridCrawler5
+    type: Class
+  - uid: CoverageKiller2.DOM.Tables.ICellRef`1
+    name: ICellRef<T>
+    type: Interface
+  - uid: CoverageKiller2.DOM.Tables.MergedGridCell5
+    name: MergedGridCell5
+    type: Class
+  - uid: CoverageKiller2.DOM.Tables.RowEndGridCell5
+    name: RowEndGridCell5
+    type: Class
+  - uid: CoverageKiller2.DOM.Tables.TableAccessMode
+    name: TableAccessMode
+    type: Enum
+- uid: CoverageKiller2.Logging
+  name: CoverageKiller2.Logging
+  type: Namespace
+  items:
+  - uid: CoverageKiller2.Logging.CKDebugException
+    name: CKDebugException
+    type: Class
+  - uid: CoverageKiller2.Logging.ComplexObject
+    name: ComplexObject
+    type: Class
+  - uid: CoverageKiller2.Logging.DataPoints
+    name: DataPoints
+    type: Class
+  - uid: CoverageKiller2.Logging.DataPoints.Actions
+    name: DataPoints.Actions
+    type: Enum
+  - uid: CoverageKiller2.Logging.LH
+    name: LH
+    type: Class
+  - uid: CoverageKiller2.Logging.LogExpertLoader
+    name: LogExpertLoader
+    type: Class
+  - uid: CoverageKiller2.Logging.LogTailLoader
+    name: LogTailLoader
+    type: Class
+  - uid: CoverageKiller2.Logging.LoggingLoader
+    name: LoggingLoader
+    type: Class
+  - uid: CoverageKiller2.Logging.PingService
+    name: PingService
+    type: Class
+  - uid: CoverageKiller2.Logging.SomeTestClass
+    name: SomeTestClass
+    type: Class
+  - uid: CoverageKiller2.Logging.Tracer
+    name: Tracer
+    type: Class
+  - uid: CoverageKiller2.Logging.Tracer.LogOptions
+    name: Tracer.LogOptions
+    type: Enum
+  - uid: CoverageKiller2.Logging.TracerEnumExtensions
+    name: TracerEnumExtensions
+    type: Class
+  - uid: CoverageKiller2.Logging.TracerHelpers
+    name: TracerHelpers
+    type: Class
+  - uid: CoverageKiller2.Logging.TracerHelpers.PP
+    name: TracerHelpers.PP
+    type: Enum
+  - uid: CoverageKiller2.Logging.UnsafeTraceAttribute
+    name: UnsafeTraceAttribute
+    type: Class
+- uid: CoverageKiller2.Pipeline
+  name: CoverageKiller2.Pipeline
+  type: Namespace
+  items:
+  - uid: CoverageKiller2.Pipeline.CKWordPipeline
+    name: CKWordPipeline
+    type: Class
+  - uid: CoverageKiller2.Pipeline.CKWordPipelineProcess
+    name: CKWordPipelineProcess
+    type: Class
+- uid: CoverageKiller2.Pipeline.Config
+  name: CoverageKiller2.Pipeline.Config
+  type: Namespace
+  items:
+  - uid: CoverageKiller2.Pipeline.Config.Pipeline
+    name: Pipeline
+    type: Class
+  - uid: CoverageKiller2.Pipeline.Config.ProcessorConfig
+    name: ProcessorConfig
+    type: Class
+  - uid: CoverageKiller2.Pipeline.Config.ProcessorConfigLoader
+    name: ProcessorConfigLoader
+    type: Class
+  - uid: CoverageKiller2.Pipeline.Config.Step
+    name: Step
+    type: Class
+  - uid: CoverageKiller2.Pipeline.Config.Steps
+    name: Steps
+    type: Class
+- uid: CoverageKiller2.Pipeline.WordHelpers
+  name: CoverageKiller2.Pipeline.WordHelpers
+  type: Namespace
+  items:
+  - uid: CoverageKiller2.Pipeline.WordHelpers.TextFinder
+    name: TextFinder
+    type: Class
+- uid: CoverageKiller2.Properties
+  name: CoverageKiller2.Properties
+  type: Namespace
+  items:
+  - uid: CoverageKiller2.Properties.Resources
+    name: Resources
+    type: Class
+memberLayout: SamePage
