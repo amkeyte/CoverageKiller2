@@ -28,6 +28,6 @@
     "resource": [],
     "overwrite": [],
     "template": [ "static_template/gpt" ],
-    "dest": "../_site"
+    "dest": "../docs"
   }
 }
