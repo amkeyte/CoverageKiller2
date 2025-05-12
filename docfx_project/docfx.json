@@ -10,13 +10,16 @@
           ]
         }
       ],
-      "dest": "api"
+      "dest": "api",
+      "properties": {
+        "Visibility": "Private" // 👈 include internal members
+      }
     }
   ],
   "build": {
     "content": [
       {
-        "files": [ "api/**.yml", "api/index.md" ]
+        "files": [ "api/**.yml", "api/**.html", "api/index.md" ]
       },
       {
         "files": [ "**.md", "toc.yml" ]

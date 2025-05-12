@@ -373,6 +373,8 @@
   <PropertyGroup>
 	<GenerateDocumentationFile>true</GenerateDocumentationFile>
 	<NoWarn>1591</NoWarn> <!-- optional: suppress missing doc warnings -->
+	<InternalsVisibleTo>docfx</InternalsVisibleTo>
+
    </PropertyGroup>
 	<Target Name="GenerateDocs" AfterTargets="Build">
 		<Exec Command="docfx &quot;$(SolutionDir)docfx_project\docfx.json&quot;" />
