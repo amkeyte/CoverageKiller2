@@ -296,7 +296,6 @@ namespace CoverageKiller2.Pipeline.Processes
             TableAccessMode accessMode = TableAccessMode.IncludeOnlyAnchorCells)
         {
             CKTable result = default;
-            LH.Ping<SEA2025Fixer>();
             foreach (var table in tables)
             {
 
@@ -314,7 +313,6 @@ namespace CoverageKiller2.Pipeline.Processes
                 }
             }
 
-            LH.Pong<SEA2025Fixer>();
             return result;
         }
 

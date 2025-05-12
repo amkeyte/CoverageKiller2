@@ -37,10 +37,8 @@ namespace CoverageKiller2.DOM.Tables
         public TableAccessMode _cachedAccessMode = TableAccessMode.IncludeAllCells;
         static CKTable()
         {
-            LH.Ping<CKTable>(msg: $"Registering Caster for {nameof(CKTable)}");
             IDOMCaster.Register(input =>
             {
-                LH.Ping<CKTable>(msg: $"Casting CKRange");
 
                 if (!(input is CKRange inputRange))
                     throw new CKDebugException("input was not a range.");
@@ -56,7 +54,6 @@ namespace CoverageKiller2.DOM.Tables
                 var result = new CKTable(table.COMTable, inputRange.Parent)
                     ?? throw new InvalidCastException("Could not convert to CKTable.");
 
-                LH.Pong<CKTable>();
                 return result;
             });
         }

@@ -24,7 +24,6 @@ namespace CoverageKiller2.DOM.Tables
 
         public static CKTableGrid GetInstance(CKTable ckTable, Word.Table comTable, [CallerMemberName] string callerName = null)
         {
-            LH.Ping<CKTableGrid>();
             var tableId = $"{ckTable.Document.FileName}[{ckTable.Snapshot.FastHash}]";
             Log.Debug($"Getting CKTableGrid Instance for [{LH.GetTableTitle(ckTable, "***Table")}] {tableId} :: " +
                 $"\n\t\t\t\t" +
@@ -32,7 +31,6 @@ namespace CoverageKiller2.DOM.Tables
 
             if (_tableGrids.TryGetValue(tableId, out CKTableGrid grid))
             {
-                LH.Pong<CKTableGrid>();
 
                 return grid;
             }
@@ -42,7 +40,6 @@ namespace CoverageKiller2.DOM.Tables
             _tableGrids.Add(tableId, grid);
 
             //Log.Debug(new Base1List<string>(_tableGrids.Keys.ToList()).Dump("Available instances:"));
-            LH.Pong<CKTableGrid>();
 
             return grid;
         }

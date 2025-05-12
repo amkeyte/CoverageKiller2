@@ -293,7 +293,7 @@ namespace CoverageKiller2.DOM
         {
             get
             {
-                if (_isDirtyCount++ % 20 == 0) LH.Checkpoint($"CKRange.IsDirty count: {_isDirtyCount}");
+                if (_isDirtyCount++ % 20 == 0) PingService.Checkpoint($"CKRange.IsDirty count: {_isDirtyCount}");
 
                 if (_isCheckingDirty) return _isDirty;
                 _isCheckingDirty = true;

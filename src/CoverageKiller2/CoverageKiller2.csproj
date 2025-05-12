@@ -262,10 +262,12 @@
     <Compile Include="DOM\Tables\TableGridCrawler5.cs" />
     <Compile Include="DOM\WordInteropExtensions.cs" />
     <Compile Include="ExceptionDetail.cs" />
+    <Compile Include="Logging\CKDebugException.cs" />
     <Compile Include="Logging\LH.cs" />
     <Compile Include="Logging\LogExpertLoader.cs" />
     <Compile Include="Logging\LoggingLoader.cs" />
     <Compile Include="Logging\LogTailLoader.cs" />
+    <Compile Include="Logging\PingService.cs" />
     <Compile Include="Logging\SomeTestClass.cs" />
     <Compile Include="Logging\Tracer.cs" />
     <Compile Include="IndoorReportTemplate.cs" />
@@ -296,12 +298,9 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <None Include="app.config" />
-    <None Include="AutorecoverClean.bat" />
     <None Include="CoverageKiller2_TemporaryKey.pfx" />
     <EmbeddedResource Include="PCTELReportHeaderFooterTemplate.docx" />
-    <None Include="docfx.json" />
     <Compile Include="DOM\Tables\ConverterServiceExtensions.cs" />
-    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -324,9 +323,6 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="CKRibbon.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="DefaultProcessor.xml" />
   </ItemGroup>
   <ItemGroup>
     <COMReference Include="Microsoft.Office.Core">

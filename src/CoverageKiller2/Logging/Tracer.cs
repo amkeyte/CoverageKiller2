@@ -187,4 +187,81 @@ namespace CoverageKiller2.Logging
             return (flagsValue & flagValue) == flagValue;
         }
     }
+
+    public class TracerHelpers
+    {
+        public enum PP
+        {
+            Enter,
+            Result,
+            TestPoint,
+            PropertyGet,
+            PropertySet,
+        }
+        public static string TraceCaller(params object[] paramPairs)
+        {
+            // Validate the length of pairs (must be even)
+            if (paramPairs.Length < 4 || paramPairs.Length % 2 != 0)
+            {
+                throw new ArgumentException("The number of parameters must be even and at least 4 (traceType, msg, className, methodName).");
+            }
+
+            // Validate traceType
+            if (paramPairs[0] == null || paramPairs[0].GetType() != typeof(PP))
+            {
+                throw new ArgumentException("Bad caller type flag at param1.");
+            }
+
+            PP traceType = (PP)paramPairs[0];
+            string msg = paramPairs[1] as string ?? string.Empty;
+
+            // Shared logic to format trace msg
+            return FormatTracemsg(traceType, msg, paramPairs);
+        }
+
+        private static string FormatTracemsg(PP traceType, string msg, object[] paramPairs)
+        {
+            string defaultmsg;
+
+            // Standard switch statement instead of switch expression
+            switch (traceType)
+            {
+                case PP.Enter:
+                    defaultmsg = "Entering member:";
+                    break;
+                case PP.Result:
+                    defaultmsg = "Member returned:";
+                    break;
+                case PP.TestPoint:
+                    defaultmsg = "Test point:";
+                    break;
+                case PP.PropertyGet:
+                    defaultmsg = "Property returned:";
+                    break;
+                case PP.PropertySet:
+                    defaultmsg = "Property set to:";
+                    break;
+                default:
+                    throw new ArgumentException("Invalid trace type.");
+            }
+
+            msg = string.IsNullOrEmpty(msg) ? defaultmsg : msg;
+
+            string className = paramPairs[2].ToString();
+            string methodName = paramPairs[3].ToString();
+            string formattedPairs = string.Empty;
+
+            // Formatting name-value pairs
+            for (int i = 4; i < paramPairs.Length; i += 2)
+            {
+                string name = paramPairs[i].ToString();
+                string value = paramPairs[i + 1].ToString();
+                formattedPairs += $"\t\t[{name} = {value}]";
+            }
+            formattedPairs = string.IsNullOrEmpty(formattedPairs) ? "" : "\n" + formattedPairs;
+
+            return $"TRACE => {className}.{methodName} :: {msg}{formattedPairs}";
+        }
+
+    }
 }
