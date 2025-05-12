@@ -1,11 +1,11 @@
----
+﻿---
 _layout: landing
 ---
 
 # This is the **HOMEPAGE**.
 
-Refer to [Markdown](http://daringfireball.net/projects/markdown/) for how to write markdown files.
+# CoverageKiller2 Docs
 
-## Quick Start Notes:
+Welcome to the documentation!
 
-1. Add images to the *images* folder if the file is referencing an image.
+👉 [Browse the API Reference](api/CoverageKiller2.html)
